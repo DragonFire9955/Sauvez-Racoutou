@@ -1,7 +1,7 @@
 #SAE DEV 
 # Sauvez-Poutou
 
-# VALENTIN-LESCANNE Achille
-# PINCON Thomas
-# COTTINET Blandine 
-# TDA
+VALENTIN-LESCANNE Achille
+PINÇON Thomas
+COTTINET Blandine 
+TDA
