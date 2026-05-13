@@ -45,7 +45,7 @@ public class Terrain {
     public static void couleurMap(TilePane tileMap, int[][] map, Image c1, Image c2, Image c3){
 
         for (int l = 0; l < map.length; l++) {
-            System.out.println("line " + l + ", first tile : " + map[l][0]);
+            //System.out.println("line " + l + ", first tile : " + map[l][0]);  Check de la position de chaque tiles de début
             for (int c = 0; c < map[l].length; c++) {
 
                 ImageView cases = new ImageView();

@@ -6,6 +6,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Rectangle;
@@ -42,6 +44,9 @@ public class Controller implements Initializable {
         Terrain.delimitationMap(tileMap);
 
         Terrain.couleurMap(tileMap, map, vert, marron, beige);
+
+        //A SUPPRIMER, POUR LES TESTS appuyez sur "E"
+        remisePositionPourTest();
     }
 
     private void initAnimation() {
@@ -81,5 +86,21 @@ public class Controller implements Initializable {
 
         ennemi1.setLayoutX(ennemi1.getLayoutX() + dx * vitesse);
         ennemi1.setLayoutY(ennemi1.getLayoutY() + dy * vitesse);
+    }
+
+    //Fonction de test, uniquement pour les tests, A SUPPRIMER PLUS TARD
+    public void remisePositionPourTest() {
+
+        carte.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                newScene.setOnKeyPressed(e -> {
+                    if (e.getCode() == KeyCode.E) {
+                        System.out.println("position réétablie");
+                        ennemi1.setLayoutX(400);
+                        ennemi1.setLayoutY(400);
+                    }
+                });
+            }
+        });
     }
 }
