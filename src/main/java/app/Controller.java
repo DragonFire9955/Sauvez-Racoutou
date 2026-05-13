@@ -15,34 +15,17 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     @FXML private Rectangle ennemi1;
+    @FXML private Rectangle player;
     @FXML private Pane carte;
 
     private Timeline gameLoop;
     private int temps;
 
-    double[][] listDirections;
     double vitesse;
-    boolean isArrivedNextPoint;
-    int ind;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        listDirections = new double[][]{
-                {0,0},
-                {0, 50},
-                {50, 50},
-                {50, 0},
-                {100, 0},
-                {100, 50},
-                {150, 50},
-                {150, 0},
-                {200, 0},
-                {200, 50},
-                {250, 50},
-                {250, 0},
-        };
-        ind = 0;
         vitesse = 2;
 
         initAnimation();
@@ -66,7 +49,7 @@ public class Controller implements Initializable {
                         gameLoop.stop();
                     }*/
                     /*else*/if (temps%5==0){
-                        vaVers(temps);
+                        vaVers();
                     }
                     temps++;
                 })
@@ -74,30 +57,21 @@ public class Controller implements Initializable {
         gameLoop.getKeyFrames().add(kf);
     }
 
-    private void vaVers(double dt) {
+    private void vaVers() {
 
-        double dx;
-        double dy;
-        if (isArrivedNextPoint) {
-            dx = listDirections[ind][0] - ennemi1.getTranslateX();
-            dy = listDirections[ind][1] - ennemi1.getTranslateY();
-        } else {
-            dx = listDirections[ind][0] - ennemi1.getTranslateX();
-            dy = listDirections[ind][1] - ennemi1.getTranslateY();
-        }
+        double dx = player.getLayoutX() - ennemi1.getLayoutX();
+        double dy = player.getLayoutY() - ennemi1.getLayoutY();
         double dist = Math.sqrt(dx * dx + dy * dy);
 
         if (dist < 2) {
-            isArrivedNextPoint = !isArrivedNextPoint;
-            ind++;
-            if (ind == listDirections.length) ind = 0;
+            System.out.println("allié atteint");
             return;
         }
 
         dx /= dist;
         dy /= dist;
 
-        ennemi1.setTranslateX(ennemi1.getTranslateX() + dx * vitesse);
-        ennemi1.setTranslateY(ennemi1.getTranslateY() + dy * vitesse);
+        ennemi1.setLayoutX(ennemi1.getLayoutX() + dx * vitesse);
+        ennemi1.setLayoutY(ennemi1.getLayoutY() + dy * vitesse);
     }
 }
