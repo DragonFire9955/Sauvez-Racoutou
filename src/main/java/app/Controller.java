@@ -63,10 +63,7 @@ public class Controller implements Initializable {
         double dy = player.getLayoutY() - ennemi1.getLayoutY();
         double dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < 2) {
-            System.out.println("allié atteint");
-            return;
-        }
+        if (dist < 2) {return;}
 
         dx /= dist;
         dy /= dist;
