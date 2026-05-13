@@ -5,7 +5,9 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
@@ -18,11 +20,16 @@ public class Controller implements Initializable {
     @FXML private Rectangle player;
     @FXML private Pane carte;
 
+    @FXML
+    private TilePane tileMap;
+    private int[][] map;
     private Timeline gameLoop;
     private int temps;
 
     double vitesse;
-
+    private Image vert = new Image(getClass().getResourceAsStream("/app/images/vert.png"), 32, 32, true, true);
+    private Image marron = new Image(getClass().getResourceAsStream("/app/images/marron.png"), 32, 32, true, true);
+    private Image beige = new Image(getClass().getResourceAsStream("/app/images/beige.png"), 32, 32, true, true);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -31,6 +38,10 @@ public class Controller implements Initializable {
         initAnimation();
         // demarre l'animation
         gameLoop.play();
+        this.map = Terrain.genererMap();
+        Terrain.delimitationMap(tileMap);
+
+        Terrain.couleurMap(tileMap, map, vert, marron, beige);
     }
 
     private void initAnimation() {

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.shape.Rectangle?>
 
 <Pane fx:id="carte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller">
     <children>
+      <TilePane fx:id="tileMap"/>
         <Rectangle fx:id="ennemi1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="548.0" layoutY="336.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
       <Rectangle fx:id="player" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="50.0" layoutX="76.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
     </children>
