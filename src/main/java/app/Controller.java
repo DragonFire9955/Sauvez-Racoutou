@@ -26,6 +26,7 @@ public class Controller implements Initializable {
     @FXML
     private TilePane tileMap;
     private int[][] map;
+
     private Timeline gameLoop;
     private int temps;
 
@@ -100,17 +101,31 @@ public class Controller implements Initializable {
     private void deplacementClavierCamera(KeyEvent event) {
 
         switch (event.getCode()) {
+
+            /*Explications : je fait bouger la carte du minimum / maximum à chaque actions :
+            Si c'est pour aller à gauche ou en haut, on va prendre la valeur minimum entre 0, le bord de base, et
+            la valeur résultante de notre présuposé déplacement.
+            ex : Si carte.getTranslateX = -30, si on lui ajoute 20 ça va faire -10 qui est plus petit que 0 donc on translate de -10,
+                Si carte.getTranslateX = -10, si on lui ajoute 20 ça va faire 10 qui est plus grand que 0 donc on translate de 0, donc on bouge pas.
+            Si c'est pour aller en bas ou à droite, là il va falloir check si c'est pas un trop grand nombre.
+            le long morceau dans la 2ème partie de Math.max est la hauteur de notre écran (gamePane) auquel on enlève
+            la largeur de la map.
+            ex : Si hauteur du gamePane = 600 et que la hauteur de la map est de 1000, la limite est de -400
+                Donc 0 -> haut de la map et -400 -> bas de la map.
+                Si on est en -350 et que on veut descendre de 20, ça va faire -370 qui est plus grand que -400 donc autorisé (oui c le plus proche de 0 attention au (-) XD)
+                Si on est en -390 et que on veut descendre de 20, ça va faire -410 qui est plus petit que -400 donc on bouge à la limite.
+             */
             case LEFT:
-                carte.setTranslateX(carte.getTranslateX() + 20);
+                carte.setTranslateX(Math.min(carte.getTranslateX() + 20, 0));
                 break;
             case RIGHT:
-                carte.setTranslateX(carte.getTranslateX() - 20);
+                carte.setTranslateX(Math.max(carte.getTranslateX() - 20, gamePane.getWidth() - tileMap.getPrefTileWidth() * tileMap.getPrefColumns()));
                 break;
             case UP:
-                carte.setTranslateY(carte.getTranslateY() + 20);
+                carte.setTranslateY(Math.min(carte.getTranslateY() + 20, 0));
                 break;
             case DOWN:
-                carte.setTranslateY(carte.getTranslateY() - 20);
+                carte.setTranslateY(Math.max(carte.getTranslateY() - 20, gamePane.getHeight() - tileMap.getPrefTileHeight() * tileMap.getPrefRows()));
                 break;
         }
     }
