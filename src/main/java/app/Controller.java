@@ -81,13 +81,15 @@ public class Controller implements Initializable {
                 gamePane.requestFocus();
 
                 newScene.setOnKeyPressed(event -> {
-                    gestionCamera(event);
+                    deplacementClavierCamera(event);
                     remisePositionTest(event);
                 });
 
+                //Zoom Camera
                 newScene.setOnScroll(event -> {
                     double zoom = event.getDeltaY() > 0 ? 1.1 : 0.9;
 
+                    if (carte.getScaleX() * zoom < 0.5 || carte.getScaleX() * zoom > 2.5) return;
                     carte.setScaleX(carte.getScaleX() * zoom);
                     carte.setScaleY(carte.getScaleY() * zoom);
                 });
@@ -95,7 +97,7 @@ public class Controller implements Initializable {
         });
     }
 
-    private void gestionCamera(KeyEvent event) {
+    private void deplacementClavierCamera(KeyEvent event) {
 
         switch (event.getCode()) {
             case LEFT:
