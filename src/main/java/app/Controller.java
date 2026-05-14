@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
+    @FXML private Pane gamePane;
     @FXML private Rectangle ennemi1;
     @FXML private Rectangle player;
     @FXML private Pane carte;
@@ -45,8 +46,7 @@ public class Controller implements Initializable {
 
         Terrain.couleurMap(tileMap, map, vert, marron, beige);
 
-        //A SUPPRIMER, POUR LES TESTS appuyez sur "E"
-        remisePositionPourTest();
+        keyEventManager();
     }
 
     private void initAnimation() {
@@ -73,6 +73,46 @@ public class Controller implements Initializable {
         gameLoop.getKeyFrames().add(kf);
     }
 
+    private void keyEventManager() {
+
+        gamePane.sceneProperty().addListener((observable, oldScene, newScene) -> {
+
+            if (newScene != null) {
+                gamePane.requestFocus();
+
+                newScene.setOnKeyPressed(event -> {
+                    gestionCamera(event);
+                    remisePositionTest(event);
+                });
+
+                newScene.setOnScroll(event -> {
+                    double zoom = event.getDeltaY() > 0 ? 1.1 : 0.9;
+
+                    carte.setScaleX(carte.getScaleX() * zoom);
+                    carte.setScaleY(carte.getScaleY() * zoom);
+                });
+            }
+        });
+    }
+
+    private void gestionCamera(KeyEvent event) {
+
+        switch (event.getCode()) {
+            case LEFT:
+                carte.setTranslateX(carte.getTranslateX() + 20);
+                break;
+            case RIGHT:
+                carte.setTranslateX(carte.getTranslateX() - 20);
+                break;
+            case UP:
+                carte.setTranslateY(carte.getTranslateY() + 20);
+                break;
+            case DOWN:
+                carte.setTranslateY(carte.getTranslateY() - 20);
+                break;
+        }
+    }
+
     private void vaVers() {
 
         double dx = player.getLayoutX() - ennemi1.getLayoutX();
@@ -89,18 +129,14 @@ public class Controller implements Initializable {
     }
 
     //Fonction de test, uniquement pour les tests, A SUPPRIMER PLUS TARD
-    public void remisePositionPourTest() {
+    private void remisePositionTest(KeyEvent event) {
 
-        carte.sceneProperty().addListener((obs, oldScene, newScene) -> {
-            if (newScene != null) {
-                newScene.setOnKeyPressed(e -> {
-                    if (e.getCode() == KeyCode.E) {
-                        System.out.println("position réétablie");
-                        ennemi1.setLayoutX(400);
-                        ennemi1.setLayoutY(400);
-                    }
-                });
-            }
-        });
+        if (event.getCode() == KeyCode.E) {
+
+            System.out.println("position rétablie");
+
+            ennemi1.setLayoutX(400);
+            ennemi1.setLayoutY(400);
+        }
     }
 }
