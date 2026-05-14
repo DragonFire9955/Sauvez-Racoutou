@@ -1,8 +1,9 @@
+/// TODO : RESIZE CARTE SI QUAND ON DEZOOM ON SORT DE LA CARTE
+
 package app;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -11,6 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -18,13 +20,13 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
+    private Scale scale;
     @FXML private Pane gamePane;
+    @FXML private Pane carte;
     @FXML private Rectangle ennemi1;
     @FXML private Rectangle player;
-    @FXML private Pane carte;
 
-    @FXML
-    private TilePane tileMap;
+    @FXML private TilePane tileMap;
     private int[][] map;
 
     private Timeline gameLoop;
@@ -47,7 +49,24 @@ public class Controller implements Initializable {
 
         Terrain.couleurMap(tileMap, map, vert, marron, beige);
 
+        //Initialisation d'un scale pour le bon fonctionnement du zoom
+        scaleInit();
+
+        //Fonction gérant touts les évènements clavier
         keyEventManager();
+    }
+
+    private void scaleInit() {
+
+        scale = new Scale();
+
+        scale.setPivotX(0);
+        scale.setPivotY(0);
+
+        scale.setX(1);
+        scale.setY(1);
+
+        carte.getTransforms().add(scale);
     }
 
     private void initAnimation() {
@@ -79,6 +98,7 @@ public class Controller implements Initializable {
         gamePane.sceneProperty().addListener((observable, oldScene, newScene) -> {
 
             if (newScene != null) {
+
                 gamePane.requestFocus();
 
                 newScene.setOnKeyPressed(event -> {
@@ -88,11 +108,18 @@ public class Controller implements Initializable {
 
                 //Zoom Camera
                 newScene.setOnScroll(event -> {
-                    double zoom = event.getDeltaY() > 0 ? 1.1 : 0.9;
 
-                    if (carte.getScaleX() * zoom < 0.5 || carte.getScaleX() * zoom > 2.5) return;
-                    carte.setScaleX(carte.getScaleX() * zoom);
-                    carte.setScaleY(carte.getScaleY() * zoom);
+                    double zoom = event.getDeltaY() > 0 ? 1.1 : 0.9;
+                    double nouvZoom = scale.getX() * zoom;
+
+                    if (nouvZoom < 1) {
+                        nouvZoom = 1;
+                    } else if (nouvZoom > 2.5) {
+                        nouvZoom = 2.5;
+                    }
+
+                    scale.setX(nouvZoom);
+                    scale.setY(nouvZoom);
                 });
             }
         });
@@ -102,30 +129,17 @@ public class Controller implements Initializable {
 
         switch (event.getCode()) {
 
-            /*Explications : je fait bouger la carte du minimum / maximum à chaque actions :
-            Si c'est pour aller à gauche ou en haut, on va prendre la valeur minimum entre 0, le bord de base, et
-            la valeur résultante de notre présuposé déplacement.
-            ex : Si carte.getTranslateX = -30, si on lui ajoute 20 ça va faire -10 qui est plus petit que 0 donc on translate de -10,
-                Si carte.getTranslateX = -10, si on lui ajoute 20 ça va faire 10 qui est plus grand que 0 donc on translate de 0, donc on bouge pas.
-            Si c'est pour aller en bas ou à droite, là il va falloir check si c'est pas un trop grand nombre.
-            le long morceau dans la 2ème partie de Math.max est la hauteur de notre écran (gamePane) auquel on enlève
-            la largeur de la map.
-            ex : Si hauteur du gamePane = 600 et que la hauteur de la map est de 1000, la limite est de -400
-                Donc 0 -> haut de la map et -400 -> bas de la map.
-                Si on est en -350 et que on veut descendre de 20, ça va faire -370 qui est plus grand que -400 donc autorisé (oui c le plus proche de 0 attention au (-) XD)
-                Si on est en -390 et que on veut descendre de 20, ça va faire -410 qui est plus petit que -400 donc on bouge à la limite.
-             */
             case LEFT:
-                carte.setTranslateX(Math.min(carte.getTranslateX() + 20, 0));
+                carte.setTranslateX(Math.min(carte.getTranslateX() + (tileMap.getPrefTileWidth() * scale.getX()) / 2, 0));
                 break;
             case RIGHT:
-                carte.setTranslateX(Math.max(carte.getTranslateX() - 20, gamePane.getWidth() - tileMap.getPrefTileWidth() * tileMap.getPrefColumns()));
+                carte.setTranslateX(Math.max(carte.getTranslateX() - (tileMap.getPrefTileWidth() * scale.getX()) / 2, gamePane.getWidth() - tileMap.getPrefTileWidth() * tileMap.getPrefColumns() * scale.getX()));
                 break;
             case UP:
-                carte.setTranslateY(Math.min(carte.getTranslateY() + 20, 0));
+                carte.setTranslateY(Math.min(carte.getTranslateY() + (tileMap.getPrefTileHeight() * scale.getY()) / 2, 0));
                 break;
             case DOWN:
-                carte.setTranslateY(Math.max(carte.getTranslateY() - 20, gamePane.getHeight() - tileMap.getPrefTileHeight() * tileMap.getPrefRows()));
+                carte.setTranslateY(Math.max(carte.getTranslateY() - (tileMap.getPrefTileHeight() * scale.getY()) / 2, gamePane.getHeight() - tileMap.getPrefTileHeight() * tileMap.getPrefRows() * scale.getY()));
                 break;
         }
     }

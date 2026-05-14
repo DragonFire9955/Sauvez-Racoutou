@@ -10,7 +10,11 @@ public class Terrain {
     private static final int hauteur = 28;
 
     public static int[][] genererMap() {
-        return new int[longueur][hauteur];
+        int[][] map = new int[longueur][hauteur];
+        //Tuile de référence pour se repérer sur la carte
+        map[0][0] = 1;
+        map[longueur-1][hauteur-1] = 1;
+        return map;
     }
 
     public static void delimitationMap(TilePane tileMap){

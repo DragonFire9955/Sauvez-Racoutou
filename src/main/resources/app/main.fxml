@@ -8,10 +8,11 @@
     <children>
       <Pane fx:id="carte" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <TilePane fx:id="tileMap" />
+            <TilePane fx:id="tileMap"/>
               <Rectangle fx:id="ennemi1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="235.0" layoutY="269.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
             <Rectangle fx:id="player" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="50.0" layoutX="41.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
          </children>
       </Pane>
+      <Pane fx:id="camera"/>
     </children>
 </Pane>
