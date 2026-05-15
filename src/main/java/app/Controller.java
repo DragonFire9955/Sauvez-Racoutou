@@ -20,14 +20,16 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
-    private Scale scale;
     @FXML private Pane gamePane;
     @FXML private Pane carte;
+
     @FXML private Rectangle ennemi1;
     @FXML private Rectangle player;
 
     @FXML private TilePane tileMap;
     private int[][] map;
+
+    private CameraManager cameraManager;
 
     private Timeline gameLoop;
     private int temps;
@@ -36,37 +38,32 @@ public class Controller implements Initializable {
     private Image vert = new Image(getClass().getResourceAsStream("/app/images/vert.png"), 32, 32, true, true);
     private Image marron = new Image(getClass().getResourceAsStream("/app/images/marron.png"), 32, 32, true, true);
     private Image beige = new Image(getClass().getResourceAsStream("/app/images/beige.png"), 32, 32, true, true);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         vitesse = 2;
 
-        initAnimation();
-        // demarre l'animation
-        gameLoop.play();
         this.map = Terrain.genererMap();
         Terrain.delimitationMap(tileMap);
 
         Terrain.couleurMap(tileMap, map, vert, marron, beige);
 
-        //Initialisation d'un scale pour le bon fonctionnement du zoom
-        scaleInit();
+        cameraManager = new CameraManager(gamePane, carte, tileMap);
+        cameraManager.initialiserCamera();
 
-        //Fonction gérant touts les évènements clavier
-        keyEventManager();
-    }
+        initAnimation();
+        // demarre l'animation
+        gameLoop.play();
 
-    private void scaleInit() {
+        gamePane.sceneProperty().addListener((observable, oldValue, newValue) -> {
 
-        scale = new Scale();
+            //On met tout les évènements claviers
+            gamePane.setOnKeyPressed(event -> {
 
-        scale.setPivotX(0);
-        scale.setPivotY(0);
-
-        scale.setX(1);
-        scale.setY(1);
-
-        carte.getTransforms().add(scale);
+                remisePositionTest(event);
+            });
+        });
     }
 
     private void initAnimation() {
@@ -91,57 +88,6 @@ public class Controller implements Initializable {
                 })
         );
         gameLoop.getKeyFrames().add(kf);
-    }
-
-    private void keyEventManager() {
-
-        gamePane.sceneProperty().addListener((observable, oldScene, newScene) -> {
-
-            if (newScene != null) {
-
-                gamePane.requestFocus();
-
-                newScene.setOnKeyPressed(event -> {
-                    deplacementClavierCamera(event);
-                    remisePositionTest(event);
-                });
-
-                //Zoom Camera
-                newScene.setOnScroll(event -> {
-
-                    double zoom = event.getDeltaY() > 0 ? 1.1 : 0.9;
-                    double nouvZoom = scale.getX() * zoom;
-
-                    if (nouvZoom < 1) {
-                        nouvZoom = 1;
-                    } else if (nouvZoom > 2.5) {
-                        nouvZoom = 2.5;
-                    }
-
-                    scale.setX(nouvZoom);
-                    scale.setY(nouvZoom);
-                });
-            }
-        });
-    }
-
-    private void deplacementClavierCamera(KeyEvent event) {
-
-        switch (event.getCode()) {
-
-            case LEFT:
-                carte.setTranslateX(Math.min(carte.getTranslateX() + (tileMap.getPrefTileWidth() * scale.getX()) / 2, 0));
-                break;
-            case RIGHT:
-                carte.setTranslateX(Math.max(carte.getTranslateX() - (tileMap.getPrefTileWidth() * scale.getX()) / 2, gamePane.getWidth() - tileMap.getPrefTileWidth() * tileMap.getPrefColumns() * scale.getX()));
-                break;
-            case UP:
-                carte.setTranslateY(Math.min(carte.getTranslateY() + (tileMap.getPrefTileHeight() * scale.getY()) / 2, 0));
-                break;
-            case DOWN:
-                carte.setTranslateY(Math.max(carte.getTranslateY() - (tileMap.getPrefTileHeight() * scale.getY()) / 2, gamePane.getHeight() - tileMap.getPrefTileHeight() * tileMap.getPrefRows() * scale.getY()));
-                break;
-        }
     }
 
     private void vaVers() {
