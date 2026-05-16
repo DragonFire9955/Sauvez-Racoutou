@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+
+<StackPane xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sae_dev.MenuController">
+   <children>
+      <ImageView fitHeight="736.0" fitWidth="1280.0" pickOnBounds="true">
+         <image>
+            <Image url="@images/turquoise.png" />
+         </image>
+      </ImageView>
+      <VBox alignment="CENTER" spacing="100.0" StackPane.alignment="CENTER">
+         <children>
+            <Label text="Sauvez RACOUTOU !">
+               <font>
+                  <Font name="Rockwell Bold Italic" size="60.0" />
+               </font>
+               <effect>
+                  <Reflection />
+               </effect>
+               <textFill>
+                  <LinearGradient endX="0.700315445379504" endY="1.0" startX="0.33438481667816455" startY="0.9463722367391977">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color green="0.6803736686706543" blue="1.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color green="0.314728707075119" blue="1.0" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#lancerJeu" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: darkblue;" text="Jouer" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</StackPane>
