@@ -10,6 +10,5 @@
             <TilePane fx:id="tileMap" />
          </children>
       </Pane>
-      <Pane fx:id="camera" />
     </children>
 </Pane>
