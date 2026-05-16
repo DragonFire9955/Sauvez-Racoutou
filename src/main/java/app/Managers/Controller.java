@@ -28,6 +28,7 @@ public class Controller implements Initializable {
 
     @FXML private Pane gamePane;
     @FXML private Pane carte;
+    @FXML private Pane demarragePane;
 
     @FXML private TilePane tileMap;
     private int[][] map;
@@ -38,6 +39,7 @@ public class Controller implements Initializable {
 
     private Timeline gameLoop;
     private int temps;
+    private boolean jeuLance;
 
     private Image vert = new Image(getClass().getResourceAsStream("/app/images/vert.png"), 32, 32, true, true);
     private Image marron = new Image(getClass().getResourceAsStream("/app/images/marron.png"), 32, 32, true, true);
@@ -47,6 +49,11 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        jeuLance = false;
+
+        carte.setVisible(false);
+        carte.setDisable(true);
 
         this.map = Terrain.genererMap();
         Terrain.delimitationMap(tileMap);
@@ -95,7 +102,7 @@ public class Controller implements Initializable {
                         System.out.println("fini");
                         gameLoop.stop();
                     }*/
-                    /*else*/if (temps%5==0){
+                    /*else*/if (temps%5==0 && jeuLance){
 
                         animauxManager.update(temps);
                         affichageAnimaux();
@@ -107,6 +114,16 @@ public class Controller implements Initializable {
                 })
         );
         gameLoop.getKeyFrames().add(kf);
+    }
+
+    @FXML
+    public void lancerJeu() {
+
+        demarragePane.setVisible(false);
+        demarragePane.setDisable(true);
+        carte.setVisible(true);
+
+        jeuLance = true;
     }
 
     private void vaVers(Animaux a1, Animaux a2) {
