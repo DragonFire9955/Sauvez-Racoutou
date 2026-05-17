@@ -4,7 +4,7 @@ import app.Entites.Animaux;
 import app.Entites.AnimauxFolder.Allies.ChatClassique;
 import app.Entites.AnimauxFolder.Allies.Racoutou;
 import app.Entites.AnimauxFolder.Ennemis.PouletClassique;
-import app.Entites.AnimauxFolder.Ennemis.PouletConservateur;
+//import app.Entites.AnimauxFolder.Ennemis.PouletConservateur;
 import app.Terrain;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -108,7 +108,7 @@ public class Controller implements Initializable {
                         affichageAnimaux();
                         cleanupViews();
 
-                        vaVers(animauxManager.getRacoutou(), animauxManager.getAnimaux().getLast());    //LE GETLAST EST TEMPORAIRE.
+                        vaVers(animauxManager.getRacoutou(), animauxManager.getLast());    //LE GETLAST EST TEMPORAIRE.
                     }
                     temps++;
                 })
@@ -175,11 +175,11 @@ public class Controller implements Initializable {
             } else if (animal instanceof PouletClassique) {
 
                 imageView.setImage(new Image(getClass().getResourceAsStream("/app/images/pioupiouPolicier.jpg")));
-                if (animal instanceof PouletConservateur);
+            /*    if (animal instanceof PouletConservateur);
                 /*imageView.setImage();*/   //On lui met l'image du poulet Conservateur
                 //On fait de même pour tout
 
-            } else if (animal instanceof ChatClassique) {
+            //} else if (animal instanceof ChatClassique) {
 
                 //On fait de même pour le chat
             }   //Si il y en a d'autre à ajouter on continue sinon on remplace le else if par un if
@@ -216,4 +216,6 @@ public class Controller implements Initializable {
             }
         }
     }
+
+
 }

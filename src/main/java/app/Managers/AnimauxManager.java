@@ -29,6 +29,7 @@ public class AnimauxManager {
         handleCollisions();
     }
 
+
     private void handleCollisions() {
 
         for (Animaux e : animaux) {
@@ -45,4 +46,12 @@ public class AnimauxManager {
     public Animaux getRacoutou() {
         return racoutou;
     }
+
+    public Animaux getLast(){
+        if(animaux.size()==0)
+            return null;
+        else
+            return animaux.get(animaux.size()-1);
+    }
+
 }
