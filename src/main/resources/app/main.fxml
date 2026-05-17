@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="896.0" prefWidth="1408.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Managers.Controller">
+    <center>
+        <Pane fx:id="gamePane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <Pane fx:id="carte" prefHeight="400.0" prefWidth="977.0">
+                    <children>
+                        <TilePane fx:id="tileMap" />
+                    </children>
+                </Pane>
+                <Pane fx:id="demarragePane" prefHeight="899.0" prefWidth="1408.0" style="-fx-background-color: cyan;">
+                    <children>
+                        <VBox alignment="CENTER" prefHeight="901.0" prefWidth="1411.0" spacing="100.0">
+                            <children>
+                                <Label text="Sauvez RACOUTOU !">
+                                    <font>
+                                        <Font name="Rockwell Bold Italic" size="65.0" />
+                                    </font>
+                                    <effect>
+                                        <Reflection />
+                                    </effect>
+                                    <textFill>
+                                        <LinearGradient endX="0.700315445379504" endY="1.0" startX="0.33438481667816455" startY="0.9463722367391977">
+                                            <stops>
+                                                <Stop>
+                                                    <color>
+                                                        <Color green="0.6803736686706543" blue="1.0" />
+                                                    </color>
+                                                </Stop>
+                                                <Stop offset="1.0">
+                                                    <color>
+                                                        <Color green="0.314728707075119" blue="1.0" />
+                                                    </color>
+                                                </Stop>
+                                            </stops>
+                                        </LinearGradient>
+                                    </textFill>
+                                </Label>
+                                <Button mnemonicParsing="false" onAction="#lancerJeu" prefHeight="73.0" prefWidth="157.0" style="-fx-background-color: darkblue;" text="Jouer" textFill="WHITE">
+                                    <font>
+                                        <Font size="30.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </VBox>
+                    </children>
+                </Pane>
+            </children>
+        </Pane>
+    </center>
+</BorderPane>
