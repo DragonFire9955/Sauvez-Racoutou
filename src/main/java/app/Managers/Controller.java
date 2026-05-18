@@ -171,10 +171,10 @@ public class Controller implements Initializable {
 
             if (animal instanceof Racoutou) {
 
-                imageView.setImage(new Image(getClass().getResourceAsStream("/app/images/racoutou.jpg")));
+                imageView.setImage(new Image(getClass().getResourceAsStream("/app/images/racoutou.png")));
             } else if (animal instanceof PouletClassique) {
 
-                imageView.setImage(new Image(getClass().getResourceAsStream("/app/images/pioupiouPolicier.jpg")));
+                imageView.setImage(new Image(getClass().getResourceAsStream("/app/images/pouletClassique.png")));
             /*    if (animal instanceof PouletConservateur);
                 /*imageView.setImage();*/   //On lui met l'image du poulet Conservateur
                 //On fait de même pour tout
