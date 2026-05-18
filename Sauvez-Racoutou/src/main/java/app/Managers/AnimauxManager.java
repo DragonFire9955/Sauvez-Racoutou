@@ -48,7 +48,7 @@ public class AnimauxManager {
     }
 
     public Animaux getLast(){
-        if(animaux.size()==0)
+        if(animaux.isEmpty())
             return null;
         else
             return animaux.get(animaux.size()-1);
