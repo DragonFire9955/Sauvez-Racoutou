@@ -6,6 +6,8 @@ import app.Entites.AnimauxFolder.Allies.Racoutou;
 import app.Entites.AnimauxFolder.Ennemis.PouletClassique;
 //import app.Entites.AnimauxFolder.Ennemis.PouletConservateur;
 import app.Terrain;
+import app.TerrainVue;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -29,8 +31,9 @@ public class Controller implements Initializable {
     @FXML private Pane gamePane;
     @FXML private Pane carte;
     @FXML private Pane demarragePane;
-
     @FXML private TilePane tileMap;
+
+    private TerrainVue terrainVue;
     private int[][] map;
 
     //Là je met tous les Managers, ils gèrent des parties importantes du code répartie en différents Manager pour bien trier.
@@ -40,10 +43,6 @@ public class Controller implements Initializable {
     private Timeline gameLoop;
     private int temps;
     private boolean jeuLance;
-
-    private Image vert = new Image(getClass().getResourceAsStream("/app/images/vert.png"), 32, 32, true, true);
-    private Image marron = new Image(getClass().getResourceAsStream("/app/images/marron.png"), 32, 32, true, true);
-    private Image beige = new Image(getClass().getResourceAsStream("/app/images/beige.png"), 32, 32, true, true);
 
     private Map<Animaux, ImageView> animauxVue = new HashMap<>();
 
@@ -56,9 +55,10 @@ public class Controller implements Initializable {
         carte.setDisable(true);
 
         this.map = Terrain.genererMap();
-        Terrain.delimitationMap(tileMap);
+        this.terrainVue = new TerrainVue();
+        this.terrainVue.delimitationMap(tileMap);
 
-        Terrain.couleurMap(tileMap, map, vert, marron, beige);
+        this.terrainVue.couleurMap(tileMap, map);
 
         //Initialisation des Managers
         animauxManager = new AnimauxManager();
@@ -179,7 +179,7 @@ public class Controller implements Initializable {
                 /*imageView.setImage();*/   //On lui met l'image du poulet Conservateur
                 //On fait de même pour tout
 
-            //} else if (animal instanceof ChatClassique) {
+                //} else if (animal instanceof ChatClassique) {
 
                 //On fait de même pour le chat
             }   //Si il y en a d'autre à ajouter on continue sinon on remplace le else if par un if
