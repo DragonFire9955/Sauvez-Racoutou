@@ -8,6 +8,7 @@ import app.TerrainVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -15,6 +16,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -114,20 +116,10 @@ public class Controller implements Initializable {
     }
 
     @FXML //Bouton "Lancer Jeu"
-    public void lancerJeu() {
+    public void lancerJeu() throws IOException {
 
-        demarragePane.setVisible(false);
-        demarragePane.setDisable(true);
-        carte.setVisible(true);
-
-        Label titreLabel = new Label("Sauvez Racoutou");
-        titreLabel.setPrefWidth(applicationPane.getPrefWidth());
-        titreLabel.setStyle("-fx-font: italic bold 65px 'Rockwell';");
-        titreLabel.setAlignment(CENTER);
-
-        applicationPane.setTop(titreLabel);
-
-        jeuLance = true;
+        Pane gameMapLoadPane = FXMLLoader.load(getClass().getResource("/app/main.fxml"));
+        demarragePane.getChildren().setAll(gameMapLoadPane);
     }
 
 
