@@ -20,14 +20,6 @@
 
   <!-- JavaFX modules -->
   <dependencies>
-
-    <!-- JavaFX controls (boutons, labels, etc.) -->
-    <dependency>
-      <groupId>org.openjfx</groupId>
-      <artifactId>javafx-controls</artifactId>
-      <version>${javafx.version}</version>
-    </dependency>
-
     <!-- JavaFX FXML -->
     <dependency>
       <groupId>org.openjfx</groupId>

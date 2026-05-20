@@ -6,16 +6,18 @@ import app.Modele.Entites.AnimauxFolder.Ennemis.PouletClassique;
 //import app.Modele.Entites.AnimauxFolder.Ennemis.PouletConservateur;
 import app.Modele.GameWorld;
 import app.Terrain;
+import app.TerrainVue;
 import app.Vue.AnimalVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.*;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -25,15 +27,19 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import static app.Vue.image.*;
+import static javafx.geometry.Pos.CENTER;
 
 public class Controller implements Initializable {
 
     // VUE
+    @FXML private BorderPane applicationPane;
     @FXML private Pane gamePane;
     @FXML private Pane carte;
     @FXML private Pane demarragePane;
 
     @FXML private TilePane tileMap;
+
+    private TerrainVue terrainVue;
 
     //MODELE
     private int[][] map;
@@ -52,10 +58,12 @@ public class Controller implements Initializable {
         carte.setVisible(false);
         carte.setDisable(true);
 
-        this.map = Terrain.genererMap();
-        Terrain.delimitationMap(tileMap);
+        terrainVue = new TerrainVue();
 
-        Terrain.couleurMap(tileMap, map, vert, marron, beige);
+        this.map = Terrain.genererMap();
+        terrainVue.delimitationMap(tileMap);
+
+        terrainVue.couleurMap(tileMap, map);
 
         //Initialisation des Managers
         gameWorld = new GameWorld();
@@ -120,6 +128,13 @@ public class Controller implements Initializable {
         demarragePane.setVisible(false);
         demarragePane.setDisable(true);
         carte.setVisible(true);
+
+        Label titreLabel = new Label("Sauvez Racoutou");
+        titreLabel.setPrefWidth(applicationPane.getPrefWidth());
+        titreLabel.setStyle("-fx-font: italic bold 65px 'Rockwell';");
+        titreLabel.setAlignment(CENTER);
+
+        applicationPane.setTop(titreLabel);
 
         jeuLance = true;
     }

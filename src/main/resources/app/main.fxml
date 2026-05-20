@@ -4,9 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.Reflection?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
@@ -15,7 +13,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="896.0" prefWidth="1408.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Managers.Controller">
+<BorderPane fx:id="applicationPane" prefHeight="896.0" prefWidth="1408.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller.Controller">
     <center>
         <Pane fx:id="gamePane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
@@ -65,13 +63,13 @@
         </Pane>
     </center>
    <right>
-      <Pane fx:id="coteDroit" prefHeight="200.0" prefWidth="275.0" BorderPane.alignment="CENTER">
+      <Pane prefHeight="200.0" prefWidth="275.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="896.0" prefWidth="275.0" spacing="10.0" style="-fx-background-color: rgba(0,0,0,0.5); -fx-background-radius: 5;">
                <children>
                   <Label alignment="CENTER" prefHeight="25.0" prefWidth="267.0" text="BOUTIQUE" textFill="WHITE">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="20.0" />
                      </font>
                   </Label>
                   <Label text="Améliorations" textFill="LIME">
@@ -84,7 +82,10 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label text="Améliorations" />
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="277.0" text="Améliorations">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -93,25 +94,4 @@
          </children>
       </Pane>
    </right>
-   <top>
-      <Label text="Sauvez RACOUTOU" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="Rockwell Bold Italic" size="65.0" />
-         </font>
-      </Label>
-   </top>
-   <bottom>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
-               <children>
-                  <ImageView fx:id="chatClassique" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="chatCuisinier" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="chatJournaliste" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="chatProjectile" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-               </children>
-            </HBox>
-         </children>
-      </Pane>
-   </bottom>
 </BorderPane>
