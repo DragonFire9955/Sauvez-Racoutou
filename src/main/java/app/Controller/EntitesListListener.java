@@ -1,31 +1,32 @@
 package app.Controller;
 
-import app.Modele.Entites.Animaux;
+import app.Modele.Entites.Animaux.Animaux;
+import app.Modele.Entites.Entite;
 import app.Vue.EntiteVue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 
-public class AnimauxListListener implements ListChangeListener<Animaux> {
+public class EntitesListListener implements ListChangeListener<Entite> {
 
     //J'ai enlevé la liste des Animaux car elle n'était pas utilisée.
 
     @FXML
     private Pane carte;
 
-    public AnimauxListListener(Pane carte){
+    public EntitesListListener(Pane carte){
         this.carte = carte;
     }
 
     @Override
-    public void onChanged(ListChangeListener.Change<? extends Animaux> c){
+    public void onChanged(ListChangeListener.Change<? extends Entite> c){
 
         while(c.next()) {
             if (c.wasRemoved()) {
                 /*Iterator<? extends Animaux> iSupp = c.getRemoved().iterator();
                 while (iSupp.hasNext())  {
                     a = iSupp.next();*/
-                for (Animaux a: c.getRemoved()) {
+                for (Entite e: c.getRemoved()) {
                     /*for(int j=0;j<carte.getChildren().size();j++){
                         if(carte.getChildren().get(j).getId()==a.getId()) {
                             carte.getChildren().remove(j);
@@ -33,7 +34,7 @@ public class AnimauxListListener implements ListChangeListener<Animaux> {
 
 
                     }*/
-                    carte.getChildren().removeIf(node -> a.getId().equals(node.getId()));
+                    carte.getChildren().removeIf(node -> e.getId().equals(node.getId()));
                 }
 
             }
@@ -41,9 +42,9 @@ public class AnimauxListListener implements ListChangeListener<Animaux> {
                 /*Iterator<? extends Animaux> iAdd = c.getAddedSubList().iterator();
                 while (iAdd.hasNext()) {
                     a= iAdd.next();*/
-                for (Animaux a: c.getAddedSubList()) {
+                for (Entite e: c.getAddedSubList()) {
                     System.out.println("ajout dans list");
-                    carte.getChildren().add(EntiteVue.appliquerBonneImage(a));
+                    carte.getChildren().add(EntiteVue.appliquerBonneImage(e));
                 }
             }
         }

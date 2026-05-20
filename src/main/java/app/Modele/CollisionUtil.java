@@ -1,6 +1,6 @@
 package app.Modele;
 
-import app.Modele.Entites.Animaux;
+import app.Modele.Entites.Animaux.Animaux;
 import app.Modele.Entites.Entite;
 
 public class CollisionUtil {

@@ -1,6 +1,6 @@
-package app.Modele.Entites.AnimauxFolder.Allies;
+package app.Modele.Entites.Animaux.Allies;
 
-import app.Modele.Entites.Animaux;
+import app.Modele.Entites.Animaux.Animaux;
 import app.Modele.GameWorld;
 
 public class ChatClassique extends Animaux {

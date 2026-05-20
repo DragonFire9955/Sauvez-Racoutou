@@ -1,10 +1,10 @@
 package app.Controller;
 
-import app.Modele.Entites.AnimauxFolder.Allies.Racoutou;
-import app.Modele.Entites.AnimauxFolder.Ennemis.PouletClassique;
+import app.Modele.Entites.Animaux.Allies.Racoutou;
+import app.Modele.Entites.Animaux.Ennemis.PouletClassique;
 import app.Modele.GameWorld;
-import app.Terrain;
-import app.TerrainVue;
+import app.Modele.Terrain;
+import app.Vue.TerrainVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -63,7 +63,7 @@ public class Controller implements Initializable {
 
 
         //TEMPORAIRE, A DELET
-        gameWorld.getAnimaux().addListener(new AnimauxListListener(carte));
+        gameWorld.getAnimaux().addListener(new EntitesListListener(carte));
         gameWorld.ajouterAllie(new Racoutou(gameWorld));
         gameWorld.ajouterEnnemi(new PouletClassique(gameWorld));
 

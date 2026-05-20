@@ -1,6 +1,6 @@
 package app.Modele.Managers;
 
-import app.Modele.Entites.Animaux;
+import app.Modele.Entites.Animaux.Animaux;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

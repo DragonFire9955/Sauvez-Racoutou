@@ -1,4 +1,4 @@
-package app;
+package app.Vue;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

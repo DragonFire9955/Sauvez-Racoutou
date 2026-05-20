@@ -1,5 +1,6 @@
 package app.Modele.Entites;
 
+import app.Modele.CollisionUtil;
 import app.Modele.GameWorld;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -13,24 +14,34 @@ public abstract class Entite {
     private GameWorld world;
 
     private DoubleProperty x, y;
-
+    private double damage;
     private boolean alive;
 
     private DoubleProperty health = new SimpleDoubleProperty();
     private final double maxHealth;
 
-    protected Entite(double x, double y, double health, GameWorld w) {
+    protected Entite(double x, double y, double health, double dmg, GameWorld w) {
         this.id=nbId;
         nbId++;
         this.x = new SimpleDoubleProperty(x);
         this.y = new SimpleDoubleProperty(y);
         this.health.set(health);
         this.maxHealth = health;
+        this.damage=dmg;
         this.world=w;
 
         alive = true;
     }
-    public abstract void update(double dt);
+    public void update(double dt){
+        this.handleCollisions();
+    }
+
+    public void setDamage(double damage) {
+        this.damage = damage;
+    }
+    public double getDamage() {
+        return damage;
+    }
 
     public void destroy() {
         alive = false;
@@ -84,6 +95,19 @@ public abstract class Entite {
         double dx = (x.get()+RADIUS/2) - (b.getX()+RADIUS/2);
         double dy = (y.get()+RADIUS/2) - (b.getY()+RADIUS/2);
         return dx * dx + dy * dy < RADIUS * RADIUS;
+    }
+
+    public void handleCollisions() {
+
+        Entite cible = this.getWorld().getAllies().getFirst();
+
+        if(this.equals(cible)) return;
+
+        if (intersects(cible)){
+            System.out.println("touche !");
+            cible.setHealth(cible.getHealthProperty().getValue()-this.damage);
+            this.destroy();
+        }
     }
 
 

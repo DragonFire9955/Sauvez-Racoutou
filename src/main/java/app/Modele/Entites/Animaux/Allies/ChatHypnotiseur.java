@@ -1,4 +1,4 @@
-package app.Modele.Entites.AnimauxFolder.Allies;
+package app.Modele.Entites.Animaux.Allies;
 
 import app.Modele.GameWorld;
 

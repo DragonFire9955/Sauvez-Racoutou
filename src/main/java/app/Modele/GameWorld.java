@@ -1,9 +1,8 @@
 package app.Modele;
 
-import app.Modele.Entites.Animaux;
+import app.Modele.Entites.Animaux.Animaux;
 import app.Modele.Managers.AlliesManager;
 import app.Modele.Managers.EnnemyManager;
-import app.Terrain;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

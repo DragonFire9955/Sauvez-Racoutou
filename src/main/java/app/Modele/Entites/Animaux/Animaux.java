@@ -1,31 +1,29 @@
-package app.Modele.Entites;
+package app.Modele.Entites.Animaux;
 
+import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaire;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Animaux extends Entite{
+public abstract class Animaux extends Entite {
 
 
     private List<Animaux> listeCibles;
 
     private double vitesse;
-    private double damage;
     private double range;
 
     public Animaux(double x, double y, double health, double vitesse, double dmg, double range, GameWorld w, List<Animaux> l) {
-        super(x, y, health, w);
+        super(x, y, health, dmg, w);
         this.vitesse = vitesse;
-        this.damage = dmg;
         this.range = range;
         this.listeCibles=l;
     }
     //Appelle les fonctions d'actions de l'animal tous les dt (fréquence d'action)
     public void update(double dt){
+        super.update(dt);
         this.attaque();
     }
 
@@ -45,12 +43,7 @@ public abstract class Animaux extends Entite{
 
 
 
-    public void setDamage(double damage) {
-        this.damage = damage;
-    }
-    public double getDamage() {
-        return damage;
-    }
+
 
 
     public void deplacement() {
@@ -126,7 +119,7 @@ public abstract class Animaux extends Entite{
     }
     public void attaque(){
         if(!this.getCiblesAccessibles().isEmpty())
-            this.getCiblesAccessibles().get(0).estAttaque(this.damage);
+            this.getCiblesAccessibles().get(0).estAttaque(getDamage());
     }
 
     public List<Animaux> getListeCibles(){

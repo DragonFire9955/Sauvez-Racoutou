@@ -1,7 +1,7 @@
 package app.Vue;
 
-import app.Modele.Entites.AnimauxFolder.Allies.Racoutou;
-import app.Modele.Entites.AnimauxFolder.Ennemis.PouletClassique;
+import app.Modele.Entites.Animaux.Allies.Racoutou;
+import app.Modele.Entites.Animaux.Ennemis.PouletClassique;
 import app.Modele.Entites.Entite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
