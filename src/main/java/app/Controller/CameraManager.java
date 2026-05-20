@@ -1,4 +1,4 @@
-package app.Managers;
+package app.Controller;
 
 import javafx.application.Platform;
 import javafx.scene.input.KeyEvent;

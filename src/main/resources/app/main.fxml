@@ -15,7 +15,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="896.0" prefWidth="1408.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Managers.Controller">
+<BorderPane prefHeight="896.0" prefWidth="1408.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Managers.Controller">
     <center>
         <Pane fx:id="gamePane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
@@ -24,7 +24,7 @@
                         <TilePane fx:id="tileMap" />
                     </children>
                 </Pane>
-                <Pane fx:id="demarragePane" prefHeight="899.0" prefWidth="1133.0" style="-fx-background-color: cyan;">
+                <Pane fx:id="demarragePane" prefHeight="899.0" prefWidth="1408.0" style="-fx-background-color: cyan;">
                     <children>
                         <VBox alignment="CENTER" prefHeight="901.0" prefWidth="1411.0" spacing="100.0">
                             <children>

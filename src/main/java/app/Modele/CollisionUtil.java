@@ -1,6 +1,6 @@
-package app.Managers;
+package app.Modele;
 
-import app.Entites.Animaux;
+import app.Modele.Entites.Animaux;
 
 public class CollisionUtil {
 
