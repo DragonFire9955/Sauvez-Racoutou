@@ -11,7 +11,7 @@ public class PouletClassique extends Animaux {
 
     @Override
     public void update(double dt) {
-
+        super.update(dt);
         this.deplacement();
         this.handleCollisions();
     }

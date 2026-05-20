@@ -1,19 +1,17 @@
 package app.Vue;
 
-import app.Modele.Entites.Animaux;
 import app.Modele.Entites.AnimauxFolder.Allies.Racoutou;
 import app.Modele.Entites.AnimauxFolder.Ennemis.PouletClassique;
+import app.Modele.Entites.Entite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import static app.Vue.image.chat;
-
-public class AnimalVue {
-    public static ImageView appliquerBonneImage(Animaux animal) {
+public class EntiteVue {
+    public static ImageView appliquerBonneImage(Entite entite) {
 
         ImageView imageView = new ImageView();
 
-        switch (animal) {
+        switch (entite) {
             case Racoutou racoutou ->
                 imageView.setImage(new Image("app/images/racoutou.png"));
             case PouletClassique pouletClassique ->
@@ -28,9 +26,9 @@ public class AnimalVue {
         imageView.setPreserveRatio(true);
         imageView.setSmooth(true);
         imageView.setCache(true);
-        imageView.setId(""+animal.getId());
-        imageView.layoutXProperty().bind(animal.getXProperty());
-        imageView.layoutYProperty().bind(animal.getYProperty());
+        imageView.setId(""+entite.getId());
+        imageView.layoutXProperty().bind(entite.getXProperty());
+        imageView.layoutYProperty().bind(entite.getYProperty());
 
         return imageView;
     }

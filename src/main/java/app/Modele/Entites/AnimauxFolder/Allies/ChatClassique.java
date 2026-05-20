@@ -8,9 +8,4 @@ public class ChatClassique extends Animaux {
         super(x, y, health, vitesse, dmg, range, w, w.getEnnemis());
     }
 
-    @Override
-    public void update(double dt) {
-
-        this.deplacement();
-    }
 }

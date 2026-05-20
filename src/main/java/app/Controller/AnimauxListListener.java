@@ -1,7 +1,7 @@
 package app.Controller;
 
 import app.Modele.Entites.Animaux;
-import app.Vue.AnimalVue;
+import app.Vue.EntiteVue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
@@ -43,7 +43,7 @@ public class AnimauxListListener implements ListChangeListener<Animaux> {
                     a= iAdd.next();*/
                 for (Animaux a: c.getAddedSubList()) {
                     System.out.println("ajout dans list");
-                    carte.getChildren().add(AnimalVue.appliquerBonneImage(a));
+                    carte.getChildren().add(EntiteVue.appliquerBonneImage(a));
                 }
             }
         }

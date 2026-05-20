@@ -1,17 +1,13 @@
 package app.Controller;
 
-import app.Modele.Entites.Animaux;
 import app.Modele.Entites.AnimauxFolder.Allies.Racoutou;
 import app.Modele.Entites.AnimauxFolder.Ennemis.PouletClassique;
-//import app.Modele.Entites.AnimauxFolder.Ennemis.PouletConservateur;
 import app.Modele.GameWorld;
 import app.Terrain;
-import app.Vue.AnimalVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -19,9 +15,6 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 import static app.Vue.image.*;
