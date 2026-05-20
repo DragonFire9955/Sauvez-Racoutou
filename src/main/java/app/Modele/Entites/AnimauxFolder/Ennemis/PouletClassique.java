@@ -12,7 +12,7 @@ public class PouletClassique extends Animaux {
 
     @Override
     public void update(double dt) {
-        System.out.println("TOUJOURS VIVANT EHEHEHH");
+        
         super.update(dt);
 
         this.deplacement();
@@ -20,6 +20,8 @@ public class PouletClassique extends Animaux {
     }
 
     public void handleCollisions() {
+
+        if (this.getWorld().getAllies().isEmpty()) return;
 
         int i = 0;
         while (!(this.getWorld().getAllies().get(i) instanceof Racoutou))
