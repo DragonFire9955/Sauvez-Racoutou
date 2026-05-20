@@ -21,26 +21,13 @@ public class AnimauxListListener implements ListChangeListener<Animaux> {
     public void onChanged(ListChangeListener.Change<? extends Animaux> c){
 
         while(c.next()) {
-            if (c.wasRemoved()) {
-                /*Iterator<? extends Animaux> iSupp = c.getRemoved().iterator();
-                while (iSupp.hasNext())  {
-                    a = iSupp.next();*/
+            if (c.wasRemoved())
                 for (Animaux a: c.getRemoved()) {
-                    /*for(int j=0;j<carte.getChildren().size();j++){
-                        if(carte.getChildren().get(j).getId()==a.getId()) {
-                            carte.getChildren().remove(j);
-                            System.out.println("ajout dans list");
-
-
-                    }*/
+                    System.out.println("Removed animaux: "+a.toString());
                     carte.getChildren().removeIf(node -> a.getId().equals(node.getId()));
                 }
 
-            }
             if (c.wasAdded()) {
-                /*Iterator<? extends Animaux> iAdd = c.getAddedSubList().iterator();
-                while (iAdd.hasNext()) {
-                    a= iAdd.next();*/
                 for (Animaux a: c.getAddedSubList()) {
                     System.out.println("ajout dans list");
                     carte.getChildren().add(EntiteVue.appliquerBonneImage(a));

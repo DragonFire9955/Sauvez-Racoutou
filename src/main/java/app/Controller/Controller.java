@@ -42,14 +42,9 @@ public class Controller implements Initializable {
     private CameraManager cameraManager;
     private Timeline gameLoop;
     private int temps;
-    private boolean jeuLance;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        jeuLance = false;
-        carte.setVisible(false);
-        carte.setDisable(true);
 
         terrainVue = new TerrainVue();
 
@@ -102,11 +97,10 @@ public class Controller implements Initializable {
                         System.out.println("fini");
                         gameLoop.stop();
                     }*/
-                    /*else*/if (temps%5==0 && jeuLance){
+                    /*else*/if (temps%5==0){
 
                         gameWorld.updateGW(temps);
 
-                        gameWorld.supprimerAnimauxMorts();
                         //cleanupViews();
                     }
                     temps++;
@@ -114,15 +108,6 @@ public class Controller implements Initializable {
         );
         gameLoop.getKeyFrames().add(kf);
     }
-
-    @FXML //Bouton "Lancer Jeu"
-    public void lancerJeu() throws IOException {
-
-        Pane gameMapLoadPane = FXMLLoader.load(getClass().getResource("/app/main.fxml"));
-        demarragePane.getChildren().setAll(gameMapLoadPane);
-    }
-
-
 
     //Fonction de test, uniquement pour les tests, A SUPPRIMER PLUS TARD
     private void remetEnnemiTest(KeyEvent event) {
