@@ -12,12 +12,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -32,6 +34,13 @@ public class Controller implements Initializable {
     @FXML private Pane carte;
     @FXML private Pane demarragePane;
     @FXML private TilePane tileMap;
+    @FXML private Pane coteDroit;
+
+    @FXML private ImageView chatClassique;
+    @FXML private ImageView chatCuisinier;
+    @FXML private ImageView chatProjectile;
+    @FXML private ImageView chatJournaliste;
+
 
     private TerrainVue terrainVue;
     private int[][] map;
@@ -53,6 +62,7 @@ public class Controller implements Initializable {
 
         carte.setVisible(false);
         carte.setDisable(true);
+        coteDroit.setVisible(false);
 
         this.map = Terrain.genererMap();
         this.terrainVue = new TerrainVue();
@@ -122,6 +132,7 @@ public class Controller implements Initializable {
         demarragePane.setVisible(false);
         demarragePane.setDisable(true);
         carte.setVisible(true);
+        coteDroit.setVisible(true);
 
         jeuLance = true;
     }
