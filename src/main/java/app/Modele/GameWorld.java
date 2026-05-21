@@ -1,6 +1,8 @@
 package app.Modele;
 
 import app.Modele.Entites.Animaux.Animaux;
+import app.Modele.Entites.Animaux.Ennemis.PouletClassique;
+import app.Modele.Entites.Animaux.Ennemis.PouletMenotte;
 import app.Modele.Managers.AlliesManager;
 import app.Modele.Managers.EnnemyManager;
 import javafx.beans.property.BooleanProperty;
@@ -92,5 +94,16 @@ public class GameWorld {
 
     public void changeStateTheEnd(){
         theEnd.set(!theEnd.getValue());
+    }
+
+
+    public ArrayList<Animaux> lAnimaux(int nbClassique, int nbMenotte){
+        ArrayList<Animaux> l = new ArrayList<>();
+        for(int i=0; i<nbClassique; i++)
+            l.add(new PouletClassique(this));
+
+        for(int i=0; i<nbMenotte; i++)
+            l.add(new PouletMenotte(this));
+        return l;
     }
 }
