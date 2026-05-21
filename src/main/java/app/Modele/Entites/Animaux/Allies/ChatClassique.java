@@ -1,6 +1,7 @@
 package app.Modele.Entites.Animaux.Allies;
 
 import app.Modele.Entites.Animaux.Animaux;
+import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 
 public class ChatClassique extends Animaux {
@@ -8,4 +9,7 @@ public class ChatClassique extends Animaux {
         super(x, y, health, vitesse, dmg, range, w, w.getEnnemis());
     }
 
+    public Entite getCible(){
+        return null;
+    }
 }

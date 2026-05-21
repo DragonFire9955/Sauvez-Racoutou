@@ -3,6 +3,8 @@ package app.Modele;
 import app.Modele.Entites.Animaux.Animaux;
 import app.Modele.Managers.AlliesManager;
 import app.Modele.Managers.EnnemyManager;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,6 +14,7 @@ import java.util.List;
 public class GameWorld {
     private Terrain terrain;
     private ObservableList<Animaux> animauxList;
+    private BooleanProperty theEnd;
 
     private AlliesManager allies;
     private EnnemyManager ennemis;
@@ -22,7 +25,7 @@ public class GameWorld {
         ennemis = new EnnemyManager();
         animauxList = FXCollections.observableArrayList();
         animauxList.addAll(ennemis.getAnimaux());
-
+        theEnd= new SimpleBooleanProperty(false);
     }
 
     public void updateGW(double dt) {
@@ -36,6 +39,7 @@ public class GameWorld {
 
         supprimerAnimauxMorts();
     }
+
 
     public void ajouterAllie(Animaux a){
 
@@ -80,5 +84,13 @@ public class GameWorld {
 
     public ObservableList<Animaux> getAnimaux() {
         return animauxList;
+    }
+
+    public BooleanProperty getTheEnd(){
+        return theEnd;
+    }
+
+    public void changeStateTheEnd(){
+        theEnd.set(!theEnd.getValue());
     }
 }

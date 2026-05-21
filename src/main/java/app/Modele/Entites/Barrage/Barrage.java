@@ -20,4 +20,8 @@ public abstract class Barrage extends Entite {
 
     public void setTaille(double t){taille=t;}
 
+    public Entite getCible(){
+        return null;
+    }
+
 }

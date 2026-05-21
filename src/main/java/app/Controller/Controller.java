@@ -55,6 +55,7 @@ public class Controller implements Initializable {
 
         //Initialisation des Managers
         gameWorld = new GameWorld();
+        gameWorld.getTheEnd().addListener((obs, oldV, newV) -> gameLoop.stop());
         cameraManager = new CameraManager(gamePane, carte, tileMap);
         cameraManager.initialiserCamera();
 
@@ -87,25 +88,12 @@ public class Controller implements Initializable {
         temps=0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
-        KeyFrame kf = new KeyFrame(
-                // on définit le FPS (nbre de frame par seconde)
-                Duration.seconds(0.017),
-                // on définit ce qui se passe à chaque frame
-                // c'est un eventHandler d'ou le lambda
-                (ev ->{
-                    /*if(temps==100){
-                        System.out.println("fini");
-                        gameLoop.stop();
-                    }*/
-                    /*else*/if (temps%5==0){
-
-                        gameWorld.updateGW(temps);
-
-                        //cleanupViews();
-                    }
-                    temps++;
-                })
-        );
+        KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
+            if (temps%5==0){
+                gameWorld.updateGW(temps);
+            }
+            temps++;
+        }));
         gameLoop.getKeyFrames().add(kf);
     }
 

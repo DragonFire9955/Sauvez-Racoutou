@@ -33,7 +33,7 @@ public abstract class Entite {
         alive = true;
     }
     public void update(double dt){
-        this.handleCollisions();
+        this.handleCollisions(getCible());
     }
 
     public void setDamage(double damage) {
@@ -91,17 +91,18 @@ public abstract class Entite {
     }
 
     public boolean intersects(Entite b) {
+
         int RADIUS =32;
         double dx = (x.get()+RADIUS/2) - (b.getX()+RADIUS/2);
         double dy = (y.get()+RADIUS/2) - (b.getY()+RADIUS/2);
         return dx * dx + dy * dy < RADIUS * RADIUS;
     }
 
-    public void handleCollisions() {
+    public abstract Entite getCible();
 
-        Entite cible = this.getWorld().getAllies().getFirst();
+    public void handleCollisions(Entite cible) {
 
-        if(this.equals(cible)) return;
+        if(this.equals(cible) || cible==null) return;
 
         if (intersects(cible)){
             System.out.println("touche !");

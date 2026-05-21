@@ -1,12 +1,16 @@
 package app.Modele.Entites.Animaux.Ennemis;
 
+import app.Modele.Entites.Animaux.Allies.Racoutou;
+import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Entites.Animaux.Animaux;
 import app.Modele.CollisionUtil;
 
+import java.util.List;
+
 public class PouletClassique extends Animaux {
     public PouletClassique(GameWorld w) {
-        super(400, 200, 6, 10, 10, 5, w, w.getAllies());
+        super(400, 200, 6, 10, 1, 5, w, w.getAllies());
     }
 
     @Override
@@ -15,5 +19,18 @@ public class PouletClassique extends Animaux {
         this.deplacement();
     }
 
+    @Override
+    public Entite getCible() {
 
+        List<Animaux> allies= getWorld().getAllies();
+        int i=0;
+        while(i<allies.size() && !(allies.get(i) instanceof Racoutou))
+            i++;
+
+        if(i==allies.size()) {
+            getWorld().changeStateTheEnd();
+            return null;
+        }
+        return allies.get(i);
+    }
 }
