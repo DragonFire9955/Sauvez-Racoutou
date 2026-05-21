@@ -33,31 +33,33 @@ public class GameWorld {
         for (Animaux animaux : ennemis.getAnimaux()) {
             animaux.update(dt);
         }
+
+        supprimerAnimauxMorts();
     }
 
     public void ajouterAllie(Animaux a){
+
         allies.getAnimaux().add(a);
         animauxList.add(a);
     }
 
     public void ajouterEnnemi(Animaux a){
+
         ennemis.getAnimaux().add(a);
         animauxList.add(a);
     }
 
     public void supprimerAnimal(Animaux a){
+
         allies.getAnimaux().remove(a);
         ennemis.getAnimaux().remove(a);
         animauxList.remove(a);
     }
 
     public void supprimerAnimauxMorts() {
-
-        List<Animaux> morts = new ArrayList<>();
-        for(int i=animauxList.size()-1;i>=0;i--) {
+        for(int i=animauxList.size()-1;i>=0;i--)
             if (!animauxList.get(i).isAlive())
-                animauxList.remove(i);
-        }
+                supprimerAnimal(animauxList.get(i));
     }
 
     public List<Animaux> getAllies() {
