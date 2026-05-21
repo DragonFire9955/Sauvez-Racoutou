@@ -2,6 +2,7 @@ package app.Modele.Entites;
 
 import app.Modele.CollisionUtil;
 import app.Modele.GameWorld;
+import app.Modele.Utilitaire;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
@@ -14,19 +15,21 @@ public abstract class Entite {
     private GameWorld world;
 
     private DoubleProperty x, y;
+    private double range;
     private double damage;
     private boolean alive;
 
     private DoubleProperty health = new SimpleDoubleProperty();
     private final double maxHealth;
 
-    protected Entite(double x, double y, double health, double dmg, GameWorld w) {
+    protected Entite(double x, double y, double health, double range, double dmg, GameWorld w) {
         this.id=nbId;
         nbId++;
         this.x = new SimpleDoubleProperty(x);
         this.y = new SimpleDoubleProperty(y);
         this.health.set(health);
         this.maxHealth = health;
+        this.range = range;
         this.damage=dmg;
         this.world=w;
 
@@ -90,13 +93,13 @@ public abstract class Entite {
         this.setY(y);
     }
 
-    public boolean intersects(Entite b) {
-
-        int RADIUS =32;
-        double dx = (x.get()+RADIUS/2) - (b.getX()+RADIUS/2);
-        double dy = (y.get()+RADIUS/2) - (b.getY()+RADIUS/2);
-        return dx * dx + dy * dy < RADIUS * RADIUS;
+    public double getRange() {
+        return range;
     }
+    public void setRange(double range) {
+        this.range = range;
+    }
+
 
     public abstract Entite getCible();
 
@@ -104,12 +107,16 @@ public abstract class Entite {
 
         if(this.equals(cible) || cible==null) return;
 
-        if (intersects(cible)){
+        if (Utilitaire.intersects(this, cible)){
             System.out.println("touche !");
-            cible.setHealth(cible.getHealthProperty().getValue()-this.damage);
+            attaquer();
             this.destroy();
         }
     }
+
+    public abstract void attaquer();
+
+
 
 
 

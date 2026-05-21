@@ -13,19 +13,13 @@ public abstract class Animaux extends Entite {
     private List<Animaux> listeCibles;
 
     private double vitesse;
-    private double range;
 
-    public Animaux(double x, double y, double health, double vitesse, double dmg, double range, GameWorld w, List<Animaux> l) {
-        super(x, y, health, dmg, w);
+    public Animaux(double x, double y, double health, double vitesse, double r, double dmg, GameWorld w, List<Animaux> l) {
+        super(x, y, health, r, dmg, w);
         this.vitesse = vitesse;
-        this.range = range;
         this.listeCibles=l;
     }
-    //Appelle les fonctions d'actions de l'animal tous les dt (fréquence d'action)
-    public void update(double dt){
-        super.update(dt);
-        this.attaque();
-    }
+
 
     public void setVitesse(double vitesse) {
         this.vitesse = vitesse;
@@ -33,18 +27,6 @@ public abstract class Animaux extends Entite {
     public double getVitesse() {
         return vitesse;
     }
-
-    public double getRange() {
-        return range;
-    }
-    public void setRange(double range) {
-        this.range = range;
-    }
-
-
-
-
-
 
     public void deplacement() {
 
@@ -95,7 +77,8 @@ public abstract class Animaux extends Entite {
         int i;
         for(Animaux a: this.listeCibles){
             //Si a dans le rayon d'action
-            if(Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())<=range) {
+            if(Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())<=getRange()) {
+                System.out.println("c");
                 i = 0;
                 //Tant que distance supérieur ET pv supérieur
                 while(Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())
@@ -109,22 +92,24 @@ public abstract class Animaux extends Entite {
     }
 
     public void estAttaque(double damage){
-        /*if(health.getValue()-damage>0)
-            health.set(health.getValue()-damage);
-        else {
-            health.set(0);
-            this.destroy();
-        }*/
-        setDamage(super.getHealthProperty().getValue()-damage);
+
+        setHealth(super.getHealthProperty().getValue()-damage);
+
     }
-    public void attaque(){
-        if(!this.getCiblesAccessibles().isEmpty())
-            this.getCiblesAccessibles().get(0).estAttaque(getDamage());
+
+    public void attaquer(){
+
+        if(this.getCiblesAccessibles().isEmpty()) return;
+
+        this.getCiblesAccessibles().getFirst().estAttaque(getDamage());
+        System.out.println( this.getCiblesAccessibles().getFirst() );
     }
 
     public List<Animaux> getListeCibles(){
         return this.listeCibles;
     }
+
+
 
 
 }

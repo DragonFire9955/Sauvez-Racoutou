@@ -1,6 +1,7 @@
 package app.Modele;
 
 import app.Modele.Entites.Animaux.Animaux;
+import app.Modele.Entites.Entite;
 
 public class Utilitaire {
 
@@ -8,7 +9,7 @@ public class Utilitaire {
         return Math.sqrt((x1-x2)*(x1-x2) + (y1 -y2)*(y1-y2));
     }
 
-    public static boolean intersects(Animaux a, Animaux b) {
+    public static boolean intersects(Entite a, Entite b) {
         double dx = (a.getX()+a.getRange()/2) - (b.getX()+a.getRange()/2);
         double dy = (a.getY()+a.getRange()/2) - (b.getY()+a.getRange()/2);
         return dx * dx + dy * dy < Math.pow(a.getRange(), 2);

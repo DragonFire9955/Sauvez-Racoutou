@@ -5,11 +5,14 @@ import app.Modele.GameWorld;
 
 public class Poubelle extends Barrage {
 
-    public Poubelle(double x, double y, double health, GameWorld w){
-        super(x, y, health, w, 10);
+    public Poubelle(double x, double y, double health, double r, GameWorld w){
+        super(x, y, health, r, w, 10);
         //rendre static la taille?
     }
 
 
+    @Override
+    public void attaquer() {
 
+    }
 }
