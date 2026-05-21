@@ -96,7 +96,7 @@ public class GameWorld {
         theEnd.set(!theEnd.getValue());
     }
 
-
+//Ren
     public ArrayList<Animaux> lAnimaux(int nbClassique, int nbMenotte){
         ArrayList<Animaux> l = new ArrayList<>();
         for(int i=0; i<nbClassique; i++)

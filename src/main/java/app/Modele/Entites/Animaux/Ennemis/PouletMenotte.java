@@ -4,7 +4,17 @@ import app.Modele.GameWorld;
 
 public class PouletMenotte extends PouletClassique{
 
+    private static int nbVictimes=1;
+    private static int tempsAction=2;
+
     public PouletMenotte(GameWorld w){
         super(w);
+    }
+
+    @Override
+    public void attaquer(){
+        super.attaquer();
+        //IMMOBILISE nbVictimes pendant tempsAction
+
     }
 }
