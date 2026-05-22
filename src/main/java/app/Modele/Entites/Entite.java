@@ -1,12 +1,9 @@
 package app.Modele.Entites;
 
-import app.Modele.CollisionUtil;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaire;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-
-import java.util.List;
 
 public abstract class Entite {
 
@@ -22,11 +19,11 @@ public abstract class Entite {
     private DoubleProperty health = new SimpleDoubleProperty();
     private final double maxHealth;
 
-    protected Entite(double x, double y, double health, double range, double dmg, GameWorld w) {
+    protected Entite(double[] coord, double health, double range, double dmg, GameWorld w) {
         this.id=nbId;
         nbId++;
-        this.x = new SimpleDoubleProperty(x);
-        this.y = new SimpleDoubleProperty(y);
+        this.x = new SimpleDoubleProperty(coord[0]);
+        this.y = new SimpleDoubleProperty(coord[1]);
         this.health.set(health);
         this.maxHealth = health;
         this.range = range;
@@ -107,9 +104,8 @@ public abstract class Entite {
 
         if(this.equals(cible) || cible==null) return;
 
-        if (Utilitaire.intersects(this, cible)){
-            System.out.println("touche !");
-            attaquer();
+        if (Utilitaire.intersects(cible, this)){
+            cible.setHealth(cible.getHealthProperty().getValue()-this.getDamage());
             this.destroy();
         }
     }

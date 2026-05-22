@@ -5,8 +5,8 @@ import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 
 public class ChatClassique extends Animaux {
-    public ChatClassique(double x, double y, double health, double vitesse, double dmg, double range, GameWorld w) {
-        super(x, y, health, vitesse, dmg, range, w, w.getEnnemis());
+    public ChatClassique(double[] coord, double health, double vitesse, double dmg, double range, GameWorld w) {
+        super(coord, health, vitesse, dmg, range, w, w.getEnnemis());
     }
 
     public Entite getCible(){

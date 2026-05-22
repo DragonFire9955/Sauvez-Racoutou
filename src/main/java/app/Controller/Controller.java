@@ -3,24 +3,20 @@ package app.Controller;
 import app.Modele.Entites.Animaux.Allies.Racoutou;
 import app.Modele.Entites.Animaux.Ennemis.PouletClassique;
 import app.Modele.GameWorld;
+import app.Modele.Managers.EnnemisSpawn;
 import app.Modele.Terrain;
 import app.Vue.TerrainVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import static javafx.geometry.Pos.CENTER;
 
 public class Controller implements Initializable {
 
@@ -63,12 +59,13 @@ public class Controller implements Initializable {
         //TEMPORAIRE, A DELET
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte));
         gameWorld.ajouterAllie(new Racoutou(gameWorld));
-        gameWorld.ajouterEnnemi(new PouletClassique(gameWorld));
+        gameWorld.ajouterEnnemi(new PouletClassique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
 
 
         initAnimation();
         // demarre l'animation
         gameLoop.play();
+
 
         gamePane.sceneProperty().addListener((observable, oldValue, newValue) -> {
 
@@ -89,9 +86,7 @@ public class Controller implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
-            if (temps%5==0){
-                gameWorld.updateGW(temps);
-            }
+            gameWorld.updateGW(temps);
             temps++;
         }));
         gameLoop.getKeyFrames().add(kf);
@@ -104,7 +99,7 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau PouletClassique");
 
-            gameWorld.ajouterEnnemi(new PouletClassique(gameWorld));
+            gameWorld.ajouterEnnemi(new PouletClassique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
         }
     }
 

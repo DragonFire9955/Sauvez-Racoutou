@@ -4,13 +4,17 @@ import app.Modele.Entites.Animaux.Allies.Racoutou;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Entites.Animaux.Animaux;
-import app.Modele.CollisionUtil;
 
 import java.util.List;
 
 public class PouletClassique extends Animaux {
-    public PouletClassique(GameWorld w) {
-        super(400, 200, 6, 10, 1, 5, w, w.getAllies());
+    public PouletClassique(double[] coord, GameWorld w) {
+        super(coord, 6, 3, 1, 1, w, w.getAllies());
+    }
+
+    public PouletClassique( GameWorld w) {
+        super(new double[]{200, 200}, 6, 10, 1, 5, w, w.getAllies());
+
     }
 
     @Override
@@ -31,6 +35,7 @@ public class PouletClassique extends Animaux {
             getWorld().changeStateTheEnd();
             return null;
         }
+
         return allies.get(i);
     }
 }

@@ -14,8 +14,8 @@ public abstract class Animaux extends Entite {
 
     private double vitesse;
 
-    public Animaux(double x, double y, double health, double vitesse, double r, double dmg, GameWorld w, List<Animaux> l) {
-        super(x, y, health, r, dmg, w);
+    public Animaux(double[] coord, double health, double vitesse, double r, double dmg, GameWorld w, List<Animaux> l) {
+        super(coord, health, r, dmg, w);
         this.vitesse = vitesse;
         this.listeCibles=l;
     }

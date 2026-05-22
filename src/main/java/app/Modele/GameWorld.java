@@ -1,5 +1,6 @@
 package app.Modele;
 
+import app.Modele.Entites.Animaux.Allies.Racoutou;
 import app.Modele.Entites.Animaux.Animaux;
 import app.Modele.Entites.Animaux.Ennemis.PouletClassique;
 import app.Modele.Entites.Animaux.Ennemis.PouletMenotte;
@@ -17,21 +18,30 @@ public class GameWorld {
     private Terrain terrain;
     private ObservableList<Animaux> animauxList;
     private BooleanProperty theEnd;
+    private int[][] map;
+    private final int tailleTile =32;
 
     private AlliesManager allies;
     private EnnemyManager ennemis;
 
     public GameWorld(){
         terrain=new Terrain();
+        map= Terrain.genererMap();
         allies= new AlliesManager();
         ennemis = new EnnemyManager();
         animauxList = FXCollections.observableArrayList();
         animauxList.addAll(ennemis.getAnimaux());
         theEnd= new SimpleBooleanProperty(false);
     }
+    public int[][] getMap(){
+        return map;
+    }
 
+    public int getTailleTile(){
+        return tailleTile;
+    }
     public void updateGW(double dt) {
-        for (Animaux animaux : allies.getAnimaux()) {
+        /*for (Animaux animaux : allies.getAnimaux()) {
             animaux.update(dt);
         }
 
@@ -39,7 +49,12 @@ public class GameWorld {
             animaux.update(dt);
         }
 
+         */
+        for(Animaux a: animauxList){
+            a.update(dt);
+        }
         supprimerAnimauxMorts();
+
     }
 
 
@@ -56,16 +71,19 @@ public class GameWorld {
     }
 
     public void supprimerAnimal(Animaux a){
-
         allies.getAnimaux().remove(a);
         ennemis.getAnimaux().remove(a);
         animauxList.remove(a);
+        
     }
 
     public void supprimerAnimauxMorts() {
-        for(int i=animauxList.size()-1;i>=0;i--)
-            if (!animauxList.get(i).isAlive())
+        for(int i=animauxList.size()-1;i>=0;i--) {
+            if (!animauxList.get(i).isAlive()) {
                 supprimerAnimal(animauxList.get(i));
+
+            }
+        }
     }
 
     public List<Animaux> getAllies() {
@@ -96,14 +114,5 @@ public class GameWorld {
         theEnd.set(!theEnd.getValue());
     }
 
-//Ren
-    public ArrayList<Animaux> lAnimaux(int nbClassique, int nbMenotte){
-        ArrayList<Animaux> l = new ArrayList<>();
-        for(int i=0; i<nbClassique; i++)
-            l.add(new PouletClassique(this));
 
-        for(int i=0; i<nbMenotte; i++)
-            l.add(new PouletMenotte(this));
-        return l;
-    }
 }
