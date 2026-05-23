@@ -1,7 +1,10 @@
-package app.Modele;
+package app.Modele.Utilitaires;
 
-import app.Modele.Entites.Animaux.Animaux;
 import app.Modele.Entites.Entite;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Utilitaire {
 
