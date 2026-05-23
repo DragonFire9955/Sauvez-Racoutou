@@ -1,12 +1,9 @@
 package app.Modele.Entites;
 
-import app.Modele.CollisionUtil;
 import app.Modele.GameWorld;
-import app.Modele.Utilitaire;
+import app.Modele.Utilitaires.Utilitaire;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-
-import java.util.List;
 
 public abstract class Entite {
 
@@ -115,9 +112,5 @@ public abstract class Entite {
     }
 
     public abstract void attaquer();
-
-
-
-
 
 }

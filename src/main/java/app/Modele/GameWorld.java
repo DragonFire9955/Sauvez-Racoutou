@@ -12,15 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameWorld {
-    private Terrain terrain;
+
     private ObservableList<Animaux> animauxList;
     private BooleanProperty theEnd;
 
     private AlliesManager allies;
     private EnnemyManager ennemis;
 
+    private int[][] map;
+
     public GameWorld(){
-        terrain=new Terrain();
+
+        map = Terrain.genererMap();
         allies= new AlliesManager();
         ennemis = new EnnemyManager();
         animauxList = FXCollections.observableArrayList();
@@ -92,5 +95,9 @@ public class GameWorld {
 
     public void changeStateTheEnd(){
         theEnd.set(!theEnd.getValue());
+    }
+
+    public int[][] getMap() {
+        return map;
     }
 }

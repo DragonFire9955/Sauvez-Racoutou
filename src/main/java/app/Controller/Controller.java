@@ -35,7 +35,6 @@ public class Controller implements Initializable {
     private TerrainVue terrainVue;
 
     //MODELE
-    private int[][] map;
     private GameWorld gameWorld;
 
     //CONTROLEUR
@@ -46,19 +45,16 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        terrainVue = new TerrainVue();
-
-        this.map = Terrain.genererMap();
-        terrainVue.delimitationMap(tileMap);
-
-        terrainVue.couleurMap(tileMap, map);
-
         //Initialisation des Managers
         gameWorld = new GameWorld();
         gameWorld.getTheEnd().addListener((obs, oldV, newV) -> gameLoop.stop());
         cameraManager = new CameraManager(gamePane, carte, tileMap);
         cameraManager.initialiserCamera();
 
+
+        terrainVue = new TerrainVue();
+        terrainVue.delimitationMap(tileMap);
+        terrainVue.couleurMap(tileMap, gameWorld.getMap());
 
         //TEMPORAIRE, A DELET
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte));
@@ -89,9 +85,7 @@ public class Controller implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
-            if (temps%5==0){
-                gameWorld.updateGW(temps);
-            }
+            gameWorld.updateGW(temps);
             temps++;
         }));
         gameLoop.getKeyFrames().add(kf);

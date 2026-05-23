@@ -2,7 +2,7 @@ package app.Modele.Entites.Animaux;
 
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
-import app.Modele.Utilitaire;
+import app.Modele.Utilitaires.Utilitaire;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ public abstract class Animaux extends Entite {
         double dy = cible.getY() - this.getY();
         double dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < 2) {return;}
+        if (dist < 2) return;
 
         dx /= dist;
         dy /= dist;
