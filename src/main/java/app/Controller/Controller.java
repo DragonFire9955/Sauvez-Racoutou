@@ -1,6 +1,7 @@
 package app.Controller;
 
 import app.Modele.Entites.Animaux.Allies.Racoutou;
+import app.Modele.Entites.Animaux.Ennemis.PouletBouclier;
 import app.Modele.Entites.Animaux.Ennemis.PouletClassique;
 import app.Modele.GameWorld;
 import app.Modele.Managers.EnnemisSpawn;
@@ -11,6 +12,8 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
@@ -20,14 +23,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+import static javafx.geometry.Pos.CENTER;
 
-    //Menu fxml loader
-    public Pane menuFXMLLoader = MenuController.stock;
+public class Controller implements Initializable {
 
     // VUE
     @FXML private BorderPane applicationPane;
-
     @FXML private Pane gamePane;
     @FXML private Pane carte;
     @FXML private Pane demarragePane;
@@ -35,6 +36,10 @@ public class Controller implements Initializable {
     @FXML private TilePane tileMap;
 
     private TerrainVue terrainVue;
+    private boolean enPause = false;
+
+    private boolean modePlacement = false;
+    private int aPlacer = -1;
 
     //MODELE
     private int[][] map;
@@ -53,7 +58,7 @@ public class Controller implements Initializable {
         this.map = Terrain.genererMap();
         terrainVue.delimitationMap(tileMap);
 
-        terrainVue.couleurMap(tileMap, map);
+        remplirMap();
 
         //Initialisation des Managers
         gameWorld = new GameWorld();
@@ -64,26 +69,12 @@ public class Controller implements Initializable {
 
         //TEMPORAIRE, A DELET
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte));
-        gameWorld.ajouterAllie(new Racoutou(gameWorld));
-        gameWorld.ajouterEnnemi(new PouletClassique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
-
+        gameWorld.ajouterAnimal(new Racoutou(gameWorld));
+        gameWorld.ajouterAnimal(new PouletClassique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
 
         initAnimation();
         // demarre l'animation
         gameLoop.play();
-        gameWorld.getTheEnd().addListener((observable, oldValue, newValue) ->{
-            gameLoop.stop();
-
-            /*try {
-                menuFXMLLoader = FXMLLoader.load(getClass().getResource("/app/starting.fxml"));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-             */
-
-            applicationPane.getScene().setRoot(menuFXMLLoader);
-        });
 
         gamePane.sceneProperty().addListener((observable, oldValue, newValue) -> {
 
@@ -97,6 +88,75 @@ public class Controller implements Initializable {
             });
         });
     }
+
+    @FXML
+    private void pause(){
+        if (enPause){
+            gameLoop.play();
+        } else {
+            gameLoop.pause();
+        }
+
+        enPause = !enPause;
+        gamePane.requestFocus();
+    }
+
+    @FXML
+    private void placerPoubelle(){
+        modePlacement = true;
+        aPlacer = 100;
+    }
+
+    @FXML
+    private void placerChatClassique(){
+        modePlacement = true;
+        aPlacer = 101;
+    }
+
+    @FXML
+    private void placerChatProjectiles(){
+        modePlacement = true;
+        aPlacer = 102;
+    }
+
+    @FXML
+    private void placerChatJournaliste(){
+        modePlacement = true;
+        aPlacer = 103;
+    }
+
+    private void remplirMap(){
+        tileMap.getChildren().clear();
+
+        for(int l = 0; l < map.length; l++){
+            int ligne = l;
+            for(int c = 0; c < map[l].length; c++){
+                int colonne = c;
+
+                ImageView cases = terrainVue.creerCase(map[l][c]);
+
+                cases.setOnMouseClicked(e -> {
+                    if (modePlacement){
+                        if (map[ligne][colonne] == 0){
+                            map[ligne][colonne] = aPlacer;
+                            modePlacement = false;
+
+                            remplirMap();
+                        } else {
+                            System.out.println("Impossible de placer ici");
+                        }
+                    }
+                });
+
+                tileMap.getChildren().add(cases);
+
+            }
+        }
+
+        gamePane.requestFocus();
+
+    }
+
 
     private void initAnimation() {
         gameLoop = new Timeline();
@@ -117,7 +177,17 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau PouletClassique");
 
-            gameWorld.ajouterEnnemi(new PouletClassique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+            gameWorld.ajouterAnimal(new PouletClassique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+        } else if (event.getCode() == KeyCode.A) {
+
+            System.out.println("nouveau Racoutou");
+
+            gameWorld.ajouterAnimal(new Racoutou(gameWorld));
+        } else if (event.getCode() == KeyCode.R) {
+
+            System.out.println("nouveau PouletBouclier");
+
+            gameWorld.ajouterAnimal(new PouletBouclier(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
         }
     }
 

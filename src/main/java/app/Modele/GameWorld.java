@@ -1,9 +1,10 @@
 package app.Modele;
 
+import app.Modele.Entites.Animaux.Allies.ChatClassique;
 import app.Modele.Entites.Animaux.Allies.Racoutou;
 import app.Modele.Entites.Animaux.Animaux;
 import app.Modele.Entites.Animaux.Ennemis.PouletClassique;
-import app.Modele.Entites.Animaux.Ennemis.PouletMenotte;
+import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Managers.AlliesManager;
 import app.Modele.Managers.EnnemyManager;
 import javafx.beans.property.BooleanProperty;
@@ -15,93 +16,78 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameWorld {
-    private Terrain terrain;
     private ObservableList<Animaux> animauxList;
+    private ObservableList<Barrage>  barrageList;
     private BooleanProperty theEnd;
+
     private int[][] map;
     private final int tailleTile =32;
 
-    private AlliesManager allies;
-    private EnnemyManager ennemis;
-
     public GameWorld(){
-        terrain=new Terrain();
-        map= Terrain.genererMap();
-        allies= new AlliesManager();
-        ennemis = new EnnemyManager();
+        map = Terrain.genererMap();
         animauxList = FXCollections.observableArrayList();
-        animauxList.addAll(ennemis.getAnimaux());
+        barrageList = FXCollections.observableArrayList();
         theEnd= new SimpleBooleanProperty(false);
     }
-    public int[][] getMap(){
-        return map;
-    }
 
-    public int getTailleTile(){
-        return tailleTile;
-    }
     public void updateGW(double dt) {
-        /*for (Animaux animaux : allies.getAnimaux()) {
+        for (Animaux animaux : animauxList) {
             animaux.update(dt);
         }
 
-        for (Animaux animaux : ennemis.getAnimaux()) {
-            animaux.update(dt);
+        for (Barrage barrage : barrageList) {
+            barrage.update(dt);
         }
 
-         */
-        for(Animaux a: animauxList){
-            a.update(dt);
-        }
         supprimerAnimauxMorts();
-
     }
 
-
-    public void ajouterAllie(Animaux a){
-
-        allies.getAnimaux().add(a);
-        animauxList.add(a);
-    }
-
-    public void ajouterEnnemi(Animaux a){
-
-        ennemis.getAnimaux().add(a);
+    public void ajouterAnimal(Animaux a) {
         animauxList.add(a);
     }
 
     public void supprimerAnimal(Animaux a){
-        allies.getAnimaux().remove(a);
-        ennemis.getAnimaux().remove(a);
         animauxList.remove(a);
-        if(a instanceof Racoutou) {
-            changeStateTheEnd();
-        }
     }
 
     public void supprimerAnimauxMorts() {
         for(int i=animauxList.size()-1;i>=0;i--) {
+            System.out.println("boucle for");
             if (!animauxList.get(i).isAlive()) {
+                System.out.println("condition if");
                 supprimerAnimal(animauxList.get(i));
-
             }
         }
     }
 
     public List<Animaux> getAllies() {
-        return allies.getAnimaux();
+        List<Animaux> allies = new ArrayList<>();
+
+        for (Animaux animal : animauxList)
+            if (animal instanceof ChatClassique || animal instanceof Racoutou)
+                allies.add(animal);
+
+        return allies;
     }
 
     public List<Animaux> getEnnemis() {
-        return ennemis.getAnimaux();
+        List<Animaux> ennemis = new ArrayList<>();
+
+        for (Animaux animal : animauxList)
+            if (animal instanceof PouletClassique)
+                ennemis.add(animal);
+
+        return ennemis;
     }
 
-    public void setAllies(AlliesManager allies) {
-        this.allies = allies;
+    public void ajouterBarrage(Barrage b) {
+        barrageList.add(b);
     }
-
-    public void setEnnemis(EnnemyManager ennemis) {
-        this.ennemis = ennemis;
+    public void supprimerBarrage(Barrage b) {
+        barrageList.remove(b);
+    }
+    public ObservableList<Barrage> getBarrage() {
+        return barrageList;
     }
 
     public ObservableList<Animaux> getAnimaux() {
@@ -116,5 +102,11 @@ public class GameWorld {
         theEnd.set(!theEnd.getValue());
     }
 
+    public int[][] getMap() {
+        return map;
+    }
 
+    public int getTailleTile(){
+        return tailleTile;
+    }
 }

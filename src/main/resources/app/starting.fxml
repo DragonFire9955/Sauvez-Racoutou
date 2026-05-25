@@ -10,7 +10,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="demarragePane" fx:controller="app.Controller.MenuController" prefHeight="899.0" prefWidth="1408.0" style="-fx-background-color: cyan;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="demarragePane" fx:controller="app.Controller.MenuController" prefHeight="899.0" prefWidth="1408.0" style="-fx-background-color: cyan;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER" prefHeight="901.0" prefWidth="1411.0" spacing="100.0">
          <children>

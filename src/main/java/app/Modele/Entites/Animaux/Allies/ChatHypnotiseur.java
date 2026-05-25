@@ -3,7 +3,11 @@ package app.Modele.Entites.Animaux.Allies;
 import app.Modele.GameWorld;
 
 public class ChatHypnotiseur extends ChatClassique {
-    public ChatHypnotiseur(double[] coord, double health, double vitesse, double dmg, double range, GameWorld w) {
-        super(coord, health, vitesse, dmg, range, w);
+    private double tempsDirscours;
+
+    public ChatHypnotiseur(double[] coord, GameWorld w) {
+
+        super(coord, 6, 0, 10, 1, 1, w);
+        this.tempsDirscours = 50;
     }
 }

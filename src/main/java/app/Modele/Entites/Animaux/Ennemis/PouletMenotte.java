@@ -13,7 +13,7 @@ public class PouletMenotte extends PouletClassique{
 
     @Override
     public void attaquer(){
-        super.attaquer();
+
         //getCiblesAccessibles().getFirst().stun
     }
 }

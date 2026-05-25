@@ -1,8 +1,7 @@
 package app.Modele.Entites;
 
 import app.Modele.GameWorld;
-import app.Modele.Utilitaire;
-import javafx.animation.Timeline;
+import app.Modele.Utilitaires.Utilitaire;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
@@ -12,49 +11,65 @@ public abstract class Entite {
     private int id;
     private GameWorld world;
 
+    private boolean coll;
+
     private DoubleProperty x, y;
     private double range;
     private double damage;
-    private boolean alive;
-
+    private double freqAtk;
 
     private DoubleProperty health = new SimpleDoubleProperty();
     private final double maxHealth;
+    private boolean alive;
 
-    protected Entite(double[] coord, double health, double range, double dmg, GameWorld w) {
+
+    protected Entite(double coord[], double health, double range, double dmg, double freqAtk, GameWorld w) {
         this.id=nbId;
         nbId++;
+
+        coll = false;
+
         this.x = new SimpleDoubleProperty(coord[0]);
         this.y = new SimpleDoubleProperty(coord[1]);
         this.health.set(health);
         this.maxHealth = health;
         this.range = range;
         this.damage=dmg;
+        this.freqAtk=freqAtk;
         this.world=w;
 
-        alive = true;
 
+        alive = true;
     }
     public void update(double dt){
-        this.handleCollisions(getCible());
+        this.handleCollisions(getCible(), dt);
     }
 
-    public void setDamage(double damage) {
-        this.damage = damage;
+    public void handleCollisions(Entite cible, double dt) {
+
+        if(this.equals(cible) || cible==null) return;
+
+        if (Utilitaire.intersects(cible, this)){
+
+            coll = true;
+
+            if (dt%(getFreqAtk()*60) == 0) {
+                System.out.println("attaque !");
+                attaquer();
+            }
+
+        } else {
+            coll = false;
+        }
+
     }
-    public double getDamage() {
-        return damage;
+
+    protected void setPosition(double x, double y) {
+        this.setX(x);
+        this.setY(y);
     }
 
-    public void destroy() {
-        alive = false;
-    }
-
-    public boolean isAlive() {
-        return alive;
-    }   //servira pr le clear
-
-
+    public abstract void attaquer();
 
     public String getId() {
         return ""+id;
@@ -62,17 +77,8 @@ public abstract class Entite {
 
     public GameWorld getWorld() {return world;}
 
-    public DoubleProperty getHealthProperty() {
-        return health;
-    }
-
-    public void setHealth(double value) {
-        health.set(Math.max(0, value));
-        if (value <= 0) destroy();
-    }
-
-    public double getMaxHealth() {
-        return maxHealth;
+    public boolean isColl() {
+        return coll;
     }
 
     public DoubleProperty getXProperty() {
@@ -90,11 +96,6 @@ public abstract class Entite {
         this.y.setValue(y);
     }
 
-    protected void setPosition(double x, double y) {
-        this.setX(x);
-        this.setY(y);
-    }
-
     public double getRange() {
         return range;
     }
@@ -102,23 +103,45 @@ public abstract class Entite {
         this.range = range;
     }
 
+    public void setDamage(double damage) {
+        this.damage = damage;
+    }
+    public double getDamage() {
+        return damage;
+    }
 
-    public abstract Entite getCible();
+    public double getFreqAtk() {
+        return freqAtk;
+    }
+    public void setFreqAtk(double freqAtk) {
+        this.freqAtk = freqAtk;
+    }
 
-    public void handleCollisions(Entite cible) {
 
-        if(this.equals(cible) || cible==null) return;
-
-        if (Utilitaire.intersects(cible, this)){
-            cible.setHealth(cible.getHealthProperty().getValue()-this.getDamage());
-            this.destroy();
+    public DoubleProperty getHealthProperty() {
+        return health;
+    }
+    public double getMaxHealth() {
+        return maxHealth;
+    }
+    public void setHealth(double value) {
+        health.set(Math.max(0, value));
+        System.out.println("avant destroy");
+        if (value==0){
+            destroy();
+            System.out.println("après destroy");
         }
     }
 
-    public abstract void attaquer();
 
+    public void destroy() {
+        alive = false;
+    }
 
+    public boolean isAlive() {
+        return alive;
+    }   //servira pr le clear
 
-
+    public abstract Entite getCible();
 
 }

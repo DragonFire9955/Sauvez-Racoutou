@@ -3,7 +3,10 @@ package app.Modele.Entites.Animaux.Allies;
 import app.Modele.GameWorld;
 
 public class LaTaupe extends ChatClassique {
-    public LaTaupe(double[] coord, double health, double vitesse, double dmg, double range, GameWorld w) {
-        super(coord, health, vitesse, dmg, range, w);
+    private double vitBTP;
+
+    public LaTaupe(double[] coord, GameWorld w) {
+        super(coord, 10, 7, .5, 4, 3, w);
+        this.vitBTP = .5;
     }
 }

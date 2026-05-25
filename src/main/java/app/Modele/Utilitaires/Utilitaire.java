@@ -1,7 +1,10 @@
-package app.Modele;
+package app.Modele.Utilitaires;
 
-import app.Modele.Entites.Animaux.Animaux;
 import app.Modele.Entites.Entite;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Utilitaire {
 
@@ -10,8 +13,12 @@ public class Utilitaire {
     }
 
     public static boolean intersects(Entite cible, Entite attaquant) {
+
+        double maxRange = Math.max(cible.getRange(), attaquant.getRange());
+
         double dx = (cible.getX()+cible.getRange()/2) - (attaquant.getX()+cible.getRange()/2);
         double dy = (cible.getY()+cible.getRange()/2) - (attaquant.getY()+cible.getRange()/2);
-        return dx * dx + dy * dy < Math.pow(cible.getRange(), 2);
+
+        return Math.abs(dx) + Math.abs(dy) < Math.pow(maxRange, 2);
     }
 }
