@@ -157,9 +157,7 @@ public class Controller implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
-            if (temps%5==0){
-                gameWorld.updateGW(temps);
-            }
+            gameWorld.updateGW(temps);
             temps++;
         }));
         gameLoop.getKeyFrames().add(kf);

@@ -8,6 +8,8 @@ import app.Modele.GameWorld;
 import app.Modele.Entites.Animaux.Animaux;
 import app.Modele.Utilitaires.Noeud;
 import app.Modele.Utilitaires.Utilitaire;
+import javafx.animation.KeyFrame;
+import javafx.util.Duration;
 
 import java.util.List;
 import java.util.Map;
@@ -19,17 +21,15 @@ public class PouletClassique extends Animaux {
     }
 
     public PouletClassique(int x, int y, GameWorld w) {
-        super(x, y, 5, 10, 5, 1, 1, w, w.getAllies());
+        super(x, y, 5, 2, 5, 1, 1, w, w.getAllies());
     }
 
     @Override
     public void update(double dt) {
+        super.update(dt);
 
-        if (!canAttak()) {
-            super.update(dt);
+        if (!isColl()) {
             deplacement();
-        } else if (!canAttak() && dt%getFreqAtk() == 0){
-            attaquer();
         }
     }
 

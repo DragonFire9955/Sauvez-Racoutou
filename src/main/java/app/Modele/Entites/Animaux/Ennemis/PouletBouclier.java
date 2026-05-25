@@ -8,7 +8,7 @@ public class PouletBouclier extends PouletClassique {
 
     public PouletBouclier(int x, int y, GameWorld w) {
 
-        super(x, y, 6, 7, 3, 2, 2, w);
+        super(x, y, 6, 1, 3, 2, 2, w);
         this.bouclier = 15;
     }
 

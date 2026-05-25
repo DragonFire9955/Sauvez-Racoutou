@@ -32,7 +32,7 @@ public abstract class Animaux extends Entite {
         double dy = cible.getY() - this.getY();
         double dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < 5) {
+        if (dist < 2) {
             canAttak = true;
             return;
         } else {
@@ -75,6 +75,9 @@ public abstract class Animaux extends Entite {
     public boolean canAttak() {
         return canAttak;
     }
+    public void setCanAttak(boolean canAttak) {
+        this.canAttak = canAttak;
+    }
 
     //FONCTIONS ATTAQUES
 
@@ -85,7 +88,6 @@ public abstract class Animaux extends Entite {
         for(Animaux a: this.listeCibles){
             //Si a dans le rayon d'action
             if(Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())<=getRange()) {
-                System.out.println("c");
                 i = 0;
                 //Tant que distance supérieur ET pv supérieur
                 while(Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())
@@ -101,15 +103,13 @@ public abstract class Animaux extends Entite {
     public void estAttaque(double damage){
 
         setHealth(super.getHealthProperty().getValue()-damage);
-
     }
 
     public void attaquer(){
 
-        if(this.getCiblesAccessibles().isEmpty()) return;
+        if(this.getListeCibles().isEmpty()) return;
 
-        this.getCiblesAccessibles().getFirst().estAttaque(getDamage());
-        System.out.println( this.getCiblesAccessibles().getFirst());
+        this.getListeCibles().getFirst().estAttaque(getDamage());
     }
 
     public List<Animaux> getListeCibles(){

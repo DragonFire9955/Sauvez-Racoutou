@@ -12,9 +12,13 @@ public class Utilitaire {
         return Math.sqrt((x1-x2)*(x1-x2) + (y1 -y2)*(y1-y2));
     }
 
-    public static boolean intersects(Entite a, Entite b) {
-        double dx = (a.getX()+a.getRange()/2) - (b.getX()+a.getRange()/2);
-        double dy = (a.getY()+a.getRange()/2) - (b.getY()+a.getRange()/2);
-        return dx * dx + dy * dy < Math.pow(a.getRange(), 2);
+    public static boolean intersects(Entite cible, Entite attaquant) {
+
+        double maxRange = Math.max(cible.getRange(), attaquant.getRange());
+
+        double dx = (cible.getX()+cible.getRange()/2) - (attaquant.getX()+cible.getRange()/2);
+        double dy = (cible.getY()+cible.getRange()/2) - (attaquant.getY()+cible.getRange()/2);
+
+        return Math.abs(dx) + Math.abs(dy) < Math.pow(maxRange, 2);
     }
 }

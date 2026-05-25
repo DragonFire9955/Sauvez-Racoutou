@@ -11,6 +11,8 @@ public abstract class Entite {
     private int id;
     private GameWorld world;
 
+    private boolean coll;
+
     private DoubleProperty x, y;
     private double range;
     private double damage;
@@ -23,6 +25,9 @@ public abstract class Entite {
     protected Entite(double x, double y, double health, double range, double dmg, double freqAtk, GameWorld w) {
         this.id=nbId;
         nbId++;
+
+        coll = false;
+
         this.x = new SimpleDoubleProperty(x);
         this.y = new SimpleDoubleProperty(y);
         this.health.set(health);
@@ -34,18 +39,26 @@ public abstract class Entite {
 
         alive = true;
     }
+
     public void update(double dt){
-        this.handleCollisions(getCible());
+        this.handleCollisions(getCible(), dt);
     }
 
-    public void handleCollisions(Entite cible) {
+    public void handleCollisions(Entite cible, double dt) {
 
         if(this.equals(cible) || cible==null) return;
 
         if (Utilitaire.intersects(cible, this)){
-            System.out.println("touche !");
-            attaquer();
-            this.destroy();
+
+            coll = true;
+
+            if (dt%(getFreqAtk()*60) == 0) {
+                System.out.println("attaque !");
+                attaquer();
+            }
+
+        } else {
+            coll = false;
         }
     }
 
@@ -61,6 +74,10 @@ public abstract class Entite {
     }
 
     public GameWorld getWorld() {return world;}
+
+    public boolean isColl() {
+        return coll;
+    }
 
     public DoubleProperty getXProperty() {
         return x;
