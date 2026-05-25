@@ -7,7 +7,7 @@ public abstract class Barrage extends Entite {
     public double taille;
 
     public Barrage(double x, double y, double health, double r, GameWorld w, double t){
-        super(x, y, health, 0, r, w);
+        super(x, y, health, 0, r, 0, w);
         taille=t;
 
     }

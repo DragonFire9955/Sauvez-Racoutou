@@ -9,23 +9,16 @@ import java.util.List;
 
 public abstract class Animaux extends Entite {
 
+    private boolean canAttak;
 
     private List<Animaux> listeCibles;
 
     private double vitesse;
 
-    public Animaux(double x, double y, double health, double vitesse, double r, double dmg, GameWorld w, List<Animaux> l) {
-        super(x, y, health, r, dmg, w);
+    public Animaux(double x, double y, double health, double vitesse, double r, double dmg, double freqAtk, GameWorld w, List<Animaux> l) {
+        super(x, y, health, r, dmg, freqAtk, w);
         this.vitesse = vitesse;
         this.listeCibles=l;
-    }
-
-
-    public void setVitesse(double vitesse) {
-        this.vitesse = vitesse;
-    }
-    public double getVitesse() {
-        return vitesse;
     }
 
     public void deplacement() {
@@ -39,7 +32,12 @@ public abstract class Animaux extends Entite {
         double dy = cible.getY() - this.getY();
         double dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < 2) return;
+        if (dist < 5) {
+            canAttak = true;
+            return;
+        } else {
+            canAttak = false;
+        }
 
         dx /= dist;
         dy /= dist;
@@ -67,9 +65,18 @@ public abstract class Animaux extends Entite {
 
     protected void setListeCibles(List<Animaux> l){ this.listeCibles=l;}
 
+    public void setVitesse(double vitesse) {
+        this.vitesse = vitesse;
+    }
+    public double getVitesse() {
+        return vitesse;
+    }
 
+    public boolean canAttak() {
+        return canAttak;
+    }
 
-//FONCTIONS ATTAQUES
+    //FONCTIONS ATTAQUES
 
     //Retourne la liste des cibles ordonnées par distance croissante et pv croissant
     private List<Animaux> getCiblesAccessibles(){
@@ -102,7 +109,7 @@ public abstract class Animaux extends Entite {
         if(this.getCiblesAccessibles().isEmpty()) return;
 
         this.getCiblesAccessibles().getFirst().estAttaque(getDamage());
-        System.out.println( this.getCiblesAccessibles().getFirst() );
+        System.out.println( this.getCiblesAccessibles().getFirst());
     }
 
     public List<Animaux> getListeCibles(){

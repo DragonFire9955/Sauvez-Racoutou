@@ -1,6 +1,7 @@
 package app.Controller;
 
 import app.Modele.Entites.Animaux.Allies.Racoutou;
+import app.Modele.Entites.Animaux.Ennemis.PouletBouclier;
 import app.Modele.Entites.Animaux.Ennemis.PouletClassique;
 import app.Modele.GameWorld;
 import app.Modele.Terrain;
@@ -172,6 +173,16 @@ public class Controller implements Initializable {
             System.out.println("nouveau PouletClassique");
 
             gameWorld.ajouterEnnemi(new PouletClassique(200, 400, gameWorld));
+        } else if (event.getCode() == KeyCode.A) {
+
+            System.out.println("nouveau Racoutou");
+
+            gameWorld.ajouterEnnemi(new Racoutou(gameWorld));
+        } else if (event.getCode() == KeyCode.R) {
+
+            System.out.println("nouveau PouletBouclier");
+
+            gameWorld.ajouterEnnemi(new PouletBouclier(400, 200, gameWorld));
         }
     }
 

@@ -14,12 +14,13 @@ public abstract class Entite {
     private DoubleProperty x, y;
     private double range;
     private double damage;
-    private boolean alive;
+    private double freqAtk;
 
     private DoubleProperty health = new SimpleDoubleProperty();
     private final double maxHealth;
+    private boolean alive;
 
-    protected Entite(double x, double y, double health, double range, double dmg, GameWorld w) {
+    protected Entite(double x, double y, double health, double range, double dmg, double freqAtk, GameWorld w) {
         this.id=nbId;
         nbId++;
         this.x = new SimpleDoubleProperty(x);
@@ -28,6 +29,7 @@ public abstract class Entite {
         this.maxHealth = health;
         this.range = range;
         this.damage=dmg;
+        this.freqAtk = freqAtk;
         this.world=w;
 
         alive = true;
@@ -36,39 +38,29 @@ public abstract class Entite {
         this.handleCollisions(getCible());
     }
 
-    public void setDamage(double damage) {
-        this.damage = damage;
-    }
-    public double getDamage() {
-        return damage;
+    public void handleCollisions(Entite cible) {
+
+        if(this.equals(cible) || cible==null) return;
+
+        if (Utilitaire.intersects(cible, this)){
+            System.out.println("touche !");
+            attaquer();
+            this.destroy();
+        }
     }
 
-    public void destroy() {
-        alive = false;
+    protected void setPosition(double x, double y) {
+        this.setX(x);
+        this.setY(y);
     }
 
-    public boolean isAlive() {
-        return alive;
-    }   //servira pr le clear
+    public abstract void attaquer();
 
     public String getId() {
         return ""+id;
     }
 
     public GameWorld getWorld() {return world;}
-
-    public DoubleProperty getHealthProperty() {
-        return health;
-    }
-
-    public void setHealth(double value) {
-        health.set(Math.max(0, value));
-        if (value <= 0) destroy();
-    }
-
-    public double getMaxHealth() {
-        return maxHealth;
-    }
 
     public DoubleProperty getXProperty() {
         return x;
@@ -85,11 +77,6 @@ public abstract class Entite {
         this.y.setValue(y);
     }
 
-    protected void setPosition(double x, double y) {
-        this.setX(x);
-        this.setY(y);
-    }
-
     public double getRange() {
         return range;
     }
@@ -97,20 +84,40 @@ public abstract class Entite {
         this.range = range;
     }
 
-
-    public abstract Entite getCible();
-
-    public void handleCollisions(Entite cible) {
-
-        if(this.equals(cible) || cible==null) return;
-
-        if (Utilitaire.intersects(this, cible)){
-            System.out.println("touche !");
-            attaquer();
-            this.destroy();
-        }
+    public void setDamage(double damage) {
+        this.damage = damage;
+    }
+    public double getDamage() {
+        return damage;
     }
 
-    public abstract void attaquer();
+    public double getFreqAtk() {
+        return freqAtk;
+    }
+    public void setFreqAtk(double freqAtk) {
+        this.freqAtk = freqAtk;
+    }
+
+    public DoubleProperty getHealthProperty() {
+        return health;
+    }
+    public double getMaxHealth() {
+        return maxHealth;
+    }
+    public void setHealth(double value) {
+        health.set(Math.max(0, value));
+        if (value <= 0) destroy();
+    }
+
+    public void destroy() {
+        alive = false;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }   //servira pr le clear
+
+
+    public abstract Entite getCible();
 
 }

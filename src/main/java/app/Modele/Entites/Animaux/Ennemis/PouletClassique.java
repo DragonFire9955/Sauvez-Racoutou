@@ -14,17 +14,23 @@ import java.util.Map;
 
 public class PouletClassique extends Animaux {
 
-    public PouletClassique(int x, int y, double health, double vitesse, double range, double dmg, GameWorld w) {
-        super(x, y, health, vitesse, range, dmg, w, w.getAllies());
+    public PouletClassique(int x, int y, double health, double vitesse, double range, double dmg, double freqAtk, GameWorld w) {
+        super(x, y, health, vitesse, range, dmg, freqAtk, w, w.getAllies());
     }
 
     public PouletClassique(int x, int y, GameWorld w) {
-        super(x, y, 5, 10, 5, 1, w, w.getAllies());
+        super(x, y, 5, 10, 5, 1, 1, w, w.getAllies());
     }
 
     @Override
     public void update(double dt) {
-        super.update(dt);
+
+        if (!canAttak()) {
+            super.update(dt);
+            deplacement();
+        } else if (!canAttak() && dt%getFreqAtk() == 0){
+            attaquer();
+        }
     }
 
     @Override

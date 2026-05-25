@@ -7,7 +7,7 @@ import app.Modele.GameWorld;
 public class Racoutou extends Animaux {
 
     public Racoutou(GameWorld w) {
-        super(400, 400, 50, 0, 5, 5, w, w.getEnnemis());
+        super(400, 400, 50, 0, 5, 5, 2.5, w, w.getEnnemis());
     }
 
     public Entite getCible(){
