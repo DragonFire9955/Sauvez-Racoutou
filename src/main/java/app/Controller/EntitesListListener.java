@@ -1,7 +1,9 @@
 package app.Controller;
 
 import app.Modele.Entites.Animaux.Animaux;
+import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
+import app.Modele.GameWorld;
 import app.Vue.EntiteVue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
@@ -14,8 +16,12 @@ public class EntitesListListener implements ListChangeListener<Entite> {
     @FXML
     private Pane carte;
 
-    public EntitesListListener(Pane carte){
+    private GameWorld gameWorld;
+
+    public EntitesListListener(Pane carte,  GameWorld gameWorld) {
+
         this.carte = carte;
+        this.gameWorld = gameWorld;
     }
 
     @Override

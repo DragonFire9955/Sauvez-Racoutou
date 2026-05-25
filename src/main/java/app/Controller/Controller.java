@@ -10,20 +10,15 @@ import app.Vue.TerrainVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import static javafx.geometry.Pos.CENTER;
 
 public class Controller implements Initializable {
 
@@ -68,7 +63,7 @@ public class Controller implements Initializable {
 
 
         //TEMPORAIRE, A DELET
-        gameWorld.getAnimaux().addListener(new EntitesListListener(carte));
+        gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
         gameWorld.ajouterAnimal(new Racoutou(gameWorld));
         gameWorld.ajouterAnimal(new PouletClassique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
 

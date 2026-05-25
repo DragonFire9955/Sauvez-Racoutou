@@ -1,5 +1,6 @@
 package app.Modele.Entites.Animaux;
 
+import app.Modele.Entites.Animaux.Allies.Racoutou;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Utilitaire;
@@ -11,13 +12,13 @@ public abstract class Animaux extends Entite {
 
     private boolean canAttak;
 
+
     private double vitesse;
 
     public Animaux(double[] coord, double health, double vitesse, double r, double dmg, double freqAtk, GameWorld w) {
         super(coord, health, r, dmg, freqAtk, w);
         this.vitesse = vitesse;
     }
-
 
     public void deplacement() {
 
@@ -47,13 +48,14 @@ public abstract class Animaux extends Entite {
 
 
     private Animaux getNearest(){
+
         List<Animaux> cibles = getListeCibles();
 
         if (cibles.isEmpty()) return null;
 
-        Animaux proche= cibles.getFirst();
+        Animaux proche = cibles.getFirst();
 
-        for(Animaux a:cibles){
+        for(Animaux a : cibles){
             if(Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())
                     < Utilitaire.distance(this.getX(), this.getY(), proche.getX(), proche.getY()))
                 proche = a;
@@ -61,7 +63,7 @@ public abstract class Animaux extends Entite {
 
         return proche;
     }
-    
+
     public void setVitesse(double vitesse) {
         this.vitesse = vitesse;
     }
@@ -76,7 +78,7 @@ public abstract class Animaux extends Entite {
         this.canAttak = canAttak;
     }
 
-//FONCTIONS ATTAQUES
+    //FONCTIONS ATTAQUES
 
     //Retourne la liste des cibles ordonnées par distance croissante et pv croissant
     private List<Animaux> getCiblesAccessibles(){
@@ -98,17 +100,14 @@ public abstract class Animaux extends Entite {
     }
 
     public void estAttaque(double damage){
+
         setHealth(super.getHealthProperty().getValue()-damage);
-           }
+    }
 
     public void attaquer(){
-
         List<Animaux> cibles = getListeCibles();
 
-        if(cibles.isEmpty()){
-            System.out.println("racoutou a pas de cible");
-            return;
-        }
+        if(cibles.isEmpty()) return;
 
         Animaux cible = cibles.getFirst();
 
@@ -117,5 +116,6 @@ public abstract class Animaux extends Entite {
     }
 
     public abstract List<Animaux> getListeCibles();
+
 
 }

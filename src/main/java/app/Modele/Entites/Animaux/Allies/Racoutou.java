@@ -21,7 +21,6 @@ public class Racoutou extends Animaux {
         super.update(dt);
     }
 
-    @Override
     public Entite getCible(){
 
         if (getWorld().getEnnemis().isEmpty()) return null;

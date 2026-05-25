@@ -54,7 +54,6 @@ public abstract class Entite {
             coll = true;
 
             if (dt%(getFreqAtk()*60) == 0) {
-                System.out.println("attaque !");
                 attaquer();
             }
 
