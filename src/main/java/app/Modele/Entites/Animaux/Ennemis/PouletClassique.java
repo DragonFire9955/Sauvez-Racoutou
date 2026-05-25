@@ -13,8 +13,13 @@ import java.util.List;
 import java.util.Map;
 
 public class PouletClassique extends Animaux {
-    public PouletClassique(GameWorld w) {
-        super(400, 200, 6, 5, 1, 5, w, w.getAllies());
+
+    public PouletClassique(int x, int y, double health, double vitesse, double range, double dmg, GameWorld w) {
+        super(x, y, health, vitesse, range, dmg, w, w.getAllies());
+    }
+
+    public PouletClassique(int x, int y, GameWorld w) {
+        super(x, y, 5, 10, 5, 1, w, w.getAllies());
     }
 
     @Override

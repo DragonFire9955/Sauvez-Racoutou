@@ -61,7 +61,7 @@ public class Controller implements Initializable {
         //TEMPORAIRE, A DELET
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte));
         gameWorld.ajouterAllie(new Racoutou(gameWorld));
-        gameWorld.ajouterEnnemi(new PouletClassique(gameWorld));
+        gameWorld.ajouterEnnemi(new PouletClassique(200, 400, gameWorld));
 
 
         initAnimation();
@@ -171,7 +171,7 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau PouletClassique");
 
-            gameWorld.ajouterEnnemi(new PouletClassique(gameWorld));
+            gameWorld.ajouterEnnemi(new PouletClassique(200, 400, gameWorld));
         }
     }
 
