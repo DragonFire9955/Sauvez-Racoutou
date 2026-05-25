@@ -4,6 +4,8 @@ import app.Modele.Entites.Animaux.Animaux;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 
+import java.util.List;
+
 public class ChatClassique extends Animaux {
     public ChatClassique(double x, double y, double health, double vitesse, double range, double dmg, double freqAtk, GameWorld w) {
         super(x, y, health, vitesse, range, dmg, freqAtk, w, w.getEnnemis());
@@ -11,5 +13,10 @@ public class ChatClassique extends Animaux {
 
     public Entite getCible(){
         return null;
+    }
+
+    @Override
+    public List<Animaux> getListeCibles() {
+        return getWorld().getEnnemis();
     }
 }

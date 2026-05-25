@@ -47,4 +47,9 @@ public class PouletClassique extends Animaux {
         }
         return allies.get(i);
     }
+
+    @Override
+    public List<Animaux> getListeCibles() {
+        return getWorld().getAllies();
+    }
 }

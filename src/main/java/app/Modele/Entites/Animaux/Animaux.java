@@ -1,5 +1,6 @@
 package app.Modele.Entites.Animaux;
 
+import app.Modele.Entites.Animaux.Allies.Racoutou;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Utilitaire;
@@ -11,14 +12,11 @@ public abstract class Animaux extends Entite {
 
     private boolean canAttak;
 
-    private List<Animaux> listeCibles;
-
     private double vitesse;
 
     public Animaux(double x, double y, double health, double vitesse, double r, double dmg, double freqAtk, GameWorld w, List<Animaux> l) {
         super(x, y, health, r, dmg, freqAtk, w);
         this.vitesse = vitesse;
-        this.listeCibles=l;
     }
 
     public void deplacement() {
@@ -50,11 +48,13 @@ public abstract class Animaux extends Entite {
 
     private Animaux getNearest(){
 
-        if (listeCibles.isEmpty()) return null;
+        List<Animaux> cibles = getListeCibles();
 
-        Animaux proche= listeCibles.getFirst();
+        if (cibles.isEmpty()) return null;
 
-        for(Animaux a:this.listeCibles){
+        Animaux proche = cibles.getFirst();
+
+        for(Animaux a : cibles){
             if(Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())
                     < Utilitaire.distance(this.getX(), this.getY(), proche.getX(), proche.getY()))
                 proche = a;
@@ -62,8 +62,6 @@ public abstract class Animaux extends Entite {
 
         return proche;
     }
-
-    protected void setListeCibles(List<Animaux> l){ this.listeCibles=l;}
 
     public void setVitesse(double vitesse) {
         this.vitesse = vitesse;
@@ -81,18 +79,19 @@ public abstract class Animaux extends Entite {
 
     //FONCTIONS ATTAQUES
 
+    /// TODO : elle ne fonctionne pas ducoup je l'ai enlevée pr l'instant on reviendras dessus mardi.
     //Retourne la liste des cibles ordonnées par distance croissante et pv croissant
     private List<Animaux> getCiblesAccessibles(){
-        List<Animaux> ciblesAccessibles=new ArrayList<>();
+        List<Animaux> ciblesAccessibles=getListeCibles();
         int i;
-        for(Animaux a: this.listeCibles){
+        for(Animaux a: ciblesAccessibles){
             //Si a dans le rayon d'action
             if(Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())<=getRange()) {
                 i = 0;
                 //Tant que distance supérieur ET pv supérieur
                 while(Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())
-                        > Utilitaire.distance(this.getX(), this.getY(), listeCibles.get(i).getX(), listeCibles.get(i).getY())
-                        && a.getHealthProperty().getValue()>listeCibles.get(i).getHealthProperty().getValue())
+                        > Utilitaire.distance(this.getX(), this.getY(), ciblesAccessibles.get(i).getX(), ciblesAccessibles.get(i).getY())
+                        && a.getHealthProperty().getValue()>ciblesAccessibles.get(i).getHealthProperty().getValue())
                     i++;
                 ciblesAccessibles.add(i, a);
             }
@@ -105,18 +104,18 @@ public abstract class Animaux extends Entite {
         setHealth(super.getHealthProperty().getValue()-damage);
     }
 
+    @Override
     public void attaquer(){
 
-        if(this.getListeCibles().isEmpty()) return;
+        List<Animaux> cibles = getListeCibles();
 
-        this.getListeCibles().getFirst().estAttaque(getDamage());
+        if(cibles.isEmpty()) return;
+
+        Animaux cible = cibles.getFirst();
+
+        cible.estAttaque(getDamage());
     }
 
-    public List<Animaux> getListeCibles(){
-        return this.listeCibles;
-    }
-
-
-
+    public abstract List<Animaux> getListeCibles();
 
 }

@@ -1,8 +1,11 @@
 package app.Modele;
 
+import app.Modele.Entites.Animaux.Allies.ChatClassique;
+import app.Modele.Entites.Animaux.Allies.Racoutou;
 import app.Modele.Entites.Animaux.Animaux;
-import app.Modele.Managers.AlliesManager;
-import app.Modele.Managers.EnnemyManager;
+import app.Modele.Entites.Animaux.Ennemis.PouletClassique;
+import app.Modele.Entites.Barrage.Barrage;
+import app.Modele.Entites.Entite;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -14,51 +17,37 @@ import java.util.List;
 public class GameWorld {
 
     private ObservableList<Animaux> animauxList;
+    private ObservableList<Barrage> barrageList;
     private BooleanProperty theEnd;
-
-    private AlliesManager allies;
-    private EnnemyManager ennemis;
 
     private int[][] map;
 
     public GameWorld(){
 
         map = Terrain.genererMap();
-        allies= new AlliesManager();
-        ennemis = new EnnemyManager();
         animauxList = FXCollections.observableArrayList();
-        animauxList.addAll(ennemis.getAnimaux());
+        barrageList = FXCollections.observableArrayList();
         theEnd= new SimpleBooleanProperty(false);
     }
 
     public void updateGW(double dt) {
-        for (Animaux animaux : allies.getAnimaux()) {
-            animaux.update(dt);
+
+        for (Entite entite : animauxList) {
+            entite.update(dt);
         }
 
-        for (Animaux animaux : ennemis.getAnimaux()) {
-            animaux.update(dt);
+        for (Barrage barrage : barrageList) {
+            barrage.update(dt);
         }
 
         supprimerAnimauxMorts();
     }
 
-    public void ajouterAllie(Animaux a){
-
-        allies.getAnimaux().add(a);
-        animauxList.add(a);
-    }
-
-    public void ajouterEnnemi(Animaux a){
-
-        ennemis.getAnimaux().add(a);
+    public void ajouterAnimal(Animaux a) {
         animauxList.add(a);
     }
 
     public void supprimerAnimal(Animaux a){
-
-        allies.getAnimaux().remove(a);
-        ennemis.getAnimaux().remove(a);
         animauxList.remove(a);
     }
 
@@ -68,24 +57,40 @@ public class GameWorld {
                 supprimerAnimal(animauxList.get(i));
     }
 
+    public ObservableList<Animaux> getAnimaux() {
+        return animauxList;
+    }
+
     public List<Animaux> getAllies() {
-        return allies.getAnimaux();
+
+        List<Animaux> allies = new ArrayList<>();
+
+        for (Animaux animal : animauxList)
+            if (animal instanceof ChatClassique || animal instanceof Racoutou)
+                allies.add(animal);
+
+        return allies;
     }
 
     public List<Animaux> getEnnemis() {
-        return ennemis.getAnimaux();
+
+        List<Animaux> ennemis = new ArrayList<>();
+
+        for (Animaux animal : animauxList)
+            if (animal instanceof PouletClassique)
+                ennemis.add(animal);
+
+        return ennemis;
     }
 
-    public void setAllies(AlliesManager allies) {
-        this.allies = allies;
+    public void ajouterBarrage(Barrage b) {
+        barrageList.add(b);
     }
-
-    public void setEnnemis(EnnemyManager ennemis) {
-        this.ennemis = ennemis;
+    public void supprimerBarrage(Barrage b) {
+        barrageList.remove(b);
     }
-
-    public ObservableList<Animaux> getAnimaux() {
-        return animauxList;
+    public ObservableList<Barrage> getBarrage() {
+        return barrageList;
     }
 
     public BooleanProperty getTheEnd(){

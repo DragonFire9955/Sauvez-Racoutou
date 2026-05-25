@@ -60,9 +60,9 @@ public class Controller implements Initializable {
 
 
         //TEMPORAIRE, A DELET
-        gameWorld.getAnimaux().addListener(new EntitesListListener(carte));
-        gameWorld.ajouterAllie(new Racoutou(gameWorld));
-        gameWorld.ajouterEnnemi(new PouletClassique(200, 400, gameWorld));
+        gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
+        gameWorld.ajouterAnimal(new Racoutou(gameWorld));
+        gameWorld.ajouterAnimal(new PouletClassique(200, 400, gameWorld));
 
 
         initAnimation();
@@ -170,17 +170,17 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau PouletClassique");
 
-            gameWorld.ajouterEnnemi(new PouletClassique(200, 400, gameWorld));
+            gameWorld.ajouterAnimal(new PouletClassique(200, 400, gameWorld));
         } else if (event.getCode() == KeyCode.A) {
 
             System.out.println("nouveau Racoutou");
 
-            gameWorld.ajouterEnnemi(new Racoutou(gameWorld));
+            gameWorld.ajouterAnimal(new Racoutou(gameWorld));
         } else if (event.getCode() == KeyCode.R) {
 
             System.out.println("nouveau PouletBouclier");
 
-            gameWorld.ajouterEnnemi(new PouletBouclier(400, 200, gameWorld));
+            gameWorld.ajouterAnimal(new PouletBouclier(400, 200, gameWorld));
         }
     }
 
