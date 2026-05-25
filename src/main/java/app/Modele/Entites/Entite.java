@@ -11,7 +11,7 @@ public abstract class Entite {
     private int id;
     private GameWorld world;
 
-    private boolean coll;
+    private boolean coll; // indique si l'entite est en collision
 
     private DoubleProperty x, y;
     private double range;
