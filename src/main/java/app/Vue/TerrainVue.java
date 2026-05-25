@@ -6,9 +6,16 @@ import javafx.scene.layout.TilePane;
 
 public class TerrainVue {
 
-    private Image vert = new Image(getClass().getResourceAsStream("/app/images/vert.png"), 32, 32, true, true);
-    private Image marron = new Image(getClass().getResourceAsStream("/app/images/marron.png"), 32, 32, true, true);
-    private Image beige = new Image(getClass().getResourceAsStream("/app/images/beige.png"), 32, 32, true, true);
+    private Image base = new Image(getClass().getResourceAsStream("/app/images/herbe.png"), 32, 32, true, true);
+    private Image sol = new Image(getClass().getResourceAsStream("/app/images/sol.png"), 32, 32, true, true);
+    private Image tonneau = new Image(getClass().getResourceAsStream("/app/images/tonneau4.png"), 32, 32, true, true);
+    private Image hor = new Image(getClass().getResourceAsStream("/app/images/horizontal.png"), 32, 32, false, true);
+    private Image ver = new Image(getClass().getResourceAsStream("/app/images/vertical2.png"), 32, 32, false, true);
+
+    private Image poubelle = new Image(getClass().getResourceAsStream("/app/images/poubelle.png"), 32, 32, false, true);
+    private Image classique = new Image(getClass().getResourceAsStream("/app/images/classique.png"), 32, 32, false, true);
+    private Image projectiles = new Image(getClass().getResourceAsStream("/app/images/projectiles.png"), 32, 32, false, true);
+    private Image journaliste = new Image(getClass().getResourceAsStream("/app/images/journaliste.png"), 32, 32, false, true);
 
     public void delimitationMap(TilePane tileMap){
         tileMap.setPrefColumns(44);
@@ -17,23 +24,32 @@ public class TerrainVue {
         tileMap.setPrefTileHeight(32);
     }
 
-    public void couleurMap(TilePane tileMap, int[][] map){
+    public ImageView creerCase(int tuile){
 
-        for (int l = 0; l < map.length; l++) {
-            for (int c = 0; c < map[l].length; c++) {
-                ImageView cases = new ImageView();
+        ImageView cases = new ImageView();
 
-                if (map[l][c] == 0) {
-                    cases.setImage(vert);
-                } else if (map[l][c] == 1){
-                    cases.setImage(marron);
-                } else {
-                    cases.setImage(beige);
-                }
-
-                tileMap.getChildren().add(cases);
-            }
+        if (tuile == 0) {
+            cases.setImage(sol);
+        } else if (tuile == 1){
+            cases.setImage(base);
+        } else if (tuile == 2){
+            cases.setImage(tonneau);
+        } else if (tuile == 3){
+            cases.setImage(hor);
+        } else if (tuile == 4) {
+            cases.setImage(ver);
+        } else if (tuile == 100) {
+            cases.setImage(poubelle);
+        } else if (tuile == 101) {
+            cases.setImage(classique);
+        } else if (tuile == 102) {
+            cases.setImage(projectiles);
+        } else if (tuile == 103) {
+            cases.setImage(journaliste);
         }
-    }
 
+        return cases;
+
+
+    }
 }

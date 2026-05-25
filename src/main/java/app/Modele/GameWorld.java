@@ -43,7 +43,6 @@ public class GameWorld {
         supprimerAnimauxMorts();
     }
 
-
     public void ajouterAllie(Animaux a){
 
         allies.getAnimaux().add(a);

@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="applicationPane" prefHeight="896.0" prefWidth="1408.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller.Controller">
+<BorderPane fx:id="applicationPane" prefHeight="896.0" prefWidth="1408.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller.Controller">
     <center>
         <Pane fx:id="gamePane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
@@ -23,27 +27,100 @@
    <right>
       <Pane prefHeight="200.0" prefWidth="275.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="896.0" prefWidth="275.0" spacing="10.0" style="-fx-background-color: rgba(0,0,0,0.5); -fx-background-radius: 5;">
+            <VBox prefHeight="796.0" prefWidth="275.0" spacing="10.0" style="-fx-background-color: black; -fx-background-radius: 5;">
                <children>
                   <Label alignment="CENTER" prefHeight="25.0" prefWidth="267.0" text="BOUTIQUE" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label text="Améliorations" textFill="LIME">
+                  <Label text="Défenses : " textFill="ORANGE">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label text="Défenses" textFill="YELLOW">
+                  <Label text="Améliorations :" textFill="LIME">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="277.0" text="Améliorations">
+                  <Button contentDisplay="BOTTOM" mnemonicParsing="false" style="-fx-background-color: #fdfbe7;" text="Obstacle" textFill="LIME">
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/amel.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                      <font>
-                        <Font size="18.0" />
-                     </font></Label>
+                        <Font size="21.0" />
+                     </font>
+                  </Button>
+                  <Button contentDisplay="BOTTOM" mnemonicParsing="false" style="-fx-background-color: #fdfbe7;" text="Tour" textFill="LIME">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/amel_2.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <Button contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerPoubelle" style="-fx-background-color: #fdfbe7;" text="Poubelle" textFill="ORANGE">
+                           <graphic>
+                              <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/def_0.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerChatClassique" style="-fx-background-color: #fdfbe7;" text="Chat classique" textFill="ORANGE">
+                           <graphic>
+                              <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/def_1.png" />
+                                 </image></ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <Button contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerChatProjectiles" style="-fx-background-color: #fdfbe7;" text="Chat à projectiles" textFill="ORANGE">
+                           <graphic>
+                              <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/def_2.png" />
+                                 </image></ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerChatJournaliste" style="-fx-background-color: #fdfbe7;" text="Chat journaliste" textFill="ORANGE">
+                           <graphic>
+                              <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/def_3.png" />
+                                 </image></ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -52,4 +129,27 @@
          </children>
       </Pane>
    </right>
+   <top>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+         <children>
+            <Button id="btnPause" mnemonicParsing="false" onAction="#pause" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/pause.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Label alignment="CENTER" prefHeight="80.0" prefWidth="1322.0" text="Sauvez Racoutou !" textFill="WHITE">
+               <font>
+                  <Font name="Rockwell Bold Italic" size="65.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>
