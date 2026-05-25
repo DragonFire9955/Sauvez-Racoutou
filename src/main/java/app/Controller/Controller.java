@@ -9,19 +9,25 @@ import app.Vue.TerrainVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
+    //Menu fxml loader
+    public Pane menuFXMLLoader = MenuController.stock;
+
     // VUE
     @FXML private BorderPane applicationPane;
+
     @FXML private Pane gamePane;
     @FXML private Pane carte;
     @FXML private Pane demarragePane;
@@ -65,7 +71,19 @@ public class Controller implements Initializable {
         initAnimation();
         // demarre l'animation
         gameLoop.play();
+        gameWorld.getTheEnd().addListener((observable, oldValue, newValue) ->{
+            gameLoop.stop();
 
+            /*try {
+                menuFXMLLoader = FXMLLoader.load(getClass().getResource("/app/starting.fxml"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+             */
+
+            applicationPane.getScene().setRoot(menuFXMLLoader);
+        });
 
         gamePane.sceneProperty().addListener((observable, oldValue, newValue) -> {
 

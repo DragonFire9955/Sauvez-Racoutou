@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class Animaux extends Entite {
 
-
+    private boolean actif;
     private List<Animaux> listeCibles;
 
     private double vitesse;
@@ -18,6 +18,21 @@ public abstract class Animaux extends Entite {
         super(coord, health, r, dmg, w);
         this.vitesse = vitesse;
         this.listeCibles=l;
+        actif=true;
+    }
+
+    public boolean isActif() {
+        return actif;
+    }
+    public void setActifF(double dt, double stunTime) throws InterruptedException {
+
+        double stunEnd = dt + stunTime;
+        actif = false;
+        //TROUVER AVEC TIMELINE COMMENT BLOCK PENDANT x SEC
+
+        wait((long)stunTime);
+        actif = !actif;
+
     }
 
 
@@ -29,7 +44,9 @@ public abstract class Animaux extends Entite {
     }
 
     public void deplacement() {
-
+        if(!actif){
+            return;
+        }
         //tant qu'il n'y a pas de cible ou qu'il y a une cible dans le perimètre d'action: immobile
         Animaux cible = this.getNearest();
 
@@ -72,7 +89,7 @@ public abstract class Animaux extends Entite {
 //FONCTIONS ATTAQUES
 
     //Retourne la liste des cibles ordonnées par distance croissante et pv croissant
-    private List<Animaux> getCiblesAccessibles(){
+    protected List<Animaux> getCiblesAccessibles(){
         List<Animaux> ciblesAccessibles=new ArrayList<>();
         int i;
         for(Animaux a: this.listeCibles){

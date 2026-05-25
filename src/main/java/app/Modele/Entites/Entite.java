@@ -2,6 +2,7 @@ package app.Modele.Entites;
 
 import app.Modele.GameWorld;
 import app.Modele.Utilitaire;
+import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
@@ -15,6 +16,7 @@ public abstract class Entite {
     private double range;
     private double damage;
     private boolean alive;
+
 
     private DoubleProperty health = new SimpleDoubleProperty();
     private final double maxHealth;
@@ -31,6 +33,7 @@ public abstract class Entite {
         this.world=w;
 
         alive = true;
+
     }
     public void update(double dt){
         this.handleCollisions(getCible());
@@ -50,6 +53,8 @@ public abstract class Entite {
     public boolean isAlive() {
         return alive;
     }   //servira pr le clear
+
+
 
     public String getId() {
         return ""+id;

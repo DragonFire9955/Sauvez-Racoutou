@@ -74,7 +74,9 @@ public class GameWorld {
         allies.getAnimaux().remove(a);
         ennemis.getAnimaux().remove(a);
         animauxList.remove(a);
-        
+        if(a instanceof Racoutou) {
+            changeStateTheEnd();
+        }
     }
 
     public void supprimerAnimauxMorts() {
