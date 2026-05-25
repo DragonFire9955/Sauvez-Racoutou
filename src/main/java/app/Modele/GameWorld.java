@@ -20,7 +20,7 @@ public class GameWorld {
     private ObservableList<Animaux> animauxList;
     private ObservableList<Barrage> barrageList;
     private BooleanProperty theEnd;
-
+    private final int tailleTile=32;
 
     private int[][] map;
 
@@ -105,5 +105,9 @@ public class GameWorld {
 
     public int[][] getMap() {
         return map;
+    }
+
+    public int getTailleTile(){
+        return tailleTile;
     }
 }
