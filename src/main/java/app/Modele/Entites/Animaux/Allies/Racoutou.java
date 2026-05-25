@@ -1,3 +1,8 @@
+/*
+    IMPORTANT : Check si les collisions fonctionnent dans 1 sens et pas dans les 2... car sinon racoutou se défend à la
+    range du plus grand, sinon laisser dans les collisions le this.getRange
+*/
+
 package app.Modele.Entites.Animaux.Allies;
 
 import app.Modele.Entites.Animaux.Animaux;

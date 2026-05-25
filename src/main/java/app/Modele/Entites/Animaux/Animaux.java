@@ -113,6 +113,7 @@ public abstract class Animaux extends Entite {
 
         Animaux cible = cibles.getFirst();
 
+        System.out.println("Animaux.attaquer(); " + this.getClass().getName() + " attaque !");
         cible.estAttaque(getDamage());
     }
 
