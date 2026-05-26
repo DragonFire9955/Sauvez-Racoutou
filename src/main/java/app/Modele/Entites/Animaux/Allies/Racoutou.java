@@ -6,10 +6,12 @@ import app.Modele.GameWorld;
 
 import java.util.List;
 
+import static java.lang.Thread.sleep;
+
 public class Racoutou extends Animaux {
 
     public Racoutou(GameWorld w) {
-        super(new double[]{400, 400}, 50, 0, 7, 5, 2.5, w);
+        super(new double[]{685, 375}, 50, 0, 7, 5, 2.5, w);
     }
 
     public Racoutou(double[] coord, GameWorld w) {
@@ -17,7 +19,7 @@ public class Racoutou extends Animaux {
     }
 
     @Override
-    public void update(double dt) {
+    public void update(double dt)  {
         super.update(dt);
     }
 
@@ -32,4 +34,6 @@ public class Racoutou extends Animaux {
     public List<Animaux> getListeCibles() {
         return getWorld().getEnnemis();
     }
+
+
 }

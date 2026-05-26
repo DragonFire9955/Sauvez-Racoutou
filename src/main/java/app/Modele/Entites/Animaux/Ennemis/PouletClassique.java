@@ -26,15 +26,16 @@ public class PouletClassique extends Animaux {
     public PouletClassique(double[] coord, double health, double vitesse, double range, double dmg, double freqAtk, GameWorld w) {
         super(coord, health, vitesse, range, dmg, freqAtk, w);
     }
-
+/*
     @Override
-    public void update(double dt) {
+    public void update(double dt)  {
         super.update(dt);
-
-        if (!isColl()) {
+        if (!isColl()|| gettCanMove()) {
             deplacement();
         }
     }
+
+ */
 
     @Override
     public Entite getCible() {

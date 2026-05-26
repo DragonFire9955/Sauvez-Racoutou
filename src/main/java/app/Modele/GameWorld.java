@@ -32,7 +32,7 @@ public class GameWorld {
         theEnd= new SimpleBooleanProperty(false);
     }
 
-    public void updateGW(double dt) {
+    public void updateGW(double dt)  {
 
         for (Entite entite : animauxList) {
             entite.update(dt);

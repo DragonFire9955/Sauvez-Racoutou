@@ -1,8 +1,10 @@
 package app.Vue;
 
+import app.Modele.Entites.Animaux.Allies.ChatClassique;
 import app.Modele.Entites.Animaux.Allies.Racoutou;
 import app.Modele.Entites.Animaux.Ennemis.PouletBouclier;
 import app.Modele.Entites.Animaux.Ennemis.PouletClassique;
+import app.Modele.Entites.Animaux.Ennemis.PouletMenotte;
 import app.Modele.Entites.Entite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,8 +17,12 @@ public class EntiteVue {
         switch (entite) {
             case Racoutou racoutou ->
                 imageView.setImage(new Image("app/images/racoutou.png"));
+            case ChatClassique chatClassique ->
+                    imageView.setImage(new Image("app/images/chat.png"));
             case PouletBouclier pouletBouclier ->
                 imageView.setImage(new Image("app/images/pouletBouclier.jpg"));
+            case PouletMenotte pouletMenotte ->
+                    imageView.setImage(new Image("app/images/pouletMenotte.jpg"));
             case PouletClassique pouletClassique ->
                 imageView.setImage(new Image("app/images/pouletClassique.png"));
             default -> System.out.println("Image inconnue");

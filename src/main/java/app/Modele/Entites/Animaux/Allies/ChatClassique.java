@@ -11,12 +11,22 @@ public class ChatClassique extends Animaux {
         super(coord, health, vitesse, dmg, range, freqAtt, w);
     }
 
+    public ChatClassique(double[] coord, GameWorld w) {
+        super(coord, 5, 2, 5, 1, 1, w);
+    }
+
     public Entite getCible(){
-        return null;
+        Entite cible= getNearest();
+        return cible;
     }
 
     @Override
     public List<Animaux> getListeCibles() {
         return getWorld().getEnnemis();
+    }
+
+    @Override
+    public void update(double dt)  {
+        super.update(dt);
     }
 }

@@ -1,15 +1,21 @@
 package app.Controller;
 
+import app.Modele.Chemins.DeplacementA;
+import app.Modele.Entites.Animaux.Allies.ChatClassique;
+import app.Modele.Entites.Animaux.Allies.ChatHypnotiseur;
 import app.Modele.Entites.Animaux.Allies.Racoutou;
 import app.Modele.Entites.Animaux.Ennemis.PouletBouclier;
 import app.Modele.Entites.Animaux.Ennemis.PouletClassique;
+import app.Modele.Entites.Animaux.Ennemis.PouletMenotte;
 import app.Modele.GameWorld;
 import app.Modele.Managers.EnnemisSpawn;
 import app.Modele.Terrain;
+import app.Modele.Utilitaires.Noeud;
 import app.Vue.TerrainVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -17,17 +23,19 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import static app.Controller.MenuController.*;
 
 public class Controller implements Initializable {
 
     // VUE
-    @FXML private BorderPane applicationPane;
+    @FXML private BorderPane applicationPane; // border pane parent de tous
     @FXML private Pane gamePane;
     @FXML private Pane carte;
-    @FXML private Pane demarragePane;
-
     @FXML private TilePane tileMap;
 
     private TerrainVue terrainVue;
@@ -44,6 +52,7 @@ public class Controller implements Initializable {
     private CameraManager cameraManager;
     private Timeline gameLoop;
     private int temps;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -65,11 +74,18 @@ public class Controller implements Initializable {
         //TEMPORAIRE, A DELET
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
         gameWorld.ajouterAnimal(new Racoutou(gameWorld));
+        gameWorld.getAnimaux().getFirst().getAliveProperty().addListener((observable, oldValue, newValue) -> {
+                        gamePane.getScene().setRoot(menu);
+                        isGameStarted.setValue(false);
+                }
+        );
         gameWorld.ajouterAnimal(new PouletClassique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+        System.out.println(isGameStarted);
+        isGameStarted.addListener(((observableValue, aBoolean, t1) -> {
+            initAnimation();
+            gameLoop.play();
+        }));
 
-        initAnimation();
-        // demarre l'animation
-        gameLoop.play();
 
         gamePane.sceneProperty().addListener((observable, oldValue, newValue) -> {
 
@@ -82,6 +98,7 @@ public class Controller implements Initializable {
                 remetEnnemiTest(event);
             });
         });
+
     }
 
     @FXML
@@ -159,7 +176,13 @@ public class Controller implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
-            gameWorld.updateGW(temps);
+
+            DeplacementA a = new DeplacementA(map);
+             List< Noeud > b = a.trouverChemin(1,2,3,4);
+            for (Noeud c : b) {
+                System.out.println(a);
+            }
+                gameWorld.updateGW(temps*0.017);
             temps++;
         }));
         gameLoop.getKeyFrames().add(kf);
@@ -183,7 +206,19 @@ public class Controller implements Initializable {
             System.out.println("nouveau PouletBouclier");
 
             gameWorld.ajouterAnimal(new PouletBouclier(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+        } else if (event.getCode() == KeyCode.M) {
+
+            System.out.println("nouveau PouletMenotte");
+
+            gameWorld.ajouterAnimal(new PouletMenotte(gameWorld));
+        } else if (event.getCode() == KeyCode.C) {
+
+            System.out.println("nouveau ChatClassique");
+
+            gameWorld.ajouterAnimal(new ChatClassique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
         }
+
+
     }
 
     //Partie render des Animaux sur la scène

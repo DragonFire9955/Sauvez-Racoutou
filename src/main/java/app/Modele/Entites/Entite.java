@@ -2,8 +2,12 @@ package app.Modele.Entites;
 
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Utilitaire;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+
+import static java.lang.Thread.sleep;
 
 public abstract class Entite {
 
@@ -20,7 +24,10 @@ public abstract class Entite {
 
     private DoubleProperty health = new SimpleDoubleProperty();
     private final double maxHealth;
-    private boolean alive;
+    private BooleanProperty alive;
+    private boolean actif;
+
+    private double chrono;
 
 
     protected Entite(double coord[], double health, double range, double dmg, double freqAtk, GameWorld w) {
@@ -39,9 +46,11 @@ public abstract class Entite {
         this.world=w;
 
 
-        alive = true;
+        alive = new SimpleBooleanProperty(true);
+        actif=true;
+        chrono=0;
     }
-    public void update(double dt){
+    public void update(double dt)  {
         this.handleCollisions(getCible(), dt);
     }
 
@@ -51,9 +60,12 @@ public abstract class Entite {
 
         if (Utilitaire.intersects(cible, this)){
 
+            if(chrono==0)
+                chrono=dt;
+
             coll = true;
 
-            if (dt%(getFreqAtk()*60) == 0) {
+            if (((dt-chrono)%freqAtk)== 0) {
                 attaquer();
             }
 
@@ -134,13 +146,29 @@ public abstract class Entite {
 
 
     public void destroy() {
-        alive = false;
+        alive.set(false);
     }
 
     public boolean isAlive() {
-        return alive;
+        return alive.getValue();
     }   //servira pr le clear
 
+    public BooleanProperty getAliveProperty() {
+        return alive;
+    }
+
     public abstract Entite getCible();
+
+    public void setActif(boolean actif) {
+        this.actif = actif;
+    }
+
+
+
+
+
+
+
+
 
 }
