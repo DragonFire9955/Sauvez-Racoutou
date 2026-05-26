@@ -10,6 +10,8 @@ import java.util.List;
 import static java.lang.Thread.sleep;
 
 public abstract class Animaux extends Entite {
+    private double stunnedUntil;
+
 
     private boolean canAttack;
     private boolean canMove;
@@ -20,14 +22,18 @@ public abstract class Animaux extends Entite {
         this.vitesse = vitesse;
         canAttack=true;
         canMove=true;
+        stunnedUntil =0;
     }
 
     @Override
     public void update(double dt)  {
         super.update(dt);
 
-        if (!isColl() && getCanMove()) {
+        if (!isColl() && canMove()) {
             deplacement();
+        }
+        else if(stunnedUntil!=0){
+            unstuned(dt);
         }
     }
 
@@ -93,9 +99,6 @@ public abstract class Animaux extends Entite {
         List<Animaux> ciblesAccessibles=getListeCibles();
         List<Animaux> ciblesClassées = new ArrayList<>();
         int i;
-
-
-
         for(Animaux a: ciblesAccessibles){
             //Si a dans le rayon d'action
             if(Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())<=range) {
@@ -111,10 +114,7 @@ public abstract class Animaux extends Entite {
                 ciblesClassées.add(i, a);
             }
         }
-
-
         return ciblesClassées;
-
     }
 
     public void estAttaque(double damage){
@@ -141,8 +141,25 @@ public abstract class Animaux extends Entite {
     public void setCanMove(boolean canMove) {
         this.canMove = canMove;
     }
-    public boolean getCanMove() {
+    public boolean canMove() {
         return canMove;
+    }
+
+    public void unstuned(double dt){
+        if(dt>=this.stunnedUntil) {
+            System.out.println("if stunnedUntil");
+            this.setCanMove(true);
+            this.setCanAttack(true);
+            this.stunnedUntil=0;
+        }
+    }
+
+    public double getStunnedUntil() {
+        return stunnedUntil;
+    }
+
+    public void setStunnedUntil(double stunnedFor) {
+        this.stunnedUntil = stunnedFor;
     }
 
 
