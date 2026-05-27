@@ -109,7 +109,7 @@ public abstract class Animaux extends Entite {
                         > Utilitaire.distance(this.getX(), this.getY(), ciblesClassées.get(i).getX(), ciblesClassées.get(i).getY())
                         && a.getHealthProperty().getValue()>ciblesClassées.get(i).getHealthProperty().getValue()){
                         i++;
-                    System.out.println("ajout "+ a.getClass() +" indice "+i);
+                    //System.out.println("ajout "+ a.getClass() +" indice "+i);
                 }
                 ciblesClassées.add(i, a);
             }

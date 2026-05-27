@@ -82,6 +82,7 @@ public class GameWorld {
             if (animal instanceof PouletClassique)
                 ennemis.add(animal);
 
+
         return ennemis;
     }
 

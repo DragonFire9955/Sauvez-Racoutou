@@ -3,6 +3,7 @@ package app.Controller;
 import app.Modele.Chemins.DeplacementA;
 import app.Modele.Entites.Animaux.Allies.ChatClassique;
 import app.Modele.Entites.Animaux.Allies.ChatHypnotiseur;
+import app.Modele.Entites.Animaux.Allies.ChatJournaliste;
 import app.Modele.Entites.Animaux.Allies.Racoutou;
 import app.Modele.Entites.Animaux.Ennemis.PouletBouclier;
 import app.Modele.Entites.Animaux.Ennemis.PouletClassique;
@@ -176,12 +177,6 @@ public class Controller implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
-
-            DeplacementA a = new DeplacementA(map);
-             List< Noeud > b = a.trouverChemin(1,2,3,4);
-            for (Noeud c : b) {
-                System.out.println(a);
-            }
                 gameWorld.updateGW(temps*0.017);
             temps++;
         }));
@@ -216,6 +211,11 @@ public class Controller implements Initializable {
             System.out.println("nouveau ChatClassique");
 
             gameWorld.ajouterAnimal(new ChatClassique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+        } else if (event.getCode() == KeyCode.J) {
+
+            System.out.println("nouveau ChatJournaliste");
+
+            gameWorld.ajouterAnimal(new ChatJournaliste(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
         }
 
 

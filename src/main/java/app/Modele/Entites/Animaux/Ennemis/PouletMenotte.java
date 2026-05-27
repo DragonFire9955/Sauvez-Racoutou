@@ -27,6 +27,11 @@ public class PouletMenotte extends PouletClassique {
     @Override
     public void update(double dt) { //dt = dt_controleur * 0.017
         super.update(dt);
+        stun(dt);
+    }
+
+
+    private void stun(double dt) {
         List<Animaux> cibles = getCiblesAccessibles(rangeStun);
 
         if (!cibles.isEmpty()) {
@@ -42,7 +47,7 @@ public class PouletMenotte extends PouletClassique {
                     for (int i = 0; i < cibles.size() && i < nbVictimes; i++) {
                         cibles.get(i).setCanMove(false);
                         cibles.get(i).setCanAttack(false);
-                        cibles.get(i).setStunnedUntil(chrono+stun);
+                        cibles.get(i).setStunnedUntil(chrono + stun);
                         System.out.println("stun");
                     }
 
@@ -68,24 +73,6 @@ public class PouletMenotte extends PouletClassique {
                 System.out.println("fin cool down");
             }
         }
-    }
-
-
-    public void stun(double dt) {
-        List<Animaux> cibles = getCiblesAccessibles(rangeStun);
-        this.setCanMove(false);
-        for(int i=0; i<cibles.size() && i<nbVictimes; i++){
-            cibles.get(i).setCanAttack(false);
-            cibles.get(i).setCanMove(false);
-        }
-
-        //PAUSE DE X SEC
-        for(int i=0; i<cibles.size() && i<nbVictimes; i++){
-            cibles.get(i).setCanAttack(true);
-            cibles.get(i).setCanMove(true);
-        }
-        this.setCanMove(true);
-
     }
 
 }
