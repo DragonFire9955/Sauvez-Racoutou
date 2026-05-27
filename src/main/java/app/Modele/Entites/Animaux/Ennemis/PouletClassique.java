@@ -30,6 +30,7 @@ public class PouletClassique extends Animaux {
     @Override
     public void update(double dt)  {
         super.update(dt);
+        System.out.println("vitesse: "+getVitesse());
         if (!isColl() && canMove()) {
             deplacement();
         }

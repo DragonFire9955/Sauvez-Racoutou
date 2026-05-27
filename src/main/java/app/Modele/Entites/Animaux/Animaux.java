@@ -11,6 +11,7 @@ import static java.lang.Thread.sleep;
 
 public abstract class Animaux extends Entite {
     private double stunnedUntil;
+    private double[] slowUntil;
 
 
     private boolean canAttack;
@@ -23,6 +24,7 @@ public abstract class Animaux extends Entite {
         canAttack=true;
         canMove=true;
         stunnedUntil =0;
+        slowUntil = new double[3];
     }
 
     @Override
@@ -33,8 +35,13 @@ public abstract class Animaux extends Entite {
             deplacement();
         }
         else if(stunnedUntil!=0){
-            unstuned(dt);
+                unstuned(dt);
         }
+
+        if (slowUntil[0]!=0){
+            endSlow(dt);
+        }
+
     }
 
     public void deplacement() {
@@ -160,6 +167,23 @@ public abstract class Animaux extends Entite {
 
     public void setStunnedUntil(double stunnedFor) {
         this.stunnedUntil = stunnedFor;
+    }
+
+    public void setSlowUntil(double slow, double v, double f){
+        this.slowUntil= new double[]{slow, v, f};
+    }
+
+    public double[] getSlowUntil() {
+        return slowUntil;
+    }
+
+    public void endSlow(double dt){
+        if(dt>=this.slowUntil[0]) {
+            System.out.println("if slowUntill");
+            this.setVitesse(slowUntil[1]);
+            this.setDamage(slowUntil[2]);
+            this.slowUntil[0]=0;
+        }
     }
 
 

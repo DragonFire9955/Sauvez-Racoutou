@@ -16,6 +16,7 @@ public class ChatClassique extends Animaux {
         super(coord, 5, 2, 5, 1, 1, w);
     }
 
+
     public Entite getCible(){
         Entite cible= getNearest();
         return cible;

@@ -30,7 +30,6 @@ public class ChatJournaliste extends ChatClassique {
 
     private void stun(double dt) {
         List<Animaux> cibles = getCiblesAccessibles(rangeStun);
-        System.out.println(cibles.size()+" taille cibles");
         if (!cibles.isEmpty()) {
 
             if (peutStun) {
@@ -71,4 +70,6 @@ public class ChatJournaliste extends ChatClassique {
             }
         }
     }
+
+
 }

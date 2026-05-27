@@ -1,10 +1,7 @@
 package app.Controller;
 
 import app.Modele.Chemins.DeplacementA;
-import app.Modele.Entites.Animaux.Allies.ChatClassique;
-import app.Modele.Entites.Animaux.Allies.ChatHypnotiseur;
-import app.Modele.Entites.Animaux.Allies.ChatJournaliste;
-import app.Modele.Entites.Animaux.Allies.Racoutou;
+import app.Modele.Entites.Animaux.Allies.*;
 import app.Modele.Entites.Animaux.Ennemis.PouletBouclier;
 import app.Modele.Entites.Animaux.Ennemis.PouletClassique;
 import app.Modele.Entites.Animaux.Ennemis.PouletMenotte;
@@ -216,6 +213,11 @@ public class Controller implements Initializable {
             System.out.println("nouveau ChatJournaliste");
 
             gameWorld.ajouterAnimal(new ChatJournaliste(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+        } else if (event.getCode() == KeyCode.G) {
+
+            System.out.println("nouveau IGPN");
+
+            gameWorld.ajouterAnimal(new PouletIGPN(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
         }
 
 

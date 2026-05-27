@@ -2,6 +2,7 @@ package app.Vue;
 
 import app.Modele.Entites.Animaux.Allies.ChatClassique;
 import app.Modele.Entites.Animaux.Allies.ChatJournaliste;
+import app.Modele.Entites.Animaux.Allies.PouletIGPN;
 import app.Modele.Entites.Animaux.Allies.Racoutou;
 import app.Modele.Entites.Animaux.Ennemis.PouletBouclier;
 import app.Modele.Entites.Animaux.Ennemis.PouletClassique;
@@ -18,6 +19,8 @@ public class EntiteVue {
         switch (entite) {
             case Racoutou racoutou ->
                 imageView.setImage(new Image("app/images/racoutou.png"));
+            case PouletIGPN pouletIGPN ->
+                    imageView.setImage(new Image("app/images/chat.png"));
             case ChatJournaliste chatJournaliste ->
                     imageView.setImage(new Image("app/images/chatJournaliste.jpg"));
             case ChatClassique chatClassique ->
