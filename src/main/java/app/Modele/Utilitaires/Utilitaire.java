@@ -1,10 +1,9 @@
 package app.Modele.Utilitaires;
 
+import app.Modele.Entites.Animaux.Animaux;
 import app.Modele.Entites.Entite;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.TimerTask;
 
 public class Utilitaire {
 
@@ -21,4 +20,7 @@ public class Utilitaire {
 
         return Math.abs(dx) + Math.abs(dy) < Math.pow(maxRange, 2);
     }
+
+
+
 }

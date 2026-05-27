@@ -15,20 +15,23 @@ import java.util.List;
 import java.util.Map;
 
 public class PouletClassique extends Animaux {
-
-    public PouletClassique(int x, int y, double health, double vitesse, double range, double dmg, double freqAtk, GameWorld w) {
-        super(x, y, health, vitesse, range, dmg, freqAtk, w, w.getAllies());
+    public PouletClassique(GameWorld w) {
+        super(new double[]{400, 200}, 5, 1, 5, 1, 1, w);
     }
 
-    public PouletClassique(int x, int y, GameWorld w) {
-        super(x, y, 5, 2, 5, 1, 1, w, w.getAllies());
+    public PouletClassique(double[] coord, GameWorld w) {
+        super(coord, 5, 1, 5, 1, 1, w);
+    }
+
+    public PouletClassique(double[] coord, double health, double vitesse, double range, double dmg, double freqAtk, GameWorld w) {
+        super(coord, health, vitesse, range, dmg, freqAtk, w);
     }
 
     @Override
-    public void update(double dt) {
+    public void update(double dt)  {
         super.update(dt);
-
-        if (!isColl()) {
+        System.out.println("vitesse: "+getVitesse());
+        if (!isColl() && canMove()) {
             deplacement();
         }
     }

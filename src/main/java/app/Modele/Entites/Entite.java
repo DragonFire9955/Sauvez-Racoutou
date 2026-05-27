@@ -2,8 +2,12 @@ package app.Modele.Entites;
 
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Utilitaire;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+
+import static java.lang.Thread.sleep;
 
 public abstract class Entite {
 
@@ -11,7 +15,7 @@ public abstract class Entite {
     private int id;
     private GameWorld world;
 
-    private boolean coll;
+    private boolean coll; // indique si l'entite est en collision
 
     private DoubleProperty x, y;
     private double range;
@@ -20,27 +24,33 @@ public abstract class Entite {
 
     private DoubleProperty health = new SimpleDoubleProperty();
     private final double maxHealth;
-    private boolean alive;
+    private BooleanProperty alive;
+    private boolean actif;
 
-    protected Entite(double x, double y, double health, double range, double dmg, double freqAtk, GameWorld w) {
+    private double chrono;
+
+
+    protected Entite(double coord[], double health, double range, double dmg, double freqAtk, GameWorld w) {
         this.id=nbId;
         nbId++;
 
         coll = false;
 
-        this.x = new SimpleDoubleProperty(x);
-        this.y = new SimpleDoubleProperty(y);
+        this.x = new SimpleDoubleProperty(coord[0]);
+        this.y = new SimpleDoubleProperty(coord[1]);
         this.health.set(health);
         this.maxHealth = health;
         this.range = range;
         this.damage=dmg;
-        this.freqAtk = freqAtk;
+        this.freqAtk=freqAtk;
         this.world=w;
 
-        alive = true;
-    }
 
-    public void update(double dt){
+        alive = new SimpleBooleanProperty(true);
+        actif=true;
+        chrono=0;
+    }
+    public void update(double dt)  {
         this.handleCollisions(getCible(), dt);
     }
 
@@ -50,15 +60,19 @@ public abstract class Entite {
 
         if (Utilitaire.intersects(cible, this)){
 
+            if(chrono==0)
+                chrono=dt;
+
             coll = true;
 
-            if (dt%(getFreqAtk()*60) == 0) {
+            if (((dt-chrono)%freqAtk)== 0) {
                 attaquer();
             }
 
         } else {
             coll = false;
         }
+
     }
 
     protected void setPosition(double x, double y) {
@@ -114,6 +128,7 @@ public abstract class Entite {
         this.freqAtk = freqAtk;
     }
 
+
     public DoubleProperty getHealthProperty() {
         return health;
     }
@@ -122,18 +137,38 @@ public abstract class Entite {
     }
     public void setHealth(double value) {
         health.set(Math.max(0, value));
-        if (value <= 0) destroy();
+        System.out.println("avant destroy");
+        if (value==0){
+            destroy();
+            System.out.println("après destroy");
+        }
     }
 
+
     public void destroy() {
-        alive = false;
+        alive.set(false);
     }
 
     public boolean isAlive() {
-        return alive;
+        return alive.getValue();
     }   //servira pr le clear
 
+    public BooleanProperty getAliveProperty() {
+        return alive;
+    }
 
     public abstract Entite getCible();
+
+    public void setActif(boolean actif) {
+        this.actif = actif;
+    }
+
+
+
+
+
+
+
+
 
 }

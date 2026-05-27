@@ -36,10 +36,7 @@ build/
 .vscode/
 
 ### Mac OS ###
-<<<<<<< HEAD
+
 .DS_Store
 
 .idea
-=======
-.DS_Store
->>>>>>> achille

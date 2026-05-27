@@ -1,11 +1,13 @@
-package app.Modele.Entites.Animaux.Allies;
+package app.Modele.Entites.Animaux.Ennemis;
 
 import app.Modele.Entites.Animaux.Animaux;
 import app.Modele.GameWorld;
+import app.Modele.Managers.EnnemisSpawn;
 
 import java.util.List;
 
-public class ChatJournaliste extends ChatClassique {
+
+public class PouletMenotte extends PouletClassique {
 
     private static int nbVictimes = 3;
     private static double stun = 2; //en secondes
@@ -16,10 +18,10 @@ public class ChatJournaliste extends ChatClassique {
 
     private static double chrono;
 
-    public ChatJournaliste(double[] coord,  GameWorld w) {
-        super(coord, 8, 3, .5, .5, 1, w);
+    public PouletMenotte(GameWorld w) {
+        super(EnnemisSpawn.randomCoord(w), w);
+        chronoDefini = false;
         peutStun=true;
-        chronoDefini=false;
     }
 
     @Override
@@ -28,8 +30,10 @@ public class ChatJournaliste extends ChatClassique {
         stun(dt);
     }
 
+
     private void stun(double dt) {
         List<Animaux> cibles = getCiblesAccessibles(rangeStun);
+
         if (!cibles.isEmpty()) {
 
             if (peutStun) {
@@ -57,7 +61,7 @@ public class ChatJournaliste extends ChatClassique {
                      */
                     this.setCanMove(true);
                     this.peutStun = false;
-                    System.out.println("debut cooldown");
+                    System.out.println("debut coll down");
                 }
                 System.out.println(chrono + "chrono");
                 System.out.println("dt " + dt);
@@ -70,6 +74,5 @@ public class ChatJournaliste extends ChatClassique {
             }
         }
     }
-
 
 }

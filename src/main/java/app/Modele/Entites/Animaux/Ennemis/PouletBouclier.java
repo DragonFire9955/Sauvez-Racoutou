@@ -8,14 +8,14 @@ public class PouletBouclier extends PouletClassique {
 
     private DoubleProperty bouclier;
 
-    public PouletBouclier(int x, int y, GameWorld w) {
+    public PouletBouclier(double[] coord, GameWorld w) {
 
-        super(x, y, 6, 1, 3, 2, 2, w);
+        super(coord, 6, 1, 3, 2, 2, w);
         this.bouclier = new SimpleDoubleProperty(15);
     }
 
     @Override
-    public void update(double dt) {
+    public void update(double dt)  {
 
         super.update(dt);
         tankDmg();

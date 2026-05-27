@@ -94,9 +94,23 @@ public class DeplacementDijkstra {
         Map<Noeud, Integer> distances = new DeplacementDijkstra(map).calculerDistances(0, 0);
 
         for (Map.Entry<Noeud, Integer> entry : distances.entrySet()) {
-
             Noeud n = entry.getKey();
+            System.out.println("(" + n.getX() + "," + n.getY() + ") min : " + entry.getValue());
+            System.out.println("(" + n.getX() + "," + n.getY() + ") min : " + entry.getValue());
+            System.out.println("(" + n.getX() + "," + n.getY() + ") min : " + entry.getValue());
             System.out.println("(" + n.getX() + "," + n.getY() + ") min : " + entry.getValue());
         }
     }
+
+    /*
+    objet car besoin d'un différent pour le chien
+    stock dikstra de toute la map + listener sur liste barrage pour le recalculer
+    méthode déplacement(Entite entite):
+        cherche noeud equivalent au coordonnées de entité
+        donne à entite les coordonnées du noeud parent etc
+    fonction correspondance noeud/coord entite?
+    
+     */
+
+
 }

@@ -3,6 +3,7 @@ package app.Modele;
 import app.Modele.Entites.Animaux.Allies.ChatClassique;
 import app.Modele.Entites.Animaux.Allies.Racoutou;
 import app.Modele.Entites.Animaux.Animaux;
+
 import app.Modele.Entites.Animaux.Ennemis.PouletClassique;
 import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
@@ -19,6 +20,7 @@ public class GameWorld {
     private ObservableList<Animaux> animauxList;
     private ObservableList<Barrage> barrageList;
     private BooleanProperty theEnd;
+    private final int tailleTile=32;
 
     private int[][] map;
 
@@ -30,7 +32,7 @@ public class GameWorld {
         theEnd= new SimpleBooleanProperty(false);
     }
 
-    public void updateGW(double dt) {
+    public void updateGW(double dt)  {
 
         for (Entite entite : animauxList) {
             entite.update(dt);
@@ -80,6 +82,7 @@ public class GameWorld {
             if (animal instanceof PouletClassique)
                 ennemis.add(animal);
 
+
         return ennemis;
     }
 
@@ -103,5 +106,9 @@ public class GameWorld {
 
     public int[][] getMap() {
         return map;
+    }
+
+    public int getTailleTile(){
+        return tailleTile;
     }
 }
