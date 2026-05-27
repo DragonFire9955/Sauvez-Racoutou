@@ -8,12 +8,14 @@ import app.Modele.Terrain;
 import app.Vue.TerrainVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.*;
+import javafx.stage.Window;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -26,6 +28,11 @@ public class Controller implements Initializable {
     @FXML private Pane gamePane;
     @FXML private Pane carte;
     @FXML private TilePane tileMap;
+    @FXML private Button btnPoubelle;
+    @FXML private Button btnClassique;
+    @FXML private Button btnProjectiles;
+    @FXML private Button btnJournaliste;
+
 
     private TerrainVue terrainVue;
     private boolean enPause = false;
@@ -45,12 +52,37 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        terrainVue = new TerrainVue();
-
         this.map = Terrain.genererMap();
+        terrainVue = new TerrainVue();
         terrainVue.delimitationMap(tileMap);
 
         remplirMap();
+
+        DragImage dragImage = new DragImage();
+        dragImage.drag(btnPoubelle, 100, "/app/images/poubelle.png");
+        dragImage.drag(btnClassique, 101, "/app/images/classique.png");
+        dragImage.drag(btnProjectiles, 102, "/app/images/projectiles.png");
+        dragImage.drag(btnJournaliste, 103, "/app/images/journaliste.png");
+
+        dragImage.survole(tileMap);
+
+        //drop
+        tileMap.setOnDragDropped(e -> { //réagit quand la souris relache
+
+            Dragboard db = e.getDragboard(); //on récupère le contenu
+            int id = Integer.parseInt(db.getString()); //remet l'id en int
+            int c = (int) (e.getX() / 32); //on divise les coordonées de la souris par 32 (et on arrondis) pour avoir la colonne de la case
+            int l = (int) (e.getY() / 32); //on divise les coordonées de la souris par 32 (et on arrondis) pour avoir la ligne de la case
+
+            if (map[l][c] == 0) { //si la case est bien du sol
+                map[l][c] = id; //on la remplace par l'id
+                remplirMap(); //puis on remplit la tableau
+            } else { //sinon on renvoie un message
+                System.out.println("Impossible de placer ici");
+            }
+
+            e.consume(); //fin de l'evenement
+        });
 
         //Initialisation des Managers
         gameWorld = new GameWorld();
@@ -80,7 +112,9 @@ public class Controller implements Initializable {
                 remetEnnemiTest(event);
             });
         });
+
     }
+
 
     @FXML
     private void pause(){
@@ -146,8 +180,6 @@ public class Controller implements Initializable {
             }
         }
 
-        gamePane.requestFocus();
-
     }
 
 
@@ -182,6 +214,18 @@ public class Controller implements Initializable {
 
             gameWorld.ajouterAnimal(new PouletBouclier(400, 200, gameWorld));
         }
+    }
+
+    public double[] getMousePos(Window window) {
+        double[] mousePos = new double[1];
+        window.getScene().setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                mousePos[0] = mouseEvent.getX();
+                mousePos[1] = mouseEvent.getY();
+            }
+        });
+        return mousePos;
     }
 
     //Partie render des Animaux sur la scène

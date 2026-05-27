@@ -27,7 +27,7 @@
    <right>
       <Pane prefHeight="200.0" prefWidth="275.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="796.0" prefWidth="275.0" spacing="10.0" style="-fx-background-color: black; -fx-background-radius: 5;">
+            <VBox prefHeight="796.0" prefWidth="275.0" spacing="10.0" style="-fx-background-color: black;">
                <children>
                   <Label alignment="CENTER" prefHeight="25.0" prefWidth="267.0" text="BOUTIQUE" textFill="WHITE">
                      <font>
@@ -44,7 +44,7 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Button contentDisplay="BOTTOM" mnemonicParsing="false" style="-fx-background-color: #fdfbe7;" text="Obstacle" textFill="LIME">
+                  <Button contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="150.0" prefWidth="270.0" style="-fx-background-color: #fdfbe7;" text="Obstacle" textFill="LIME">
                      <graphic>
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -56,7 +56,7 @@
                         <Font size="21.0" />
                      </font>
                   </Button>
-                  <Button contentDisplay="BOTTOM" mnemonicParsing="false" style="-fx-background-color: #fdfbe7;" text="Tour" textFill="LIME">
+                  <Button contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="150.0" prefWidth="270.0" style="-fx-background-color: #fdfbe7;" text="Tour" textFill="LIME">
                      <font>
                         <Font size="21.0" />
                      </font>
@@ -70,9 +70,9 @@
                   </Button>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                      <children>
-                        <Button contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerPoubelle" style="-fx-background-color: #fdfbe7;" text="Poubelle" textFill="ORANGE">
+                        <Button fx:id="btnPoubelle" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerPoubelle" prefHeight="98.0" prefWidth="127.0" style="-fx-background-color: #fdfbe7;" text="Poubelle" textFill="ORANGE">
                            <graphic>
-                              <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="99.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@images/def_0.png" />
                                  </image>
@@ -82,12 +82,13 @@
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerChatClassique" style="-fx-background-color: #fdfbe7;" text="Chat classique" textFill="ORANGE">
+                        <Button fx:id="btnClassique" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerChatClassique" style="-fx-background-color: #fdfbe7;" text="Chat classique" textFill="ORANGE">
                            <graphic>
-                              <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="97.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@images/def_1.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                            </graphic>
                            <font>
                               <Font size="14.0" />
@@ -97,9 +98,9 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                      <children>
-                        <Button contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerChatProjectiles" style="-fx-background-color: #fdfbe7;" text="Chat à projectiles" textFill="ORANGE">
+                        <Button fx:id="btnProjectiles" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerChatProjectiles" style="-fx-background-color: #fdfbe7;" text="Chat à projectiles" textFill="ORANGE">
                            <graphic>
-                              <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@images/def_2.png" />
                                  </image></ImageView>
@@ -108,9 +109,9 @@
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerChatJournaliste" style="-fx-background-color: #fdfbe7;" text="Chat journaliste" textFill="ORANGE">
+                        <Button fx:id="btnJournaliste" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerChatJournaliste" style="-fx-background-color: #fdfbe7;" text="Chat journaliste" textFill="ORANGE">
                            <graphic>
-                              <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@images/def_3.png" />
                                  </image></ImageView>
@@ -152,4 +153,26 @@
          </children>
       </HBox>
    </top>
+   <bottom>
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="100.0" prefWidth="148.0" text="Vague : " textFill="#008fff">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+            </Label>
+            <ImageView fitHeight="45.0" fitWidth="272.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/vie_1.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="100.0" top="25.0" />
+               </HBox.margin>
+            </ImageView>
+         </children>
+      </HBox>
+   </bottom>
 </BorderPane>
