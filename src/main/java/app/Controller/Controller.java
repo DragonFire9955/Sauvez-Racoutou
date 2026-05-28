@@ -1,19 +1,19 @@
 package app.Controller;
 
-import app.Modele.Chemins.DeplacementA;
 import app.Modele.Entites.Animaux.Allies.*;
-import app.Modele.Entites.Animaux.Ennemis.PouletBouclier;
-import app.Modele.Entites.Animaux.Ennemis.PouletClassique;
-import app.Modele.Entites.Animaux.Ennemis.PouletMenotte;
+import app.Modele.Entites.Animaux.Animal;
+import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
+import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.ChatJournaliste;
+import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.PouletMenotte;
+import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.GameWorld;
+import app.Modele.Managers.AnimauxManager;
 import app.Modele.Managers.EnnemisSpawn;
 import app.Modele.Terrain;
-import app.Modele.Utilitaires.Noeud;
 import app.Vue.TerrainVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -21,9 +21,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import static app.Controller.MenuController.*;
@@ -77,7 +75,7 @@ public class Controller implements Initializable {
                         isGameStarted.setValue(false);
                 }
         );
-        gameWorld.ajouterAnimal(new PouletClassique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+        gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
         System.out.println(isGameStarted);
         isGameStarted.addListener(((observableValue, aBoolean, t1) -> {
             initAnimation();
@@ -187,7 +185,7 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau PouletClassique");
 
-            gameWorld.ajouterAnimal(new PouletClassique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+            gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
         } else if (event.getCode() == KeyCode.A) {
 
             System.out.println("nouveau Racoutou");
@@ -202,12 +200,12 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau PouletMenotte");
 
-            gameWorld.ajouterAnimal(new PouletMenotte(gameWorld));
+            gameWorld.ajouterAnimal(new PouletMenotte(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
         } else if (event.getCode() == KeyCode.C) {
 
             System.out.println("nouveau ChatClassique");
 
-            gameWorld.ajouterAnimal(new ChatClassique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+            gameWorld.ajouterAnimal(AnimauxManager.creerChatClassique(gameWorld));
         } else if (event.getCode() == KeyCode.J) {
 
             System.out.println("nouveau ChatJournaliste");
@@ -217,7 +215,7 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau IGPN");
 
-            gameWorld.ajouterAnimal(new PouletIGPN(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+            gameWorld.ajouterAnimal(new ChatScientifique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
         }
 
 

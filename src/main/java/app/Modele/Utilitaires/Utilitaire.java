@@ -1,9 +1,6 @@
 package app.Modele.Utilitaires;
 
-import app.Modele.Entites.Animaux.Animaux;
 import app.Modele.Entites.Entite;
-
-import java.util.TimerTask;
 
 public class Utilitaire {
 

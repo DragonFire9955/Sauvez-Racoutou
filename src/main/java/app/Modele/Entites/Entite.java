@@ -163,6 +163,11 @@ public abstract class Entite {
         this.actif = actif;
     }
 
+    public void estAttaque(double damage){
+
+        setHealth(getHealthProperty().getValue()-damage);
+    }
+
 
 
 

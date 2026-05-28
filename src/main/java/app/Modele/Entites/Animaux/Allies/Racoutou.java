@@ -1,6 +1,6 @@
 package app.Modele.Entites.Animaux.Allies;
 
-import app.Modele.Entites.Animaux.Animaux;
+import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 
@@ -8,14 +8,14 @@ import java.util.List;
 
 import static java.lang.Thread.sleep;
 
-public class Racoutou extends Animaux {
+public class Racoutou extends Animal {
 
     public Racoutou(GameWorld w) {
-        super(new double[]{685, 375}, 50, 0, 7, 5, 2.5, w);
+        super(new double[]{685, 375}, 50, 0, 7, 5, 2.5, w, true);
     }
 
     public Racoutou(double[] coord, GameWorld w) {
-        super(coord, 50, 0, 7, 5, 2.5, w);
+        super(coord, 50, 0, 7, 5, 2.5, w, true);
     }
 
     @Override
@@ -30,10 +30,6 @@ public class Racoutou extends Animaux {
         return getWorld().getEnnemis().getFirst();
     }
 
-    @Override
-    public List<Animaux> getListeCibles() {
-        return getWorld().getEnnemis();
-    }
 
 
 }
