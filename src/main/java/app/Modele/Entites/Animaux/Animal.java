@@ -150,6 +150,10 @@ public class Animal extends Entite {
 
     @Override
     public Entite getCible() {
+
+        /// TODO : retourne des erreurs si on ne met pas ça !!!!
+        //if (getListeCibles().isEmpty()) return null;
+
         if (allie)
             return getAnimauxCibles().getFirst();
         else {
