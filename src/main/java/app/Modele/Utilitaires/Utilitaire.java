@@ -18,6 +18,10 @@ public class Utilitaire {
         return Math.abs(dx) + Math.abs(dy) < Math.pow(maxRange, 2);
     }
 
+    public static int divisionEuclidienne(double dividende, double diviseur){
+        return (int) (dividende/diviseur);
+    }
+
 
 
 }

@@ -1,6 +1,5 @@
 package app.Modele;
 
-import app.Modele.Entites.Animaux.Allies.Racoutou;
 import app.Modele.Entites.Animaux.Animal;
 
 import app.Modele.Entites.Barrage.Barrage;
@@ -29,6 +28,7 @@ public class GameWorld {
         barrageList = FXCollections.observableArrayList();
         theEnd= new SimpleBooleanProperty(false);
     }
+
 
     public void updateGW(double dt)  {
 

@@ -1,10 +1,7 @@
-package app.Modele.Entites.Animaux.Allies;
+package app.Modele.Entites.Animaux;
 
-import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
-
-import java.util.List;
 
 import static java.lang.Thread.sleep;
 

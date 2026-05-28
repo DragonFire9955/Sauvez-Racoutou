@@ -4,7 +4,7 @@ import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.ChatJournaliste;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.PouletMenotte;
-import app.Modele.Entites.Animaux.Allies.Racoutou;
+import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Entite;
 import javafx.scene.image.Image;

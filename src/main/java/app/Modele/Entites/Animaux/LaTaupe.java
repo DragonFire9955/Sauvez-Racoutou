@@ -1,6 +1,5 @@
-package app.Modele.Entites.Animaux.Allies;
+package app.Modele.Entites.Animaux;
 
-import app.Modele.Entites.Animaux.Animal;
 import app.Modele.GameWorld;
 
 public class LaTaupe extends Animal {

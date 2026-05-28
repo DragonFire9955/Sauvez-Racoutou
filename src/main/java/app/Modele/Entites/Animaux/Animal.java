@@ -1,6 +1,5 @@
 package app.Modele.Entites.Animaux;
 
-import app.Modele.Entites.Animaux.Allies.Racoutou;
 import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;

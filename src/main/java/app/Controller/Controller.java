@@ -1,7 +1,6 @@
 package app.Controller;
 
-import app.Modele.Entites.Animaux.Allies.*;
-import app.Modele.Entites.Animaux.Animal;
+import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.ChatJournaliste;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.PouletMenotte;
