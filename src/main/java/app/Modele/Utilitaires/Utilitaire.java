@@ -1,9 +1,6 @@
 package app.Modele.Utilitaires;
 
-import app.Modele.Entites.Animaux.Animaux;
 import app.Modele.Entites.Entite;
-
-import java.util.TimerTask;
 
 public class Utilitaire {
 
@@ -19,6 +16,10 @@ public class Utilitaire {
         double dy = (cible.getY()+cible.getRange()/2) - (attaquant.getY()+cible.getRange()/2);
 
         return Math.abs(dx) + Math.abs(dy) < Math.pow(maxRange, 2);
+    }
+
+    public static int divisionEuclidienne(double dividende, double diviseur){
+        return (int) (dividende/diviseur);
     }
 
 

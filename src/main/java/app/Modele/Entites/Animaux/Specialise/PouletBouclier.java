@@ -1,16 +1,17 @@
-package app.Modele.Entites.Animaux.Ennemis;
+package app.Modele.Entites.Animaux.Specialise;
 
+import app.Modele.Entites.Animaux.Animal;
 import app.Modele.GameWorld;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
-public class PouletBouclier extends PouletClassique {
+public class PouletBouclier extends Animal {
 
     private DoubleProperty bouclier;
 
     public PouletBouclier(double[] coord, GameWorld w) {
 
-        super(coord, 6, 1, 3, 2, 2, w);
+        super(coord, 6, 1, 3, 2, 2, w, false);
         this.bouclier = new SimpleDoubleProperty(15);
     }
 

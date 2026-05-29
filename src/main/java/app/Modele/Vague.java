@@ -1,17 +1,19 @@
 package app.Modele;
 
-import app.Modele.Entites.Animaux.Animaux;
-import app.Modele.Entites.Animaux.Ennemis.PouletClassique;
-import app.Modele.Entites.Animaux.Ennemis.PouletMenotte;
+import app.Modele.Entites.Animaux.Animal;
+import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.PouletMenotte;
+import app.Modele.Managers.AnimauxManager;
+import app.Modele.Managers.EnnemisSpawn;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Vague {
 
-    public static HashMap<Integer, ArrayList<Animaux>> creerVague1(GameWorld w){
+    public static HashMap<Integer, ArrayList<Animal>> creerVague1(GameWorld w){
 
-        HashMap<Integer, ArrayList<Animaux>> v= new HashMap<>();
+        HashMap<Integer, ArrayList<Animal>> v= new HashMap<>();
 
         v.put(0, lAnimaux(3, 3, w));
         v.put(5, lAnimaux(1, 5, w));
@@ -20,14 +22,14 @@ public class Vague {
         return v;
     }
 
-    public static ArrayList<Animaux> lAnimaux(int nbClassique, int nbMenotte, GameWorld w){
+    public static ArrayList<Animal> lAnimaux(int nbClassique, int nbMenotte, GameWorld w){
 
-        ArrayList<Animaux> l = new ArrayList<>();
+        ArrayList<Animal> l = new ArrayList<>();
         for(int i=0; i<nbClassique; i++)
-            l.add(new PouletClassique(w));
+            l.add(AnimauxManager.creerPouletClassique(w));
 
         for(int i=0; i<nbMenotte; i++)
-            l.add(new PouletMenotte(w));
+            l.add(new PouletMenotte(EnnemisSpawn.randomCoord(w), w));
 
         return l;
     }

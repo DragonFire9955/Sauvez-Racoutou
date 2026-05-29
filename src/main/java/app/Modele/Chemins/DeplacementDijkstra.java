@@ -1,19 +1,32 @@
 package app.Modele.Chemins;
 
 import app.Modele.Chemins.DeplacementMethodes;
+import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Noeud;
+import app.Modele.Utilitaires.Utilitaire;
 
 import java.util.*;
 
 public class DeplacementDijkstra {
 
+    private GameWorld w;
     private int[][] map;
     private int lignes;
     private int colonnes;
-
+/*
     public DeplacementDijkstra(int[][] map) {
 
         this.map = map;
+        this.lignes = map.length;
+        this.colonnes = map[0].length;
+    }
+
+ */
+
+    public DeplacementDijkstra(GameWorld w) {
+
+        this.w=w;
+        this.map=w.getMap();
         this.lignes = map.length;
         this.colonnes = map[0].length;
     }
@@ -81,8 +94,8 @@ public class DeplacementDijkstra {
     }
 
     public static void main(String[] args) {
-
-        int[][] map = new int[][]{
+        GameWorld w=new GameWorld();
+        /*int[][] map = new int[][]{
                 {0, 1, 1, 1, 1, 1},
                 {2, 1, 1, 1, 1, 1},
                 {2, 2, 1, 2, 2, 2},
@@ -91,7 +104,9 @@ public class DeplacementDijkstra {
                 {0, 1, 2, 2, 1, 1}
         };
 
-        Map<Noeud, Integer> distances = new DeplacementDijkstra(map).calculerDistances(0, 0);
+         */
+
+        Map<Noeud, Integer> distances = new DeplacementDijkstra(w).calculerDistances(0, 0);
 
         for (Map.Entry<Noeud, Integer> entry : distances.entrySet()) {
             Noeud n = entry.getKey();
@@ -104,6 +119,7 @@ public class DeplacementDijkstra {
 
     /*
     objet car besoin d'un différent pour le chien
+
     stock dikstra de toute la map + listener sur liste barrage pour le recalculer
     méthode déplacement(Entite entite):
         cherche noeud equivalent au coordonnées de entité
@@ -111,6 +127,10 @@ public class DeplacementDijkstra {
     fonction correspondance noeud/coord entite?
     
      */
+
+    public double[] getTile(double x, double y){
+        return new double[]{Utilitaire.divisionEuclidienne(x, w.getTailleTile()), Utilitaire.divisionEuclidienne(y, w.getTailleTile())};
+    }
 
 
 }

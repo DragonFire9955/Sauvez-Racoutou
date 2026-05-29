@@ -1,5 +1,6 @@
 package app.Modele.Entites.Animaux;
 
+import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Utilitaire;
@@ -9,32 +10,40 @@ import java.util.List;
 
 import static java.lang.Thread.sleep;
 
-public abstract class Animaux extends Entite {
-    private double stunnedUntil;
+public class Animal extends Entite {
+    private double stunnedUntil[];
     private double[] slowUntil;
-
-
-    private boolean canAttack;
-    private boolean canMove;
     private double vitesse;
+    private boolean canAttack;
+    private boolean allie;
 
-    public Animaux(double[] coord, double health, double vitesse, double r, double dmg, double freqAtk, GameWorld w) {
+    public Animal(double[] coord, double health, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie) {
         super(coord, health, r, dmg, freqAtk, w);
         this.vitesse = vitesse;
         canAttack=true;
-        canMove=true;
-        stunnedUntil =0;
+        stunnedUntil = new double[2];
         slowUntil = new double[3];
+        this.allie=allie;
+    }
+
+    public Animal(double[] coord, double health, double r, double dmg, double freqAtk, GameWorld w, boolean allie) {
+        super(coord, health, r, dmg, freqAtk, w);
+        this.vitesse = 0;
+        canAttack=true;
+        stunnedUntil = new double[2];
+        slowUntil = new double[3];
+        this.allie=allie;
     }
 
     @Override
     public void update(double dt)  {
         super.update(dt);
 
-        if (!isColl() && canMove()) {
+        if (!isColl() && vitesse!=0) {
             deplacement();
+            System.out.println("deplacement");
         }
-        else if(stunnedUntil!=0){
+        else if(stunnedUntil[0]!=0){
                 unstuned(dt);
         }
 
@@ -46,11 +55,11 @@ public abstract class Animaux extends Entite {
 
     public void deplacement() {
         //tant qu'il n'y a pas de cible ou qu'il y a une cible dans le perimètre d'action: immobile
-        if(!canMove) return;
+        if(vitesse == 0) return;
         Entite cible = this.getCible();
 
         if(cible==null) return;
-
+        System.out.println(cible.getClass().getName());
         double dx = cible.getX() - this.getX();
         double dy = cible.getY() - this.getY();
         double dist = Math.sqrt(dx * dx + dy * dy);
@@ -66,15 +75,15 @@ public abstract class Animaux extends Entite {
 
 
 
-    protected Animaux getNearest(){
+    protected Entite getNearest(){
 
-        List<Animaux> cibles = getListeCibles();
+        List<Entite> cibles = getListeCibles();
 
         if (cibles.isEmpty()) return null;
 
-        Animaux proche = cibles.getFirst();
+        Entite proche = cibles.getFirst();
 
-        for(Animaux a : cibles){
+        for(Entite a : cibles){
             if(Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())
                     < Utilitaire.distance(this.getX(), this.getY(), proche.getX(), proche.getY()))
                 proche = a;
@@ -102,11 +111,10 @@ public abstract class Animaux extends Entite {
     //FONCTIONS ATTAQUES
 
     //Retourne la liste des cibles ordonnées par distance croissante et pv croissant
-    protected List<Animaux> getCiblesAccessibles(double range){
-        List<Animaux> ciblesAccessibles=getListeCibles();
-        List<Animaux> ciblesClassées = new ArrayList<>();
+    protected List<Animal> getAnimauxCiblesAccessibles(double range, List<Animal> animaux){
+        List<Animal> ciblesClassées = new ArrayList<>();
         int i;
-        for(Animaux a: ciblesAccessibles){
+        for(Animal a: animaux){
             //Si a dans le rayon d'action
             if(Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())<=range) {
                 i = 0;
@@ -124,49 +132,93 @@ public abstract class Animaux extends Entite {
         return ciblesClassées;
     }
 
-    public void estAttaque(double damage){
 
-        setHealth(super.getHealthProperty().getValue()-damage);
-    }
 
     public void attaquer(){
         System.out.println(this.getClass().getName()+" can attack="+ canAttack);
         if(!canAttack)return;
 
-        List<Animaux> cibles = getListeCibles();
+        List<Entite> cibles = getListeCibles();
 
         if(cibles.isEmpty()) return;
 
-        Animaux cible = cibles.getFirst();
+        Entite cible = cibles.getFirst();
 
         System.out.println("Animaux.attaquer(); " + this.getClass().getName() + " attaque !");
         cible.estAttaque(getDamage());
     }
 
-    public abstract List<Animaux> getListeCibles();
-
-    public void setCanMove(boolean canMove) {
-        this.canMove = canMove;
-    }
-    public boolean canMove() {
-        return canMove;
-    }
-
-    public void unstuned(double dt){
-        if(dt>=this.stunnedUntil) {
-            System.out.println("if stunnedUntil");
-            this.setCanMove(true);
-            this.setCanAttack(true);
-            this.stunnedUntil=0;
+    @Override
+    public Entite getCible() {
+        if (allie)
+            return getAnimauxCibles().getFirst();
+        else {
+            List<Animal> animaux = getWorld().getAllies();
+            System.out.println(animaux.size());
+            if(animaux.isEmpty()) {
+                System.out.println("anim empty");
+                return null;
+            }
+            int i=0;
+            while (i<animaux.size() && !(animaux.get(i) instanceof Racoutou))
+                i++;
+            if(i==animaux.size()){
+                System.out.println("pas racou");
+                return null;
+            }
+            return animaux.get(i);
         }
     }
 
-    public double getStunnedUntil() {
+    public  List<Entite> getListeCibles(){
+        List<Entite> listeCibles = new ArrayList<>();
+        listeCibles.addAll(getAnimauxCibles());
+        if(!this.allie){
+            for(Barrage b: getWorld().getBarrage())
+                listeCibles.add(b);
+        }
+        return listeCibles;
+    }
+
+
+    public  List<Animal> getAnimauxCibles(){
+        List<Animal> listeCibles = new ArrayList<>();
+        for(Animal a: getWorld().getAnimaux()){
+            if(this.allie!=a.allie){
+                listeCibles.add(a);
+            }
+        }
+        return listeCibles;
+    }
+
+    public  List<Animal> getAnimauxCopains(){
+        List<Animal> listeCibles = new ArrayList<>();
+        for(Animal a: getWorld().getAnimaux()){
+            if(this.allie==a.allie){
+                listeCibles.add(a);
+            }
+        }
+        return listeCibles;
+    }
+
+
+    public void unstuned(double dt){
+        if(dt>=this.stunnedUntil[0]) {
+            System.out.println("if stunnedUntil");
+            this.vitesse=stunnedUntil[1];
+            stunnedUntil[1]=0;
+            this.setCanAttack(true);
+            this.stunnedUntil[0]=0;
+        }
+    }
+
+    public double[] getStunnedUntil() {
         return stunnedUntil;
     }
 
-    public void setStunnedUntil(double stunnedFor) {
-        this.stunnedUntil = stunnedFor;
+    public void setStunnedUntil(double[] stunnedUntil) {
+        this.stunnedUntil[0]=stunnedUntil[0];
+        this.stunnedUntil[1]=stunnedUntil[1];
     }
 
     public void setSlowUntil(double slow, double v, double f){
@@ -186,8 +238,12 @@ public abstract class Animaux extends Entite {
         }
     }
 
+    public boolean isAllie() {
+        return allie;
+    }
 
-
-
+    public void setAllie(boolean allie) {
+        this.allie = allie;
+    }
 
 }

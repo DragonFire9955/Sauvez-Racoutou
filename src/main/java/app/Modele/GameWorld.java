@@ -1,10 +1,7 @@
 package app.Modele;
 
-import app.Modele.Entites.Animaux.Allies.ChatClassique;
-import app.Modele.Entites.Animaux.Allies.Racoutou;
-import app.Modele.Entites.Animaux.Animaux;
+import app.Modele.Entites.Animaux.Animal;
 
-import app.Modele.Entites.Animaux.Ennemis.PouletClassique;
 import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import javafx.beans.property.BooleanProperty;
@@ -17,7 +14,7 @@ import java.util.List;
 
 public class GameWorld {
 
-    private ObservableList<Animaux> animauxList;
+    private ObservableList<Animal> animauxList;
     private ObservableList<Barrage> barrageList;
     private BooleanProperty theEnd;
     private final int tailleTile=32;
@@ -32,6 +29,7 @@ public class GameWorld {
         theEnd= new SimpleBooleanProperty(false);
     }
 
+
     public void updateGW(double dt)  {
 
         for (Entite entite : animauxList) {
@@ -45,11 +43,12 @@ public class GameWorld {
         supprimerAnimauxMorts();
     }
 
-    public void ajouterAnimal(Animaux a) {
+    public void ajouterAnimal(Animal a) {
         animauxList.add(a);
+        System.out.println(a.getClass().getName());
     }
 
-    public void supprimerAnimal(Animaux a){
+    public void supprimerAnimal(Animal a){
         animauxList.remove(a);
     }
 
@@ -59,27 +58,27 @@ public class GameWorld {
                 supprimerAnimal(animauxList.get(i));
     }
 
-    public ObservableList<Animaux> getAnimaux() {
+    public ObservableList<Animal> getAnimaux() {
         return animauxList;
     }
 
-    public List<Animaux> getAllies() {
+    public List<Animal> getAllies() {
 
-        List<Animaux> allies = new ArrayList<>();
+        List<Animal> allies = new ArrayList<>();
 
-        for (Animaux animal : animauxList)
-            if (animal instanceof ChatClassique || animal instanceof Racoutou)
+        for (Animal animal : animauxList)
+            if (animal.isAllie())
                 allies.add(animal);
 
         return allies;
     }
 
-    public List<Animaux> getEnnemis() {
+    public List<Animal> getEnnemis() {
 
-        List<Animaux> ennemis = new ArrayList<>();
+        List<Animal> ennemis = new ArrayList<>();
 
-        for (Animaux animal : animauxList)
-            if (animal instanceof PouletClassique)
+        for (Animal animal : animauxList)
+            if (!animal.isAllie())
                 ennemis.add(animal);
 
 
