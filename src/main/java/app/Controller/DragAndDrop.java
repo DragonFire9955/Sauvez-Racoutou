@@ -8,7 +8,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.TilePane;
 
 
-public class DragImage {
+public class DragAndDrop {
 
     public void drag(Button bouton, int id, String url) {
         bouton.setOnDragDetected(e -> { //réagit qaund la souris maintien sur un bouton

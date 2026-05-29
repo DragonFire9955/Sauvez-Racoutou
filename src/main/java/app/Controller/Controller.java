@@ -68,7 +68,7 @@ public class Controller implements Initializable {
 
         remplirMap();
 
-        DragImage dragImage = new DragImage();
+        DragAndDrop dragImage = new DragAndDrop();
         dragImage.drag(btnPoubelle, 100, "/app/images/poubelle.png");
         dragImage.drag(btnClassique, 101, "/app/images/classique.png");
         dragImage.drag(btnProjectiles, 102, "/app/images/projectiles.png");
@@ -92,6 +92,7 @@ public class Controller implements Initializable {
             }
 
             e.consume(); //fin de l'evenement
+            gamePane.requestFocus();
         });
 
         //Initialisation des Managers
@@ -195,6 +196,8 @@ public class Controller implements Initializable {
 
             }
         }
+
+        gamePane.requestFocus();
 
     }
 

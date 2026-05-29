@@ -138,7 +138,7 @@ public abstract class Entite {
     public void setHealth(double value) {
         health.set(Math.max(0, value));
         System.out.println("avant destroy");
-        if (value==0){
+        if (value<=0){
             destroy();
             System.out.println("après destroy");
         }
