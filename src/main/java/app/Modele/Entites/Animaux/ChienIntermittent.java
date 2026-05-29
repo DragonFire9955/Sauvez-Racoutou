@@ -1,11 +1,11 @@
-package app.Modele.Entites.Animaux.ChienIntermittent;/*
+package app.Modele.Entites.Animaux;/*
     Faire une classe Canon qui crée un chien ?
     Comme ça le chien fait le déplacement aller retour avec par exemple un booléen ou un pivot de posDep/posArr
     Et le chien meurt dans le code comme ça plus simple : tant que canon n'a pas sa variable "Chien" vide, relance pas cdn atk.
  */
 
 
-import app.Modele.Entites.Animaux.Animal;
+import app.Modele.Entites.Animaux.Volant.Canon;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Utilitaire;
