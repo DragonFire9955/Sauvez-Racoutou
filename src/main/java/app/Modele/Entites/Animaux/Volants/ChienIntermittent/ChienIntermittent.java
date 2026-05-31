@@ -1,4 +1,7 @@
+<<<<<<<< HEAD:src/main/java/app/Modele/Entites/Animaux/ChienIntermittent.java
 package app.Modele.Entites.Animaux;/*
+========
+package app.Modele.Entites.Animaux.Volants.ChienIntermittent;/*
 >>>>>>>> main:src/main/java/app/Modele/Entites/Animaux/Volants/ChienIntermittent/ChienIntermittent.java
     Faire une classe Canon qui crée un chien ?
     Comme ça le chien fait le déplacement aller retour avec par exemple un booléen ou un pivot de posDep/posArr
@@ -6,7 +9,6 @@ package app.Modele.Entites.Animaux;/*
  */
 
 
-import app.Modele.Entites.Animaux.Volants.ChienIntermittent.Canon;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Utilitaire;

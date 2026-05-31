@@ -5,6 +5,7 @@ import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.Chat
 import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.ChatJournaliste;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.PouletMenotte;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
+import app.Modele.Entites.Animaux.Volants.PouletVolant;
 import app.Modele.GameWorld;
 import app.Modele.Managers.AnimauxManager;
 import app.Modele.Managers.EnnemisSpawn;
@@ -216,6 +217,11 @@ public class Controller implements Initializable {
             System.out.println("nouveau IGPN");
 
             gameWorld.ajouterAnimal(new ChatScientifique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+        } else if (event.getCode() == KeyCode.V) {
+
+            System.out.println("nouveau Volant");
+
+            gameWorld.ajouterAnimal(new PouletVolant(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
         }
 
 
