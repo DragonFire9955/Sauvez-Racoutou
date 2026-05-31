@@ -41,7 +41,6 @@ public class Animal extends Entite {
 
         if (!isColl() && vitesse!=0) {
             deplacement();
-            System.out.println("deplacement");
         }
         else if(stunnedUntil[0]!=0){
                 unstuned(dt);
@@ -59,7 +58,6 @@ public class Animal extends Entite {
         Entite cible = this.getCible();
 
         if(cible==null) return;
-        System.out.println(cible.getClass().getName());
         double dx = cible.getX() - this.getX();
         double dy = cible.getY() - this.getY();
         double dist = Math.sqrt(dx * dx + dy * dy);
@@ -135,7 +133,7 @@ public class Animal extends Entite {
 
 
     public void attaquer(){
-        System.out.println(this.getClass().getName()+" can attack="+ canAttack);
+
         if(!canAttack)return;
 
         List<Entite> cibles = getListeCibles();
@@ -158,16 +156,16 @@ public class Animal extends Entite {
             return getAnimauxCibles().getFirst();
         else {
             List<Animal> animaux = getWorld().getAllies();
-            System.out.println(animaux.size());
+
             if(animaux.isEmpty()) {
-                System.out.println("anim empty");
+                //System.out.println("anim empty");
                 return null;
             }
             int i=0;
             while (i<animaux.size() && !(animaux.get(i) instanceof Racoutou))
                 i++;
             if(i==animaux.size()){
-                System.out.println("pas racou");
+                //System.out.println("pas racou");
                 return null;
             }
             return animaux.get(i);
@@ -208,7 +206,7 @@ public class Animal extends Entite {
 
     public void unstuned(double dt){
         if(dt>=this.stunnedUntil[0]) {
-            System.out.println("if stunnedUntil");
+
             this.vitesse=stunnedUntil[1];
             stunnedUntil[1]=0;
             this.setCanAttack(true);
@@ -235,7 +233,7 @@ public class Animal extends Entite {
 
     public void endSlow(double dt){
         if(dt>=this.slowUntil[0]) {
-            System.out.println("if slowUntill");
+            
             this.setVitesse(slowUntil[1]);
             this.setDamage(slowUntil[2]);
             this.slowUntil[0]=0;

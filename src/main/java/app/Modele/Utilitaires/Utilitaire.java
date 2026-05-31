@@ -11,12 +11,10 @@ public class Utilitaire {
 
     public static boolean intersects(Entite cible, Entite attaquant) {
 
-        double maxRange = Math.max(cible.getRange(), attaquant.getRange());
-
         double dx = (cible.getX()+cible.getRange()/2) - (attaquant.getX()+cible.getRange()/2);
         double dy = (cible.getY()+cible.getRange()/2) - (attaquant.getY()+cible.getRange()/2);
 
-        return Math.abs(dx) + Math.abs(dy) < Math.pow(maxRange, 2);
+        return Math.abs(dx) + Math.abs(dy) < Math.pow(attaquant.getRange(), 2);
     }
 
     public static boolean intersects(GameWorld w, Entite entite) {
