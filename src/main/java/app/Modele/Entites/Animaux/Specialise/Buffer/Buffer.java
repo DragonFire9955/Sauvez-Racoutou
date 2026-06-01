@@ -9,8 +9,8 @@ import java.util.List;
 public abstract class Buffer extends Specialise {
 
 
-    public Buffer(double[] coord, double health, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, double buffRange, double tempsBuff, double tempsRepo) {
-        super(coord, health, vitesse, r, dmg, freqAtk, w, allie, buffRange, tempsBuff, tempsRepo);
+    public Buffer(double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, double buffRange, double tempsBuff, double tempsRepo) {
+        super(coord, health, coin, vitesse, r, dmg, freqAtk, w, allie, buffRange, tempsBuff, tempsRepo);
     }
 
     @Override

@@ -10,8 +10,8 @@ import java.util.List;
 //Altère les statistiques d'un ennemi qui serait rentrer dans son périmètre pendant un temps donné
 public abstract class AlterationElementaire extends Debuffer {
 
-    public AlterationElementaire(double[] coord, double health, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, int nbV, double tDebuff, double tempsRecup, double rangeDebuff) {
-        super(coord, health, vitesse, r, dmg, freqAtk, w, allie, nbV, tDebuff, tempsRecup, rangeDebuff);
+    public AlterationElementaire(double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, int nbV, double tDebuff, double tempsRecup, double rangeDebuff) {
+        super(coord, health, coin, vitesse, r, dmg, freqAtk, w, allie, nbV, tDebuff, tempsRecup, rangeDebuff);
     }
 
     public void debuff(double dt, List<Animal> animaux){

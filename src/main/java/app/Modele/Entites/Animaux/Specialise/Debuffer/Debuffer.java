@@ -16,9 +16,9 @@ public abstract class Debuffer extends Specialise {
     private double chrono;
 
 
-    public Debuffer(double[] coord, double health, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie,
+    public Debuffer(double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie,
                     int nbV, double tDebuff, double tempsRecup, double rangeDebuff) {
-        super(coord, health, vitesse, r, dmg, freqAtk, w, allie, rangeDebuff, tDebuff, tempsRecup);
+        super(coord, health, coin, vitesse, r, dmg, freqAtk, w, allie, rangeDebuff, tDebuff, tempsRecup);
 
         vInitial=super.getVitesse();
         

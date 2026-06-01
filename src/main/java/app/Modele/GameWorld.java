@@ -5,12 +5,17 @@ import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import static app.Modele.Vague.creerVague1;
 
 public class GameWorld {
 
@@ -21,16 +26,28 @@ public class GameWorld {
 
     private int[][] map;
 
+    private HashMap<Integer, ArrayList<Animal>> vagueActuelle;
+    private double tempsVague;
+
+    private IntegerProperty totalCoin;
+
     public GameWorld(){
 
         map = Terrain.genererMap();
         animauxList = FXCollections.observableArrayList();
         barrageList = FXCollections.observableArrayList();
         theEnd= new SimpleBooleanProperty(false);
+
+        totalCoin = new SimpleIntegerProperty(0);
+
+        vagueActuelle = Vague.creerVague1(this);
+        tempsVague = 0;
     }
 
 
     public void updateGW(double dt)  {
+
+        vagueManager(dt);
 
         for (Entite entite : animauxList) {
             entite.update(dt);
@@ -41,6 +58,17 @@ public class GameWorld {
         }
 
         supprimerAnimauxMorts();
+    }
+
+    private void vagueManager(double dt) {
+
+        tempsVague = dt;
+        int tempsActuel = (int) tempsVague;
+
+        if (vagueActuelle.containsKey(tempsActuel)) {
+            animauxList.addAll(vagueActuelle.get(tempsActuel));
+            vagueActuelle.remove(tempsActuel);
+        }
     }
 
     public void ajouterAnimal(Animal a) {
@@ -109,5 +137,12 @@ public class GameWorld {
 
     public int getTailleTile(){
         return tailleTile;
+    }
+
+    public IntegerProperty getTotalCoin() {
+        return totalCoin;
+    }
+    public void setTotalCoin(int coin) {
+        this.totalCoin.set(coin);
     }
 }

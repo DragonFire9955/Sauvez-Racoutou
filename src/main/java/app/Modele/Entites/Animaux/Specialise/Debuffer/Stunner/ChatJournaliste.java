@@ -9,7 +9,7 @@ public class ChatJournaliste extends Stunner {
 
 
     public ChatJournaliste(double[] coord,  GameWorld w) {
-        super(coord, 8, 3, .5, .5, 1, w, true, 1, 3, 5, 10);
+        super(coord, 8, 15, 3, .5, .5, 1, w, true, 1, 3, 5, 10);
     }
 
 
