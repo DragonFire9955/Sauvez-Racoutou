@@ -6,7 +6,6 @@ import app.Vue.EntiteVue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 
 public class EntitesListListener implements ListChangeListener<Entite> {
 
@@ -51,19 +50,9 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     System.out.println("ajout dans list");
                     carte.getChildren().add(EntiteVue.appliquerBonneImage(e));
 
-                    //on créé la barre de vie
-                    VieVue barreVie = new VieVue(e);
 
-                    //on récupère le conteneur
-                    StackPane visuelBarre = barreVie.getConteneur();
 
-                    //on donne le même id que l'entite
-                    visuelBarre.setId(e.getId());
-
-                    //on ajoute sur la carte
-                    carte.getChildren().add(visuelBarre);
                 }
-
             }
         }
     }

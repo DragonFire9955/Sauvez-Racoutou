@@ -6,6 +6,7 @@ import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.ChatJournaliste;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.PouletMenotte;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Animaux.Volants.PouletVolant;
+import app.Modele.Entites.Barrage.Poubelle;
 import app.Modele.GameWorld;
 import app.Modele.Managers.AnimauxManager;
 import app.Modele.Managers.EnnemisSpawn;
@@ -75,22 +76,39 @@ public class Controller implements Initializable {
 
         dragImage.survole(tileMap);
 
-        //drop
-        tileMap.setOnDragDropped(e -> { //réagit quand la souris relache
+        // drop
+        tileMap.setOnDragDropped(e -> { // réagit quand la souris relâche
+            Dragboard db = e.getDragboard(); // on récupère le contenu
+            int id = Integer.parseInt(db.getString()); // remet l'id en int
 
-            Dragboard db = e.getDragboard(); //on récupère le contenu
-            int id = Integer.parseInt(db.getString()); //remet l'id en int
-            int c = (int) (e.getX() / 32); //on divise les coordonées de la souris par 32 (et on arrondis) pour avoir la colonne de la case
-            int l = (int) (e.getY() / 32); //on divise les coordonées de la souris par 32 (et on arrondis) pour avoir la ligne de la case
+            int c = (int) (e.getX() / gameWorld.getTailleTile()); // colonne de la case
+            int l = (int) (e.getY() / gameWorld.getTailleTile()); // ligne de la case
 
-            if (map[l][c] == 0) { //si la case est bien du sol
-                map[l][c] = id; //on la remplace par l'id
-                remplirMap(); //puis on remplit la tableau
-            } else { //sinon on renvoie un message
+            if (map[l][c] == 0) { // si c'est du sol
+
+                double posX = c * gameWorld.getTailleTile();
+                double posY = l * gameWorld.getTailleTile();
+                double[] coords = new double[]{posX, posY};
+
+                if (id == 100) { //poubelle
+
+                    Poubelle p = new Poubelle(coords, 100.0, 16.0, gameWorld);
+                    ImageView imgPoubelle = terrainVue.creerTour(p);
+
+                    imgPoubelle.setTranslateX(posX);
+                    imgPoubelle.setTranslateY(posY);
+
+                    carte.getChildren().add(imgPoubelle);
+
+                    map[l][c] = p.getpoids();
+                }
+
+                remplirMap();
+            } else {
                 System.out.println("Impossible de placer ici");
             }
 
-            e.consume(); //fin de l'evenement
+            e.consume();
             gamePane.requestFocus();
         });
 
@@ -105,8 +123,8 @@ public class Controller implements Initializable {
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
         gameWorld.ajouterAnimal(new Racoutou(gameWorld));
         gameWorld.getAnimaux().getFirst().getAliveProperty().addListener((observable, oldValue, newValue) -> {
-                        gamePane.getScene().setRoot(menu);
-                        isGameStarted.setValue(false);
+                    gamePane.getScene().setRoot(menu);
+                    isGameStarted.setValue(false);
                 }
         );
         gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
@@ -176,9 +194,36 @@ public class Controller implements Initializable {
             for(int c = 0; c < map[l].length; c++){
                 int colonne = c;
 
-                ImageView cases = terrainVue.creerCase(map[l][c]);
+                ImageView cases = terrainVue.creerTuile(map[l][c]);
 
                 cases.setOnMouseClicked(e -> {
+                    if (modePlacement){
+                        if (map[ligne][colonne] == 0){
+
+                            double posX = colonne * 32;
+                            double posY = ligne * 32;
+                            double[] coords = new double[]{posX, posY};
+
+                            if (aPlacer == 100) {
+                                Poubelle p = new Poubelle(coords, 100.0, 16.0, gameWorld);
+                                ImageView imgPoubelle = terrainVue.creerTour(p);
+
+                                imgPoubelle.setTranslateX(posX);
+                                imgPoubelle.setTranslateY(posY);
+
+                                carte.getChildren().add(imgPoubelle);
+
+                                map[ligne][colonne] = p.getpoids();
+                            }
+                            modePlacement = false;
+                            remplirMap();
+                        } else {
+                            System.out.println("Impossible de placer ici");
+                        }
+                    }
+                });
+
+                /*cases.setOnMouseClicked(e -> {
                     if (modePlacement){
                         if (map[ligne][colonne] == 0){
                             map[ligne][colonne] = aPlacer;
@@ -189,7 +234,7 @@ public class Controller implements Initializable {
                             System.out.println("Impossible de placer ici");
                         }
                     }
-                });
+                });*/
 
                 tileMap.getChildren().add(cases);
 
@@ -207,7 +252,7 @@ public class Controller implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
-                gameWorld.updateGW(temps*0.017);
+            gameWorld.updateGW(temps*0.017);
             temps++;
         }));
         gameLoop.getKeyFrames().add(kf);

@@ -1,5 +1,6 @@
 package app.Vue;
 
+import app.Modele.Entites.Entite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
@@ -24,32 +25,42 @@ public class TerrainVue {
         tileMap.setPrefTileHeight(32);
     }
 
-    public ImageView creerCase(int tuile){
-
+    public ImageView creerTuile(int tuile){
         ImageView cases = new ImageView();
 
-        if (tuile == 0) {
-            cases.setImage(sol);
-        } else if (tuile == 1){
-            cases.setImage(base);
-        } else if (tuile == 2){
-            cases.setImage(tonneau);
-        } else if (tuile == 3){
-            cases.setImage(hor);
-        } else if (tuile == 4) {
-            cases.setImage(ver);
-        } else if (tuile == 100) {
-            cases.setImage(poubelle);
-        } else if (tuile == 101) {
-            cases.setImage(classique);
-        } else if (tuile == 102) {
-            cases.setImage(projectiles);
-        } else if (tuile == 103) {
-            cases.setImage(journaliste);
+        switch (tuile) {
+            case 1:
+                cases.setImage(base);
+                break;
+            case 2:
+                cases.setImage(tonneau);
+                break;
+            case 3:
+                cases.setImage(hor);
+                break;
+            case 4:
+                cases.setImage(ver);
+                break;
+            default:
+                cases.setImage(sol);
+                break;
         }
 
         return cases;
+    }
 
+    public ImageView creerTour(Entite entite) {
+        ImageView vue = new ImageView();
 
+        switch (entite.getIdEntite()) {
+            case 100:
+                vue.setImage(poubelle);
+                break;
+            default:
+                System.out.println("Barrage inconnu");
+                break;
+        }
+
+        return vue;
     }
 }

@@ -248,4 +248,7 @@ public class Animal extends Entite {
         this.allie = allie;
     }
 
+    public int getIdEntite() {
+        return 0;
+    }
 }

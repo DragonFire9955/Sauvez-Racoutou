@@ -24,4 +24,6 @@ public abstract class Barrage extends Entite {
         return null;
     }
 
+
+    public abstract int getIdEntite();
 }

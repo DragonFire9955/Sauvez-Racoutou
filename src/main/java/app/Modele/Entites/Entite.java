@@ -1,6 +1,5 @@
 package app.Modele.Entites;
 
-import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Utilitaire;
 import javafx.beans.property.BooleanProperty;
@@ -170,6 +169,9 @@ public abstract class Entite {
 
         setHealth(getHealthProperty().getValue()-damage);
     }
+
+    public abstract int getIdEntite();
+
 
 
 
