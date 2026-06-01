@@ -5,7 +5,9 @@ import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -21,12 +23,16 @@ public class GameWorld {
 
     private int[][] map;
 
+    private IntegerProperty totalCoin;
+
     public GameWorld(){
 
         map = Terrain.genererMap();
         animauxList = FXCollections.observableArrayList();
         barrageList = FXCollections.observableArrayList();
         theEnd= new SimpleBooleanProperty(false);
+
+        totalCoin = new SimpleIntegerProperty(0);
     }
 
 
@@ -109,5 +115,12 @@ public class GameWorld {
 
     public int getTailleTile(){
         return tailleTile;
+    }
+
+    public IntegerProperty getTotalCoin() {
+        return totalCoin;
+    }
+    public void setTotalCoin(int coin) {
+        this.totalCoin.set(coin);
     }
 }

@@ -24,7 +24,7 @@ public class PouletVolant extends Volant {
 
     public PouletVolant(double[] coord, GameWorld w) {
 
-        super(coord, 10, 5, 2, 10, 1, w, false);
+        super(coord, 10, 2, 5, 2, 10, 1, w, false);
 
         cible = this.getAnimauxCibles().stream().filter(animal -> animal instanceof Racoutou).findFirst().orElse(null);
 

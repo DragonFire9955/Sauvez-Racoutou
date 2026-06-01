@@ -16,6 +16,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -34,6 +35,8 @@ public class Controller implements Initializable {
     @FXML private Pane gamePane;
     @FXML private Pane carte;
     @FXML private TilePane tileMap;
+
+    @FXML private Label coinLabel;
 
     private TerrainVue terrainVue;
     private boolean enPause = false;
@@ -67,6 +70,8 @@ public class Controller implements Initializable {
         cameraManager = new CameraManager(gamePane, carte, tileMap);
         cameraManager.initialiserCamera();
 
+        //Binding du label coin, à déplacer au bon endroit
+        coinLabel.textProperty().bind(gameWorld.getTotalCoin().asString());
 
         //TEMPORAIRE, A DELET
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));

@@ -23,15 +23,16 @@ public abstract class Entite {
     private double damage;
     private double freqAtk;
 
-    private DoubleProperty health = new SimpleDoubleProperty();
+    private DoubleProperty health;
     private final double maxHealth;
+    private int coin;
     private BooleanProperty alive;
     private boolean actif;
 
     private double chrono;
 
 
-    protected Entite(double coord[], double health, double range, double dmg, double freqAtk, GameWorld w) {
+    protected Entite(double coord[], double health, int coin, double range, double dmg, double freqAtk, GameWorld w) {
         this.id=nbId;
         nbId++;
 
@@ -39,8 +40,9 @@ public abstract class Entite {
 
         this.x = new SimpleDoubleProperty(coord[0]);
         this.y = new SimpleDoubleProperty(coord[1]);
-        this.health.set(health);
+        this.health = new SimpleDoubleProperty(health);
         this.maxHealth = health;
+        this.coin = coin;
         this.range = range;
         this.damage=dmg;
         this.freqAtk=freqAtk;
@@ -171,12 +173,10 @@ public abstract class Entite {
         setHealth(getHealthProperty().getValue()-damage);
     }
 
-
-
-
-
-
-
-
-
+    public int getCoin() {
+        return coin;
+    }
+    public void setCoin(int coin) {
+        this.coin = coin;
+    }
 }

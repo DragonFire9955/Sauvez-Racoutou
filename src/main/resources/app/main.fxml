@@ -12,15 +12,29 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="applicationPane" prefHeight="896.0" prefWidth="1408.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller.Controller">
+<BorderPane fx:id="applicationPane" prefHeight="896.0" prefWidth="1408.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller.Controller">
     <center>
         <Pane fx:id="gamePane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <Pane fx:id="carte" prefHeight="400.0" prefWidth="977.0">
+                <Pane fx:id="carte" prefHeight="796.0" prefWidth="1135.0">
                     <children>
                         <TilePane fx:id="tileMap" />
                     </children>
                 </Pane>
+            <HBox prefHeight="44.0" prefWidth="160.0">
+               <children>
+                  <ImageView fitHeight="43.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/coin.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="coinLabel" alignment="CENTER" prefHeight="49.0" prefWidth="100.0" text="coinAmount">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
             </children>
         </Pane>
     </center>

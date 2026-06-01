@@ -17,8 +17,8 @@ public class Animal extends Entite {
     private boolean canAttack;
     private boolean allie;
 
-    public Animal(double[] coord, double health, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie) {
-        super(coord, health, r, dmg, freqAtk, w);
+    public Animal(double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie) {
+        super(coord, health, coin, r, dmg, freqAtk, w);
         this.vitesse = vitesse;
         canAttack=true;
         stunnedUntil = new double[2];
@@ -26,8 +26,8 @@ public class Animal extends Entite {
         this.allie=allie;
     }
 
-    public Animal(double[] coord, double health, double r, double dmg, double freqAtk, GameWorld w, boolean allie) {
-        super(coord, health, r, dmg, freqAtk, w);
+    public Animal(double[] coord, double health, int coin, double r, double dmg, double freqAtk, GameWorld w, boolean allie) {
+        super(coord, health, coin, r, dmg, freqAtk, w);
         this.vitesse = 0;
         canAttack=true;
         stunnedUntil = new double[2];
@@ -149,8 +149,7 @@ public class Animal extends Entite {
     @Override
     public Entite getCible() {
 
-        /// TODO : retourne des erreurs si on ne met pas ça !!!!
-        //if (getListeCibles().isEmpty()) return null;
+        if (getListeCibles().isEmpty()) return null;
 
         if (allie)
             return getAnimauxCibles().getFirst();

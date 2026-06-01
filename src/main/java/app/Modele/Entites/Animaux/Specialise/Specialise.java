@@ -12,8 +12,8 @@ public abstract class Specialise extends Animal{
     private double tempsRepo;
     private boolean actionSpecialePossible;
 
-    public Specialise(double[] coord, double health, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, double rangeEffect, double tempsAction, double tempsRepo){
-        super(coord, health, vitesse, r, dmg, freqAtk, w, allie);
+    public Specialise(double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, double rangeEffect, double tempsAction, double tempsRepo){
+        super(coord, health, coin, vitesse, r, dmg, freqAtk, w, allie);
         this.rangeEffect=rangeEffect;
         this.tempsAction=tempsAction;
         this.tempsRepo=tempsRepo;
