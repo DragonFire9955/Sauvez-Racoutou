@@ -12,7 +12,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import static app.Modele.Vague.creerVague1;
 
 public class GameWorld {
 
@@ -22,6 +25,9 @@ public class GameWorld {
     private final int tailleTile=32;
 
     private int[][] map;
+
+    private HashMap<Integer, ArrayList<Animal>> vagueActuelle;
+    private double tempsVague;
 
     private IntegerProperty totalCoin;
 
@@ -33,10 +39,15 @@ public class GameWorld {
         theEnd= new SimpleBooleanProperty(false);
 
         totalCoin = new SimpleIntegerProperty(0);
+
+        vagueActuelle = Vague.creerVague1(this);
+        tempsVague = 0;
     }
 
 
     public void updateGW(double dt)  {
+
+        vagueManager(dt);
 
         for (Entite entite : animauxList) {
             entite.update(dt);
@@ -47,6 +58,17 @@ public class GameWorld {
         }
 
         supprimerAnimauxMorts();
+    }
+
+    private void vagueManager(double dt) {
+
+        tempsVague = dt;
+        int tempsActuel = (int) tempsVague;
+
+        if (vagueActuelle.containsKey(tempsActuel)) {
+            animauxList.addAll(vagueActuelle.get(tempsActuel));
+            vagueActuelle.remove(tempsActuel);
+        }
     }
 
     public void ajouterAnimal(Animal a) {

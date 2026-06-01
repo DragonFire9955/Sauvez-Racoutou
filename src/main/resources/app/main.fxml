@@ -19,22 +19,18 @@
                 <Pane fx:id="carte" prefHeight="796.0" prefWidth="1135.0">
                     <children>
                         <TilePane fx:id="tileMap" />
+                  <VBox alignment="TOP_CENTER" layoutX="744.0" layoutY="41.0" prefHeight="47.0" prefWidth="148.0">
+                     <children>
+                        <Label fx:id="waveLabel" alignment="CENTER" prefHeight="26.0" prefWidth="148.0" text="Wave">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="waveTimerLabel" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="148.0" text="Timer" />
+                     </children>
+                  </VBox>
                     </children>
                 </Pane>
-            <HBox prefHeight="44.0" prefWidth="160.0">
-               <children>
-                  <ImageView fitHeight="43.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/coin.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="coinLabel" alignment="CENTER" prefHeight="49.0" prefWidth="100.0" text="coinAmount">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
             </children>
         </Pane>
     </center>
@@ -48,16 +44,26 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label text="Défenses : " textFill="ORANGE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label text="Améliorations :" textFill="LIME">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
+                  <HBox prefHeight="29.0" prefWidth="265.0">
+                     <children>
+                        <Label prefHeight="32.0" prefWidth="47.0" text="Coins :" textFill="ORANGE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="coinLabel" alignment="CENTER" prefHeight="13.0" prefWidth="97.0" text="coinAmount">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </HBox>
                   <Button contentDisplay="BOTTOM" mnemonicParsing="false" style="-fx-background-color: #fdfbe7;" text="Obstacle" textFill="LIME">
                      <graphic>
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
