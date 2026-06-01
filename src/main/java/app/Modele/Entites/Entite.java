@@ -1,5 +1,6 @@
 package app.Modele.Entites;
 
+import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Utilitaire;
 import javafx.beans.property.BooleanProperty;
@@ -65,8 +66,10 @@ public abstract class Entite {
 
             coll = true;
 
-            if (((dt-chrono)%freqAtk)== 0) {
+            if (((dt-chrono)) >= freqAtk) {
+                System.out.println("j'attaque");
                 attaquer();
+                chrono = 0;
             }
 
         } else {
