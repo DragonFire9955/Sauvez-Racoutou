@@ -10,21 +10,25 @@ import app.Modele.GameWorld;
 import app.Modele.Managers.AnimauxManager;
 import app.Modele.Managers.EnnemisSpawn;
 import app.Modele.Terrain;
+import app.Modele.Vague;
 import app.Vue.CameraManager;
 import app.Vue.TerrainVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.EventHandler;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
-import javafx.stage.Window;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
 import static app.Controller.MenuController.*;
@@ -42,6 +46,10 @@ public class Controller implements Initializable {
     @FXML private Button btnJournaliste;
 
 
+    @FXML private Label coinLabel;
+    @FXML private Label waveLabel;
+    @FXML private Label waveTimerLabel;
+
     private TerrainVue terrainVue;
     private boolean enPause = false;
 
@@ -55,14 +63,15 @@ public class Controller implements Initializable {
     //CONTROLEUR
     private CameraManager cameraManager;
     private Timeline gameLoop;
-    private int temps;
+    private IntegerProperty temps = new SimpleIntegerProperty(0);
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        this.map = Terrain.genererMap();
         terrainVue = new TerrainVue();
+
+        this.map = Terrain.genererMap();
         terrainVue.delimitationMap(tileMap);
 
         remplirMap();
@@ -100,6 +109,12 @@ public class Controller implements Initializable {
         cameraManager = new CameraManager(gamePane, carte, tileMap);
         cameraManager.initialiserCamera();
 
+        //Binding du label coin, à déplacer au bon endroit
+        coinLabel.textProperty().bind(gameWorld.getTotalCoin().asString());
+
+        //Binding label vague + timerVague
+        waveLabel.textProperty().bind(Vague.currentWave.asString());
+        waveTimerLabel.textProperty().bind(temps.multiply(0.017).asString("%.0f / " + Vague.waveDuration));
 
         //TEMPORAIRE, A DELET
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
@@ -130,7 +145,6 @@ public class Controller implements Initializable {
         });
 
     }
-
 
     @FXML
     private void pause(){
@@ -203,12 +217,11 @@ public class Controller implements Initializable {
 
     private void initAnimation() {
         gameLoop = new Timeline();
-        temps=0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
-                gameWorld.updateGW(temps*0.017);
-            temps++;
+                gameWorld.updateGW(temps.getValue()*0.017);
+            temps.setValue(temps.getValue()+1);
         }));
         gameLoop.getKeyFrames().add(kf);
     }
@@ -259,18 +272,6 @@ public class Controller implements Initializable {
         }
 
 
-    }
-
-    public double[] getMousePos(Window window) {
-        double[] mousePos = new double[1];
-        window.getScene().setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                mousePos[0] = mouseEvent.getX();
-                mousePos[1] = mouseEvent.getY();
-            }
-        });
-        return mousePos;
     }
 
     //Partie render des Animaux sur la scène

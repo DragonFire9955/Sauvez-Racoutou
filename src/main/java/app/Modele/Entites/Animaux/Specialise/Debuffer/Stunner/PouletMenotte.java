@@ -11,7 +11,7 @@ public class PouletMenotte extends Stunner {
 
 
     public PouletMenotte(double[] coord,GameWorld w) {
-        super(coord, 5, 1, 5, 1, 1, w, false, 1, 3, 5, 10);
+        super(coord, 5, 2, 1, 5, 1, 1, w, false, 1, 3, 5, 10);
 
     }
 

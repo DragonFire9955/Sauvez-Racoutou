@@ -1,5 +1,11 @@
 package app.Controller;
 
+import app.Modele.Entites.Animaux.Animal;
+import app.Modele.Entites.Animaux.Specialise.Buffer.PouletConservateur;
+import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
+import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.PouletMenotte;
+import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
+import app.Modele.Entites.Animaux.Volants.PouletVolant;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Vue.EntiteVue;
@@ -28,25 +34,18 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
         while(c.next()) {
             if (c.wasRemoved()) {
-                /*Iterator<? extends Animaux> iSupp = c.getRemoved().iterator();
-                while (iSupp.hasNext())  {
-                    a = iSupp.next();*/
                 for (Entite e: c.getRemoved()) {
-                    /*for(int j=0;j<carte.getChildren().size();j++){
-                        if(carte.getChildren().get(j).getId()==a.getId()) {
-                            carte.getChildren().remove(j);
-                            System.out.println("ajout dans list");
 
+                    //On add les coins si c un ennemi
+                    if (e instanceof Animal && !((Animal) e).isAllie())
+                        gameWorld.setTotalCoin(gameWorld.getTotalCoin().getValue()+e.getCoin());
 
-                    }*/
+                    //On suppr du visuel
                     carte.getChildren().removeIf(node -> e.getId().equals(node.getId()));
                 }
 
             }
             if (c.wasAdded()) {
-                /*Iterator<? extends Animaux> iAdd = c.getAddedSubList().iterator();
-                while (iAdd.hasNext()) {
-                    a= iAdd.next();*/
                 for (Entite e: c.getAddedSubList()) {
                     System.out.println("ajout dans list");
                     carte.getChildren().add(EntiteVue.appliquerBonneImage(e));

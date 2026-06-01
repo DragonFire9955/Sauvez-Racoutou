@@ -10,7 +10,7 @@ public class ChatCuisinier extends Buffer {
 
     public ChatCuisinier(double[] coord, GameWorld w) {
 
-        super(coord, 8, 0, 5, .5, 3, w, true, 10, 3, 2);
+        super(coord, 8, 50, 0, 5, .5, 3, w, true, 10, 3, 2);
         this.defense = 7;
     }
 

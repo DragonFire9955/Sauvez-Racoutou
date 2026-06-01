@@ -4,6 +4,10 @@ import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.PouletMenotte;
 import app.Modele.Managers.AnimauxManager;
 import app.Modele.Managers.EnnemisSpawn;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 
 import java.util.ArrayList;
@@ -11,7 +15,13 @@ import java.util.HashMap;
 
 public class Vague {
 
+    public static IntegerProperty currentWave = new SimpleIntegerProperty();
+    public static int waveDuration;
+
     public static HashMap<Integer, ArrayList<Animal>> creerVague1(GameWorld w){
+
+        currentWave.setValue(1);
+        waveDuration = 20;
 
         HashMap<Integer, ArrayList<Animal>> v= new HashMap<>();
 

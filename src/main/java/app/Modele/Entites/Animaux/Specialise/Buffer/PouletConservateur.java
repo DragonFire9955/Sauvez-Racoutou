@@ -6,8 +6,8 @@ import app.Modele.GameWorld;
 import java.util.List;
 
 public class PouletConservateur extends Buffer {
-    public PouletConservateur(double[] coord, double health, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie) {
-        super(coord, 3, 2, 2, 2, 1, w, false, 10, 5, 5);
+    public PouletConservateur(double[] coord, GameWorld w, boolean allie) {
+        super(coord, 3, 3, 2, 2, 2, 1, w, false, 10, 5, 5);
     }
 
     @Override

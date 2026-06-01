@@ -11,7 +11,7 @@ public class PouletBouclier extends Animal {
 
     public PouletBouclier(double[] coord, GameWorld w) {
 
-        super(coord, 6, 1, 3, 2, 2, w, false);
+        super(coord, 6, 2, 1, 3, 2, 2, w, false);
         this.bouclier = new SimpleDoubleProperty(15);
     }
 
