@@ -3,6 +3,7 @@ package app.Modele.Entites.Animaux;
 import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
+import app.Modele.Managers.AnimauxManager;
 import app.Modele.Utilitaires.Utilitaire;
 
 import java.util.ArrayList;
@@ -54,21 +55,30 @@ public class Animal extends Entite {
 
     public void deplacement() {
         //tant qu'il n'y a pas de cible ou qu'il y a une cible dans le perimètre d'action: immobile
-        if(vitesse == 0) return;
+
+        //if(vitesse == 0) return;
+
         Entite cible = this.getCible();
-
         if(cible==null) return;
-        double dx = cible.getX() - this.getX();
-        double dy = cible.getY() - this.getY();
-        double dist = Math.sqrt(dx * dx + dy * dy);
+        //if(cible instanceof Racoutou) AnimauxManager.deplacementEnnemi(this);
+        if(cible instanceof Racoutou) AnimauxManager.deplacementEnnemi2(this);
 
-        if (dist < 2) { return;}
+        else {
+            double dx = cible.getX() - this.getX();
+            double dy = cible.getY() - this.getY();
+            double dist = Math.sqrt(dx * dx + dy * dy);
 
-        dx /= dist;
-        dy /= dist;
+            if (dist < 2) {
+                return;
+            }
 
-        this.setX(this.getX() + dx * this.getVitesse());
-        this.setY(this.getY() + dy * this.getVitesse());
+            dx /= dist;
+            dy /= dist;
+
+            this.setX(this.getX() + dx * this.getVitesse());
+            this.setY(this.getY() + dy * this.getVitesse());
+        }
+
     }
 
 
@@ -149,8 +159,8 @@ public class Animal extends Entite {
     @Override
     public Entite getCible() {
 
-        /// TODO : retourne des erreurs si on ne met pas ça !!!!
-        //if (getListeCibles().isEmpty()) return null;
+
+        if (getListeCibles().isEmpty()) return null;
 
         if (allie)
             return getAnimauxCibles().getFirst();

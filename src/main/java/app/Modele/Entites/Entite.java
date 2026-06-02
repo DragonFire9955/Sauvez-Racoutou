@@ -1,6 +1,5 @@
 package app.Modele.Entites;
 
-import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Utilitaire;
 import javafx.beans.property.BooleanProperty;
@@ -61,18 +60,24 @@ public abstract class Entite {
 
         if (Utilitaire.intersects(cible, this)){
 
-            if(chrono==0)
-                chrono=dt;
+            if(chrono==0) {
+                chrono = dt;
+                attaquer();
+                System.out.println(this.getClass().getName() + "attaque");
+            }
 
             coll = true;
 
-            if (((dt-chrono)) >= freqAtk) {
+            if ((dt-chrono) >= freqAtk) {
                 System.out.println("j'attaque");
                 attaquer();
                 chrono = 0;
             }
 
-        } else {
+        } else if (Utilitaire.intersects(world, this)){
+
+        }
+        else {
             coll = false;
         }
 
@@ -103,6 +108,8 @@ public abstract class Entite {
     }
     public double getX() { return x.getValue(); }
     public double getY() { return y.getValue(); }
+
+
     public void setX(double x) {
         this.x.setValue(x);
     }
@@ -169,6 +176,17 @@ public abstract class Entite {
     public void estAttaque(double damage){
 
         setHealth(getHealthProperty().getValue()-damage);
+    }
+
+    public int[] getTile(){
+        System.out.println("coord: "+x.getValue()+" "+y.getValue()+"  tile: "+(int) (y.getValue()/ world.getTailleTile())+" "+(int) (x.getValue()/ world.getTailleTile()));
+
+        return new int[]{(int) (y.getValue()/ world.getTailleTile()), (int) (x.getValue()/ world.getTailleTile())};
+        //return new int[]{Utilitaire.divisionEuclidienne(y.getValue(), world.getTailleTile()), Utilitaire.divisionEuclidienne(x.getValue(), world.getTailleTile())};
+    }
+
+    public double[] getCoord(){
+        return new double[]{x.getValue(), y.getValue()};
     }
 
 

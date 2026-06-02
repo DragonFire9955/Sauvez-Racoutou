@@ -1,7 +1,6 @@
 package app.Modele.Chemins;
 
 import app.Modele.Utilitaires.Noeud;
-import app.Modele.Utilitaires.Utilitaire;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,18 +9,19 @@ import java.util.List;
 public class DeplacementMethodes {
 
     //On ajoute les coûts pour chaque id (donc chaque image)
-    public static int getCout(int[][] map, int x, int y) {
+    public static int getCout(int[][] map, int i, int j) {
 
-        int type = map[y][x];
+        int type = map[i][j];
+        System.out.println("type: "+ type);
 
         switch (type) {
             //Les coûts sont à changer, c'est juste un exemple et ça correspond pas à la logique des images mais bon hein XD
             case 0:
                 return 1;
             case 1:
-                return 5;
-            case 2:
-                return 99;
+                return 1;
+            case 3:
+                return 9999;
             default:
                 return 1;
         }
@@ -37,22 +37,38 @@ public class DeplacementMethodes {
                 {0, -1},
                 {0, 1},
                 {-1, 0},
-                {1, 0}
+                {1, 0},
+                //diagonales
+                {1, 1},
+                {-1, -1},
+                {1, -1},
+                {-1, 1}
         };
 
         for (int[] d : directions) {
 
+            System.out.println("d :" + d[0]+", "+d[1]);
             //n pour noeud
-            int nx = noeud.getX() + d[0];
-            int ny = noeud.getY() + d[1];
+            int ni = noeud.getI() + d[0];
+            int nj = noeud.getJ() + d[1];
 
             //Check des bordures
-            if (nx>=0 && ny>=0 && nx<colonnes && ny<lignes)
+
+            if (ni>=0 && nj>=0 && ni<lignes && nj<colonnes) {
                 //On skip les murs
-                if (getCout(map, nx, ny) < 99) {
-                    voisins.add(new Noeud(nx, ny));
+                System.out.println("cout: " + (getCout(map, ni, nj)));
+                if (getCout(map, ni, nj) < 9999) {
+                    voisins.add(new Noeud(ni, nj));
+
+
                 }
+            }
         }
+
+        if(noeud.equals(new Noeud(11, 21)))
+            for(Noeud n: voisins){
+                System.out.println("V  i: "+ n.getI() +" j: "+ n.getJ());
+            }
 
         return voisins;
     }
@@ -64,12 +80,12 @@ public class DeplacementMethodes {
             return 9999;
         }
 
-        int noeudCoutMinimal = getCout(map, voisins.getFirst().getX(), voisins.getFirst().getY());
+        int noeudCoutMinimal = getCout(map, voisins.getFirst().getI(), voisins.getFirst().getJ());
 
         for (Noeud n : voisins) {
 
-            if (getCout(map, n.getX(), n.getY()) < noeudCoutMinimal)
-                noeudCoutMinimal = getCout(map, n.getX(), n.getY());
+            if (getCout(map, n.getI(), n.getJ()) < noeudCoutMinimal)
+                noeudCoutMinimal = getCout(map, n.getI(), n.getJ());
         }
 
         return noeudCoutMinimal;

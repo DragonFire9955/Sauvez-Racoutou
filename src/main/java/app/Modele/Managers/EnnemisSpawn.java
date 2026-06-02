@@ -5,6 +5,7 @@ import javafx.scene.layout.TilePane;
 
 public class EnnemisSpawn {
 
+
     public static double[] randomCoord(GameWorld w){
         double y, x;
         if (Math.random()<0.5){

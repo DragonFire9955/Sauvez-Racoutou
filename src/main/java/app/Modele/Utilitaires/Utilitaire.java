@@ -38,4 +38,10 @@ public class Utilitaire {
         return (int) (dividende/diviseur);
     }
 
+
+    public static double valAbs(double a){
+        if(a<0)
+            return -a;
+        return a;
+    }
 }

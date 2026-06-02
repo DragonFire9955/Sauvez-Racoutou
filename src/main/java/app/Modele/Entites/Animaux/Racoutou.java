@@ -18,6 +18,7 @@ public class Racoutou extends Animal {
     @Override
     public void update(double dt)  {
         super.update(dt);
+        System.out.println("pv Racoutou: "+ getHealthProperty().getValue());
     }
 
     public Entite getCible(){

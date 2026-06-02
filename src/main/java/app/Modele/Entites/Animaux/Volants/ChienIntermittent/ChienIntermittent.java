@@ -1,14 +1,15 @@
-<<<<<<<< HEAD:src/main/java/app/Modele/Entites/Animaux/ChienIntermittent.java
-package app.Modele.Entites.Animaux;/*
-========
-package app.Modele.Entites.Animaux.Volants.ChienIntermittent;/*
->>>>>>>> main:src/main/java/app/Modele/Entites/Animaux/Volants/ChienIntermittent/ChienIntermittent.java
+
+
+package app.Modele.Entites.Animaux.Volants.ChienIntermittent;
+
+/*
     Faire une classe Canon qui crée un chien ?
     Comme ça le chien fait le déplacement aller retour avec par exemple un booléen ou un pivot de posDep/posArr
     Et le chien meurt dans le code comme ça plus simple : tant que canon n'a pas sa variable "Chien" vide, relance pas cdn atk.
  */
 
 
+import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Utilitaire;
@@ -142,6 +143,20 @@ public class ChienIntermittent extends Animal {
 
     public Entite getPremierEnnemi(){
         return getAnimauxCiblesAccessibles(canon.getRange(), getWorld().getEnnemis()).getFirst();
+    }
+
+    public void fly(Entite cible){
+
+        double dx = cible.getX() - this.getX();
+        double dy = cible.getY() - this.getY();
+        double dist = Math.sqrt(dx * dx + dy * dy);
+
+        dx /= dist;
+        dy /= dist;
+
+        this.setX(this.getX() + dx * this.getVitesse());
+        this.setY(this.getY() + dy * this.getVitesse());
+
     }
 
 }
