@@ -21,62 +21,6 @@ public class AnimauxManager {
         return new Animal(EnnemisSpawn.randomCoord(w), 5, 10, 2, 5, 1, 1, w, false);
     }
 
-/*
-    public static void deplacementEnnemi(Animal a) {
-        System.out.println("dans fonction");
-
-        GameWorld w =a.getWorld();
-        Entite racoutou = w.getRacoutou();
-        Map<Double, Noeud> dijkstra = w.getDijkRacoutou();
-
-        int[] tile= a.getTile();
-        System.out.println("tile"+a.getTile()[0]+" "+ a.getTile()[1]);
-        System.out.println(DeplacementDijkstra.coordToDouble(tile));
-
-        //La tile n'existe pas
-        if(!dijkstra.containsKey(DeplacementDijkstra.coordToDouble(tile))){
-            System.out.println(dijkstra.get(DeplacementDijkstra.coordToDouble(tile)));
-            System.out.println("tile non valable");
-        }
-        //L'ennemi est sur la tile de Racoutou
-        else if (dijkstra.get(DeplacementDijkstra.coordToDouble(tile)).getParent()==null)
-            System.out.println("racoutout");
-
-        else {
-            System.out.println("distance centre: "+Utilitaire.distance(a.getX(), a.getY(), centreTile(w, tile)[0], centreTile(w, tile)[1]) );
-            System.out.println("centre tile: "+ centreTile(w, tile)[0]+ "  "+ centreTile(w, tile)[1]);
-            if (tile[0] == racoutou.getTile()[0] && tile[1] == racoutou.getTile()[1]
-                && Utilitaire.distance(a.getX(), a.getY(), centreTile(w, tile)[0], centreTile(w, tile)[1]) < 2) {
-                return;
-            }
-            while(Utilitaire.distance(a.getX(), a.getY(), centreTile(w, tile)[0], centreTile(w, tile)[1]) < 2
-                  ||  (tile[0] != racoutou.getTile()[0] && tile[1] != racoutou.getTile()[1])){
-                tile = dijkstra.get(DeplacementDijkstra.coordToDouble(tile)).getParent().getCoord();
-            }
-            System.out.println("centre tile: "+ centreTile(w, tile)[0]+ "  "+ centreTile(w, tile)[1]);
-            double dx = centreTile(w, tile)[1] - a.getX();
-
-            double dy = centreTile(w, tile)[0] - a.getY();
-
-            double dist = Math.sqrt(dx * dx + dy * dy);
-            System.out.println("dx: "+ dx);
-
-            dx /= dist;
-            System.out.println("dx: "+ dx);
-            dy /= dist;
-            System.out.println();
-
-
-
-            a.setX(a.getX() + dx * a.getVitesse());
-            a.setY(a.getY() + dy * a.getVitesse());
-
-            System.out.println(a.getX()+ "," + a.getY());
-        }
-    }
-
- */
-
     public static double[] centreTile(GameWorld w, int[] coord) {
         return new double[]{ coord[1] * w.getTailleTile() + ((double) w.getTailleTile() / 2),
                 coord[0] * w.getTailleTile() + ((double) w.getTailleTile() / 2) };
