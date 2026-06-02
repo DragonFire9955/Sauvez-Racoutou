@@ -8,17 +8,16 @@ import static java.lang.Thread.sleep;
 public class Racoutou extends Animal {
 
     public Racoutou(GameWorld w) {
-        super(new double[]{685, 375}, 50, 0, 7, 5, 2.5, w, true);
+        super(new double[]{685, 375}, 50, 0,  0, 7, 5, 2.5, w, true);
     }
 
     public Racoutou(double[] coord, GameWorld w) {
-        super(coord, 50, 0, 7, 5, 2.5, w, true);
+        super(coord, 50, 0,  0, 7, 5, 2.5, w, true);
     }
 
     @Override
     public void update(double dt)  {
         super.update(dt);
-        System.out.println("pv Racoutou: "+ getHealthProperty().getValue());
     }
 
     public Entite getCible(){

@@ -16,7 +16,7 @@ public class ChatHypnotiseur extends AlterationElementaire {
 
     @Override
     public void actionDebuff(Animal a) {
-
+        ///TODO : changer de camp
     }
 
     @Override

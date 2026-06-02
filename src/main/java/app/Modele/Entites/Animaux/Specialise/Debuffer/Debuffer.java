@@ -18,7 +18,7 @@ public abstract class Debuffer extends Specialise {
 
     public Debuffer(double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie,
                     int nbV, double tDebuff, double tempsRecup, double rangeDebuff) {
-        super(coord, health, coin, vitesse, r, dmg, freqAtk, w, allie, rangeDebuff, tDebuff, tempsRecup);
+        super(coord, health, coin, vitesse, r, dmg, freqAtk, w, allie,  tDebuff, tempsRecup, rangeDebuff);
 
         vInitial=super.getVitesse();
         
@@ -48,12 +48,6 @@ public abstract class Debuffer extends Specialise {
         this.nbVictimes = nbVictimes;
     }
 
-    protected double getChrono() {
-        return chrono;
-    }
-    protected void setChrono(double chrono) {
-        this.chrono = chrono;
-    }
 
     protected boolean isChronoDefini() {
         return chronoDefini;
@@ -61,4 +55,6 @@ public abstract class Debuffer extends Specialise {
     protected void setChronoDefini(boolean chronoDefini) {
         this.chronoDefini = chronoDefini;
     }
+
+    public abstract List<Animal> getListeAnimaux();
 }

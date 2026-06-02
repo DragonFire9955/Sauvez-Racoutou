@@ -4,29 +4,46 @@ import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.Specialise;
 import app.Modele.GameWorld;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Buffer extends Specialise {
 
-
-    public Buffer(double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, double buffRange, double tempsBuff, double tempsRepo) {
-        super(coord, health, coin, vitesse, r, dmg, freqAtk, w, allie, buffRange, tempsBuff, tempsRepo);
+    private ArrayList<Double> listeBuff;
+    public Buffer(double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, double buffRange, double tempsBuff, double tempsRepo, ArrayList<Double> listeBuff) {
+        super(coord, health, coin, vitesse, r, dmg, freqAtk, w, allie, tempsBuff, tempsRepo, buffRange);
+        this.listeBuff=listeBuff;
     }
 
     @Override
     public void update(double dt) {
         super.update(dt);
-        buff();
+        if(!getAnimauxCiblesAccessibles().isEmpty() && getChrono()==0){
+            setChrono(dt);
+            buff();
+        } else if (getChrono()>=getTempsRepo()) {
+            setChrono(0);
+        }
     }
 
     public void buff(){
-        //List<Animal> cibles =
+
+        Animal cible = getAnimauxCiblesAccessibles().getFirst();
+        System.out.println(cible.getClass().getName() +"  " + cible.getHealthProperty().getValue());
+        cible.setHealth(cible.getHealthProperty().getValue() + getListeBuff().getFirst());
+        actionBuff(cible);
     }
 
-    public abstract void actionBuff();
+    public abstract void actionBuff(Animal cible);
 
+    public List<Animal> getAnimauxCiblesAccessibles(){
 
+        return super.getAnimauxCiblesAccessibles(getRangeEffect(), getAnimauxCopains());
+    }
 
+    public ArrayList<Double> getListeBuff() {
+        return listeBuff;
+    }
 
 
 }

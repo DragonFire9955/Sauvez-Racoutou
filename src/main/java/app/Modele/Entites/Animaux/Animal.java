@@ -27,15 +27,6 @@ public class Animal extends Entite {
         this.allie=allie;
     }
 
-    public Animal(double[] coord, double health, int coin, double r, double dmg, double freqAtk, GameWorld w, boolean allie) {
-        super(coord, health, coin, r, dmg, freqAtk, w);
-        this.vitesse = 0;
-        canAttack=true;
-        stunnedUntil = new double[2];
-        slowUntil = new double[3];
-        this.allie=allie;
-    }
-
     @Override
     public void update(double dt)  {
         super.update(dt);
@@ -183,6 +174,8 @@ public class Animal extends Entite {
         }
     }
 
+
+
     public  List<Entite> getListeCibles(){
         List<Entite> listeCibles = new ArrayList<>();
         listeCibles.addAll(getAnimauxCibles());
@@ -207,7 +200,7 @@ public class Animal extends Entite {
     public  List<Animal> getAnimauxCopains(){
         List<Animal> listeCibles = new ArrayList<>();
         for(Animal a: getWorld().getAnimaux()){
-            if(this.allie==a.allie){
+            if(this.allie==a.allie && !a.equals(this)){
                 listeCibles.add(a);
             }
         }
@@ -258,5 +251,7 @@ public class Animal extends Entite {
     public void setAllie(boolean allie) {
         this.allie = allie;
     }
+
+
 
 }

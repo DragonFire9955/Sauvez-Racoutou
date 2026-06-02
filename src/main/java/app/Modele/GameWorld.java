@@ -61,7 +61,7 @@ public class GameWorld {
             }
         }
 
-         */
+
 
         totalCoin = new SimpleIntegerProperty(0);
 

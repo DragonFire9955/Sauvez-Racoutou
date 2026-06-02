@@ -11,13 +11,15 @@ public abstract class Specialise extends Animal{
     private double tempsAction;
     private double tempsRepo;
     private boolean actionSpecialePossible;
+    private double chrono;
 
-    public Specialise(double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, double rangeEffect, double tempsAction, double tempsRepo){
+    public Specialise(double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, double tempsAction, double tempsRepo, double rangeEffect){
         super(coord, health, coin, vitesse, r, dmg, freqAtk, w, allie);
         this.rangeEffect=rangeEffect;
         this.tempsAction=tempsAction;
         this.tempsRepo=tempsRepo;
         this.actionSpecialePossible=true;
+        this.chrono=0;
     }
 
     public double getRangeEffect() {
@@ -48,5 +50,12 @@ public abstract class Specialise extends Animal{
         this.actionSpecialePossible = bool;
     }
 
-    public abstract List<Animal> getListeAnimaux();
+
+    public double getChrono() {
+        return chrono;
+    }
+
+    public void setChrono(double chrono) {
+        this.chrono = chrono;
+    }
 }

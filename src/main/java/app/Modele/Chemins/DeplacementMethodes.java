@@ -19,8 +19,8 @@ public class DeplacementMethodes {
             case 0:
                 return 1;
             case 1:
-                return 1;
-            case 3:
+                return 2;
+            case 2:
                 return 9999;
             default:
                 return 1;

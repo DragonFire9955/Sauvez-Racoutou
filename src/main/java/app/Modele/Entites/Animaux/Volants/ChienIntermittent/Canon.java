@@ -14,7 +14,7 @@ public class Canon extends Animal {
     private double vitesseVol;
 
     protected Canon(double[] coord, double health, int coin, double range, double dmg, double freqAtk, GameWorld w) {
-        super(coord, health, 0, range, dmg, freqAtk, w, true);
+        super(coord, health, coin,0, range, dmg, freqAtk, w, true);
         chien= new ChienIntermittent(coord, w, this);
         vitesseVol=20;
 

@@ -49,7 +49,7 @@ public class DeplacementDijkstra {
         //Ajout du pnt de départ
         listNoeudsPasVu.add(dep);
         mapNoeuds.put(coordToDouble(coord), dep);
-        System.out.println("voisin racoutou "+ dep.getParent());
+        //System.out.println("voisin racoutou "+ dep.getParent());
 
         while (!listNoeudsPasVu.isEmpty()) {
 
@@ -110,7 +110,7 @@ public class DeplacementDijkstra {
 
  */
 
-        System.out.println("tile racoutou:"+ actuel.getI() + " "+ actuel.getJ());
+        //System.out.println("tile racoutou:"+ actuel.getI() + " "+ actuel.getJ());
 
         actuel.setParent(null);
         actuel.setCoutDepuisDeprt(0);
@@ -123,20 +123,20 @@ public class DeplacementDijkstra {
 
 
         while(actuel!=null){
-            System.out.println("actuel: "+actuel.getI()+" "+ actuel.getJ());
+            //System.out.println("actuel: "+actuel.getI()+" "+ actuel.getJ());
             //si actuel pas encore visité
             if(!noeudsVisites.containsKey(actuel)){
-                System.out.println("pas encore visité");
+                //System.out.println("pas encore visité");
                 //ajout actuel à noeuds Visités
                 noeudsVisites.put(actuel, actuel.getCoutDepuisDeprt());
 
                 //Pour tous les voisins du noeud actuel
 
                 for(Noeud voisin: DeplacementMethodes.getVoisins(actuel, map, lignes, colonnes)) {
-                    System.out.print("voisin: "+voisin.getI() + "  "+ voisin.getJ());
+                    //System.out.print("voisin: "+voisin.getI() + "  "+ voisin.getJ());
 
                     //Si le voisin n'a pas été visité
-                    System.out.println(" deja visite: "+noeudsVisites.containsKey(voisin));
+                    //System.out.println(" deja visite: "+noeudsVisites.containsKey(voisin));
                     if (!noeudsVisites.containsKey(voisin)){
 
                         int nouveauCout =actuel.getCoutDepuisDeprt()+ DeplacementMethodes.getCout(map, voisin.getI(), voisin.getJ());
@@ -154,7 +154,7 @@ public class DeplacementDijkstra {
                             fifo.add(voisin);
                             //ajout à la map parent <Noeud, Prédecesseur>
                             parent.put(voisin, actuel);
-                            System.out.println("ajout");
+                            //System.out.println("ajout");
                         }
 
                     }
@@ -162,7 +162,7 @@ public class DeplacementDijkstra {
 
             }
             actuel=fifo.poll();
-            System.out.println("passage suivant");
+            //System.out.println("passage suivant");
         }
         return parent;
     }
@@ -257,7 +257,7 @@ public class DeplacementDijkstra {
     }
 
     public int[] getTile(int tailleTile, double[] coord){
-        System.out.println("coord: "+coord[0]+" "+coord[1]+"  tile: "+(int) (coord[1]/tailleTile)+" "+(int) (coord[0]/tailleTile));
+        //System.out.println("coord: "+coord[0]+" "+coord[1]+"  tile: "+(int) (coord[1]/tailleTile)+" "+(int) (coord[0]/tailleTile));
 
         return new int[]{(int) (coord[1]/tailleTile), (int) (coord[0]/tailleTile)};
         //return new int[]{Utilitaire.divisionEuclidienne(y.getValue(), world.getTailleTile()), Utilitaire.divisionEuclidienne(x.getValue(), world.getTailleTile())};

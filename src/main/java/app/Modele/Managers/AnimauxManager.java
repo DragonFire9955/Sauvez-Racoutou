@@ -14,11 +14,11 @@ public class AnimauxManager {
     public static GameWorld w;
 
     public static Animal creerChatClassique(GameWorld w) {
-        return new Animal(EnnemisSpawn.randomCoord(w), 5, 2, 5, 1, 1, w, true);
+        return new Animal(EnnemisSpawn.randomCoord(w), 5, 10, 2, 5, 1, 1, w, true);
     }
 
     public static Animal creerPouletClassique(GameWorld w) {
-        return new Animal(EnnemisSpawn.randomCoord(w), 5, 2, 5, 1, 1, w, false);
+        return new Animal(EnnemisSpawn.randomCoord(w), 5, 10, 2, 5, 1, 1, w, false);
     }
 
 /*
@@ -100,12 +100,12 @@ public class AnimauxManager {
         if(!dijkstra.containsKey(dir)){
             //System.out.println(dir);
             //System.out.println(dijkstra.get(DeplacementDijkstra.coordToDouble(tile)));
-            System.out.println("tile non valable:");
+            //System.out.println("tile non valable:");
         }
         else {
             //L'ennemi va sur la tile de Racoutou
             if (dijkstra.get(dir) == null) {
-                System.out.println("tile racoutou");
+
                 cible= racoutou.getCoord();
                 //Si déjà proche de racoutou: stop
                 if (Utilitaire.distance(a.getX(), a.getY(), racoutou.getX(), racoutou.getY()) < 2)
@@ -123,8 +123,13 @@ public class AnimauxManager {
                 //centre de la tile suivante
                 double[] cibleSuiv= centreTile(w, tileSuiv);
                 //distance(p, tile)<distance(p, tileSuivante) => utilise tile suivante (evite tremblements)
-                if (Utilitaire.distance(cible[0], cible[1], a.getX(), a.getY())
+
+                /*if (Utilitaire.distance(cible[0], cible[1], a.getX(), a.getY())
                   < Utilitaire.distance(cibleSuiv[0], cibleSuiv[1], a.getX(), a.getY()))
+                    cible=cibleSuiv;
+
+                 */
+                if (Utilitaire.distance(cible[0], cible[1], a.getX(), a.getY()) < 2)
                     cible=cibleSuiv;
             }
 
