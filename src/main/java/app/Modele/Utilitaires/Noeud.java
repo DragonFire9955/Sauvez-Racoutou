@@ -39,10 +39,7 @@ public class Noeud {
         return i ==((Noeud) obj).getI() && j ==((Noeud) obj).getJ();
     }
 
-    public boolean equals(int[] coord){
-        System.out.println("youhou");
-        return (coord.length==2 && coord[0]== i && coord[1]== j);
-    }
+
 
     /*Le hashCode doit être aussi redéf car hashCode contient HashSet et HashMap
     Il est use pour créer la liste des Noeuds vu de Deplacement.trouverChemin(), java fait ses calculs interne :

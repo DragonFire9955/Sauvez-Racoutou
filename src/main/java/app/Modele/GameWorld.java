@@ -52,12 +52,12 @@ public class GameWorld {
 
 
         for(Map.Entry<Noeud, Noeud> entry: dijkRacoutou2.entrySet()){
-            System.out.print("x: "+ entry.getKey().getI()+"  y: "+ entry.getKey().getJ());
+            System.out.print("i: "+ entry.getKey().getI()+"  j: "+ entry.getKey().getJ());
             if(entry.getValue() == null){
                 System.out.println(" null");
             }
             else{
-                System.out.println("  PARENT x: "+ entry.getValue().getI()+"  y: "+ entry.getValue().getJ());
+                System.out.println("  PARENT i: "+ entry.getValue().getI()+"  j: "+ entry.getValue().getJ());
             }
         }
 

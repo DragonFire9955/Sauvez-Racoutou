@@ -30,8 +30,9 @@ public class Animal extends Entite {
     @Override
     public void update(double dt)  {
         super.update(dt);
-
+        System.out.println("\n\nid "+getId()+" isColl "+isColl()+" v ="+ getVitesse()+"\n\n");
         if (!isColl() && vitesse!=0) {
+            System.out.println("dans deplacement");
             deplacement();
         }
         else if(stunnedUntil[0]!=0){
@@ -52,6 +53,7 @@ public class Animal extends Entite {
         Entite cible = this.getCible();
 
         if(cible==null) return;
+        System.out.println("cible pas nulle");
         //if(cible instanceof Racoutou) AnimauxManager.deplacementEnnemi(this);
         if(cible instanceof Racoutou) AnimauxManager.deplacementEnnemi2(this);
 
@@ -148,30 +150,21 @@ public class Animal extends Entite {
         cible.estAttaque(getDamage());
     }
 
+    //Retourne l'entité vers laquelle this se dirige
     @Override
     public Entite getCible() {
 
         /// TODO : retourne des erreurs si on ne met pas ça !!!!
         //if (getListeCibles().isEmpty()) return null;
-
-        if (allie)
-            return getAnimauxCibles().getFirst();
-        else {
-            List<Animal> animaux = getWorld().getAllies();
-
-            if(animaux.isEmpty()) {
-                //System.out.println("anim empty");
-                return null;
-            }
-            int i=0;
-            while (i<animaux.size() && !(animaux.get(i) instanceof Racoutou))
-                i++;
-            if(i==animaux.size()){
-                //System.out.println("pas racou");
-                return null;
-            }
-            return animaux.get(i);
+        List<Animal> cibles;
+        if (allie){
+            cibles= getWorld().getEnnemis();
         }
+        else {
+            cibles= getWorld().getAllies();
+        }
+        if (cibles.isEmpty()) return null;
+        else return cibles.getFirst();
     }
 
 

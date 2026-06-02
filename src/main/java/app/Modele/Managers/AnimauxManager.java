@@ -31,75 +31,76 @@ public class AnimauxManager {
 
         GameWorld w =a.getWorld();
         Entite racoutou = w.getRacoutou();
+
         //map <clef= Noeud, value= Predecesseur>
         Map<Noeud, Noeud> dijkstra = w.getDijkRacoutou2();
 
         //direction = noeud suivant
         Noeud dir = dijkstra.get(new Noeud(a.getTile()[0], a.getTile()[1]));
+        System.out.println(a.getTile()[0]+"  "+ a.getTile()[1]);
+        System.out.println(dir ==null);
         double[] cible;
         int[] tile;
 
 
-        //La tile n'existe pas
+        //Dejà sur la tuile actuelle ou prochaine tuile = racoutout
         if(!dijkstra.containsKey(dir)){
-            //System.out.println(dir);
-            //System.out.println(dijkstra.get(DeplacementDijkstra.coordToDouble(tile)));
-            //System.out.println("tile non valable:");
+            System.out.println("tuile de racoutou");
+            cible= racoutou.getCoord();
+            //Si déjà proche de racoutou: stop
+            if (Utilitaire.distance(a.getX(), a.getY(), racoutou.getX(), racoutou.getY()) < 2)
+                return;
+        }
+        else if(dijkstra.get(dir) ==null) { //prochaine tuile = racoutou
+            cible= racoutou.getCoord();
         }
         else {
-            //L'ennemi va sur la tile de Racoutou
-            if (dijkstra.get(dir) == null) {
-
-                cible= racoutou.getCoord();
-                //Si déjà proche de racoutou: stop
-                if (Utilitaire.distance(a.getX(), a.getY(), racoutou.getX(), racoutou.getY()) < 2)
-                    return;
-
-            }
-
-            else{
-                //tile vers laquelle il se dirige
-                tile = new int[]{dir.getI(), dir.getJ()};
-                //centre de la tile direction
-                cible= centreTile(w, tile);
-                //tile suivante dir
-                int[] tileSuiv= new int[]{dijkstra.get(dir).getI(), dijkstra.get(dir).getJ()};
-                //centre de la tile suivante
-                double[] cibleSuiv= centreTile(w, tileSuiv);
-                //distance(p, tile)<distance(p, tileSuivante) => utilise tile suivante (evite tremblements)
-
-                /*if (Utilitaire.distance(cible[0], cible[1], a.getX(), a.getY())
-                  < Utilitaire.distance(cibleSuiv[0], cibleSuiv[1], a.getX(), a.getY()))
-                    cible=cibleSuiv;
-
-                 */
-                if (Utilitaire.distance(cible[0], cible[1], a.getX(), a.getY()) < 2)
-                    cible=cibleSuiv;
-            }
-
-            //System.out.println("centre tile: "+ centreTile(w, tile)[0]+ "  "+ centreTile(w, tile)[1]);
-            double dist = Utilitaire.distance(cible[0], cible[1], a.getX(), a.getY());
-
-            double dx = cible[0] - a.getX();
-
-            double dy = cible[1] - a.getY();
-
-
-                    //Math.sqrt(dx * dx + dy * dy);
-            //System.out.println("dx: " + dx);
-
-            dx /= dist;
-            //System.out.println("dx: " + dx);
-            dy /= dist;
-            //System.out.println();
-
-
-            a.setX(a.getX() + dx * a.getVitesse());
-            a.setY(a.getY() + dy * a.getVitesse());
-
-            //System.out.println(a.getX() + "," + a.getY());
-
+            //tile vers laquelle il se dirige
+            tile = new int[]{dir.getI(), dir.getJ()};
+            //centre de la tile direction
+            cible= centreTile(w, tile);
+            //tile suivante dir
+            int[] tileSuiv= new int[]{dijkstra.get(dir).getI(), dijkstra.get(dir).getJ()};
+            //centre de la tile suivante
+            double[] cibleSuiv= centreTile(w, tileSuiv);
+            if (Utilitaire.distance(cible[0], cible[1], a.getX(), a.getY()) < 2)
+                cible=cibleSuiv;
         }
+
+
+        //distance(p, tile)<distance(p, tileSuivante) => utilise tile suivante (evite tremblements)
+
+        /*if (Utilitaire.distance(cible[0], cible[1], a.getX(), a.getY())
+          < Utilitaire.distance(cibleSuiv[0], cibleSuiv[1], a.getX(), a.getY()))
+            cible=cibleSuiv;
+
+         */
+
+
+
+        //System.out.println("centre tile: "+ centreTile(w, tile)[0]+ "  "+ centreTile(w, tile)[1]);
+        double dist = Utilitaire.distance(cible[0], cible[1], a.getX(), a.getY());
+
+        double dx = cible[0] - a.getX();
+
+        double dy = cible[1] - a.getY();
+
+
+                //Math.sqrt(dx * dx + dy * dy);
+        //System.out.println("dx: " + dx);
+
+        dx /= dist;
+        //System.out.println("dx: " + dx);
+        dy /= dist;
+        //System.out.println();
+
+
+        a.setX(a.getX() + dx * a.getVitesse());
+        a.setY(a.getY() + dy * a.getVitesse());
+
+        //System.out.println(a.getX() + "," + a.getY());
+
+
     }
 
 

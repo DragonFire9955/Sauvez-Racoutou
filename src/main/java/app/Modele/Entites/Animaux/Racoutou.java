@@ -3,6 +3,8 @@ package app.Modele.Entites.Animaux;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 
+import java.util.List;
+
 import static java.lang.Thread.sleep;
 
 public class Racoutou extends Animal {
@@ -22,9 +24,11 @@ public class Racoutou extends Animal {
 
     public Entite getCible(){
 
-        if (getWorld().getEnnemis().isEmpty()) return null;
+        List<Animal> cibles = getAnimauxCiblesAccessibles(this.getRange(), getWorld().getEnnemis());
 
-        return getWorld().getEnnemis().getFirst();
+        if (cibles.isEmpty()) return null;
+
+        return cibles.getFirst();
     }
 
 
