@@ -16,7 +16,6 @@ import app.Vue.CameraManager;
 import app.Vue.TerrainVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
@@ -29,7 +28,6 @@ import javafx.scene.layout.*;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
 import static app.Controller.MenuController.*;
@@ -37,25 +35,39 @@ import static app.Controller.MenuController.*;
 public class Controller implements Initializable {
 
     // VUE
-    @FXML private BorderPane applicationPane; // border pane parent de tous
-    @FXML private Pane gamePane;
-    @FXML private Pane carte;
-    @FXML private TilePane tileMap;
-    @FXML private Button btnPoubelle;
-    @FXML private Button btnClassique;
-    @FXML private Button btnProjectiles;
-    @FXML private Button btnJournaliste;
+    @FXML
+    private BorderPane applicationPane; // border pane parent de tous
+    @FXML
+    private Pane gamePane;
+    @FXML
+    private Pane carte;
+    @FXML
+    private TilePane tileMap;
+
+    @FXML
+    private Button btnPoubelle;
+    @FXML
+    private Button btnClassique;
+    @FXML
+    private Button btnProjectiles;
+    @FXML
+    private Button btnJournaliste;
 
 
-    @FXML private Label coinLabel;
-    @FXML private Label waveLabel;
-    @FXML private Label waveTimerLabel;
+    @FXML
+    private Label coinLabel;
+    @FXML
+    private Label waveLabel;
+    @FXML
+    private Label waveTimerLabel;
 
     private TerrainVue terrainVue;
     private boolean enPause = false;
 
     private boolean modePlacement = false;
     private int aPlacer = -1;
+
+    private int cout = 0;
 
     //MODELE
     private int[][] map;
@@ -100,16 +112,22 @@ public class Controller implements Initializable {
                 double[] coords = new double[]{posX, posY};
 
                 if (id == 100) { //poubelle
+                    int prix = 5;
+                    if (gameWorld.getTotalCoin().get() >= prix) {
+                        gameWorld.getTotalCoin().set(gameWorld.getTotalCoin().get() - prix);
 
-                    Poubelle p = new Poubelle(coords, 100.0, 16.0, gameWorld);
-                    ImageView imgPoubelle = terrainVue.creerTour(p);
+                        Poubelle p = new Poubelle(coords, 100.0, 5, 16.0, gameWorld);
+                        ImageView imgPoubelle = terrainVue.creerTour(p);
 
-                    imgPoubelle.setTranslateX(posX);
-                    imgPoubelle.setTranslateY(posY);
+                        imgPoubelle.setTranslateX(posX);
+                        imgPoubelle.setTranslateY(posY);
 
-                    carte.getChildren().add(imgPoubelle);
+                        carte.getChildren().add(imgPoubelle);
 
-                    map[l][c] = p.getpoids();
+                        map[l][c] = p.getpoids();
+                    } else {
+                        System.out.println("Fond insuffisant");
+                    }
                 }
 
                 remplirMap();
@@ -138,8 +156,8 @@ public class Controller implements Initializable {
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
         gameWorld.ajouterAnimal(new Racoutou(gameWorld));
         gameWorld.getAnimaux().getFirst().getAliveProperty().addListener((observable, oldValue, newValue) -> {
-                        gamePane.getScene().setRoot(menu);
-                        isGameStarted.setValue(false);
+                    gamePane.getScene().setRoot(menu);
+                    isGameStarted.setValue(false);
                 }
         );
         gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
@@ -165,8 +183,8 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    private void pause(){
-        if (enPause){
+    private void pause() {
+        if (enPause) {
             gameLoop.play();
         } else {
             gameLoop.pause();
@@ -178,34 +196,41 @@ public class Controller implements Initializable {
 
     @FXML
     private void placerPoubelle(){
-        modePlacement = true;
-        aPlacer = 100;
+        int prix = 5;
+
+        if (gameWorld.getTotalCoin().get() >= prix){
+            modePlacement = true;
+            aPlacer = 100;
+            cout = prix;
+        } else {
+            System.out.println("Fond insuffisant");
+        }
     }
 
     @FXML
-    private void placerChatClassique(){
+    private void placerChatClassique() {
         modePlacement = true;
         aPlacer = 101;
     }
 
     @FXML
-    private void placerChatProjectiles(){
+    private void placerChatProjectiles() {
         modePlacement = true;
         aPlacer = 102;
     }
 
     @FXML
-    private void placerChatJournaliste(){
+    private void placerChatJournaliste() {
         modePlacement = true;
         aPlacer = 103;
     }
 
-    private void remplirMap(){
+    private void remplirMap() {
         tileMap.getChildren().clear();
 
-        for(int l = 0; l < map.length; l++){
+        for (int l = 0; l < map.length; l++) {
             int ligne = l;
-            for(int c = 0; c < map[l].length; c++){
+            for (int c = 0; c < map[l].length; c++) {
                 int colonne = c;
 
                 ImageView cases = terrainVue.creerTuile(map[l][c]);
@@ -213,33 +238,39 @@ public class Controller implements Initializable {
                 cases.setOnMouseClicked(e -> {
                     if (modePlacement){
                         if (map[ligne][colonne] == 0){
+                            if (gameWorld.getTotalCoin().get() >= cout) {
+                                gameWorld.getTotalCoin().set(gameWorld.getTotalCoin().get() - cout);
 
-                            double posX = colonne * 32;
-                            double posY = ligne * 32;
-                            double[] coords = new double[]{posX, posY};
+                                double posX = colonne * 32;
+                                double posY = ligne * 32;
+                                double[] coords = new double[]{posX, posY};
 
-                            if (aPlacer == 100) {
-                                Poubelle p = new Poubelle(coords, 100.0, 16.0, gameWorld);
-                                ImageView imgPoubelle = terrainVue.creerTour(p);
+                                if (aPlacer == 100) {
+                                    Poubelle p = new Poubelle(coords, 100.0, 3, 16.0, gameWorld);
+                                    ImageView imgPoubelle = terrainVue.creerTour(p);
 
-                                imgPoubelle.setTranslateX(posX);
-                                imgPoubelle.setTranslateY(posY);
+                                    imgPoubelle.setTranslateX(posX);
+                                    imgPoubelle.setTranslateY(posY);
 
-                                carte.getChildren().add(imgPoubelle);
+                                    carte.getChildren().add(imgPoubelle);
 
-                                map[ligne][colonne] = p.getpoids();
+                                    map[ligne][colonne] = p.getpoids();
+                                }
+                                modePlacement = false;
+                                remplirMap();
+                            } else {
+                                System.out.println("Fond insuffisant");
                             }
-                            modePlacement = false;
-                            remplirMap();
                         } else {
                             System.out.println("Impossible de placer ici");
                         }
                     }
                 });
+                tileMap.getChildren().add(cases);
+
             }
         }
     }
-
 
 
     private void initAnimation() {
@@ -247,7 +278,7 @@ public class Controller implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
-                gameWorld.updateGW(temps.getValue()*0.017);
+            gameWorld.updateGW(temps.getValue()*0.017);
             temps.setValue(temps.getValue()+1);
         }));
         gameLoop.getKeyFrames().add(kf);

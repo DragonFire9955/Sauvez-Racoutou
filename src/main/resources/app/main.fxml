@@ -90,7 +90,7 @@
                   </Button>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                      <children>
-                        <Button contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerPoubelle" style="-fx-background-color: #fdfbe7;" text="Poubelle" textFill="ORANGE">
+                        <Button fx:id="btnPoubelle" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerPoubelle" style="-fx-background-color: #fdfbe7;" text="Poubelle" textFill="ORANGE">
                            <graphic>
                               <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -102,7 +102,7 @@
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerChatClassique" style="-fx-background-color: #fdfbe7;" text="Chat classique" textFill="ORANGE">
+                        <Button fx:id="btnClassique" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerChatClassique" style="-fx-background-color: #fdfbe7;" text="Chat classique" textFill="ORANGE">
                            <graphic>
                               <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -117,7 +117,7 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                      <children>
-                        <Button contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerChatProjectiles" style="-fx-background-color: #fdfbe7;" text="Chat à projectiles" textFill="ORANGE">
+                        <Button fx:id="btnProjectiles" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerChatProjectiles" style="-fx-background-color: #fdfbe7;" text="Chat à projectiles" textFill="ORANGE">
                            <graphic>
                               <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -128,7 +128,7 @@
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerChatJournaliste" style="-fx-background-color: #fdfbe7;" text="Chat journaliste" textFill="ORANGE">
+                        <Button fx:id="btnJournaliste" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerChatJournaliste" style="-fx-background-color: #fdfbe7;" text="Chat journaliste" textFill="ORANGE">
                            <graphic>
                               <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
