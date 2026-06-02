@@ -1,4 +1,4 @@
-package app.Vue;
+package app.Controller;
 
 import javafx.scene.layout.StackPane;
 import javafx.geometry.Pos;
@@ -6,13 +6,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import app.Modele.Entites.Entite;
 
-public class VieVue {
+public class VieControlleur {
 
     private double largeur = 40.0;
     private double hauteur = 6.0;
     private StackPane conteneur;
 
-    public VieVue(Entite entite) {
+    public VieControlleur(Entite entite) {
         this.conteneur = new StackPane();
         this.conteneur.setAlignment(Pos.CENTER_LEFT);
 

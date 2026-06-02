@@ -158,7 +158,8 @@ public class Controller implements Initializable {
         //TEMPORAIRE, A DELET
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
 
-        carte.getChildren().add(EntiteVue.appliquerBonneImage(gameWorld.getRacoutou()));
+        //IMAGE DE RACOUTOU
+        initRacoutou();
 
         gameWorld.getAnimaux().getFirst().getAliveProperty().addListener((observable, oldValue, newValue) -> {
                     gamePane.getScene().setRoot(menu);
@@ -349,6 +350,14 @@ public class Controller implements Initializable {
 
 
 
+    }
+
+    private void initRacoutou(){
+        carte.getChildren().add(EntiteVue.appliquerBonneImage(gameWorld.getRacoutou()));
+        VieControlleur barreVie = new VieControlleur(gameWorld.getRacoutou());
+        StackPane visuelBarre = barreVie.getConteneur();
+        visuelBarre.setId(gameWorld.getRacoutou().getId());
+        carte.getChildren().add(visuelBarre);
     }
 
     //Partie render des Animaux sur la scène

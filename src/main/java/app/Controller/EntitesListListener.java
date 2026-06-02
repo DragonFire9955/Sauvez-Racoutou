@@ -1,15 +1,9 @@
 package app.Controller;
 
 import app.Modele.Entites.Animaux.Animal;
-import app.Modele.Entites.Animaux.Specialise.Buffer.PouletConservateur;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.PouletMenotte;
-import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
-import app.Modele.Entites.Animaux.Volants.PouletVolant;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Vue.EntiteVue;
-import app.Vue.VieVue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
@@ -51,7 +45,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     System.out.println("ajout dans list");
                     carte.getChildren().add(EntiteVue.appliquerBonneImage(e));
 
-                    VieVue barreVie = new VieVue(e);
+                    VieControlleur barreVie = new VieControlleur(e);
                     StackPane visuelBarre = barreVie.getConteneur();
 
                     visuelBarre.setId(e.getId());
