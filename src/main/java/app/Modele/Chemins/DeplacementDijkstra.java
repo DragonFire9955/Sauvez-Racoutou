@@ -1,9 +1,7 @@
 package app.Modele.Chemins;
 
-import app.Modele.Chemins.DeplacementMethodes;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Noeud;
-import app.Modele.Utilitaires.Utilitaire;
 
 import java.util.*;
 
@@ -13,6 +11,7 @@ public class DeplacementDijkstra {
     private int[][] map;
     private int lignes;
     private int colonnes;
+    private int tailleTile;
 /*
     public DeplacementDijkstra(int[][] map) {
 
@@ -23,18 +22,17 @@ public class DeplacementDijkstra {
 
  */
 
-    public DeplacementDijkstra(GameWorld w) {
-
-        this.w=w;
-        this.map=w.getMap();
+    public DeplacementDijkstra(int tailleTile, int[][] map) {
+        this.map=map;
         this.lignes = map.length;
         this.colonnes = map[0].length;
+        this.tailleTile=tailleTile;
     }
 
     //Ajout du ptn de départ
-    public Map<Noeud, Integer> calculerDistances(int startX, int startY) {
+    public Map<Double, Noeud> calculerDistances(int[] coord) {
 
-        Noeud dep = new Noeud(startX, startY);
+        Noeud dep = new Noeud(coord[0], coord[1]);
 
         //On crée une liste qui trie pour le meilleur getCoutEstimDepArr (plus petit -> plus grand)
         PriorityQueue<Noeud> listNoeudsPasVu = new PriorityQueue<>(Comparator.comparingInt(Noeud::getCoutDepuisDeprt));
@@ -43,14 +41,15 @@ public class DeplacementDijkstra {
         Set<Noeud> listNoeudsVu = new HashSet<>();
 
         //Pr chq noeud, le meilleur coût
-        Map<Noeud, Integer> meilleurCout = new HashMap<>();
+        Map<Double, Noeud> mapNoeuds = new HashMap<>();
 
         //Init
         dep.setCoutDepuisDeprt(0);
 
-        //Ajout du ptn de départ
+        //Ajout du pnt de départ
         listNoeudsPasVu.add(dep);
-        meilleurCout.put(dep, 0);
+        mapNoeuds.put(coordToDouble(coord), dep);
+        System.out.println("voisin racoutou "+ dep.getParent());
 
         while (!listNoeudsPasVu.isEmpty()) {
 
@@ -71,51 +70,175 @@ public class DeplacementDijkstra {
                     continue;
 
                 //On calcule le poids du voisin en question
-                int nvmCout = noeudActuel.getCoutDepuisDeprt() + DeplacementMethodes.getCout(map, voisin.getX(), voisin.getY());
+                int nvmCout = noeudActuel.getCoutDepuisDeprt() + DeplacementMethodes.getCout(map, voisin.getI(), voisin.getJ());
 
                 //Si il en existe un meilleur on skip
-                if (meilleurCout.containsKey(voisin) && nvmCout >= meilleurCout.get(voisin))
+                if (mapNoeuds.containsValue(voisin)
+                        && nvmCout >= voisin.getCoutDepuisDeprt())
                     continue;
-
-                //Sinon on le met dedans (logique)
-                meilleurCout.put(voisin, nvmCout);
-
                 //On set le voisin avec ce nvm meilleur cout
                 voisin.setCoutDepuisDeprt(nvmCout);
+
                 //On ajoute comme parent du voisin le noeud actuel (permet de remonter à dep)
                 voisin.setParent(noeudActuel);
 
+                //Sinon on le met dedans (logique)
+                mapNoeuds.put(coordToDouble(voisin.getCoord()), voisin);
+
                 //On ajoute le voisin en question à la liste des non-vus
                 listNoeudsPasVu.add(voisin);
+
             }
         }
 
-        return meilleurCout;
+        return mapNoeuds;
+    }
+
+    public HashMap<Noeud, Noeud> testDijkstra(double[] dep){
+
+        //Noeud actuel = point de départ
+        Noeud actuel= new Noeud(getTile(tailleTile, dep)[0], getTile(tailleTile, dep)[1]);
+
+/*
+        //sorte d'heuritisque?
+        int[][] mapManhattan = new int[map.length][map[0].length];
+        for(int i=0; i< map.length; i++){
+            for(int j=0; j< map[i].length; j++){
+                mapManhattan[i][j]=map[i][j]+ manhattan(i, j, actuel.getI(), actuel.getJ());
+            }
+        }
+
+ */
+
+        System.out.println("tile racoutou:"+ actuel.getI() + " "+ actuel.getJ());
+
+        actuel.setParent(null);
+        actuel.setCoutDepuisDeprt(0);
+
+        PriorityQueue<Noeud> fifo = new PriorityQueue<>(Comparator.comparingInt(Noeud::getCoutDepuisDeprt));
+        HashMap<Noeud, Integer> noeudsVisites = new HashMap<>();
+        HashMap<Noeud, Noeud> parent = new HashMap<>();
+        fifo.add(actuel);
+        parent.put(actuel, null);
+
+
+        while(actuel!=null){
+            System.out.println("actuel: "+actuel.getI()+" "+ actuel.getJ());
+            //si actuel pas encore visité
+            if(!noeudsVisites.containsKey(actuel)){
+                System.out.println("pas encore visité");
+                //ajout actuel à noeuds Visités
+                noeudsVisites.put(actuel, actuel.getCoutDepuisDeprt());
+
+                //Pour tous les voisins du noeud actuel
+
+                for(Noeud voisin: DeplacementMethodes.getVoisins(actuel, map, lignes, colonnes)) {
+                    System.out.print("voisin: "+voisin.getI() + "  "+ voisin.getJ());
+
+                    //Si le voisin n'a pas été visité
+                    System.out.println(" deja visite: "+noeudsVisites.containsKey(voisin));
+                    if (!noeudsVisites.containsKey(voisin)){
+
+                        int nouveauCout =actuel.getCoutDepuisDeprt()+ DeplacementMethodes.getCout(map, voisin.getI(), voisin.getJ());
+                        //Si dans la fifo + nvCout< ancienCout: l'enlève de la fifo
+                        if(fifo.contains(voisin) && nouveauCout<voisin.getCoutDepuisDeprt())
+                            fifo.remove(voisin);
+
+                        //Si pas dans la fifo
+                        if(!fifo.contains(voisin)) {
+                            //set le cout
+                            voisin.setCoutDepuisDeprt(actuel.getCoutDepuisDeprt() + DeplacementMethodes.getCout(map, voisin.getI(), voisin.getJ()));
+                            //set le parent: necessaire?
+                            voisin.setParent(actuel);
+                            //ajout à la fifo
+                            fifo.add(voisin);
+                            //ajout à la map parent <Noeud, Prédecesseur>
+                            parent.put(voisin, actuel);
+                            System.out.println("ajout");
+                        }
+
+                    }
+                }
+
+            }
+            actuel=fifo.poll();
+            System.out.println("passage suivant");
+        }
+        return parent;
     }
 
     public static void main(String[] args) {
-        GameWorld w=new GameWorld();
-        /*int[][] map = new int[][]{
-                {0, 1, 1, 1, 1, 1},
+        int tailleTile = 32;
+
+        int[][] map = new int[][]{
+                /*{0, 1, 1, 1, 1, 1},
                 {2, 1, 1, 1, 1, 1},
                 {2, 2, 1, 2, 2, 2},
                 {0, 1, 1, 1, 0, 0},
                 {1, 1, 2, 2, 2, 2},
                 {0, 1, 2, 2, 1, 1}
+
+                 */
+
+                {0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0},
         };
 
-         */
+        int i, j;
+        System.out.println("\n\n\n\n");
+        Map<Noeud, Noeud> parents= new DeplacementDijkstra(tailleTile, map).testDijkstra(new double[]{0,0});
+        for (int ligne = 0; ligne<  map.length; ligne++) {
+            for (int col = 0; col < map[ligne].length; col++) {
 
-        Map<Noeud, Integer> distances = new DeplacementDijkstra(w).calculerDistances(0, 0);
-
-        for (Map.Entry<Noeud, Integer> entry : distances.entrySet()) {
-            Noeud n = entry.getKey();
-            System.out.println("(" + n.getX() + "," + n.getY() + ") min : " + entry.getValue());
-            System.out.println("(" + n.getX() + "," + n.getY() + ") min : " + entry.getValue());
-            System.out.println("(" + n.getX() + "," + n.getY() + ") min : " + entry.getValue());
-            System.out.println("(" + n.getX() + "," + n.getY() + ") min : " + entry.getValue());
+                Noeud n = new Noeud(ligne, col);
+                if(parents.get(n) !=null) {
+                    i = parents.get(n).getI();
+                    j = parents.get(n).getJ();
+                }
+                else{
+                    i=-1;
+                    j=-1;
+                }
+                System.out.print("["+ligne +", "+col+"]; ["+ i+", "+ j+"]  " );
+            }
+            System.out.println();
         }
+        /*
+        Map<Double, Noeud> distances = new DeplacementDijkstra(w.getTailleTile(), map).calculerDistances(new int[]{0, 0});
+
+        for (int i = 0; i<  map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                System.out.println(i +", "+j+": "+distances.get(coordToDouble(new int[]{j, i})));
+            }
+        }
+
+         */
+/*
+        for (Map.Entry<Double, Noeud> entry : distances.entrySet()) {
+            Noeud n = entry.getValue();
+        }
+
+ */
     }
+/*
+    public static Noeud trouverNoeud(Map<Noeud, Integer> liste, int[] coord){
+
+
+
+        for (Map.Entry<Noeud, Integer> entry : liste.entrySet()) {
+            Noeud n = entry.getKey();
+            System.out.println("nX: "+ n.getX()+ " nY: "+ n.getY() +" coordX: "+ coord[0] + "coordY: "+ coord[1]);
+            if()
+                return n;
+        }
+        return null;
+    }
+
+ */
 
     /*
     objet car besoin d'un différent pour le chien
@@ -128,9 +251,22 @@ public class DeplacementDijkstra {
     
      */
 
-    public double[] getTile(double x, double y){
-        return new double[]{Utilitaire.divisionEuclidienne(x, w.getTailleTile()), Utilitaire.divisionEuclidienne(y, w.getTailleTile())};
+    public static double coordToDouble(int[] coord) {
+        return coord[0] + ((double) coord[1] / 100);
+        //i,j
     }
+
+    public int[] getTile(int tailleTile, double[] coord){
+        System.out.println("coord: "+coord[0]+" "+coord[1]+"  tile: "+(int) (coord[1]/tailleTile)+" "+(int) (coord[0]/tailleTile));
+
+        return new int[]{(int) (coord[1]/tailleTile), (int) (coord[0]/tailleTile)};
+        //return new int[]{Utilitaire.divisionEuclidienne(y.getValue(), world.getTailleTile()), Utilitaire.divisionEuclidienne(x.getValue(), world.getTailleTile())};
+    }
+
+    private int manhattan(int ia, int ja, int ib, int jb) {
+        return Math.abs(ia - ib) + Math.abs(ja- jb);
+    }
+
 
 
 }

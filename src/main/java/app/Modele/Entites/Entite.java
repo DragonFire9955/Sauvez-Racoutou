@@ -142,7 +142,7 @@ public abstract class Entite {
     public void setHealth(double value) {
         health.set(Math.max(0, value));
         System.out.println("avant destroy");
-        if (value<=0){
+        if (value==0){
             destroy();
             System.out.println("après destroy");
         }
@@ -180,6 +180,17 @@ public abstract class Entite {
     }
     public abstract int getIdEntite();
 
+
+    public int[] getTile(){
+        System.out.println("coord: "+x.getValue()+" "+y.getValue()+"  tile: "+(int) (y.getValue()/ world.getTailleTile())+" "+(int) (x.getValue()/ world.getTailleTile()));
+
+        return new int[]{(int) (y.getValue()/ world.getTailleTile()), (int) (x.getValue()/ world.getTailleTile())};
+        //return new int[]{Utilitaire.divisionEuclidienne(y.getValue(), world.getTailleTile()), Utilitaire.divisionEuclidienne(x.getValue(), world.getTailleTile())};
+    }
+
+    public double[] getCoord(){
+        return new double[]{x.getValue(), y.getValue()};
+    }
 
 
 

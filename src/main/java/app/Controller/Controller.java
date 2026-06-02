@@ -13,6 +13,7 @@ import app.Modele.Managers.EnnemisSpawn;
 import app.Modele.Terrain;
 import app.Modele.Vague;
 import app.Vue.CameraManager;
+import app.Vue.EntiteVue;
 import app.Vue.TerrainVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -154,7 +155,9 @@ public class Controller implements Initializable {
 
         //TEMPORAIRE, A DELET
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
-        gameWorld.ajouterAnimal(new Racoutou(gameWorld));
+
+        carte.getChildren().add(EntiteVue.appliquerBonneImage(gameWorld.getRacoutou()));
+
         gameWorld.getAnimaux().getFirst().getAliveProperty().addListener((observable, oldValue, newValue) -> {
                     gamePane.getScene().setRoot(menu);
                     isGameStarted.setValue(false);
