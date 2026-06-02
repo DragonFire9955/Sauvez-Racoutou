@@ -15,7 +15,6 @@ public abstract class AlterationElementaire extends Debuffer {
     }
 
     public void debuff(double dt, List<Animal> animaux){
-        System.out.println(animaux.size()+" taille cibles");
         if (!animaux.isEmpty()) {
 
             if (isActionSpecialePossible()) {

@@ -11,16 +11,16 @@ public class EnnemisSpawn {
         if (Math.random()<0.5){
             y = Math.random()*w.getMap().length*w.getTailleTile();
             if (Math.random()<0.5)
-                x=32;
+                x=0;
             else
-                x=(w.getMap()[0].length-2)*w.getTailleTile();
+                x=(w.getMap()[0].length-1)*w.getTailleTile();
         }
         else{
             x = Math.random()*w.getMap()[0].length*w.getTailleTile();
             if (Math.random()<0.5)
-                y=32;
+                y=0;
             else
-                y=(w.getMap().length-2)*w.getTailleTile();
+                y=(w.getMap().length-1)*w.getTailleTile();
         }
         return new double[]{x, y};
     }

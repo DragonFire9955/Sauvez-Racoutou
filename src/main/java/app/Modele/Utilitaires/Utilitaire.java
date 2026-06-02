@@ -10,15 +10,6 @@ public class Utilitaire {
     }
 
     public static boolean intersects(Entite cible, Entite attaquant) {
-        /*
-        double dx = (cible.getX()+cible.getRange()/2) - (attaquant.getX()+cible.getRange()/2);
-        double dy = (cible.getY()+cible.getRange()/2) - (attaquant.getY()+cible.getRange()/2);
-
-         */
-
-        //return Math.pow(dx, 2) +Math.pow(dy, 2)< Math.pow(attaquant.getRange(), 2);
-        System.out.println("cas 1 : " + ((cible.getX()) - (attaquant.getX()+attaquant.getRange()/2)));
-        System.out.println("cas 2 : " + (distance(cible.getX(), cible.getY(), attaquant.getX(), attaquant.getY())) + " range att: "+attaquant.getRange());
 
         return distance(cible.getX(), cible.getY(), attaquant.getX(), attaquant.getY())<=attaquant.getRange();
     }

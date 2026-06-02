@@ -37,15 +37,12 @@ public class AnimauxManager {
 
         //direction = noeud suivant
         Noeud dir = dijkstra.get(new Noeud(a.getTile()[0], a.getTile()[1]));
-        System.out.println(a.getTile()[0]+"  "+ a.getTile()[1]);
-        System.out.println(dir ==null);
         double[] cible;
         int[] tile;
 
 
         //Dejà sur la tuile actuelle ou prochaine tuile = racoutout
         if(!dijkstra.containsKey(dir)){
-            System.out.println("tuile de racoutou");
             cible= racoutou.getCoord();
             //Si déjà proche de racoutou: stop
             if (Utilitaire.distance(a.getX(), a.getY(), racoutou.getX(), racoutou.getY()) < 2)
@@ -67,40 +64,15 @@ public class AnimauxManager {
                 cible=cibleSuiv;
         }
 
-
-        //distance(p, tile)<distance(p, tileSuivante) => utilise tile suivante (evite tremblements)
-
-        /*if (Utilitaire.distance(cible[0], cible[1], a.getX(), a.getY())
-          < Utilitaire.distance(cibleSuiv[0], cibleSuiv[1], a.getX(), a.getY()))
-            cible=cibleSuiv;
-
-         */
-
-
-
-        //System.out.println("centre tile: "+ centreTile(w, tile)[0]+ "  "+ centreTile(w, tile)[1]);
         double dist = Utilitaire.distance(cible[0], cible[1], a.getX(), a.getY());
-
         double dx = cible[0] - a.getX();
-
         double dy = cible[1] - a.getY();
 
-
-                //Math.sqrt(dx * dx + dy * dy);
-        //System.out.println("dx: " + dx);
-
         dx /= dist;
-        //System.out.println("dx: " + dx);
         dy /= dist;
-        //System.out.println();
-
 
         a.setX(a.getX() + dx * a.getVitesse());
         a.setY(a.getY() + dy * a.getVitesse());
-
-        //System.out.println(a.getX() + "," + a.getY());
-
-
     }
 
 

@@ -57,20 +57,15 @@ public abstract class Entite {
     }
 
     public void handleCollisions(Entite cible, double dt) {
-        System.out.println("\n"+ this +"\n" + cible);
         if(this.equals(cible) || cible==null) return;
-        System.out.println("this: "+this.getX()+", "+this.getY() + "id : " + getId());
-        System.out.println("cible: "+cible.getX()+", "+cible.getY() + "id : " + cible.getId());
 
         if (Utilitaire.intersects(cible, this)){
-            System.out.println(this.getClass().getName()+" intersect "+ cible.getClass().getName());
             if(chrono==0)
                 chrono=dt;
 
             coll = true;
 
             if (((dt-chrono)) >= freqAtk) {
-                System.out.println("j'attaque");
                 attaquer();
                 chrono = 0;
             }
@@ -146,10 +141,8 @@ public abstract class Entite {
             health.set(maxHealth);
         else {
             health.set(Math.max(0, value));
-            System.out.println("avant destroy");
-            if (value == 0) {
+            if (health.getValue()== 0) {
                 destroy();
-                System.out.println("après destroy");
             }
         }
     }
@@ -198,13 +191,4 @@ public abstract class Entite {
     public double[] getCoord(){
         return new double[]{x.getValue(), y.getValue()};
     }
-
-
-
-
-
-
-
-
-
 }

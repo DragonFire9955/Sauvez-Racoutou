@@ -1,5 +1,6 @@
 package app.Controller;
 
+import app.Vue.EntiteVue;
 import javafx.scene.layout.StackPane;
 import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
@@ -8,8 +9,8 @@ import app.Modele.Entites.Entite;
 
 public class VieControlleur {
 
-    private double largeur = 40.0;
-    private double hauteur = 6.0;
+    private double largeur = 30.0;
+    private double hauteur = 4.0;
     private StackPane conteneur;
 
     public VieControlleur(Entite entite) {
@@ -26,8 +27,8 @@ public class VieControlleur {
 
         this.conteneur.getChildren().addAll(fondRouge, barreVerte);
 
-        this.conteneur.layoutXProperty().bind(entite.getXProperty().add(12));
-        this.conteneur.layoutYProperty().bind(entite.getYProperty().subtract(12));
+        this.conteneur.layoutXProperty().bind(entite.getXProperty().subtract(EntiteVue.tailleImage/2));
+        this.conteneur.layoutYProperty().bind(entite.getYProperty().subtract(EntiteVue.tailleImage/2).subtract(6));
     }
 
     public StackPane getConteneur() {

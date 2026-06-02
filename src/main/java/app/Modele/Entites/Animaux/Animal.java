@@ -30,9 +30,7 @@ public class Animal extends Entite {
     @Override
     public void update(double dt)  {
         super.update(dt);
-        System.out.println("\n\nid "+getId()+" isColl "+isColl()+" v ="+ getVitesse()+"\n\n");
         if (!isColl() && vitesse!=0) {
-            System.out.println("dans deplacement");
             deplacement();
         }
         else if(stunnedUntil[0]!=0){
@@ -42,7 +40,6 @@ public class Animal extends Entite {
         if (slowUntil[0]!=0){
             endSlow(dt);
         }
-
     }
 
     public void deplacement() {
@@ -53,7 +50,6 @@ public class Animal extends Entite {
         Entite cible = this.getCible();
 
         if(cible==null) return;
-        System.out.println("cible pas nulle");
         //if(cible instanceof Racoutou) AnimauxManager.deplacementEnnemi(this);
         if(cible instanceof Racoutou) AnimauxManager.deplacementEnnemi2(this);
 
@@ -114,24 +110,29 @@ public class Animal extends Entite {
 
     //Retourne la liste des cibles ordonnées par distance croissante et pv croissant
     protected List<Animal> getAnimauxCiblesAccessibles(double range, List<Animal> animaux){
-        List<Animal> ciblesClassées = new ArrayList<>();
+        List<Animal> ciblesClassees = new ArrayList<>();
         int i;
         for(Animal a: animaux){
             //Si a dans le rayon d'action
             if(Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())<=range) {
                 i = 0;
                 //Tant que distance supérieur ET pv supérieur
-                while( i<ciblesClassées.size() &&
+                while( i<ciblesClassees.size() &&
                         Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())
-                        > Utilitaire.distance(this.getX(), this.getY(), ciblesClassées.get(i).getX(), ciblesClassées.get(i).getY())
-                        && a.getHealthProperty().getValue()>ciblesClassées.get(i).getHealthProperty().getValue()){
+                        > Utilitaire.distance(this.getX(), this.getY(), ciblesClassees.get(i).getX(), ciblesClassees.get(i).getY())){
                         i++;
-                    //System.out.println("ajout "+ a.getClass() +" indice "+i);
+                        while(i<ciblesClassees.size() && a.getHealthProperty().getValue()>ciblesClassees.get(i).getHealthProperty().getValue()) {
+                            i++;
+                        }
                 }
-                ciblesClassées.add(i, a);
+                ciblesClassees.add(i, a);
             }
         }
-        return ciblesClassées;
+        if(ciblesClassees.size()>2) {
+            for (int ind = 0; ind < ciblesClassees.size(); ind++) {
+            }
+        }
+        return ciblesClassees;
     }
 
 
@@ -146,7 +147,6 @@ public class Animal extends Entite {
 
         Entite cible = cibles.getFirst();
 
-        System.out.println("Animaux.attaquer(); " + this.getClass().getName() + " attaque !");
         cible.estAttaque(getDamage());
     }
 

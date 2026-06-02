@@ -42,7 +42,6 @@ public class EntitesListListener implements ListChangeListener<Entite> {
             }
             if (c.wasAdded()) {
                 for (Entite e: c.getAddedSubList()) {
-                    System.out.println("ajout dans list");
                     carte.getChildren().add(EntiteVue.appliquerBonneImage(e));
 
                     VieControlleur barreVie = new VieControlleur(e);

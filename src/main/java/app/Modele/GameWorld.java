@@ -50,19 +50,6 @@ public class GameWorld {
         //dijkRacoutou= new DeplacementDijkstra(tailleTile, map).calculerDistances(getTileRacoutou());
         dijkRacoutou2= new DeplacementDijkstra(tailleTile, map).testDijkstra(this.getRacoutou().getCoord());
 
-
-        for(Map.Entry<Noeud, Noeud> entry: dijkRacoutou2.entrySet()){
-            System.out.print("i: "+ entry.getKey().getI()+"  j: "+ entry.getKey().getJ());
-            if(entry.getValue() == null){
-                System.out.println(" null");
-            }
-            else{
-                System.out.println("  PARENT i: "+ entry.getValue().getI()+"  j: "+ entry.getValue().getJ());
-            }
-        }
-
-
-
         totalCoin = new SimpleIntegerProperty(0);
 
         vagueActuelle = Vague.creerVague1(this);
@@ -98,7 +85,6 @@ public class GameWorld {
 
     public void ajouterAnimal(Animal a) {
         animauxList.add(a);
-        System.out.println(a.getClass().getName());
     }
 
     public void supprimerAnimal(Animal a){
@@ -181,7 +167,6 @@ public class GameWorld {
 
     public int[] getTileRacoutou(){
         Entite r = this.getRacoutou();
-        System.out.println("RACOUTOU: "+ r.getTile()[0] + " "+ r.getTile()[1]);
         return r.getTile();
     }
 
