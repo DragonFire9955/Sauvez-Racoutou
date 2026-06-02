@@ -13,6 +13,7 @@ import app.Modele.Managers.EnnemisSpawn;
 import app.Modele.Terrain;
 import app.Modele.Vague;
 import app.Vue.CameraManager;
+import app.Vue.EntiteVue;
 import app.Vue.TerrainVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -284,9 +285,15 @@ public class Controller implements Initializable {
         gameLoop.getKeyFrames().add(kf);
     }
 
-    private void initRacoutou() {
-
+    private void initRacoutou(){
+        carte.getChildren().add(EntiteVue.appliquerBonneImage(gameWorld.getRacoutou()));
+        VieControlleur barreVie = new VieControlleur(gameWorld.getRacoutou());
+        StackPane visuelBarre = barreVie.getConteneur();
+        visuelBarre.setId(gameWorld.getRacoutou().getId());
+        carte.getChildren().add(visuelBarre);
     }
+
+
 
     //Fonction de test, uniquement pour les tests, A SUPPRIMER PLUS TARD
     private void remetEnnemiTest(KeyEvent event) {

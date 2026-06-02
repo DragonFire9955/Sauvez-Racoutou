@@ -2,6 +2,7 @@ package app.Modele;
 
 import app.Modele.Entites.Animaux.Animal;
 
+import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import javafx.beans.property.BooleanProperty;
@@ -144,5 +145,13 @@ public class GameWorld {
     }
     public void setTotalCoin(int coin) {
         this.totalCoin.set(coin);
+    }
+
+    public Entite getRacoutou(){
+        int i=0;
+        while(i<animauxList.size() && !(animauxList.get(i) instanceof Racoutou))
+            i++;
+        if(i==animauxList.size()) return null;
+        return animauxList.get(i);
     }
 }
