@@ -9,9 +9,11 @@ import app.Modele.Entites.Animaux.Volants.PouletVolant;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Vue.EntiteVue;
+import app.Vue.VieVue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 public class EntitesListListener implements ListChangeListener<Entite> {
 
@@ -49,8 +51,12 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     System.out.println("ajout dans list");
                     carte.getChildren().add(EntiteVue.appliquerBonneImage(e));
 
+                    VieVue barreVie = new VieVue(e);
+                    StackPane visuelBarre = barreVie.getConteneur();
 
+                    visuelBarre.setId(e.getId());
 
+                    carte.getChildren().add(visuelBarre);
                 }
             }
         }

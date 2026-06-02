@@ -8,7 +8,7 @@ import static java.lang.Thread.sleep;
 public class Racoutou extends Animal {
 
     public Racoutou(GameWorld w) {
-        super(new double[]{685, 375}, 50, 0, 7, 5, 2.5, w, true);
+        super(new double[]{685, 375}, 10, 0, 7, 5, 1.5, w, true);
     }
 
     public Racoutou(double[] coord, GameWorld w) {

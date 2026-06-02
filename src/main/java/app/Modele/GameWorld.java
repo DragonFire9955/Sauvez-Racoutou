@@ -47,7 +47,7 @@ public class GameWorld {
 
     public void updateGW(double dt)  {
 
-        vagueManager(dt);
+        //vagueManager(dt);
 
         for (Entite entite : animauxList) {
             entite.update(dt);

@@ -12,7 +12,7 @@ public class AnimauxManager {
     }
 
     public static Animal creerPouletClassique(GameWorld w){
-        return new Animal(EnnemisSpawn.randomCoord(w), 5, 1, 2, 5, 1, 1, w, false);
+        return new Animal(EnnemisSpawn.randomCoord(w), 6, 5, 2, 5, 1, 1, w, false);
     }
 
 
