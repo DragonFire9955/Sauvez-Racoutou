@@ -4,6 +4,7 @@ package app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire;
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.Debuffer;
 import app.Modele.GameWorld;
+import app.Modele.Utilitaires.Utilitaire;
 
 import java.util.List;
 
@@ -53,8 +54,8 @@ public abstract class AlterationElementaire extends Debuffer {
         }
     }
 
-    private List<Animal> listesCiblesNonAffectees(List<Animal> animaux){
-        List<Animal> l= getAnimauxCiblesAccessibles(getRangeEffect(),animaux);
+    private List<Animal> listesCiblesNonAffectees(){
+        List<Animal> l= Utilitaire.entitesToAnimaux(getCiblesAccessibles(getRangeEffect(), Utilitaire.animauxToEntites(getWorld().getEnnemis())));
         for (int i=l.size() -1; i>=0; i--){
             if(l.get(i).getSlowUntil()[0]!=0)
                 l.remove(i);

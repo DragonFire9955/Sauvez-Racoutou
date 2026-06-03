@@ -1,7 +1,11 @@
 package app.Modele.Utilitaires;
 
+import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Utilitaire {
 
@@ -40,5 +44,16 @@ public class Utilitaire {
         if(a<0)
             return -a;
         return a;
+    }
+
+    public static List<Entite> animauxToEntites(List<Animal> animaux){
+        return new ArrayList<>(animaux);
+    }
+
+    public static List<Animal> entitesToAnimaux(List<Entite> entites){
+        List<Animal> animaux = new ArrayList<>();
+        for(Entite e: entites)
+            animaux.add((Animal) e);
+        return animaux;
     }
 }

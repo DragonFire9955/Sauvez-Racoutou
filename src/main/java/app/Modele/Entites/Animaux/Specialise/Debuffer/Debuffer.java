@@ -3,6 +3,7 @@ package app.Modele.Entites.Animaux.Specialise.Debuffer;
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.Specialise;
 import app.Modele.GameWorld;
+import app.Modele.Utilitaires.Utilitaire;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public abstract class Debuffer extends Specialise {
 
     public void update(double dt) { //dt = dt_controleur * 0.017
         super.update(dt);
-        debuff(dt, getListeAnimaux());
+        debuff(dt, getListeCibles());
     }
 
     public abstract void debuff(double dt, List<Animal> animaux);
@@ -56,5 +57,7 @@ public abstract class Debuffer extends Specialise {
         this.chronoDefini = chronoDefini;
     }
 
-    public abstract List<Animal> getListeAnimaux();
+    public  List<Animal> getListeCibles(){
+        return Utilitaire.entitesToAnimaux(getCiblesAccessibles(getRangeEffect(), Utilitaire.animauxToEntites(getWorld().getAlliesAnimaux())));
+    };
 }

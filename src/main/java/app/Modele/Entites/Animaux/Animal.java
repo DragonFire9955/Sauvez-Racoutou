@@ -1,6 +1,5 @@
 package app.Modele.Entites.Animaux;
 
-import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.AnimauxManager;
@@ -47,7 +46,8 @@ public class Animal extends Entite {
 
         //if(vitesse == 0) return;
 
-        Entite cible = this.getCible();
+        Entite cible = this.getDirection();
+        //System.out.println("entite cible de  "+this.getId() +" : "+ cible.getId());
 
         if(cible==null) return;
         //if(cible instanceof Racoutou) AnimauxManager.deplacementEnnemi(this);
@@ -72,24 +72,6 @@ public class Animal extends Entite {
     }
 
 
-
-    protected Entite getNearest(){
-
-        List<Entite> cibles = getListeCibles();
-
-        if (cibles.isEmpty()) return null;
-
-        Entite proche = cibles.getFirst();
-
-        for(Entite a : cibles){
-            if(Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())
-                    < Utilitaire.distance(this.getX(), this.getY(), proche.getX(), proche.getY()))
-                proche = a;
-        }
-
-        return proche;
-    }
-
     public void setVitesse(double vitesse) {
         this.vitesse = vitesse;
     }
@@ -108,7 +90,11 @@ public class Animal extends Entite {
 
     //FONCTIONS ATTAQUES
 
-    //Retourne la liste des cibles ordonnées par distance croissante et pv croissant
+
+
+
+    /*
+        //Retourne la liste des cibles ordonnées par distance croissante et pv croissant
     protected List<Animal> getAnimauxCiblesAccessibles(double range, List<Animal> animaux){
         List<Animal> ciblesClassees = new ArrayList<>();
         int i;
@@ -134,6 +120,7 @@ public class Animal extends Entite {
         }
         return ciblesClassees;
     }
+     */
 
 
 
@@ -141,7 +128,7 @@ public class Animal extends Entite {
 
         if(!canAttack)return;
 
-        List<Entite> cibles = getListeCibles();
+        List<Entite> cibles = getEntitesCibles();
 
         if(cibles.isEmpty()) return;
 
@@ -152,52 +139,61 @@ public class Animal extends Entite {
 
     //Retourne l'entité vers laquelle this se dirige
     @Override
-    public Entite getCible() {
+    public Entite getDirection(){
 
-        /// TODO : retourne des erreurs si on ne met pas ça !!!!
-        //if (getListeCibles().isEmpty()) return null;
-        List<Animal> cibles;
-        if (allie){
-            cibles= getWorld().getEnnemis();
-        }
-        else {
-            cibles= getWorld().getAllies();
-        }
-        if (cibles.isEmpty()) return null;
-        else return cibles.getFirst();
+        if(!allie)
+            return getWorld().getRacoutou();
+        else
+            if (getEntitesCibles().isEmpty())
+                return null;
+            else
+                return getEntitesCibles().getFirst();
     }
 
+    @Override
+    public Entite getCible(){
 
-
-    public  List<Entite> getListeCibles(){
-        List<Entite> listeCibles = new ArrayList<>();
-        listeCibles.addAll(getAnimauxCibles());
-        if(!this.allie){
-            for(Barrage b: getWorld().getBarrage())
-                listeCibles.add(b);
-        }
-        return listeCibles;
+        if (getCiblesAccessibles(getRange(), getEntitesCibles()).isEmpty())
+            return null;
+        else
+            return getCiblesAccessibles(getRange(), getEntitesCibles()).getFirst();
     }
-
 
     public  List<Animal> getAnimauxCibles(){
-        List<Animal> listeCibles = new ArrayList<>();
-        for(Animal a: getWorld().getAnimaux()){
-            if(this.allie!=a.allie){
-                listeCibles.add(a);
+        if(allie)
+            return getWorld().getEnnemis();
+        else
+            return getWorld().getAlliesAnimaux();
+    }
+
+    public List<Entite> getEntitesCibles(){
+        List<Entite> entites;
+        if(allie)
+            entites = Utilitaire.animauxToEntites(getWorld().getEnnemis());
+        else
+            entites = this.getWorld().getAlliesAnimauxBarrages();
+
+        List<Entite> entitesTriees = new ArrayList<>();
+        int i;
+        for(Entite e: entites) {
+            i= 0;
+            //Tant que distance supérieur ET pv supérieur
+            while (i < entitesTriees.size()
+                && Utilitaire.distance(this.getX(), this.getY(), e.getX(), e.getY())
+                   > Utilitaire.distance(this.getX(), this.getY(), entitesTriees.get(i).getX(), entitesTriees.get(i).getY())) {
+                i++;
             }
+            entitesTriees.add(i, e);
         }
-        return listeCibles;
+        return entitesTriees;
     }
 
     public  List<Animal> getAnimauxCopains(){
-        List<Animal> listeCibles = new ArrayList<>();
-        for(Animal a: getWorld().getAnimaux()){
-            if(this.allie==a.allie && !a.equals(this)){
-                listeCibles.add(a);
-            }
-        }
-        return listeCibles;
+        if(allie)
+            return getWorld().getAlliesAnimaux();
+        else
+            return getWorld().getEnnemis();
+
     }
 
 

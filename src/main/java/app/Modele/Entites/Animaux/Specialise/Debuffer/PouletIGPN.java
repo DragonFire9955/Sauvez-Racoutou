@@ -13,11 +13,6 @@ public class PouletIGPN extends Debuffer {
     }
 
     @Override
-    public List<Animal> getListeAnimaux() {
-        return getAnimauxCiblesAccessibles(getRangeEffect(), getWorld().getEnnemis());
-    }
-
-    @Override
     public void debuff(double dt, List<Animal> animaux) {
         ///  TODO: ralentissement + force --
     }

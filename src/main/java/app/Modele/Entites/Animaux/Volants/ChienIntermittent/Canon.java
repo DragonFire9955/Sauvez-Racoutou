@@ -29,8 +29,9 @@ public class Canon extends Animal {
      */
 
     /// TODO: modifier intervalle où cible volante ets accessible
+    @Override
     public Entite getCible() {
-        List<Animal> cibles= getAnimauxCiblesAccessibles(getRange(), getWorld().getEnnemis());
+        List<Animal> cibles= Utilitaire.entitesToAnimaux(getCiblesAccessibles(getRange(), Utilitaire.animauxToEntites(getWorld().getEnnemis())));
         if(cibles.isEmpty()) return null;
         int i=0;
         while(i<cibles.size()
@@ -47,12 +48,12 @@ public class Canon extends Animal {
     @Override
     public void update(double dt) {
         super.update(dt);
-        if(getCible()!=null)
+        if(this.getDirection()!=null)
             tirer();
     }
 
     public void tirer(){
-        chien.fly(getCible());
+        chien.fly(this.getDirection());
     }
 
     /*

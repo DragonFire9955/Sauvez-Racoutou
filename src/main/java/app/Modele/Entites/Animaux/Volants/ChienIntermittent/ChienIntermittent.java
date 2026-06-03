@@ -74,7 +74,7 @@ public class ChienIntermittent extends Animal {
 
     public void initChien() {
 
-        Entite cible = getCible();
+        Entite cible = this.getDirection();
 
         if (cible==null) return;
 
@@ -137,12 +137,8 @@ public class ChienIntermittent extends Animal {
 
  */
     @Override
-    public Entite getCible(){
+    public Entite getDirection(){
         return this.canon;
-    }
-
-    public Entite getPremierEnnemi(){
-        return getAnimauxCiblesAccessibles(canon.getRange(), getWorld().getEnnemis()).getFirst();
     }
 
     public void fly(Entite cible){

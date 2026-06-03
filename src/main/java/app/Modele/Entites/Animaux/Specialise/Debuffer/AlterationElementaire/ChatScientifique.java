@@ -29,7 +29,7 @@ public class ChatScientifique extends AlterationElementaire {
     }
 
 
-    public List<Animal> getListeAnimaux() {
+    public List<Animal> getListeCibles() {
         return getWorld().getEnnemis();
     }
 

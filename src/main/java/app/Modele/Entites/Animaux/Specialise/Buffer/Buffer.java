@@ -3,6 +3,7 @@ package app.Modele.Entites.Animaux.Specialise.Buffer;
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.Specialise;
 import app.Modele.GameWorld;
+import app.Modele.Utilitaires.Utilitaire;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public abstract class Buffer extends Specialise {
 
     public List<Animal> getAnimauxCiblesAccessibles(){
 
-        return super.getAnimauxCiblesAccessibles(getRangeEffect(), getAnimauxCopains());
+        return Utilitaire.entitesToAnimaux(getCiblesAccessibles(getRangeEffect(), Utilitaire.animauxToEntites(getAnimauxCopains())));
     }
 
     public ArrayList<Double> getListeBuff() {

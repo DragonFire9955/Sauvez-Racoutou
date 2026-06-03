@@ -1,7 +1,6 @@
 package app.Modele;
 
 import app.Modele.Chemins.DeplacementDijkstra;
-import app.Modele.Chemins.DeplacementMethodes;
 import app.Modele.Entites.Animaux.Animal;
 
 import app.Modele.Entites.Animaux.Racoutou;
@@ -19,8 +18,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static app.Modele.Vague.creerVague1;
 
 public class GameWorld {
 
@@ -101,7 +98,7 @@ public class GameWorld {
         return animauxList;
     }
 
-    public List<Animal> getAllies() {
+    public List<Animal> getAlliesAnimaux() {
 
         List<Animal> allies = new ArrayList<>();
 
@@ -110,6 +107,12 @@ public class GameWorld {
                 allies.add(animal);
 
         return allies;
+    }
+
+    public List<Entite> getAlliesAnimauxBarrages() {
+        List<Entite> entites = new ArrayList<>(getAlliesAnimaux());
+        entites.addAll(getBarrage());
+        return entites;
     }
 
     public List<Animal> getEnnemis() {
@@ -187,4 +190,8 @@ public class GameWorld {
     public void setMap(int[][] map) {
         this.map = map;
     }
+
+
+
+
 }

@@ -2,6 +2,7 @@ package app.Modele.Entites.Animaux;
 
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
+import app.Modele.Utilitaires.Utilitaire;
 
 import java.util.List;
 
@@ -22,9 +23,9 @@ public class Racoutou extends Animal {
         super.update(dt);
     }
 
-    public Entite getCible(){
+    public Entite getDirection(){
 
-        List<Animal> cibles = getAnimauxCiblesAccessibles(this.getRange(), getWorld().getEnnemis());
+        List<Animal> cibles = Utilitaire.entitesToAnimaux(getCiblesAccessibles(this.getRange(), Utilitaire.animauxToEntites(getWorld().getEnnemis())));
 
         if (cibles.isEmpty()) return null;
 

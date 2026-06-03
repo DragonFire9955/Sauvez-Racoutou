@@ -19,8 +19,4 @@ public class ChatHypnotiseur extends AlterationElementaire {
         ///TODO : changer de camp
     }
 
-    @Override
-    public List<Animal> getListeAnimaux() {
-        return List.of();
-    }
 }

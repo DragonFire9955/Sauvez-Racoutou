@@ -4,8 +4,6 @@ import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.Buffer.ChatCuisinier;
 import app.Modele.Entites.Animaux.Specialise.Buffer.PouletConservateur;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.ChatJournaliste;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.PouletMenotte;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Animaux.Volants.PouletVolant;
 import app.Modele.Entites.Barrage.Poubelle;
@@ -312,7 +310,7 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau PouletMenotte");
 
-            gameWorld.ajouterAnimal(new PouletMenotte(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+            gameWorld.ajouterAnimal(AnimauxManager.creerPouletMenotte(gameWorld));
         } else if (event.getCode() == KeyCode.C) {
 
             System.out.println("nouveau ChatClassique");
@@ -322,7 +320,7 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau ChatJournaliste");
 
-            gameWorld.ajouterAnimal(new ChatJournaliste(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+            gameWorld.ajouterAnimal(AnimauxManager.creerChatJournaliste(gameWorld));
         }
         else if (event.getCode() == KeyCode.G) {
 

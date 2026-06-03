@@ -1,11 +1,15 @@
 package app.Modele.Entites;
 
+import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Utilitaire;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Thread.sleep;
 
@@ -57,7 +61,13 @@ public abstract class Entite {
     }
 
     public void handleCollisions(Entite cible, double dt) {
-        if(this.equals(cible) || cible==null) return;
+
+        System.out.println(coll + "coll");
+        if(this.equals(cible) || cible==null) {
+
+            coll = false;
+            return;
+        }
 
         if (Utilitaire.intersects(cible, this)){
             if(chrono==0)
@@ -73,7 +83,6 @@ public abstract class Entite {
         } else {
             coll = false;
         }
-
     }
 
     protected void setPosition(double x, double y) {
@@ -160,6 +169,8 @@ public abstract class Entite {
         return alive;
     }
 
+    public abstract Entite getDirection();
+
     public abstract Entite getCible();
 
     public void setActif(boolean actif) {
@@ -190,5 +201,32 @@ public abstract class Entite {
 
     public double[] getCoord(){
         return new double[]{x.getValue(), y.getValue()};
+    }
+
+    //Retourne la liste des cibles ordonnées par distance croissante et pv croissant
+    public List<Entite> getCiblesAccessibles(double range, List<Entite> entites){
+        List<Entite> ciblesClassees = new ArrayList<>();
+        int i;
+        for(Entite e: entites){
+            //Si e dans le rayon d'action
+            if(Utilitaire.distance(this.getX(), this.getY(), e.getX(), e.getY())<=range) {
+                i = 0;
+                //Tant que distance supérieur ET pv supérieur
+                while( i<ciblesClassees.size() &&
+                        Utilitaire.distance(this.getX(), this.getY(), e.getX(), e.getY())
+                                > Utilitaire.distance(this.getX(), this.getY(), ciblesClassees.get(i).getX(), ciblesClassees.get(i).getY())){
+                    i++;
+                    while(i<ciblesClassees.size() && e.getHealthProperty().getValue()>ciblesClassees.get(i).getHealthProperty().getValue()) {
+                        i++;
+                    }
+                }
+                ciblesClassees.add(i, e);
+            }
+        }
+        if(ciblesClassees.size()>2) {
+            for (int ind = 0; ind < ciblesClassees.size(); ind++) {
+            }
+        }
+        return ciblesClassees;
     }
 }

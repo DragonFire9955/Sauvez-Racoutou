@@ -1,5 +1,6 @@
 package app.Modele.Entites.Barrage;
 
+import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 
 public class Poubelle extends Barrage {
@@ -23,4 +24,6 @@ public class Poubelle extends Barrage {
     public void attaquer() {
 
     }
+
+
 }
