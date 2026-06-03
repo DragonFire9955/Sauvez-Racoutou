@@ -47,15 +47,21 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
             }
             if (c.wasAdded()) {
+                //parcours les entités ajoutés
                 for (Entite e: c.getAddedSubList()) {
                     System.out.println("ajout dans list");
+
+                    //affiche l'image de l'entite sur la carte
                     carte.getChildren().add(EntiteVue.appliquerBonneImage(e));
 
+                    //créé la barre de cie et récupère son conteneur
                     VieVue barreVie = new VieVue(e);
                     StackPane visuelBarre = barreVie.getConteneur();
 
+                    //associe l'id de la vie a l'entite pour les remove ensemble
                     visuelBarre.setId(e.getId());
 
+                    //affiche la vie
                     carte.getChildren().add(visuelBarre);
                 }
             }

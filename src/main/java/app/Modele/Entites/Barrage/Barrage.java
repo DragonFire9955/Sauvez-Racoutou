@@ -6,9 +6,9 @@ import app.Modele.GameWorld;
 public abstract class Barrage extends Entite {
     public double taille;
 
-    public Barrage(double[] coord, double health, int coin, double r, GameWorld w, double t){
+    public Barrage(double[] coord, double health, int coin, double r, GameWorld w, double t) {
         super(coord, health, 5, 0, r, 0, w);
-        taille=t;
+        taille = t;
 
     }
 
@@ -16,11 +16,15 @@ public abstract class Barrage extends Entite {
     public void update(double dt) {
     }
 
-    public double getTaille(){return taille;}
+    public double getTaille() {
+        return taille;
+    }
 
-    public void setTaille(double t){taille=t;}
+    public void setTaille(double t) {
+        taille = t;
+    }
 
-    public Entite getCible(){
+    public Entite getCible() {
         return null;
     }
 
