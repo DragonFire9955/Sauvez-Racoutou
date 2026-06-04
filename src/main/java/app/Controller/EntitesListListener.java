@@ -4,7 +4,7 @@ import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Vue.EntiteVue;
-import app.Vue.VieVue;
+import app.Controller.VieControlleur;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
@@ -50,7 +50,6 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     carte.getChildren().add(EntiteVue.appliquerBonneImage(e));
 
                     //créé la barre de cie et récupère son conteneur
-                    VieVue barreVie = new VieVue(e);
                     VieControlleur barreVie = new VieControlleur(e);
                     StackPane visuelBarre = barreVie.getConteneur();
 

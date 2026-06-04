@@ -10,7 +10,6 @@ import app.Modele.Entites.Barrage.Poubelle;
 import app.Modele.GameWorld;
 import app.Modele.Managers.AnimauxManager;
 import app.Modele.Managers.EnnemisSpawn;
-import app.Modele.Terrain;
 import app.Modele.Vague;
 import app.Vue.CameraManager;
 import app.Vue.EntiteVue;
@@ -62,8 +61,8 @@ public class Controller implements Initializable {
     private Label waveLabel;
     @FXML
     private Label waveTimerLabel;
-
-    private HBox menuPause;
+    @FXML
+    private VBox menuPause;
 
     private TerrainVue terrainVue;
     private boolean enPause = false;
@@ -89,7 +88,7 @@ public class Controller implements Initializable {
 
         terrainVue = new TerrainVue();
 
-        this.map = Terrain.genererMap();
+        this.map = TerrainVue.genererMap();
         terrainVue.delimitationMap(tileMap);
 
         remplirMap();
@@ -195,60 +194,53 @@ public class Controller implements Initializable {
 
     }
 
-    /*@FXML
-    private void pause() {
-        if (enPause) {
-            gameLoop.play();
-        } else {
-            gameLoop.pause();
-        }
 
-        enPause = !enPause;
-        gamePane.requestFocus();
-    }*/
+
 
     @FXML
     private void pause() {
         if (enPause) {
             gameLoop.play();
-
-            gamePane.getChildren().remove(menuPause);
-
+            menuPause.setVisible(false);
             enPause = false;
         } else {
             gameLoop.pause();
-
-            menuPause = new HBox(20);
-            menuPause.setAlignment(Pos.CENTER);
-
-            menuPause.setStyle("-fx-background-color: rgba(93, 64, 55, 0.75); -fx-background-radius: 10;");
-            menuPause.setPrefHeight(400);
-            menuPause.setPrefWidth(500);
-
-            Button btnReprendre = new Button("Reprendre");
-            btnReprendre.setStyle("-fx-font-size: 18px; -fx-background-color: #8D6E63; -fx-text-fill: white;");
-            btnReprendre.setOnAction(e ->
-                    pause()
-            );
-
-            Button btnQuitter = new Button("Quitter");
-            btnQuitter.setStyle("-fx-font-size: 18px; -fx-background-color: #D7CCC8; -fx-text-fill: #3E2723;");
-            btnQuitter.setOnAction(e -> {
-                gameLoop.stop();
-                gamePane.getScene().setRoot(menu);
-                isGameStarted.setValue(false);
-            });
-
-            menuPause.getChildren().addAll(btnReprendre, btnQuitter);
-            gamePane.getChildren().add(menuPause);
-
+            menuPause.setVisible(true);
             enPause = true;
         }
-
         gamePane.requestFocus();
     }
 
+    @FXML
+    private void quitterPartie() {
+        gameLoop.stop();
+        gamePane.getScene().setRoot(menu);
+        isGameStarted.setValue(false);
+    }
 
+    @FXML
+    private void recommencerJeu() {
+        gameLoop.stop();
+        temps.setValue(0);
+        enPause = false;
+        menuPause.setVisible(false);
+
+        gameWorld.getAnimaux().clear();
+        gameWorld.getTotalCoin().set(50);
+
+        carte.getChildren().removeIf(node -> node != tileMap);
+        //supprime si l'element est différent de la tileMap (on garde juste elle)
+
+        map = TerrainVue.genererMap();
+        terrainVue.delimitationMap(tileMap);
+        remplirMap();
+
+        gameWorld.ajouterAnimal(new Racoutou(gameWorld));
+        gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
+
+        gameLoop.play();
+        gamePane.requestFocus();
+    }
 
     @FXML
     private void placerPoubelle(){
