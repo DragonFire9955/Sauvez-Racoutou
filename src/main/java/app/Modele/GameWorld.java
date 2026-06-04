@@ -7,8 +7,6 @@ import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import app.Modele.Utilitaires.Noeud;
-import app.Modele.Utilitaires.Utilitaire;
-import app.Vue.TerrainVue;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -16,10 +14,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class GameWorld {
 
@@ -33,11 +28,11 @@ public class GameWorld {
     private Map<Noeud, Noeud> dijkRacoutou2;
 
 
-    private List<Map<Integer, Map<Animal, Integer>>> ensemblesVagues;
-    private List<Integer> debutVagues;
+    private List<TreeMap<Integer, List<Animal>>> ensemblesVagues;
+    private IntegerProperty durreeVague;
+    private  int debutVague;
     private IntegerProperty numeroVague;
-    private double tempsVague;
-    private int tempsTotalVague;
+    private IntegerProperty tempsActuelVague;
 
 
 
@@ -57,10 +52,11 @@ public class GameWorld {
         totalCoin = new SimpleIntegerProperty(0);
 
         ensemblesVagues = Vague.ensembleVagues(this);
-        debutVagues = Vague.debutVagues();
+        durreeVague = new SimpleIntegerProperty(0);
+        debutVague=0;
         numeroVague = new SimpleIntegerProperty(0);
-        tempsVague=0;
-        tempsTotalVague=0;
+
+        tempsActuelVague = new SimpleIntegerProperty(0);
         //vagueActuelle = Vague.creerVague1(this);
         //tempsVague = 0;
     }
@@ -68,17 +64,19 @@ public class GameWorld {
 
     public void updateGW(double dt)  {
 
-        vagueManager(dt);
+        if(getRacoutou() == null) theEnd.setValue(true);
 
-        for (Entite entite : animauxList) {
-            entite.update(dt);
+        else {
+            vagueManager(dt);
+
+            for (Entite entite : animauxList) {
+                entite.update(dt);
+            }
+            for (Barrage barrage : barrageList) {
+                barrage.update(dt);
+            }
+            supprimerAnimauxMorts();
         }
-
-        for (Barrage barrage : barrageList) {
-            barrage.update(dt);
-        }
-
-        supprimerAnimauxMorts();
     }
 /*
     private void vagueManager(double dt) {
@@ -96,19 +94,21 @@ public class GameWorld {
 
     private void vagueManager(double dt) {
 
-        tempsVague = dt;
-        int tempsActuel = (int) tempsVague;
+        double tempsVague = dt - debutVague;
 
-        if(debutVagues.contains(tempsActuel)
-        && Utilitaire.getIndex(debutVagues, tempsActuel) < debutVagues.size()-1
-        && Utilitaire.getIndex(debutVagues, tempsActuel)+1 != numeroVague.get()){
-            numeroVague.set(Utilitaire.getIndex(debutVagues, tempsActuel)+1);
-            tempsTotalVague = debutVagues.get(numeroVague.get()) - debutVagues.get(numeroVague.get() -1);
+        if(tempsVague>=(durreeVague.get())){
+            System.out.println(numeroVague);
+            numeroVague.set(numeroVague.get()+1);
+            debutVague = (int) dt;
+            durreeVague.set(ensemblesVagues.get(numeroVague.get()-1).lastKey() +10);
+            System.out.println(" Durée vague: "+durreeVague.get());
+            tempsVague = 0;
         }
 
-        if(numeroVague.get()!=0 && ensemblesVagues.get(numeroVague.get()-1).containsKey(tempsActuel)){
-            if(ensemblesVagues.get(numeroVague.get()-1).containsKey(tempsActuel))
-                animauxList.addAll(Objects.requireNonNull(Vague.creerVague(ensemblesVagues.get(numeroVague.get() - 1).get(tempsActuel))));
+        tempsActuelVague.set( (int) tempsVague);
+
+        if(numeroVague.get()!=0 && ensemblesVagues.get(numeroVague.get()-1).containsKey(tempsActuelVague.get())){
+            animauxList.addAll(ensemblesVagues.get(numeroVague.get()-1).pollFirstEntry().getValue());;
         }
     }
 
@@ -227,7 +227,19 @@ public class GameWorld {
         return numeroVague;
     }
 
-    public int getTempsTotalVague() {
-        return tempsTotalVague;
+    public int getDurreeVague() {
+        return durreeVague.get();
     }
+
+    public IntegerProperty getDurreeVagueProperty() {
+        return durreeVague;
+    }
+
+    public IntegerProperty getTempsActuelVagueProperty(){
+        return tempsActuelVague;
+    }
+
+
+
+
 }

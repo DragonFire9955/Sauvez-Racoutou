@@ -147,7 +147,14 @@ public class Controller implements Initializable {
 
         //Initialisation des Managers
         gameWorld = new GameWorld();
-        gameWorld.getTheEnd().addListener((obs, oldV, newV) -> gameLoop.stop());
+        gameWorld.getTheEnd().addListener((obs, oldV, newV) -> {
+            if(newV == true) {
+                isGameStarted.setValue(false);
+                System.out.println(isGameStarted);
+                applicationPane.getScene().setRoot(menu);
+                System.out.println(applicationPane);
+            }
+        });
         cameraManager = new CameraManager(gamePane, carte, tileMap);
         cameraManager.initialiserCamera();
 
@@ -157,24 +164,34 @@ public class Controller implements Initializable {
         //Binding label vague + timerVague
 
         waveLabel.textProperty().bind(gameWorld.getNumeroVagueProperty().asString());
-        waveTimerLabel.textProperty().bind(temps.multiply(0.017).asString("%.0f / " + gameWorld.getTempsTotalVague()));
+
+
+
+        waveTimerLabel.textProperty().bind(gameWorld.getTempsActuelVagueProperty().asString().concat(" / ").concat(gameWorld.getDurreeVagueProperty().asString()));
+
 
         //TEMPORAIRE, A DELET
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
 
         //IMAGE DE RACOUTOU
         initRacoutou();
-
+        /*
         gameWorld.getAnimaux().getFirst().getAliveProperty().addListener((observable, oldValue, newValue) -> {
                     gamePane.getScene().setRoot(menu);
                     isGameStarted.setValue(false);
                 }
         );
+
+         */
         gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
         System.out.println(isGameStarted);
         isGameStarted.addListener(((observableValue, aBoolean, t1) -> {
-            initAnimation();
-            gameLoop.play();
+
+            if (t1 == true) {
+                initAnimation();
+                gameLoop.play();
+            } else
+                gameLoop.stop();
         }));
 
 
@@ -275,6 +292,7 @@ public class Controller implements Initializable {
     }
 
     private void remplirMap() {
+
         tileMap.getChildren().clear(); //pour ne pas superposer les tuiles
 
         for (int l = 0; l < map.length; l++) {
@@ -321,6 +339,8 @@ public class Controller implements Initializable {
 
             }
         }
+
+
     }
 
 
