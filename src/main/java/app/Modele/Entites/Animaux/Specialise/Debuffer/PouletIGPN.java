@@ -6,19 +6,14 @@ import app.Modele.GameWorld;
 
 import java.util.List;
 
-public class PouletIGPN extends Buffer {
+public class PouletIGPN extends Debuffer {
 
     public PouletIGPN(double[] coord, GameWorld w) {
-        super(coord, 4, 1, 0, 2, 1, 1, w, true, 10, 5, 5);
+        super(coord, 4, 1, 0, 2, 1, 1, w, true, 1, 5, 5, 10);
     }
 
     @Override
-    public void actionBuff() {
-
-    }
-
-    @Override
-    public List<Animal> getListeAnimaux() {
-        return getAnimauxCiblesAccessibles(getRangeEffect(), getWorld().getEnnemis());
+    public void debuff(double dt, List<Animal> animaux) {
+        ///  TODO: ralentissement + force --
     }
 }

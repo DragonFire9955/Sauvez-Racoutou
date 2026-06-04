@@ -6,7 +6,7 @@ import app.Modele.GameWorld;
 
 import java.util.List;
 
-public abstract class Stunner extends Debuffer {
+public class Stunner extends Debuffer {
 
 
     public Stunner(double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, int nbV, double stun, double tempsRecup, double rangeStun) {

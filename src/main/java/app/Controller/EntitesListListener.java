@@ -1,11 +1,6 @@
 package app.Controller;
 
 import app.Modele.Entites.Animaux.Animal;
-import app.Modele.Entites.Animaux.Specialise.Buffer.PouletConservateur;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.PouletMenotte;
-import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
-import app.Modele.Entites.Animaux.Volants.PouletVolant;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Vue.EntiteVue;
@@ -56,6 +51,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
                     //créé la barre de cie et récupère son conteneur
                     VieVue barreVie = new VieVue(e);
+                    VieControlleur barreVie = new VieControlleur(e);
                     StackPane visuelBarre = barreVie.getConteneur();
 
                     //associe l'id de la vie a l'entite pour les remove ensemble

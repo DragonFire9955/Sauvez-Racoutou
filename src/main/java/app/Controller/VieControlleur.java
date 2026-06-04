@@ -1,18 +1,19 @@
-package app.Vue;
+package app.Controller;
 
+import app.Vue.EntiteVue;
 import javafx.scene.layout.StackPane;
 import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import app.Modele.Entites.Entite;
 
-public class VieVue {
+public class VieControlleur {
 
-    private double largeur = 40.0;
-    private double hauteur = 6.0;
+    private double largeur = 30.0;
+    private double hauteur = 4.0;
     private StackPane conteneur; //pour empiler les 2 rectangles
 
-    public VieVue(Entite entite) {
+    public VieControlleur(Entite entite) {
         this.conteneur = new StackPane();
         this.conteneur.setAlignment(Pos.CENTER_LEFT);
         //pour que le vie se vide vers la gauche
@@ -32,8 +33,8 @@ public class VieVue {
         this.conteneur.getChildren().addAll(fondRouge, barreVerte);
 
         //la vie est décalé par rapport a l'entite
-        this.conteneur.layoutXProperty().bind(entite.getXProperty().add(12));
-        this.conteneur.layoutYProperty().bind(entite.getYProperty().subtract(12));
+        this.conteneur.layoutXProperty().bind(entite.getXProperty().subtract(EntiteVue.tailleImage/2));
+        this.conteneur.layoutYProperty().bind(entite.getYProperty().subtract(EntiteVue.tailleImage/2).subtract(6));
     }
 
     public StackPane getConteneur() {

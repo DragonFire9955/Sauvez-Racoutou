@@ -9,7 +9,7 @@ public class TerrainVue {
 
     private Image base = new Image(getClass().getResourceAsStream("/app/images/herbe.png"), 32, 32, true, true);
     private Image sol = new Image(getClass().getResourceAsStream("/app/images/sol.png"), 32, 32, true, true);
-    private Image tonneau = new Image(getClass().getResourceAsStream("/app/images/tonneau4.png"), 32, 32, true, true);
+    private Image tonneau = new Image(getClass().getResourceAsStream("/app/images/herbe.png"), 32, 32, true, true);
     private Image hor = new Image(getClass().getResourceAsStream("/app/images/horizontal.png"), 32, 32, false, true);
     private Image ver = new Image(getClass().getResourceAsStream("/app/images/vertical2.png"), 32, 32, false, true);
 
