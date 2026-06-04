@@ -11,8 +11,9 @@ import javafx.scene.layout.TilePane;
 public class DragAndDrop {
 
     public void drag(Button bouton, int id, String url) {
-        bouton.setOnDragDetected(e -> { //réagit qaund la souris maintien sur un bouton
-            Dragboard db = bouton.startDragAndDrop(TransferMode.COPY); //se met en mode drag&drop (l'image est dédoublé)
+        bouton.setOnDragDetected(e -> { //réagit qaund la souris clique et maintien
+            Dragboard db = bouton.startDragAndDrop(TransferMode.COPY); //copie virtuelle du bouton
+            //initialise le mode Drag&Drop de JavaFX
 
             ClipboardContent contenu = new ClipboardContent(); //pour ajouter du contenu
             contenu.putString(String.valueOf(id)); //on ajout l'id de l'image
@@ -25,9 +26,9 @@ public class DragAndDrop {
     }
 
     public void survole(TilePane tileMap){
-        tileMap.setOnDragOver(e -> { //réagit quand la souris passe au dessus de la map en mode drag&drop
+        tileMap.setOnDragOver(e -> { //réagit quand la souris survole la map en maintenant quelque chose
 
-            e.acceptTransferModes(TransferMode.COPY); //met l'id que si il survole la map
+            e.acceptTransferModes(TransferMode.COPY); //accpete que la souris survole la Tilemap sous forme de copy
             e.consume(); //fin de l'événement
         });
     }
