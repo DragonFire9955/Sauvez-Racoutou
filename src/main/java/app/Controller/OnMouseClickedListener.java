@@ -11,7 +11,6 @@ import javafx.scene.shape.Rectangle;
 
 public class OnMouseClickedListener implements EventHandler<MouseEvent> {
 
-    private final TilePane tileMap;
     private final GameWorld gameWorld;
 
     private final Rectangle highlight;
@@ -20,7 +19,6 @@ public class OnMouseClickedListener implements EventHandler<MouseEvent> {
 
     public OnMouseClickedListener(TilePane tileMap, Pane carte, GameWorld gameWorld) {
 
-        this.tileMap = tileMap;
         this.gameWorld = gameWorld;
 
         //Création du rectangle jaune en overview sur la case
