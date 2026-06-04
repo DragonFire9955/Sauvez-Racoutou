@@ -337,10 +337,6 @@ public class Vague {
         return v;
     }
 
-
-
-
-
     public static ArrayList<Animal> lAnimaux(int[] nb, GameWorld w){
 
         ArrayList<Animal> l = new ArrayList<>();
