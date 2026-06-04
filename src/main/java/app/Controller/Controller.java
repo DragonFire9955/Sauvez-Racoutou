@@ -82,6 +82,8 @@ public class Controller implements Initializable {
     private Timeline gameLoop;
     private IntegerProperty temps = new SimpleIntegerProperty(0);
 
+    //Listener
+    OnMouseClickedListener onMouseClickedListener;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -158,6 +160,11 @@ public class Controller implements Initializable {
         cameraManager = new CameraManager(gamePane, carte, tileMap);
         cameraManager.initialiserCamera();
 
+        //Observable eventListener
+        onMouseClickedListener = new OnMouseClickedListener(tileMap, carte, gameWorld);
+        carte.addEventHandler(MouseEvent.MOUSE_MOVED, onMouseClickedListener);
+        carte.addEventHandler(MouseEvent.MOUSE_CLICKED, onMouseClickedListener);
+
         //Binding du label coin, à déplacer au bon endroit
         coinLabel.textProperty().bind(gameWorld.getTotalCoin().asString());
 
@@ -212,9 +219,6 @@ public class Controller implements Initializable {
 
     }
 
-
-
-
     @FXML
     private void pause() {
         if (enPause) {
@@ -268,6 +272,12 @@ public class Controller implements Initializable {
             modePlacement = true;
             aPlacer = 100;
             cout = prix;
+
+            //On active le fait de la tile jaune en overview
+            onMouseClickedListener.setModePlacement(true);
+
+            System.out.println("Controller.placerPoubelle : mode de placement activé");
+
         } else {
             System.out.println("Fond insuffisant");
         }
@@ -304,6 +314,10 @@ public class Controller implements Initializable {
 
                 cases.setOnMouseClicked(e -> { //quand on clique sur la case
                     if (modePlacement){ //si on a cliquer sur un bouton pour placer avant
+
+                        //Si c en click droit ça veut dire que c annulé (voir OnMouseClickedListener)
+                        if (e.getButton() != MouseButton.PRIMARY) return;
+
                         if (map[ligne][colonne] == 0){ //et que la tuile est du sol
                             if (gameWorld.getTotalCoin().get() >= cout) { //et que on a assez d'argent
                                 gameWorld.getTotalCoin().set(gameWorld.getTotalCoin().get() - cout);
@@ -334,6 +348,10 @@ public class Controller implements Initializable {
                             System.out.println("Impossible de placer ici");
                         }
                     }
+
+                    //On désactive le fait de la tile jaune en overview
+                    onMouseClickedListener.setModePlacement(false);
+
                 });
                 tileMap.getChildren().add(cases);
 
