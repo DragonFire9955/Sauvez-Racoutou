@@ -144,7 +144,6 @@ public class Controller implements Initializable {
             }
 
             e.consume();
-            gamePane.requestFocus();
         });
 
         //Initialisation des Managers
@@ -202,13 +201,12 @@ public class Controller implements Initializable {
         }));
 
 
-        gamePane.sceneProperty().addListener((observable, oldValue, newValue) -> {
+        applicationPane.sceneProperty().addListener((observable, oldValue, newValue) -> {
 
             gamePane.setFocusTraversable(true);
-            gamePane.requestFocus();
 
             //On met tout les évènements claviers
-            gamePane.setOnKeyPressed(event -> {
+            applicationPane.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ESCAPE){
                     pause();
                 }
@@ -230,13 +228,12 @@ public class Controller implements Initializable {
             menuPause.setVisible(true);
             enPause = true;
         }
-        gamePane.requestFocus();
     }
 
     @FXML
     private void quitterPartie() {
         gameLoop.stop();
-        gamePane.getScene().setRoot(menu);
+        applicationPane.getScene().setRoot(menu);
         isGameStarted.setValue(false);
     }
 
@@ -261,7 +258,6 @@ public class Controller implements Initializable {
         gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
 
         gameLoop.play();
-        gamePane.requestFocus();
     }
 
     @FXML
@@ -430,9 +426,6 @@ public class Controller implements Initializable {
 
             gameWorld.ajouterAnimal(new PouletConservateur(gameWorld));
         }
-
-
-
     }
 
     private void initRacoutou(){
@@ -443,32 +436,6 @@ public class Controller implements Initializable {
         carte.getChildren().add(visuelBarre);
     }
 
-    //Partie render des Animaux sur la scène
-   /* private void affichageAnimaux() {
-
-        for (Animaux a: gameWorld.getAnimaux()) {
-
-        }
-    }*/
-
-    /*private void cleanupViews() {
-
-        //J'ai mis un Iterator car il permet de delet sans avoir de prb d'index
-        Iterator<Animaux> iterator = gameWorld.getAnimaux().iterator();
-
-        while (iterator.hasNext()) {
-
-            Animaux a = iterator.next();    //Je le stocke car si on le save pas on peux pas l'use, car on passera au suivant si on remet iterator.next
-
-            if (!a.isAlive()) {
-
-                iterator.remove();
-                carte.getChildren().remove(animauxVue.remove(a));
-            }
-        }
-    }
-
-     */
 
 
 }
