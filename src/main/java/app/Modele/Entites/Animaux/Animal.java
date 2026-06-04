@@ -11,7 +11,7 @@ import java.util.List;
 import static java.lang.Thread.sleep;
 
 public class Animal extends Entite {
-    private double stunnedUntil[];
+    private double[] stunnedUntil;
     private double[] slowUntil;
     private double vitesse;
     private boolean canAttack;
@@ -33,7 +33,7 @@ public class Animal extends Entite {
             deplacement();
         }
         else if(stunnedUntil[0]!=0){
-                unstuned(dt);
+            unstuned(dt);
         }
 
         if (slowUntil[0]!=0){

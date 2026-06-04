@@ -62,7 +62,6 @@ public abstract class Entite {
 
     public void handleCollisions(Entite cible, double dt) {
 
-        System.out.println(coll + "coll");
         if(this.equals(cible) || cible==null) {
 
             coll = false;
