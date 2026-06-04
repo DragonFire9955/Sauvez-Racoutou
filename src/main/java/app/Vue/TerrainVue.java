@@ -29,7 +29,7 @@ public class TerrainVue {
         ImageView cases = new ImageView();
 
         switch (tuile) {
-            case 1:
+            case 0:
                 cases.setImage(base);
                 break;
             case 2:

@@ -150,8 +150,9 @@ public class Controller implements Initializable {
         coinLabel.textProperty().bind(gameWorld.getTotalCoin().asString());
 
         //Binding label vague + timerVague
-        waveLabel.textProperty().bind(Vague.currentWave.asString());
-        waveTimerLabel.textProperty().bind(temps.multiply(0.017).asString("%.0f / " + Vague.waveDuration));
+
+        waveLabel.textProperty().bind(gameWorld.getNumeroVagueProperty().asString());
+        waveTimerLabel.textProperty().bind(temps.multiply(0.017).asString("%.0f / " + gameWorld.getTempsTotalVague()));
 
         //TEMPORAIRE, A DELET
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
@@ -305,7 +306,7 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau PouletBouclier");
 
-            gameWorld.ajouterAnimal(new PouletBouclier(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+            gameWorld.ajouterAnimal(new PouletBouclier(gameWorld));
         } else if (event.getCode() == KeyCode.M) {
 
             System.out.println("nouveau PouletMenotte");
@@ -338,12 +339,12 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau Volant");
 
-            gameWorld.ajouterAnimal(new PouletVolant(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+            gameWorld.ajouterAnimal(new PouletVolant(gameWorld));
         } else if (event.getCode() == KeyCode.L) {
 
             System.out.println("nouveau pSoigne");
 
-            gameWorld.ajouterAnimal(new PouletConservateur(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+            gameWorld.ajouterAnimal(new PouletConservateur(gameWorld));
         }
 
 

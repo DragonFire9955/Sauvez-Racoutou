@@ -2,6 +2,7 @@ package app.Modele.Entites.Animaux.Specialise;
 
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.GameWorld;
+import app.Modele.Managers.EnnemisSpawn;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
@@ -9,9 +10,9 @@ public class PouletBouclier extends Animal {
 
     private DoubleProperty bouclier;
 
-    public PouletBouclier(double[] coord, GameWorld w) {
+    public PouletBouclier(GameWorld w) {
 
-        super(coord, 6, 2, 1, 5, 2, 2, w, false);
+        super(EnnemisSpawn.randomCoord(w), 6, 2, 1, 5, 2, 2, w, false);
         this.bouclier = new SimpleDoubleProperty(15);
     }
 
