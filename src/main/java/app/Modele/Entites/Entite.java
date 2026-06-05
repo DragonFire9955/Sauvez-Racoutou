@@ -36,6 +36,7 @@ public abstract class Entite {
 
 
     protected Entite(double coord[], double health, int coin, double range, double dmg, double freqAtk, GameWorld w) {
+
         this.id=nbId;
         nbId++;
 

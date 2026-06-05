@@ -50,7 +50,7 @@ public class GameWorld {
 
         totalCoin = new SimpleIntegerProperty(0);
 
-        vagueActuelle = Vague.creerVague1(this);
+        //vagueActuelle = Vague.creerVague1(this);
         tempsVague = 0;
     }
 

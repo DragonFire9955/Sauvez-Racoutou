@@ -19,11 +19,11 @@ public class EntiteVue {
 
         switch (entite) {
             case Racoutou racoutou ->
-                imageView.setImage(new Image("app/images/racoutou.png"));
+                    imageView.setImage(new Image("app/images/racoutou.png"));
             case ChatScientifique chatScientifique ->
                     imageView.setImage(new Image("app/images/chat.png"));
             case PouletBouclier pouletBouclier ->
-                imageView.setImage(new Image("app/images/pouletBouclier.jpg"));
+                    imageView.setImage(new Image("app/images/pouletBouclier.jpg"));
             case Stunner stunner ->
             {
                 if (stunner.isAllie())
@@ -55,5 +55,41 @@ public class EntiteVue {
         imageView.layoutYProperty().bind(entite.getYProperty().subtract(tailleImage/2));
 
         return imageView;
+    }
+
+
+    public static String appliquerBonneImageGif(Entite entite) {
+
+        String lienImage;
+
+        switch (entite) {
+            case Racoutou racoutou ->
+                    lienImage = "app/images/racoutou.png";
+            case ChatScientifique chatScientifique ->
+                    lienImage = "app/images/chat.png";
+            case PouletBouclier pouletBouclier ->
+                    lienImage = "app/images/pouletBouclier.jpg";
+            case Stunner stunner ->
+            {
+                if (stunner.isAllie())
+                    lienImage = "app/images/chatJournaliste.jpg";
+                else
+                    lienImage = "app/images/pouletMenotte.jpg";
+            }
+            case Animal animal ->
+            {
+                if (animal.isAllie())
+                    lienImage = "app/images/chat.png";
+                else
+                    lienImage = "app/images/pouletIGPN.gif";
+            }
+            default -> {
+                System.out.println("Image inconnue");
+                lienImage = null;
+            }
+
+        }
+
+        return lienImage;
     }
 }

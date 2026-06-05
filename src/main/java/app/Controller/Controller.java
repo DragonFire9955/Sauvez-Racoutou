@@ -1,5 +1,6 @@
 package app.Controller;
 
+import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.Buffer.ChatCuisinier;
 import app.Modele.Entites.Animaux.Specialise.Buffer.PouletConservateur;
@@ -7,6 +8,7 @@ import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.Chat
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Animaux.Volants.PouletVolant;
 import app.Modele.Entites.Barrage.Poubelle;
+import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.AnimauxManager;
 import app.Modele.Managers.EnnemisSpawn;
@@ -21,6 +23,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -28,6 +31,7 @@ import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
+import javax.management.timer.Timer;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -167,6 +171,14 @@ public class Controller implements Initializable {
 
         //TEMPORAIRE, A DELET
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
+        for (Entite e : gameWorld.getAnimaux()) {
+            e.getHealthProperty().addListener((observableValue, oldV, newV) -> {
+                if (oldV.doubleValue() < newV.doubleValue()) {
+                    Node entite = carte.lookup("#" + e.getId());
+                    //((ImageView) entite).setImage("URL NOUVELLE IMAGE AVEC DMG");
+                }
+            });
+        }
 
         //IMAGE DE RACOUTOU
         initRacoutou();
@@ -198,7 +210,6 @@ public class Controller implements Initializable {
                 remetEnnemiTest(event);
             });
         });
-
     }
 
     @FXML
@@ -448,6 +459,5 @@ public class Controller implements Initializable {
     }
 
      */
-
 
 }

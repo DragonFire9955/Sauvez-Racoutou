@@ -1,12 +1,15 @@
 package app.Controller;
 
 import app.Modele.Entites.Animaux.Animal;
+import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Vue.EntiteVue;
 import app.Controller.VieControlleur;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
@@ -49,7 +52,10 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     //affiche l'image de l'entite sur la carte
                     carte.getChildren().add(EntiteVue.appliquerBonneImage(e));
 
-                    //créé la barre de cie et récupère son conteneur
+                    //Ajout d'un listener sur son état
+                    e.getHealthProperty().addListener(new EntiteHealthListener(carte, e));
+
+                    //créé la barre de vie et récupère son conteneur
                     VieControlleur barreVie = new VieControlleur(e);
                     StackPane visuelBarre = barreVie.getConteneur();
 
