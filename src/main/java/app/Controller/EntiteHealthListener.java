@@ -1,0 +1,48 @@
+package app.Controller;
+
+import app.Modele.Entites.Animaux.Animal;
+import app.Modele.Entites.Entite;
+import app.Modele.GameWorld;
+import app.Vue.EntiteVue;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+
+import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class EntiteHealthListener implements ChangeListener<Number> {
+
+    @FXML private Pane carte;
+
+    private Entite e;
+
+    public EntiteHealthListener(Pane carte, Entite e) {
+
+        this.carte = carte;
+        this.e = e;
+    }
+
+    @Override
+    public void changed(ObservableValue<? extends Number> observableValue, Number oldV, Number newV) {
+
+        if (newV.doubleValue() < oldV.doubleValue()) {
+
+            Node entite = carte.lookup("#" + e.getId());
+            ((ImageView) entite).setImage(new Image(EntiteVue.appliquerBonneImageGif(e)));
+
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    ((ImageView) entite).setImage(EntiteVue.appliquerBonneImage(e).getImage());
+                }
+            }, 1000);
+        }
+    }
+}

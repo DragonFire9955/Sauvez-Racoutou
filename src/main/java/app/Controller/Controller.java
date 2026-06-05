@@ -1,16 +1,17 @@
 package app.Controller;
 
+import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Racoutou;
+import app.Modele.Entites.Animaux.Specialise.Buffer.ChatCuisinier;
+import app.Modele.Entites.Animaux.Specialise.Buffer.PouletConservateur;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.ChatJournaliste;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.PouletMenotte;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Animaux.Volants.PouletVolant;
 import app.Modele.Entites.Barrage.Poubelle;
+import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.AnimauxManager;
 import app.Modele.Managers.EnnemisSpawn;
-import app.Modele.Terrain;
 import app.Modele.Vague;
 import app.Vue.CameraManager;
 import app.Vue.EntiteVue;
@@ -21,6 +22,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -28,6 +31,7 @@ import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
+import javax.management.timer.Timer;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -61,6 +65,8 @@ public class Controller implements Initializable {
     private Label waveLabel;
     @FXML
     private Label waveTimerLabel;
+    @FXML
+    private VBox menuPause;
 
     private TerrainVue terrainVue;
     private boolean enPause = false;
@@ -69,6 +75,7 @@ public class Controller implements Initializable {
     private int aPlacer = -1;
 
     private int cout = 0;
+    private int prix = 0;
 
     //MODELE
     private int[][] map;
@@ -79,13 +86,15 @@ public class Controller implements Initializable {
     private Timeline gameLoop;
     private IntegerProperty temps = new SimpleIntegerProperty(0);
 
+    //Listener
+    OnMouseClickedListener onMouseClickedListener;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         terrainVue = new TerrainVue();
 
-        this.map = Terrain.genererMap();
+        this.map = TerrainVue.genererMap();
         terrainVue.delimitationMap(tileMap);
 
         remplirMap();
@@ -99,23 +108,25 @@ public class Controller implements Initializable {
         dragImage.survole(tileMap);
 
         // drop
-        tileMap.setOnDragDropped(e -> { // réagit quand la souris relâche
-            Dragboard db = e.getDragboard(); // on récupère le contenu
-            int id = Integer.parseInt(db.getString()); // remet l'id en int
+        tileMap.setOnDragDropped(e -> { //quand la souris relâche
+            Dragboard db = e.getDragboard(); //on récupère le contenu de la souris
+            int id = Integer.parseInt(db.getString()); //remet l'id en int
 
-            int c = (int) (e.getX() / gameWorld.getTailleTile()); // colonne de la case
-            int l = (int) (e.getY() / gameWorld.getTailleTile()); // ligne de la case
+            //conversion des coordonées absolues de la souris en coordonées de case
+            int c = (int) (e.getX() / gameWorld.getTailleTile());
+            int l = (int) (e.getY() / gameWorld.getTailleTile());
 
-            if (map[l][c] == 0) { // si c'est du sol
+            if (map[l][c] == 0) { //si c'est du sol
 
                 double posX = c * gameWorld.getTailleTile();
                 double posY = l * gameWorld.getTailleTile();
                 double[] coords = new double[]{posX, posY};
 
-                if (id == 100) { //poubelle
-                    int prix = 5;
-                    if (gameWorld.getTotalCoin().get() >= prix) {
+                if (id == 100) {
+                    prix = 5;
+                    if (gameWorld.getTotalCoin().get() >= prix) { //si on a assez d'argent
                         gameWorld.getTotalCoin().set(gameWorld.getTotalCoin().get() - prix);
+                        //on enleve le cout a notre argent total
 
                         Poubelle p = new Poubelle(coords, 100.0, 5, 16.0, gameWorld);
                         ImageView imgPoubelle = terrainVue.creerTour(p);
@@ -125,7 +136,7 @@ public class Controller implements Initializable {
 
                         carte.getChildren().add(imgPoubelle);
 
-                        map[l][c] = p.getpoids();
+                        map[l][c] = p.getpoids(); //on met son poids dans la map
                     } else {
                         System.out.println("Fond insuffisant");
                     }
@@ -146,6 +157,11 @@ public class Controller implements Initializable {
         cameraManager = new CameraManager(gamePane, carte, tileMap);
         cameraManager.initialiserCamera();
 
+        //Observable eventListener
+        onMouseClickedListener = new OnMouseClickedListener(tileMap, carte, gameWorld);
+        carte.addEventHandler(MouseEvent.MOUSE_MOVED, onMouseClickedListener);
+        carte.addEventHandler(MouseEvent.MOUSE_CLICKED, onMouseClickedListener);
+
         //Binding du label coin, à déplacer au bon endroit
         coinLabel.textProperty().bind(gameWorld.getTotalCoin().asString());
 
@@ -155,7 +171,18 @@ public class Controller implements Initializable {
 
         //TEMPORAIRE, A DELET
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
-        gameWorld.ajouterAnimal(new Racoutou(gameWorld));
+        for (Entite e : gameWorld.getAnimaux()) {
+            e.getHealthProperty().addListener((observableValue, oldV, newV) -> {
+                if (oldV.doubleValue() < newV.doubleValue()) {
+                    Node entite = carte.lookup("#" + e.getId());
+                    //((ImageView) entite).setImage("URL NOUVELLE IMAGE AVEC DMG");
+                }
+            });
+        }
+
+        //IMAGE DE RACOUTOU
+        initRacoutou();
+
         gameWorld.getAnimaux().getFirst().getAliveProperty().addListener((observable, oldValue, newValue) -> {
                     gamePane.getScene().setRoot(menu);
                     isGameStarted.setValue(false);
@@ -176,33 +203,74 @@ public class Controller implements Initializable {
 
             //On met tout les évènements claviers
             gamePane.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ESCAPE){
+                    pause();
+                }
 
                 remetEnnemiTest(event);
             });
         });
-
     }
 
     @FXML
     private void pause() {
         if (enPause) {
             gameLoop.play();
+            menuPause.setVisible(false);
+            enPause = false;
         } else {
             gameLoop.pause();
+            menuPause.setVisible(true);
+            enPause = true;
         }
+        gamePane.requestFocus();
+    }
 
-        enPause = !enPause;
+    @FXML
+    private void quitterPartie() {
+        gameLoop.stop();
+        gamePane.getScene().setRoot(menu);
+        isGameStarted.setValue(false);
+    }
+
+    @FXML
+    private void recommencerJeu() {
+        gameLoop.stop();
+        temps.setValue(0);
+        enPause = false;
+        menuPause.setVisible(false);
+
+        gameWorld.getAnimaux().clear();
+        gameWorld.getTotalCoin().set(50);
+
+        carte.getChildren().removeIf(node -> node != tileMap);
+        //supprime si l'element est différent de la tileMap (on garde juste elle)
+
+        map = TerrainVue.genererMap();
+        terrainVue.delimitationMap(tileMap);
+        remplirMap();
+
+        gameWorld.ajouterAnimal(new Racoutou(gameWorld));
+        gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
+
+        gameLoop.play();
         gamePane.requestFocus();
     }
 
     @FXML
     private void placerPoubelle(){
-        int prix = 5;
+        prix = 5;
 
         if (gameWorld.getTotalCoin().get() >= prix){
             modePlacement = true;
             aPlacer = 100;
             cout = prix;
+
+            //On active le fait de la tile jaune en overview
+            onMouseClickedListener.setModePlacement(true);
+
+            System.out.println("Controller.placerPoubelle : mode de placement activé");
+
         } else {
             System.out.println("Fond insuffisant");
         }
@@ -227,23 +295,29 @@ public class Controller implements Initializable {
     }
 
     private void remplirMap() {
-        tileMap.getChildren().clear();
+        tileMap.getChildren().clear(); //pour ne pas superposer les tuiles
 
         for (int l = 0; l < map.length; l++) {
             int ligne = l;
             for (int c = 0; c < map[l].length; c++) {
                 int colonne = c;
 
-                ImageView cases = terrainVue.creerTuile(map[l][c]);
+                ImageView cases = terrainVue.creerTuile(map[l][c]); //image créé pour chaque coordonées
 
-                cases.setOnMouseClicked(e -> {
-                    if (modePlacement){
-                        if (map[ligne][colonne] == 0){
-                            if (gameWorld.getTotalCoin().get() >= cout) {
+                cases.setOnMouseClicked(e -> { //quand on clique sur la case
+                    if (modePlacement){ //si on a cliquer sur un bouton pour placer avant
+
+                        //Si c en click droit ça veut dire que c annulé (voir OnMouseClickedListener)
+                        if (e.getButton() != MouseButton.PRIMARY) return;
+
+                        if (map[ligne][colonne] == 0){ //et que la tuile est du sol
+                            if (gameWorld.getTotalCoin().get() >= cout) { //et que on a assez d'argent
                                 gameWorld.getTotalCoin().set(gameWorld.getTotalCoin().get() - cout);
+                                //on enlève le cout a notre argent total
 
-                                double posX = colonne * 32;
-                                double posY = ligne * 32;
+                                //coordonées absolues de la tuile
+                                double posX = colonne * gameWorld.getTailleTile();
+                                double posY = ligne * gameWorld.getTailleTile();
                                 double[] coords = new double[]{posX, posY};
 
                                 if (aPlacer == 100) {
@@ -255,10 +329,10 @@ public class Controller implements Initializable {
 
                                     carte.getChildren().add(imgPoubelle);
 
-                                    map[ligne][colonne] = p.getpoids();
+                                    map[ligne][colonne] = p.getpoids(); //on met son poids dans la map
                                 }
-                                modePlacement = false;
-                                remplirMap();
+                                modePlacement = false; //placement fini
+                                remplirMap(); //rafraichissement de la map
                             } else {
                                 System.out.println("Fond insuffisant");
                             }
@@ -266,6 +340,10 @@ public class Controller implements Initializable {
                             System.out.println("Impossible de placer ici");
                         }
                     }
+
+                    //On désactive le fait de la tile jaune en overview
+                    onMouseClickedListener.setModePlacement(false);
+
                 });
                 tileMap.getChildren().add(cases);
 
@@ -317,7 +395,7 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau PouletMenotte");
 
-            gameWorld.ajouterAnimal(new PouletMenotte(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+            gameWorld.ajouterAnimal(AnimauxManager.creerPouletMenotte(gameWorld));
         } else if (event.getCode() == KeyCode.C) {
 
             System.out.println("nouveau ChatClassique");
@@ -327,20 +405,42 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau ChatJournaliste");
 
-            gameWorld.ajouterAnimal(new ChatJournaliste(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
-        } else if (event.getCode() == KeyCode.G) {
+            gameWorld.ajouterAnimal(AnimauxManager.creerChatJournaliste(gameWorld));
+        }
+        else if (event.getCode() == KeyCode.G) {
 
-            System.out.println("nouveau IGPN");
+            System.out.println("nouveau scientifique");
 
             gameWorld.ajouterAnimal(new ChatScientifique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+        } else if (event.getCode() == KeyCode.B) {
+
+            System.out.println("nouveau ChatCuisinier");
+            double[] coord = gameWorld.getRacoutou().getCoord();
+            coord[0] +=10;
+            coord[1]+=10;
+            gameWorld.ajouterAnimal(new ChatCuisinier(coord, gameWorld));
         } else if (event.getCode() == KeyCode.V) {
 
             System.out.println("nouveau Volant");
 
             gameWorld.ajouterAnimal(new PouletVolant(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+        } else if (event.getCode() == KeyCode.L) {
+
+            System.out.println("nouveau pSoigne");
+
+            gameWorld.ajouterAnimal(new PouletConservateur(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
         }
 
 
+
+    }
+
+    private void initRacoutou(){
+        carte.getChildren().add(EntiteVue.appliquerBonneImage(gameWorld.getRacoutou()));
+        VieControlleur barreVie = new VieControlleur(gameWorld.getRacoutou());
+        StackPane visuelBarre = barreVie.getConteneur();
+        visuelBarre.setId(gameWorld.getRacoutou().getId());
+        carte.getChildren().add(visuelBarre);
     }
 
     //Partie render des Animaux sur la scène
@@ -369,6 +469,5 @@ public class Controller implements Initializable {
     }
 
      */
-
 
 }

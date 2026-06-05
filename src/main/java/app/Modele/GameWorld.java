@@ -1,10 +1,13 @@
 package app.Modele;
 
+import app.Modele.Chemins.DeplacementDijkstra;
 import app.Modele.Entites.Animaux.Animal;
 
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
+import app.Modele.Utilitaires.Noeud;
+import app.Vue.TerrainVue;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -15,8 +18,7 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import static app.Modele.Vague.creerVague1;
+import java.util.Map;
 
 public class GameWorld {
 
@@ -26,6 +28,9 @@ public class GameWorld {
     private final int tailleTile=32;
 
     private int[][] map;
+    //private Map<Double, Noeud> dijkRacoutou;
+    private Map<Noeud, Noeud> dijkRacoutou2;
+
 
     private HashMap<Integer, ArrayList<Animal>> vagueActuelle;
     private double tempsVague;
@@ -34,14 +39,18 @@ public class GameWorld {
 
     public GameWorld(){
 
-        map = Terrain.genererMap();
+        map = TerrainVue.genererMap();
         animauxList = FXCollections.observableArrayList();
+        animauxList.add(new Racoutou(this));
         barrageList = FXCollections.observableArrayList();
         theEnd= new SimpleBooleanProperty(false);
 
+        //dijkRacoutou= new DeplacementDijkstra(tailleTile, map).calculerDistances(getTileRacoutou());
+        dijkRacoutou2= new DeplacementDijkstra(tailleTile, map).testDijkstra(this.getRacoutou().getCoord());
+
         totalCoin = new SimpleIntegerProperty(0);
 
-        vagueActuelle = Vague.creerVague1(this);
+        //vagueActuelle = Vague.creerVague1(this);
         tempsVague = 0;
     }
 
@@ -74,7 +83,6 @@ public class GameWorld {
 
     public void ajouterAnimal(Animal a) {
         animauxList.add(a);
-        System.out.println(a.getClass().getName());
     }
 
     public void supprimerAnimal(Animal a){
@@ -91,7 +99,7 @@ public class GameWorld {
         return animauxList;
     }
 
-    public List<Animal> getAllies() {
+    public List<Animal> getAlliesAnimaux() {
 
         List<Animal> allies = new ArrayList<>();
 
@@ -100,6 +108,12 @@ public class GameWorld {
                 allies.add(animal);
 
         return allies;
+    }
+
+    public List<Entite> getAlliesAnimauxBarrages() {
+        List<Entite> entites = new ArrayList<>(getAlliesAnimaux());
+        entites.addAll(getBarrage());
+        return entites;
     }
 
     public List<Animal> getEnnemis() {
@@ -154,4 +168,31 @@ public class GameWorld {
         if(i==animauxList.size()) return null;
         return animauxList.get(i);
     }
+
+    public int[] getTileRacoutou(){
+        Entite r = this.getRacoutou();
+        return r.getTile();
+    }
+
+    /*public Map<Double, Noeud> getDijkRacoutou() {
+        return dijkRacoutou;
+    }
+
+    public void setDijkRacoutou(Map<Double, Noeud> dijkRacoutou) {
+        this.dijkRacoutou = dijkRacoutou;
+    }
+
+     */
+
+    public Map<Noeud, Noeud> getDijkRacoutou2() {
+        return dijkRacoutou2;
+    }
+
+    public void setMap(int[][] map) {
+        this.map = map;
+    }
+
+
+
+
 }

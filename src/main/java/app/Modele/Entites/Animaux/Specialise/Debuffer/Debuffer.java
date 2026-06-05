@@ -3,6 +3,7 @@ package app.Modele.Entites.Animaux.Specialise.Debuffer;
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.Specialise;
 import app.Modele.GameWorld;
+import app.Modele.Utilitaires.Utilitaire;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public abstract class Debuffer extends Specialise {
 
     public Debuffer(double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie,
                     int nbV, double tDebuff, double tempsRecup, double rangeDebuff) {
-        super(coord, health, coin, vitesse, r, dmg, freqAtk, w, allie, rangeDebuff, tDebuff, tempsRecup);
+        super(coord, health, coin, vitesse, r, dmg, freqAtk, w, allie,  tDebuff, tempsRecup, rangeDebuff);
 
         vInitial=super.getVitesse();
         
@@ -29,7 +30,7 @@ public abstract class Debuffer extends Specialise {
 
     public void update(double dt) { //dt = dt_controleur * 0.017
         super.update(dt);
-        debuff(dt, getListeAnimaux());
+        debuff(dt, getListeCibles());
     }
 
     public abstract void debuff(double dt, List<Animal> animaux);
@@ -48,12 +49,6 @@ public abstract class Debuffer extends Specialise {
         this.nbVictimes = nbVictimes;
     }
 
-    protected double getChrono() {
-        return chrono;
-    }
-    protected void setChrono(double chrono) {
-        this.chrono = chrono;
-    }
 
     protected boolean isChronoDefini() {
         return chronoDefini;
@@ -61,4 +56,8 @@ public abstract class Debuffer extends Specialise {
     protected void setChronoDefini(boolean chronoDefini) {
         this.chronoDefini = chronoDefini;
     }
+
+    public  List<Animal> getListeCibles(){
+        return Utilitaire.entitesToAnimaux(getCiblesAccessibles(getRangeEffect(), Utilitaire.animauxToEntites(getWorld().getAlliesAnimaux())));
+    };
 }

@@ -19,7 +19,7 @@ public class DeplacementA {
 
     //Calcul de la distance (check distance de Manhattan cour de maths)
     private int heuristique(Noeud a, Noeud b) {
-        return Math.abs(a.getX() - b.getX()) + Math.abs(a.getY()- b.getY());
+        return Math.abs(a.getI() - b.getI()) + Math.abs(a.getJ()- b.getJ());
     }
 
     //On envoie pos départ et arrivée
@@ -57,7 +57,7 @@ public class DeplacementA {
                 continue;
 
             //Si on atteint le max on repart du début pr recalculer un chemin potentioellement mieux
-            if (noeudActuel.getX() == arr.getX() && noeudActuel.getY() == arr.getY())
+            if (noeudActuel.getI() == arr.getI() && noeudActuel.getJ() == arr.getJ())
                 return DeplacementMethodes.reconstruireChemin(noeudActuel);
 
             //On add le noeud actuel à la liste des noeuds passés
@@ -71,7 +71,7 @@ public class DeplacementA {
                     continue;
 
                 //On calcule le poids du voisin en question
-                int nvmCout = noeudActuel.getCoutDepuisDeprt() + DeplacementMethodes.getCout(map, voisin.getX(), voisin.getY());
+                int nvmCout = noeudActuel.getCoutDepuisDeprt() + DeplacementMethodes.getCout(map, voisin.getI(), voisin.getJ());
 
                 //Si il en existe un meilleur on skip
                 if (meilleurCout.containsKey(voisin) && nvmCout >= meilleurCout.get(voisin))
@@ -112,7 +112,7 @@ public class DeplacementA {
         DeplacementA dp = new DeplacementA(map);
         List<Noeud> chemin = dp.trouverChemin(0, 0, 0, 5);
         for (Noeud coord : chemin) {
-            System.out.println("(" + coord.getX() + "," + coord.getY() + ")");
+            System.out.println("(" + coord.getI() + "," + coord.getJ() + ")");
         }
     }
 }

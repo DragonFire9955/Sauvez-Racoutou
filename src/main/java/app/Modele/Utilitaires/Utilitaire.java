@@ -1,7 +1,11 @@
 package app.Modele.Utilitaires;
 
+import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Utilitaire {
 
@@ -11,10 +15,7 @@ public class Utilitaire {
 
     public static boolean intersects(Entite cible, Entite attaquant) {
 
-        double dx = (cible.getX()+cible.getRange()/2) - (attaquant.getX()+cible.getRange()/2);
-        double dy = (cible.getY()+cible.getRange()/2) - (attaquant.getY()+cible.getRange()/2);
-
-        return Math.abs(dx) + Math.abs(dy) < Math.pow(attaquant.getRange(), 2);
+        return distance(cible.getX(), cible.getY(), attaquant.getX(), attaquant.getY())<=attaquant.getRange();
     }
 
     public static boolean intersects(GameWorld w, Entite entite) {
@@ -38,4 +39,21 @@ public class Utilitaire {
         return (int) (dividende/diviseur);
     }
 
+
+    public static double valAbs(double a){
+        if(a<0)
+            return -a;
+        return a;
+    }
+
+    public static List<Entite> animauxToEntites(List<Animal> animaux){
+        return new ArrayList<>(animaux);
+    }
+
+    public static List<Animal> entitesToAnimaux(List<Entite> entites){
+        List<Animal> animaux = new ArrayList<>();
+        for(Entite e: entites)
+            animaux.add((Animal) e);
+        return animaux;
+    }
 }

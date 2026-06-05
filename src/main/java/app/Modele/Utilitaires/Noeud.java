@@ -1,11 +1,9 @@
 package app.Modele.Utilitaires;
 
-import java.util.Objects;
-
 public class Noeud {
 
-    private int x;
-    private int y;
+    private int i;
+    private int j;
 
     private int coutDepuisDeprt; //La totalité des coûts depuis le ptn de départ
     private int coutEstimArr; // estimation jusqu'à arrivée
@@ -13,9 +11,9 @@ public class Noeud {
 
     private Noeud parent;
 
-    public Noeud(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Noeud(int i, int j) {
+        this.i = i;
+        this.j = j;
     }
 
 
@@ -31,11 +29,17 @@ public class Noeud {
         //Corrige le crash principal ici
         if (this == obj) return true;
 
-        //On vérif si c bien un Noeud, je te préshot Blandine
+
+        //Ok si tableau de 2 entiers
+        //if(obj instanceof int[] && ((int[]) obj).length==2 && (int[]) obj[0] == x && obj[1]==y) return true;
+
+        //On vérif si c bien un Noeud, je te préshot Blandine NON
         if (!(obj instanceof Noeud)) return false;
 
-        return x==((Noeud) obj).getX() && y==((Noeud) obj).getY();
+        return i ==((Noeud) obj).getI() && j ==((Noeud) obj).getJ();
     }
+
+
 
     /*Le hashCode doit être aussi redéf car hashCode contient HashSet et HashMap
     Il est use pour créer la liste des Noeuds vu de Deplacement.trouverChemin(), java fait ses calculs interne :
@@ -45,21 +49,25 @@ public class Noeud {
      */
     @Override
     public int hashCode() {
-        return x * 31 + y;
+        return i * 31 + j;
     }
 
-    public int getX() {
-        return x;
+    public int getI() {
+        return i;
     }
-    public void setX(int x) {
-        this.x = x;
+    public void setI(int i) {
+        this.i = i;
     }
 
-    public int getY() {
-        return y;
+    public int getJ() {
+        return j;
     }
-    public void setY(int y) {
-        this.y = y;
+    public void setJ(int j) {
+        this.j = j;
+    }
+
+    public int[] getCoord(){
+        return new int[]{i, j};
     }
 
     public int getCoutDepuisDeprt() {
