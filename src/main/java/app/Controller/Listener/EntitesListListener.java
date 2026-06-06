@@ -1,15 +1,12 @@
-package app.Controller;
+package app.Controller.Listener;
 
 import app.Modele.Entites.Animaux.Animal;
-import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Vue.EntiteVue;
 import app.Controller.VieControlleur;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 

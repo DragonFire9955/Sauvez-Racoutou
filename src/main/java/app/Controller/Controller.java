@@ -1,6 +1,7 @@
 package app.Controller;
 
-import app.Modele.Entites.Animaux.Animal;
+import app.Controller.Listener.EntitesListListener;
+import app.Controller.Listener.OnMouseClickedListener;
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.Buffer.ChatCuisinier;
 import app.Modele.Entites.Animaux.Specialise.Buffer.PouletConservateur;
@@ -22,7 +23,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
@@ -31,7 +31,6 @@ import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
-import javax.management.timer.Timer;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -433,14 +432,6 @@ public class Controller implements Initializable {
 
 
 
-    }
-
-    private void initRacoutou(){
-        carte.getChildren().add(EntiteVue.appliquerBonneImage(gameWorld.getRacoutou()));
-        VieControlleur barreVie = new VieControlleur(gameWorld.getRacoutou());
-        StackPane visuelBarre = barreVie.getConteneur();
-        visuelBarre.setId(gameWorld.getRacoutou().getId());
-        carte.getChildren().add(visuelBarre);
     }
 
     //Partie render des Animaux sur la scène

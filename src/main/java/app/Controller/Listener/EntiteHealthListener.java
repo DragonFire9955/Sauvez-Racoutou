@@ -1,8 +1,6 @@
-package app.Controller;
+package app.Controller.Listener;
 
-import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Entite;
-import app.Modele.GameWorld;
 import app.Vue.EntiteVue;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
