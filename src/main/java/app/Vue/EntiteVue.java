@@ -13,7 +13,7 @@ public class EntiteVue {
 
     public static int tailleImage = 32;
 
-    public static ImageView appliquerBonneImage(Entite entite) {
+    public static ImageView appliquerBonneImage(Entite entite, boolean withInit) {
 
         ImageView imageView = new ImageView();
 
@@ -42,7 +42,14 @@ public class EntiteVue {
 
         }
 
-        //Là j'initialise l'image comme il faut mais on peux en faire un personalisé dans les conditions au dessus
+        if (withInit)
+            initImageView(entite, imageView);
+
+        return imageView;
+    }
+
+    //Là j'initialise l'image comme il faut mais on peux en faire un personalisé dans les conditions au dessus
+    public static void initImageView(Entite entite, ImageView imageView) {
 
         imageView.setFitWidth(tailleImage);
         imageView.setFitHeight(tailleImage);
@@ -53,8 +60,6 @@ public class EntiteVue {
 
         imageView.layoutXProperty().bind(entite.getXProperty().subtract(tailleImage/2));
         imageView.layoutYProperty().bind(entite.getYProperty().subtract(tailleImage/2));
-
-        return imageView;
     }
 
 

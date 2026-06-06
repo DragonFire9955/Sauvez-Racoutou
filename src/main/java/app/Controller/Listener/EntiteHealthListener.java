@@ -37,7 +37,7 @@ public class EntiteHealthListener implements ChangeListener<Number> {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    ((ImageView) entite).setImage(EntiteVue.appliquerBonneImage(e).getImage());
+                    ((ImageView) entite).setImage(EntiteVue.appliquerBonneImage(e, true).getImage());
                 }
             }, 1000);
         }

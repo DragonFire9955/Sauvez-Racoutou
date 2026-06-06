@@ -62,7 +62,8 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     System.out.println("ajout dans list");
 
                     //affiche l'image de l'entite sur la carte
-                    Node imageEntite = EntiteVue.appliquerBonneImage(e);
+                    Node imageEntite = EntiteVue.appliquerBonneImage(e, true);
+
                     carte.getChildren().add(imageEntite);
 
                     //on lui crée sa description si c un allié
@@ -99,7 +100,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         );
 
         //Image principale
-        ImageView entityImageView = new ImageView(new Image("app/images/pouletClassique.png"));
+        ImageView entityImageView = EntiteVue.appliquerBonneImage(e, false);
         entityImageView.setFitWidth(109);
         entityImageView.setFitHeight(110);
         entityImageView.setPreserveRatio(true);
@@ -141,11 +142,25 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         //Boutons close desc et sell
         Button closeButton = new Button("X");
         closeButton.setPrefSize(25, 25);
+        closeButton.setOnMouseClicked(event ->
+                root.setVisible(false)
+        );
 
-        Button sellButton = new Button("Sell : xx");
+
+        //On définit la quantité rendue
+        int qtiteRevente = e.getCoin()/2;
+
+        Button sellButton = new Button();
         sellButton.setPrefSize(73, 35);
+        sellButton.setText("Sell : " + qtiteRevente);
+        sellButton.setOnMouseClicked(event ->
+            gameWorld.setTotalCoin(gameWorld.getTotalCoin().getValue()+qtiteRevente)
+        );
 
         HBox sellBox = new HBox(5, closeButton, sellButton);
+        //Je met la marge haut au boutton de fermeture (Button n'a pas de margin alors je dois récup le parent pour lui appliquer ce margin)
+        HBox.setMargin(closeButton,  new Insets(5, 0, 0, 0));
+
         sellBox.setLayoutX(14);
         sellBox.setLayoutY(143);
 
@@ -177,7 +192,6 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                                 "-fx-background-radius: 5;"
                 )
         );
-
         buyUpgradeButton.setOnMouseReleased(event ->
                 buyUpgradeButton.setStyle(
                         "-fx-border-color: rgba(50,50,50,1);" +
@@ -185,6 +199,11 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                                 "-fx-border-radius: 5;" +
                                 "-fx-background-radius: 5;"
                 )
+        );
+        buyUpgradeButton.setOnMouseClicked(event ->
+
+                /// TODO : level up
+                System.out.println("level up")
         );
 
         //Vbox contenant les textes
@@ -209,7 +228,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                 levelLabel
         );
 
-        // Image upgrade
+        //Image upgrade
         ImageView upgradeImageView = new ImageView(
                 new Image("app/images/pouletIGPN.gif")
         );

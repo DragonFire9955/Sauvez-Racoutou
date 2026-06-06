@@ -363,7 +363,7 @@ public class Controller implements Initializable {
     }
 
     private void initRacoutou(){
-        carte.getChildren().add(EntiteVue.appliquerBonneImage(gameWorld.getRacoutou()));
+        carte.getChildren().add(EntiteVue.appliquerBonneImage(gameWorld.getRacoutou(), true));
         VieControlleur barreVie = new VieControlleur(gameWorld.getRacoutou());
         StackPane visuelBarre = barreVie.getConteneur();
         visuelBarre.setId(gameWorld.getRacoutou().getId());
