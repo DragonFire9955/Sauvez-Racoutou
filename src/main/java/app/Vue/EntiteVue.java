@@ -13,36 +13,48 @@ public class EntiteVue {
 
     public static int tailleImage = 32;
 
-    public static ImageView appliquerBonneImage(Entite entite) {
+    public static ImageView appliquerBonneImage(Entite entite, boolean withInit) {
 
-        ImageView imageView = new ImageView();
+        ImageView imageView;
+        Image image;
 
         switch (entite) {
             case Racoutou racoutou ->
-                imageView.setImage(new Image("app/images/racoutou.png"));
+                    image = new Image("app/images/racoutou.png");
             case ChatScientifique chatScientifique ->
-                    imageView.setImage(new Image("app/images/chat.png"));
+                    image = new Image("app/images/chat.png");
             case PouletBouclier pouletBouclier ->
-                imageView.setImage(new Image("app/images/pouletBouclier.jpg"));
+                    image = new Image("app/images/pouletBouclier.jpg");
             case Stunner stunner ->
             {
                 if (stunner.isAllie())
-                    imageView.setImage(new Image("app/images/chatJournaliste.jpg"));
+                    image = new Image("app/images/chatJournaliste.jpg");
                 else
-                    imageView.setImage(new Image("app/images/pouletMenotte.jpg"));
+                    image = new Image("app/images/pouletMenotte.jpg");
             }
             case Animal animal ->
             {
                 if (animal.isAllie())
-                    imageView.setImage(new Image("app/images/chat.png"));
+                    image = new Image("app/images/chat.png");
                 else
-                    imageView.setImage(new Image("app/images/pouletClassique.png"));
+                    image = new Image("app/images/pouletClassique.png");
             }
-            default -> System.out.println("Image inconnue");
-
+            default -> {
+                System.out.println("Image inconnue");
+                image = null;
+            }
         }
 
-        //Là j'initialise l'image comme il faut mais on peux en faire un personalisé dans les conditions au dessus
+        imageView = new ImageView(image);
+
+        if (withInit)
+            initImageView(entite, imageView);
+
+        return imageView;
+    }
+
+    //Là j'initialise l'image comme il faut mais on peux en faire un personalisé dans les conditions au dessus
+    public static void initImageView(Entite entite, ImageView imageView) {
 
         imageView.setFitWidth(tailleImage);
         imageView.setFitHeight(tailleImage);
@@ -53,7 +65,41 @@ public class EntiteVue {
 
         imageView.layoutXProperty().bind(entite.getXProperty().subtract(tailleImage/2));
         imageView.layoutYProperty().bind(entite.getYProperty().subtract(tailleImage/2));
+    }
 
-        return imageView;
+
+    public static Image appliquerBonneImageGif(Entite entite) {
+
+        Image image;
+
+        switch (entite) {
+            case Racoutou racoutou ->
+                    image = new Image("app/images/racoutou.png");
+            case ChatScientifique chatScientifique ->
+                    image = new Image("app/images/chat.png");
+            case PouletBouclier pouletBouclier ->
+                    image = new Image("app/images/pouletBouclier.jpg");
+            case Stunner stunner ->
+            {
+                if (stunner.isAllie())
+                    image = new Image("app/images/chatJournaliste.jpg");
+                else
+                    image = new Image("app/images/pouletMenotte.jpg");
+            }
+            case Animal animal ->
+            {
+                if (animal.isAllie())
+                    image = new Image("app/images/chat.png");
+                else
+                    image = new Image("app/images/pouletIGPN.gif");
+            }
+            default -> {
+                System.out.println("Image inconnue");
+                image = null;
+            }
+
+        }
+
+        return image;
     }
 }

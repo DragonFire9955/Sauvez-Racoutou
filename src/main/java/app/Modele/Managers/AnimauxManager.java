@@ -19,7 +19,7 @@ public class AnimauxManager {
     }
 
     public static Animal creerPouletClassique(GameWorld w) {
-        return new Animal(EnnemisSpawn.randomCoord(w), 5, 10, 2, 5, 1, 1, w, false);
+        return new Animal(EnnemisSpawn.randomCoord(w), 50, 10, 2, 5, 1, 1, w, false);
     }
 
     public static Animal creerPouletMenotte(GameWorld w){

@@ -30,7 +30,7 @@ public abstract class Buffer extends Specialise {
     public void buff(){
 
         Animal cible = getAnimauxCiblesAccessibles().getFirst();
-        System.out.println(cible.getClass().getName() +"  " + cible.getHealthProperty().getValue());
+        //System.out.println(cible.getClass().getName() +"  " + cible.getHealthProperty().getValue());
         cible.setHealth(cible.getHealthProperty().getValue() + getListeBuff().getFirst());
         actionBuff(cible);
     }
