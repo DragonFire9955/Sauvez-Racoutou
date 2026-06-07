@@ -253,11 +253,14 @@ public class Vague {
         List<TreeMap<Integer, List<Animal>>> v= new ArrayList<>();
 
         v.add(v1(w));     // 0+20 =20
+        /*
         v.add(v2(w));    // ( +10 = 30) + 20 = 50
         v.add(v3(w));    // ( +10 = 60) + 15 = 75
         v.add(v4(w));    // ( +10 = 85) + 15 = 100
         v.add(v5(w));   // ( +10 = 110) + 20 = 130
         v.add(v6(w));   // ( +10 = 140) + 30 = 170
+
+         */
 
         return v;
     }
