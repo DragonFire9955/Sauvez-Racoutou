@@ -31,13 +31,13 @@ public class EntiteHealthListener implements ChangeListener<Number> {
         if (newV.doubleValue() < oldV.doubleValue()) {
 
             Node entite = carte.lookup("#" + e.getId());
-            ((ImageView) entite).setImage(new Image(EntiteVue.appliquerBonneImageGif(e)));
+            ((ImageView) entite).setImage(EntiteVue.appliquerBonneImageGif(e));
 
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    ((ImageView) entite).setImage(new Image(EntiteVue.appliquerBonneImage(e, true)));
+                    ((ImageView) entite).setImage(EntiteVue.appliquerBonneImage(e, true).getImage());
                 }
             }, 1000);
         }

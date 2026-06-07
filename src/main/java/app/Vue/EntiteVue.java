@@ -13,41 +13,44 @@ public class EntiteVue {
 
     public static int tailleImage = 32;
 
-    public static String appliquerBonneImage(Entite entite, boolean withInit) {
+    public static ImageView appliquerBonneImage(Entite entite, boolean withInit) {
 
-        String lienImage;
+        ImageView imageView;
+        Image image;
 
         switch (entite) {
             case Racoutou racoutou ->
-                    lienImage = "app/images/racoutou.png";
+                    image = new Image("app/images/racoutou.png");
             case ChatScientifique chatScientifique ->
-                    lienImage = "app/images/chat.png";
+                    image = new Image("app/images/chat.png");
             case PouletBouclier pouletBouclier ->
-                    lienImage = "app/images/pouletBouclier.jpg";
+                    image = new Image("app/images/pouletBouclier.jpg");
             case Stunner stunner ->
             {
                 if (stunner.isAllie())
-                    lienImage = "app/images/chatJournaliste.jpg";
+                    image = new Image("app/images/chatJournaliste.jpg");
                 else
-                    lienImage = "app/images/pouletMenotte.jpg";
+                    image = new Image("app/images/pouletMenotte.jpg");
             }
             case Animal animal ->
             {
                 if (animal.isAllie())
-                    lienImage = "app/images/chat.png";
+                    image = new Image("app/images/chat.png");
                 else
-                    lienImage = "app/images/pouletClassique.png";
+                    image = new Image("app/images/pouletClassique.png");
             }
             default -> {
                 System.out.println("Image inconnue");
-                lienImage = null;
+                image = null;
             }
         }
 
-        if (withInit)
-            initImageView(entite, new ImageView(new Image(lienImage)));
+        imageView = new ImageView(image);
 
-        return lienImage;
+        if (withInit)
+            initImageView(entite, imageView);
+
+        return imageView;
     }
 
     //Là j'initialise l'image comme il faut mais on peux en faire un personalisé dans les conditions au dessus
@@ -65,38 +68,38 @@ public class EntiteVue {
     }
 
 
-    public static String appliquerBonneImageGif(Entite entite) {
+    public static Image appliquerBonneImageGif(Entite entite) {
 
-        String lienImage;
+        Image image;
 
         switch (entite) {
             case Racoutou racoutou ->
-                    lienImage = "app/images/racoutou.png";
+                    image = new Image("app/images/racoutou.png");
             case ChatScientifique chatScientifique ->
-                    lienImage = "app/images/chat.png";
+                    image = new Image("app/images/chat.png");
             case PouletBouclier pouletBouclier ->
-                    lienImage = "app/images/pouletBouclier.jpg";
+                    image = new Image("app/images/pouletBouclier.jpg");
             case Stunner stunner ->
             {
                 if (stunner.isAllie())
-                    lienImage = "app/images/chatJournaliste.jpg";
+                    image = new Image("app/images/chatJournaliste.jpg");
                 else
-                    lienImage = "app/images/pouletMenotte.jpg";
+                    image = new Image("app/images/pouletMenotte.jpg");
             }
             case Animal animal ->
             {
                 if (animal.isAllie())
-                    lienImage = "app/images/chat.png";
+                    image = new Image("app/images/chat.png");
                 else
-                    lienImage = "app/images/pouletIGPN.gif";
+                    image = new Image("app/images/pouletIGPN.gif");
             }
             default -> {
                 System.out.println("Image inconnue");
-                lienImage = null;
+                image = null;
             }
 
         }
 
-        return lienImage;
+        return image;
     }
 }
