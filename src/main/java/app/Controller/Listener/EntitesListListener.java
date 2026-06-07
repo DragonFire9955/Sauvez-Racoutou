@@ -92,6 +92,10 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
     public void ajoutZoneDescription(Entite e) {
 
+        AtomicInteger actualLevel = new AtomicInteger(0);   //Voir l'action de l'amélioration à la fin
+
+        AtomicInteger qtiteRevente = new AtomicInteger((int) (e.getStatsLevels().get(actualLevel.get())[1]) / 2);   //On définit la quantité rendue
+
         AnchorPane root = new AnchorPane();
         root.setPrefSize(260, 200);
         root.setStyle(
@@ -148,14 +152,11 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         );
 
 
-        //On définit la quantité rendue
-        int qtiteRevente = e.getCoin()/2;
-
         Button sellButton = new Button();
         sellButton.setPrefSize(73, 35);
         sellButton.setText("Sell : " + qtiteRevente);
         sellButton.setOnMouseClicked(event -> {
-            gameWorld.setTotalCoin(gameWorld.getTotalCoin().getValue() + qtiteRevente);
+            gameWorld.setTotalCoin(gameWorld.getTotalCoin().getValue() + qtiteRevente.get());
             carte.getChildren().remove(root);
             e.setHealth(0);
         });
@@ -204,21 +205,15 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                 )
         );
 
-        AtomicInteger actualLevel = new AtomicInteger();
-        buyUpgradeButton.setOnMouseClicked(event -> {
-
-            /// TODO : level up
-            actualLevel.getAndIncrement();
-            System.out.println("level up");
-        });
-
         //Vbox contenant les textes
         VBox upgradeBox = new VBox();
         upgradeBox.setPrefSize(109, 63);
 
-        Label nameUpgrade = new Label("nom Upgrade");
+        Label nameUpgrade = new Label(e.getStatsLevels().get(actualLevel.get()+1)[0].toString());
+        VBox.setMargin(nameUpgrade, new Insets(0, 0, 0, 40));
 
-        Label priceUpgrade = new Label("xxx");
+        Label priceUpgrade = new Label(Integer.toString((int) (e.getStatsLevels().get(actualLevel.get())[1])));
+
         priceUpgrade.setAlignment(Pos.CENTER);
         priceUpgrade.setPrefWidth(111);
         priceUpgrade.setFont(Font.font(16));
@@ -258,24 +253,24 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         VBox attributesVBox = new VBox();
         attributesVBox.setPadding(new Insets(2));
 
-        if (e.getStatsLevels() != null && e.getStatsLevels().size() > 3)        //A suppr quand j'aurais fait pr tt les Entites
-            for (int i = 0; i < e.getStatsLevels().get(actualLevel.get()).length-2; i++) {
-
-                Object actualStat = e.getStatsLevels().get(actualLevel.get())[i+2];
-                Object newStat = e.getStatsLevels().get((actualLevel.get())+1)[i+2];
-
-                if (!actualStat.equals(newStat))
-                    attributesVBox.getChildren().add(new Label(
-                            e.getStatsLevels().get(actualLevel.get())[i+2].toString()
-                            + " -> "
-                            + e.getStatsLevels().get((actualLevel.get())+1)[i+2].toString()
-                    ));
-            }
+        updateDescriptionStatLabel(e, actualLevel.get(), attributesVBox);
 
         ScrollPane attributesScrollPane = new ScrollPane(attributesVBox);
         attributesScrollPane.setPrefSize(127, 109);
         attributesScrollPane.setLayoutX(134);
         attributesScrollPane.setLayoutY(88);
+
+
+        //Action du boutton pr améliorer
+        buyUpgradeButton.setOnMouseClicked(event -> {
+
+            actualLevel.getAndIncrement();
+            updateDescriptionStatLabel(e, actualLevel.get(), attributesVBox);
+            updateDescriptionButtonUpgrade(e, actualLevel.get(), nameUpgrade, priceUpgrade);
+            updateDescriptionSellButton(e, actualLevel.get(), qtiteRevente, sellButton);
+        });
+
+
 
         root.getChildren().addAll(
                 entityImageView,
@@ -309,5 +304,45 @@ public class EntitesListListener implements ListChangeListener<Entite> {
             desc.setVisible(true);
             desc.toFront();
         }
+    }
+
+    private void updateDescriptionStatLabel(Entite e, int actualLevel, VBox attributesVBox) {
+
+        if (e.getStatsLevels() != null && e.getStatsLevels().size() > 1 && actualLevel < e.getStatsLevels().size()-1) {        //A suppr quand j'aurais fait pr tt les Entites
+
+            attributesVBox.getChildren().clear();
+
+            for (int i = 0; i < e.getStatsLevels().get(actualLevel).length - 2; i++) {
+
+                Object actualStat = e.getStatsLevels().get(actualLevel)[i + 2];
+                Object newStat = e.getStatsLevels().get((actualLevel) + 1)[i + 2];
+
+                if (!actualStat.equals(newStat))
+                    attributesVBox.getChildren().add(new Label(
+                            e.getStatsLevels().get(actualLevel)[i + 2].toString()
+                                    + " -> "
+                                    + e.getStatsLevels().get((actualLevel) + 1)[i + 2].toString()
+                    ));
+            }
+        }
+        if (actualLevel >= e.getStatsLevels().size()-1) {
+            attributesVBox.getChildren().clear();
+            attributesVBox.getChildren().add(new Label("Maxed out"));
+        }
+    }
+
+    private void updateDescriptionButtonUpgrade(Entite e, int actualLevel, Label nameUpgrade, Label priceUpgrade) {
+
+        if (actualLevel < e.getStatsLevels().size()-1 && e.getStatsLevels().get(actualLevel+1)[0] != null) {
+
+            nameUpgrade.setText(e.getStatsLevels().get(actualLevel+1)[0].toString());
+            priceUpgrade.setText((e.getStatsLevels().get(actualLevel)[1]).toString());
+        }
+    }
+
+    private void updateDescriptionSellButton(Entite e, int actualLevel, AtomicInteger qtiteRevente, Button sellButton) {
+
+        qtiteRevente.set((int) (e.getStatsLevels().get(actualLevel)[1]) / 2);
+        sellButton.setText("Sell : " + qtiteRevente.get());
     }
 }

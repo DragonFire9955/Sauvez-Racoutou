@@ -25,7 +25,7 @@ public class ChatCuisinier extends Buffer {
     public void setStatsLevels(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
-                "Niveau par défault",
+                "Default",
                 70,    //Upgrade price
                 8,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
@@ -39,9 +39,9 @@ public class ChatCuisinier extends Buffer {
         });
 
         statsLevels.add(new Object[]{
-                "Meilleure spatule",
+                "Spatule d'or",
                 150,    //Upgrade price
-                12,     //Health   (+2)
+                12,     //Health   (+4)
                 0,      //Speed
                 5,      //Range
                 7,      //Damage    (+2)
