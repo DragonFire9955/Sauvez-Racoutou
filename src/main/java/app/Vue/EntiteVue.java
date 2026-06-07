@@ -1,6 +1,7 @@
 package app.Vue;
 
 import app.Modele.Entites.Animaux.Animal;
+import app.Modele.Entites.Animaux.Specialise.Buffer.ChatCuisinier;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.Stunner;
@@ -22,15 +23,17 @@ public class EntiteVue {
             case Racoutou racoutou ->
                     image = new Image("app/images/racoutou.png");
             case ChatScientifique chatScientifique ->
-                    image = new Image("app/images/chat.png");
+                    image = new Image("app/images/chatScientifique.png");
             case PouletBouclier pouletBouclier ->
-                    image = new Image("app/images/pouletBouclier.jpg");
+                    image = new Image("app/images/pouletBouclier.png");
+            case ChatCuisinier chatCuisinier ->
+                    image = new Image("app/images/chatCuisinier.png");
             case Stunner stunner ->
             {
                 if (stunner.isAllie())
-                    image = new Image("app/images/chatJournaliste.jpg");
+                    image = new Image("app/images/chatJournaliste.png");
                 else
-                    image = new Image("app/images/pouletMenotte.jpg");
+                    image = new Image("app/images/pouletMenottes.png");
             }
             case Animal animal ->
             {
@@ -74,24 +77,26 @@ public class EntiteVue {
 
         switch (entite) {
             case Racoutou racoutou ->
-                    image = new Image("app/images/racoutou.png");
+                    image = new Image("app/images/gif/racoutou.gif");
             case ChatScientifique chatScientifique ->
-                    image = new Image("app/images/chat.png");
+                    image = new Image("app/images/gif/chatScientifique.gif");
             case PouletBouclier pouletBouclier ->
-                    image = new Image("app/images/pouletBouclier.jpg");
+                    image = new Image("app/images/gif/pouletBouclier.gif");
+            case ChatCuisinier chatCuisinier ->
+                    image = new Image("app/images/gif/chatCuisinier.gif");
             case Stunner stunner ->
             {
                 if (stunner.isAllie())
-                    image = new Image("app/images/chatJournaliste.jpg");
+                    image = new Image("app/images/gif/chatJournaliste.gif");
                 else
-                    image = new Image("app/images/pouletMenotte.jpg");
+                    image = new Image("app/images/gif/pouletMenottes.gif");
             }
             case Animal animal ->
             {
                 if (animal.isAllie())
-                    image = new Image("app/images/chat.png");
+                    image = new Image("app/images/gif/chatClassique.gif");
                 else
-                    image = new Image("app/images/pouletIGPN.gif");
+                    image = new Image("app/images/gif/pouletClassique.gif");
             }
             default -> {
                 System.out.println("Image inconnue");

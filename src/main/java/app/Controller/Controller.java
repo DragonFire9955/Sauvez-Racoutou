@@ -1,5 +1,6 @@
 package app.Controller;
 
+import app.Controller.Listener.EntiteHealthListener;
 import app.Controller.Listener.EntitesListListener;
 import app.Controller.Listener.OnMouseClickedListener;
 import app.Modele.Entites.Animaux.Racoutou;
@@ -13,7 +14,6 @@ import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.AnimauxManager;
 import app.Modele.Managers.EnnemisSpawn;
-import app.Modele.Vague;
 import app.Vue.CameraManager;
 import app.Vue.EntiteVue;
 import app.Vue.TerrainVue;
@@ -22,6 +22,7 @@ import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -30,15 +31,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import static app.Controller.MenuController.*;
-import static javafx.scene.paint.Color.GREEN;
-import static javafx.scene.paint.Color.RED;
 
 public class Controller implements Initializable {
 
@@ -110,9 +109,9 @@ public class Controller implements Initializable {
 
         DragAndDrop dragImage = new DragAndDrop();
         dragImage.drag(btnPoubelle, 100, "/app/images/poubelle.png");
-        dragImage.drag(btnClassique, 101, "/app/images/classique.png");
+        dragImage.drag(btnClassique, 101, "/app/images/chat.png");
         dragImage.drag(btnProjectiles, 102, "/app/images/projectiles.png");
-        dragImage.drag(btnJournaliste, 103, "/app/images/journaliste.png");
+        dragImage.drag(btnJournaliste, 103, "/app/images/chatJournaliste.png");
 
         dragImage.survole(tileMap);
 
@@ -162,13 +161,11 @@ public class Controller implements Initializable {
         //Initialisation des Managers
         gameWorld = new GameWorld();
         gameWorld.getTheEnd().addListener((obs, oldV, newV) -> {
-            System.out.println(" FIN: "+newV.intValue());
 
             if(newV.intValue()>0){
                 imgFinJeu.setImage(new Image("app/images/gagne.gif"));
             } else if (newV.intValue()<0) {
-                imgFinJeu.setImage(new Image("app/images/perdue.gif"));
-                System.out.println("perdue");
+                imgFinJeu.setImage(new Image("app/images/gif/perdue.gif"));
             }
             imgFinJeu.setFitWidth(300);
             imgFinJeu.setFitHeight(300);
@@ -471,11 +468,23 @@ public class Controller implements Initializable {
     }
 
     private void initRacoutou(){
-        carte.getChildren().add(EntiteVue.appliquerBonneImage(gameWorld.getRacoutou(), true));
-        VieControlleur barreVie = new VieControlleur(gameWorld.getRacoutou());
+        Entite racoutou = gameWorld.getRacoutou();
+        carte.getChildren().add(EntiteVue.appliquerBonneImage(racoutou, true));
+        racoutou.getHealthProperty().addListener(new EntiteHealthListener(carte, racoutou));
+        VieControlleur barreVie = new VieControlleur(racoutou);
         StackPane visuelBarre = barreVie.getConteneur();
-        visuelBarre.setId(gameWorld.getRacoutou().getId());
+        visuelBarre.setId(racoutou.getId());
         carte.getChildren().add(visuelBarre);
+    }
+
+    //REPETITION !!!
+    @FXML
+    public void lancerJeu() throws IOException {
+
+        Pane jeu = FXMLLoader.load(MenuController.class.getResource("/app/main.fxml"));
+        applicationPane.getScene().setRoot(jeu);
+        isGameStarted.setValue(true);
+
     }
 
 

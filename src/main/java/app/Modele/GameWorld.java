@@ -65,7 +65,6 @@ public class GameWorld {
 
 
     public void updateGW(double dt)  {
-        System.out.println("perdu: " + perdue() + "  gagne: "+ gagne() + "  ennemis " + getEnnemis().size());
         //if(getRacoutou() == null) theEnd.setValue(true);
         if(!perdue() && !gagne()){
             vagueManager(dt);

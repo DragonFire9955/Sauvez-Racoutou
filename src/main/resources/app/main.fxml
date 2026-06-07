@@ -34,7 +34,7 @@
                         <ImageView fx:id="imgFinJeu" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Nouvelle Partie" >
+                              <Button mnemonicParsing="false" text="Nouvelle Partie" onAction="#lancerJeu">
                                  <HBox.margin>
                                     <Insets right="50.0" />
                                  </HBox.margin>
