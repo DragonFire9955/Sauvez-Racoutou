@@ -10,6 +10,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static java.lang.Thread.sleep;
 
@@ -34,6 +35,8 @@ public abstract class Entite {
 
     private double chrono;
 
+    private List<Object[]> statsLevels;
+
 
     protected Entite(double coord[], double health, int coin, double range, double dmg, double freqAtk, GameWorld w) {
 
@@ -56,6 +59,8 @@ public abstract class Entite {
         alive = new SimpleBooleanProperty(true);
         actif=true;
         chrono=0;
+
+        statsLevels = new ArrayList<>();
     }
     public void update(double dt)  {
         this.handleCollisions(getCible(), dt);
@@ -167,6 +172,14 @@ public abstract class Entite {
 
     public BooleanProperty getAliveProperty() {
         return alive;
+    }
+
+    public List<Object[]> getStatsLevels() {
+        return statsLevels;
+    }
+
+    public void setStatsLevels(List<Object[]> statsLevels) {
+        this.statsLevels = statsLevels;
     }
 
     public abstract Entite getDirection();

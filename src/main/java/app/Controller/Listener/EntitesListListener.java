@@ -22,6 +22,7 @@ import javafx.scene.text.FontWeight;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class EntitesListListener implements ListChangeListener<Entite> {
 
@@ -153,9 +154,11 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         Button sellButton = new Button();
         sellButton.setPrefSize(73, 35);
         sellButton.setText("Sell : " + qtiteRevente);
-        sellButton.setOnMouseClicked(event ->
-            gameWorld.setTotalCoin(gameWorld.getTotalCoin().getValue()+qtiteRevente)
-        );
+        sellButton.setOnMouseClicked(event -> {
+            gameWorld.setTotalCoin(gameWorld.getTotalCoin().getValue() + qtiteRevente);
+            carte.getChildren().remove(root);
+            e.setHealth(0);
+        });
 
         HBox sellBox = new HBox(5, closeButton, sellButton);
         //Je met la marge haut au boutton de fermeture (Button n'a pas de margin alors je dois récup le parent pour lui appliquer ce margin)
@@ -200,11 +203,14 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                                 "-fx-background-radius: 5;"
                 )
         );
-        buyUpgradeButton.setOnMouseClicked(event ->
 
-                /// TODO : level up
-                System.out.println("level up")
-        );
+        AtomicInteger actualLevel = new AtomicInteger();
+        buyUpgradeButton.setOnMouseClicked(event -> {
+
+            /// TODO : level up
+            actualLevel.getAndIncrement();
+            System.out.println("level up");
+        });
 
         //Vbox contenant les textes
         VBox upgradeBox = new VBox();
@@ -252,11 +258,19 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         VBox attributesVBox = new VBox();
         attributesVBox.setPadding(new Insets(2));
 
-        attributesVBox.getChildren().addAll(
-                new Label("oldAtt1 -> newAtt1"),
-                new Label("oldAtt2 -> newAtt2"),
-                new Label("oldAtt3 -> newAtt3")
-        );
+        if (e.getStatsLevels() != null && e.getStatsLevels().size() > 3)        //A suppr quand j'aurais fait pr tt les Entites
+            for (int i = 0; i < e.getStatsLevels().get(actualLevel.get()).length-2; i++) {
+
+                Object actualStat = e.getStatsLevels().get(actualLevel.get())[i+2];
+                Object newStat = e.getStatsLevels().get((actualLevel.get())+1)[i+2];
+
+                if (!actualStat.equals(newStat))
+                    attributesVBox.getChildren().add(new Label(
+                            e.getStatsLevels().get(actualLevel.get())[i+2].toString()
+                            + " -> "
+                            + e.getStatsLevels().get((actualLevel.get())+1)[i+2].toString()
+                    ));
+            }
 
         ScrollPane attributesScrollPane = new ScrollPane(attributesVBox);
         attributesScrollPane.setPrefSize(127, 109);
