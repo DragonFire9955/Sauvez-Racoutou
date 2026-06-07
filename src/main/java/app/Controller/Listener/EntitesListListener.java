@@ -62,7 +62,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     System.out.println("ajout dans list");
 
                     //affiche l'image de l'entite sur la carte
-                    Node imageEntite = EntiteVue.appliquerBonneImage(e, true);
+                    Node imageEntite = new ImageView(EntiteVue.appliquerBonneImage(e, true));
 
                     carte.getChildren().add(imageEntite);
 
@@ -100,7 +100,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         );
 
         //Image principale
-        ImageView entityImageView = EntiteVue.appliquerBonneImage(e, false);
+        ImageView entityImageView = new ImageView(EntiteVue.appliquerBonneImage(e, false));
         entityImageView.setFitWidth(109);
         entityImageView.setFitHeight(110);
         entityImageView.setPreserveRatio(true);
@@ -229,9 +229,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         );
 
         //Image upgrade
-        ImageView upgradeImageView = new ImageView(
-                new Image("app/images/pouletIGPN.gif")
-        );
+        ImageView upgradeImageView = new ImageView(new Image(EntiteVue.appliquerBonneImageGif(e)));
         upgradeImageView.setFitWidth(38);
         upgradeImageView.setFitHeight(38);
         upgradeImageView.setPreserveRatio(true);

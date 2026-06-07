@@ -13,39 +13,41 @@ public class EntiteVue {
 
     public static int tailleImage = 32;
 
-    public static ImageView appliquerBonneImage(Entite entite, boolean withInit) {
+    public static String appliquerBonneImage(Entite entite, boolean withInit) {
 
-        ImageView imageView = new ImageView();
+        String lienImage;
 
         switch (entite) {
             case Racoutou racoutou ->
-                    imageView.setImage(new Image("app/images/racoutou.png"));
+                    lienImage = "app/images/racoutou.png";
             case ChatScientifique chatScientifique ->
-                    imageView.setImage(new Image("app/images/chat.png"));
+                    lienImage = "app/images/chat.png";
             case PouletBouclier pouletBouclier ->
-                    imageView.setImage(new Image("app/images/pouletBouclier.jpg"));
+                    lienImage = "app/images/pouletBouclier.jpg";
             case Stunner stunner ->
             {
                 if (stunner.isAllie())
-                    imageView.setImage(new Image("app/images/chatJournaliste.jpg"));
+                    lienImage = "app/images/chatJournaliste.jpg";
                 else
-                    imageView.setImage(new Image("app/images/pouletMenotte.jpg"));
+                    lienImage = "app/images/pouletMenotte.jpg";
             }
             case Animal animal ->
             {
                 if (animal.isAllie())
-                    imageView.setImage(new Image("app/images/chat.png"));
+                    lienImage = "app/images/chat.png";
                 else
-                    imageView.setImage(new Image("app/images/pouletClassique.png"));
+                    lienImage = "app/images/pouletClassique.png";
             }
-            default -> System.out.println("Image inconnue");
-
+            default -> {
+                System.out.println("Image inconnue");
+                lienImage = null;
+            }
         }
 
         if (withInit)
-            initImageView(entite, imageView);
+            initImageView(entite, new ImageView(new Image(lienImage)));
 
-        return imageView;
+        return lienImage;
     }
 
     //Là j'initialise l'image comme il faut mais on peux en faire un personalisé dans les conditions au dessus
