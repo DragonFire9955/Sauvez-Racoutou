@@ -23,15 +23,19 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import static app.Controller.MenuController.*;
+import static javafx.scene.paint.Color.GREEN;
+import static javafx.scene.paint.Color.RED;
 
 public class Controller implements Initializable {
 
@@ -63,6 +67,12 @@ public class Controller implements Initializable {
     private Label waveTimerLabel;
     @FXML
     private VBox menuPause;
+
+
+    @FXML
+    private Pane finJeu;
+    @FXML
+    private ImageView imgFinJeu;
 
     private TerrainVue terrainVue;
     private boolean enPause = false;
@@ -149,6 +159,24 @@ public class Controller implements Initializable {
         //Initialisation des Managers
         gameWorld = new GameWorld();
         gameWorld.getTheEnd().addListener((obs, oldV, newV) -> {
+            System.out.println(" FIN: "+newV.intValue());
+
+            if(newV.intValue()>0){
+                imgFinJeu.setImage(new Image("app/images/gagne.gif"));
+            } else if (newV.intValue()<0) {
+                imgFinJeu.setImage(new Image("app/images/perdue.gif"));
+                System.out.println("perdue");
+            }
+            imgFinJeu.setFitWidth(300);
+            imgFinJeu.setFitHeight(300);
+            imgFinJeu.setPreserveRatio(true);
+            imgFinJeu.setSmooth(true);
+            imgFinJeu.setCache(true);
+            finJeu.setVisible(true);
+            isGameStarted.setValue(false);
+        });
+        /*
+        gameWorld.getTheEnd().addListener((obs, oldV, newV) -> {
             if(newV == true) {
                 isGameStarted.setValue(false);
                 System.out.println(isGameStarted);
@@ -156,6 +184,8 @@ public class Controller implements Initializable {
                 System.out.println(applicationPane);
             }
         });
+
+         */
         cameraManager = new CameraManager(gamePane, carte, tileMap);
         cameraManager.initialiserCamera();
 

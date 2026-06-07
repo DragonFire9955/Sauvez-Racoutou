@@ -20,12 +20,14 @@ public class GameWorld {
 
     private ObservableList<Animal> animauxList;
     private ObservableList<Barrage> barrageList;
-    private BooleanProperty theEnd;
+    //private BooleanProperty theEnd;
+    private IntegerProperty theEnd;
     private final int tailleTile=32;
 
     private int[][] map;
     //private Map<Double, Noeud> dijkRacoutou;
     private Map<Noeud, Noeud> dijkRacoutou2;
+
 
 
     private List<TreeMap<Integer, List<Animal>>> ensemblesVagues;
@@ -44,7 +46,7 @@ public class GameWorld {
         animauxList = FXCollections.observableArrayList();
         animauxList.add(new Racoutou(this));
         barrageList = FXCollections.observableArrayList();
-        theEnd= new SimpleBooleanProperty(false);
+        theEnd= new SimpleIntegerProperty(0);
 
         //dijkRacoutou= new DeplacementDijkstra(tailleTile, map).calculerDistances(getTileRacoutou());
         dijkRacoutou2= new DeplacementDijkstra(tailleTile, map).testDijkstra(this.getRacoutou().getCoord());
@@ -63,10 +65,9 @@ public class GameWorld {
 
 
     public void updateGW(double dt)  {
-
-        if(getRacoutou() == null) theEnd.setValue(true);
-
-        else {
+        System.out.println("perdu: " + perdue() + "  gagne: "+ gagne() + "  ennemis " + getEnnemis().size());
+        //if(getRacoutou() == null) theEnd.setValue(true);
+        if(!perdue() && !gagne()){
             vagueManager(dt);
 
             for (Entite entite : animauxList) {
@@ -96,7 +97,7 @@ public class GameWorld {
 
         double tempsVague = dt - debutVague;
 
-        if(tempsVague>=(durreeVague.get())){
+        if(tempsVague>=(durreeVague.get()) && numeroVague.get()<ensemblesVagues.size()){
             System.out.println(numeroVague);
             numeroVague.set(numeroVague.get()+1);
             debutVague = (int) dt;
@@ -108,7 +109,7 @@ public class GameWorld {
         tempsActuelVague.set( (int) tempsVague);
 
         if(numeroVague.get()!=0 && ensemblesVagues.get(numeroVague.get()-1).containsKey(tempsActuelVague.get())){
-            animauxList.addAll(ensemblesVagues.get(numeroVague.get()-1).pollFirstEntry().getValue());;
+            animauxList.addAll(ensemblesVagues.get(numeroVague.get()-1).pollFirstEntry().getValue());
         }
     }
 
@@ -169,13 +170,15 @@ public class GameWorld {
         return barrageList;
     }
 
-    public BooleanProperty getTheEnd(){
+    public IntegerProperty getTheEnd(){
         return theEnd;
     }
-
+/*
     public void changeStateTheEnd(){
         theEnd.set(!theEnd.getValue());
     }
+
+ */
 
     public int[][] getMap() {
         return map;
@@ -238,6 +241,25 @@ public class GameWorld {
     public IntegerProperty getTempsActuelVagueProperty(){
         return tempsActuelVague;
     }
+
+    public boolean perdue(){
+        if(this.getRacoutou() == null){
+            theEnd.set(-1);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean gagne(){
+        if(numeroVague.get()>= ensemblesVagues.size() && this.getEnnemis().isEmpty()){
+            theEnd.set(1);
+            return true;
+        }
+
+        return  false;
+    }
+
+
 
 
 
