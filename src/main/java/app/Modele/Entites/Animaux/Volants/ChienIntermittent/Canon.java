@@ -14,7 +14,7 @@ public class Canon extends Animal {
     private double vitesseVol;
 
     protected Canon(double[] coord, double health, int coin, double range, double dmg, double freqAtk, GameWorld w) {
-        super(coord, health, coin,0, range, dmg, freqAtk, w, true);
+        super("Canon", coord, health, coin,0, range, dmg, freqAtk, w, true);
         chien= new ChienIntermittent(coord, w, this);
         vitesseVol=20;
 
@@ -62,4 +62,5 @@ public class Canon extends Animal {
             ceux qui volent et largue des bombes: tjrs volant
             ceux qui volent jusqu'à ce poser juste à coté de racoutou (force+++, pv--): volant puis mobile
      */
+
 }

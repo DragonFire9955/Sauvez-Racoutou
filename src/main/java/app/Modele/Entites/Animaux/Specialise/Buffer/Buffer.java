@@ -11,8 +11,8 @@ import java.util.List;
 public abstract class Buffer extends Specialise {
 
     private ArrayList<Double> listeBuff;
-    public Buffer(double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, double buffRange, double tempsBuff, double tempsRepo, ArrayList<Double> listeBuff) {
-        super(coord, health, coin, vitesse, r, dmg, freqAtk, w, allie, tempsBuff, tempsRepo, buffRange);
+    public Buffer(String name, double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, double buffRange, double tempsBuff, double tempsRepo, ArrayList<Double> listeBuff) {
+        super(name, coord, health, coin, vitesse, r, dmg, freqAtk, w, allie, tempsBuff, tempsRepo, buffRange);
         this.listeBuff=listeBuff;
     }
 

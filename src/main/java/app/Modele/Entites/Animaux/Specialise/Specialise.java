@@ -13,8 +13,8 @@ public abstract class Specialise extends Animal{
     private boolean actionSpecialePossible;
     private double chrono;
 
-    public Specialise(double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, double tempsAction, double tempsRepo, double rangeEffect){
-        super(coord, health, coin, vitesse, r, dmg, freqAtk, w, allie);
+    public Specialise(String name, double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, double tempsAction, double tempsRepo, double rangeEffect){
+        super(name, coord, health, coin, vitesse, r, dmg, freqAtk, w, allie);
         this.rangeEffect=rangeEffect;
         this.tempsAction=tempsAction;
         this.tempsRepo=tempsRepo;

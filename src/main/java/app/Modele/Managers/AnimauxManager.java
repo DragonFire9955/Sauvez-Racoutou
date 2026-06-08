@@ -15,19 +15,19 @@ public class AnimauxManager {
     public static GameWorld w;
 
     public static Animal creerChatClassique(GameWorld w) {
-        return new Animal(EnnemisSpawn.randomCoord(w), 5, 10, 2, 5, 1, 1, w, true);
+        return new Animal("Chat classique", EnnemisSpawn.randomCoord(w), 5, 10, 2, 5, 1, 1, w, true);
     }
 
     public static Animal creerPouletClassique(GameWorld w) {
-        return new Animal(EnnemisSpawn.randomCoord(w), 50, 10, 2, 5, 1, 1, w, false);
+        return new Animal("Poulet classique", EnnemisSpawn.randomCoord(w), 50, 10, 2, 5, 1, 1, w, false);
     }
 
     public static Animal creerPouletMenotte(GameWorld w){
-        return new Stunner(EnnemisSpawn.randomCoord(w), 5, 2, 1, 5, 1, 1, w, false, 1, 3, 5, 10);
+        return new Stunner("Poulet menotte", EnnemisSpawn.randomCoord(w), 5, 2, 1, 5, 1, 1, w, false, 1, 3, 5, 10);
     }
 
     public static Animal creerChatJournaliste(GameWorld w){
-        return new Stunner(EnnemisSpawn.randomCoord(w), 8, 15, 3, .5, .5, 1, w, true, 1, 3, 5, 10);
+        return new Stunner("Chat journaliste", EnnemisSpawn.randomCoord(w), 8, 15, 3, .5, .5, 1, w, true, 1, 3, 5, 10);
     }
 
 

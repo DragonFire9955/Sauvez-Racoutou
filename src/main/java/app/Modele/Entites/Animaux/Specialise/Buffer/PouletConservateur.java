@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PouletConservateur extends Buffer {
     public PouletConservateur(double[] coord, GameWorld w) {
-        super(coord, 3, 3, 2, 2, 2, 1, w, false, 5, 5, 10, new ArrayList<>());
+        super("Poulet conservateur",  coord, 3, 3, 2, 2, 2, 1, w, false, 5, 5, 10, new ArrayList<>());
         getListeBuff().add(0.5);
     }
 

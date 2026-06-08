@@ -8,7 +8,7 @@ public class Poubelle extends Barrage {
     private int id = 100;
 
     public Poubelle(double[] coord, double health, int coin, double r, GameWorld w){
-        super(coord, health, coin, r, w, 10);
+        super("Poubelle", coord, health, coin, r, w, 10);
         //rendre static la taille?
     }
 
@@ -24,6 +24,5 @@ public class Poubelle extends Barrage {
     public void attaquer() {
 
     }
-
 
 }

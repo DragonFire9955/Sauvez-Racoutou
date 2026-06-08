@@ -18,30 +18,32 @@ public class EntiteVue {
         ImageView imageView;
         Image image;
 
-        switch (entite) {
-            case Racoutou racoutou ->
-                    image = new Image("app/images/racoutou.png");
-            case ChatScientifique chatScientifique ->
-                    image = new Image("app/images/chat.png");
-            case PouletBouclier pouletBouclier ->
-                    image = new Image("app/images/pouletBouclier.jpg");
-            case Stunner stunner ->
-            {
-                if (stunner.isAllie())
-                    image = new Image("app/images/chatJournaliste.jpg");
-                else
-                    image = new Image("app/images/pouletMenotte.jpg");
-            }
-            case Animal animal ->
-            {
-                if (animal.isAllie())
-                    image = new Image("app/images/chat.png");
-                else
-                    image = new Image("app/images/pouletClassique.png");
-            }
-            default -> {
+        switch (entite.getName()) {
+            case "Racoutou":
+                image = new Image("app/images/racoutou.png");
+                break;
+            case "Chat scientifique":
+                image = new Image("app/images/chatScientifique.png");
+                break;
+            case "Poulet bouclier":
+                image = new Image("app/images/pouletBouclier.jpg");
+                break;
+            case "Chat journaliste":
+                image = new Image("app/images/chatJournaliste.jpg");
+                break;
+            case "Poulet menottes":
+                image = new Image("app/images/pouletMenotte.jpg");
+                break;
+            case "Chat classique":
+                image = new Image("app/images/chat.png");
+                break;
+            case "Poulet classique":
+                image = new Image("app/images/pouletClassique.png");
+                break;
+            default: {
                 System.out.println("Image inconnue");
                 image = null;
+                break;
             }
         }
 

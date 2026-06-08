@@ -12,7 +12,7 @@ public class ChatScientifique extends AlterationElementaire {
 
 
     public ChatScientifique(double[] coord, GameWorld w) {
-        super(coord, 10, 20, 3, 5, 1, 1, w, true, 1, 3, 5, 1000);
+        super("Chat Scientifique", coord, 10, 20, 3, 5, 1, 1, w, true, 1, 3, 5, 1000);
         facteurDivForce=100;
         facteurDivVitesse=10;
     }
@@ -32,7 +32,5 @@ public class ChatScientifique extends AlterationElementaire {
     public List<Animal> getListeCibles() {
         return getWorld().getEnnemis();
     }
-
-
 
 }

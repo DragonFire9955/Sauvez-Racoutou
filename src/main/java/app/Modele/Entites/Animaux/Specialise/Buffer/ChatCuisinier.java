@@ -10,7 +10,7 @@ public class ChatCuisinier extends Buffer {
 
     public ChatCuisinier(double[] coord, GameWorld w) {
 
-        super(coord, 8, 50, 0, 5, .5, 3, w, true, 15, 3, .5, new ArrayList<>());
+        super("Chat Cuisinier", coord, 8, 50, 0, 5, .5, 3, w, true, 15, 3, .5, new ArrayList<>());
         getListeBuff().add(0.25);
         setStatsLevels(getStatsLevels());
     }

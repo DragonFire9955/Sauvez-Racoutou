@@ -5,7 +5,7 @@ import app.Modele.GameWorld;
 
 public class Volant extends Animal {
 
-    public Volant(double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie) {
-        super(coord, health, coin, vitesse, r, dmg, freqAtk, w, allie);
+    public Volant(String name, double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie) {
+        super(name, coord, health, coin, vitesse, r, dmg, freqAtk, w, allie);
     }
 }
