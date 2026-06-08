@@ -41,7 +41,7 @@ public class EntiteVue {
                 image = new Image("app/images/chatMedecin.png");
                 break;
             case "Poulet conservateur":
-                image = new Image("app/images/pouletClassique.png"); /// TODO: IMG
+                image = new Image("app/images/chienInterim.jpg"); /// TODO: IMG
                 break;
         // DEBUFFER
             // ALTERATIONS ELEMENTAIRES

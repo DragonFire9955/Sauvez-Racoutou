@@ -30,10 +30,10 @@ public abstract class Debuffer extends Specialise {
 
     public void update(double dt) { //dt = dt_controleur * 0.017
         super.update(dt);
-        debuff(dt, getListeCibles());
+        debuff(dt);
     }
 
-    public abstract void debuff(double dt, List<Animal> animaux);
+    public abstract void debuff(double dt);
 
     protected double getvInitial() {
         return vInitial;
@@ -58,6 +58,6 @@ public abstract class Debuffer extends Specialise {
     }
 
     public  List<Animal> getListeCibles(){
-        return Utilitaire.entitesToAnimaux(getCiblesAccessibles(getRangeEffect(), Utilitaire.animauxToEntites(getWorld().getAlliesAnimaux())));
+        return Utilitaire.entitesToAnimaux(getCiblesAccessibles(getRangeEffect(), Utilitaire.animauxToEntites(getAnimauxCibles())));
     };
 }

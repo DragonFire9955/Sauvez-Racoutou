@@ -14,8 +14,8 @@ public class Stunner extends Debuffer {
     }
 
 
-    public void debuff(double dt, List<Animal> animaux) {
-
+    public void debuff(double dt) {
+        List<Animal> animaux = getListeCibles();
         if (!animaux.isEmpty()) {
 
             if (isActionSpecialePossible()) {

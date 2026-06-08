@@ -4,9 +4,7 @@ import app.Controller.Listener.EntiteHealthListener;
 import app.Controller.Listener.EntitesListListener;
 import app.Controller.Listener.OnMouseClickedListener;
 import app.Modele.Entites.Animaux.Racoutou;
-import app.Modele.Entites.Animaux.Specialise.Buffer.ChatCuisinier;
-import app.Modele.Entites.Animaux.Specialise.Buffer.ChatMedecin;
-import app.Modele.Entites.Animaux.Specialise.Buffer.PouletConservateur;
+import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatHypnotiseur;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Animaux.Volants.PouletVolant;
@@ -440,24 +438,32 @@ public class Controller implements Initializable {
             System.out.println("nouveau ChatJournaliste");
 
             gameWorld.ajouterAnimal(AnimauxManager.creerChatJournaliste(gameWorld));
-        }else if (event.getCode() == KeyCode.G) {
+        } else if (event.getCode() == KeyCode.G) {
 
             System.out.println("nouveau scientifique");
-
             gameWorld.ajouterAnimal(new ChatScientifique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+
+        } else if (event.getCode() == KeyCode.K) {
+
+            System.out.println("nouveau hypno");
+            gameWorld.ajouterAnimal(new ChatHypnotiseur(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+
         } else if (event.getCode() == KeyCode.H) {
 
             System.out.println("nouveau medecin");
+            gameWorld.ajouterAnimal(AnimauxManager.creerChatMedecin(gameWorld));
 
-            gameWorld.ajouterAnimal(new ChatMedecin(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
         } else if (event.getCode() == KeyCode.B) {
 
             System.out.println("nouveau ChatCuisinier");
-            double[] coord = gameWorld.getRacoutou().getCoord();
-            coord[0] +=10;
-            coord[1]+=10;
-            gameWorld.ajouterAnimal(new ChatCuisinier(coord, gameWorld));
-        } else if (event.getCode() == KeyCode.V) {
+            gameWorld.ajouterAnimal(AnimauxManager.creerChatCuisinier(gameWorld));
+
+        }else if (event.getCode() == KeyCode.W) {
+
+            System.out.println("nouveau PouletConservateur");
+            gameWorld.ajouterAnimal(AnimauxManager.creerPouletConservateur(gameWorld));
+
+        }else if (event.getCode() == KeyCode.V) {
 
             System.out.println("nouveau Volant");
 
@@ -465,8 +471,7 @@ public class Controller implements Initializable {
         } else if (event.getCode() == KeyCode.L) {
 
             System.out.println("nouveau pSoigne");
-
-            gameWorld.ajouterAnimal(new PouletConservateur(gameWorld));
+            gameWorld.ajouterAnimal(AnimauxManager.creerPouletConservateur(gameWorld));
         }
 
 

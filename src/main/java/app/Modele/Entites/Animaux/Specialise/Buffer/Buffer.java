@@ -59,6 +59,28 @@ public class Buffer extends Specialise {
         return listeBuff;
     }
 
+
+    // Retourne la liste d'animaux du même camp de classe différente classés par distance croissante et pv croissant
+    public List<Animal> getAnimauxCopainsClasses(){
+
+        List<Animal> entitesTriees = new ArrayList<>();
+        List<Animal> copains = getAnimauxCopains();
+        int i;
+        
+        for(Animal a: copains) {
+            if(a.getClass() == this.getClass()) continue;
+            i= 0;
+            //Tant que distance supérieur ET pv supérieur
+            while (i < entitesTriees.size()
+                    && Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())
+                    > Utilitaire.distance(this.getX(), this.getY(), entitesTriees.get(i).getX(), entitesTriees.get(i).getY())) {
+                i++;
+            }
+            entitesTriees.add(i, a);
+        }
+        return entitesTriees;
+    }
+
     @Override
     public Entite getDirection() {
         if(getAnimauxCopains().isEmpty()) {

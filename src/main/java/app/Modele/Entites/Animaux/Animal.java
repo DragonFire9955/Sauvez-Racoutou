@@ -13,6 +13,7 @@ import static java.lang.Thread.sleep;
 public class Animal extends Entite {
     private double[] stunnedUntil;
     private double[] slowUntil;
+    private double inverseUntil;
     private double vitesse;
     private boolean canAttack;
     private boolean allie;
@@ -23,6 +24,7 @@ public class Animal extends Entite {
         canAttack=true;
         stunnedUntil = new double[2];
         slowUntil = new double[3];
+        inverseUntil = 0;
         this.allie=allie;
     }
 
@@ -39,6 +41,10 @@ public class Animal extends Entite {
 
         if (slowUntil[0]!=0){
             endSlow(dt);
+        }
+
+        if(inverseUntil!=0){
+            endInverse(dt);
         }
     }
 
@@ -196,24 +202,6 @@ public class Animal extends Entite {
             return getWorld().getEnnemis();
     }
 
-    public List<Animal> getAnimauxCopainsClasses(){
-
-        List<Animal> entitesTriees = new ArrayList<>();
-        List<Animal> copains = getAnimauxCopains();
-        int i;
-        for(Animal a: copains) {
-            if(a.equals(this)) continue;
-            i= 0;
-            //Tant que distance supérieur ET pv supérieur
-            while (i < entitesTriees.size()
-                    && Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())
-                    > Utilitaire.distance(this.getX(), this.getY(), entitesTriees.get(i).getX(), entitesTriees.get(i).getY())) {
-                i++;
-            }
-            entitesTriees.add(i, a);
-        }
-        return entitesTriees;
-    }
 
 
     public void unstuned(double dt){
@@ -258,6 +246,15 @@ public class Animal extends Entite {
 
     public void setAllie(boolean allie) {
         this.allie = allie;
+    }
+
+    public void setInverseUntil(double dt){
+        this.inverseUntil=dt;
+    }
+
+    public void endInverse(double dt){
+        if(dt>= this.inverseUntil)
+            this.setAllie(!isAllie());
     }
 
 
