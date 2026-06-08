@@ -6,10 +6,10 @@ import app.Modele.Entites.Animaux.Specialise.Buffer.PouletConservateur;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Animaux.Volants.PouletVolant;
-import app.Modele.Entites.Barrage.Poubelle;
 import app.Modele.GameWorld;
 import app.Modele.Managers.AnimauxManager;
 import app.Modele.Managers.EnnemisSpawn;
+import app.Modele.Terrain;
 import app.Modele.Vague;
 import app.Vue.CameraManager;
 import app.Vue.EntiteVue;
@@ -20,10 +20,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
@@ -37,8 +35,6 @@ public class Controller implements Initializable {
 
     // VUE
     @FXML
-    private BorderPane applicationPane; // border pane parent de tous
-    @FXML
     private Pane gamePane;
     @FXML
     private Pane carte;
@@ -50,7 +46,7 @@ public class Controller implements Initializable {
     @FXML
     private Button btnClassique;
     @FXML
-    private Button btnProjectiles;
+    private Button btnSniper;
     @FXML
     private Button btnJournaliste;
 
@@ -68,10 +64,9 @@ public class Controller implements Initializable {
     private boolean enPause = false;
 
     private boolean modePlacement = false;
-    private int aPlacer = -1;
+    private int idEntite = -1;
 
-    private int cout = 0;
-    private int prix = 0;
+    private ControleurDeClic clicControl;
 
     //MODELE
     private int[][] map;
@@ -86,67 +81,38 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        gameWorld = new GameWorld();
+        this.map = gameWorld.getMap();
+
         terrainVue = new TerrainVue();
+        clicControl = new ControleurDeClic(idEntite, modePlacement, gameWorld, terrainVue, carte, gamePane);
 
-        this.map = TerrainVue.genererMap();
         terrainVue.delimitationMap(tileMap);
-
-        remplirMap();
+        terrainVue.remplirMap(tileMap, map, clicControl);
 
         DragAndDrop dragImage = new DragAndDrop();
         dragImage.drag(btnPoubelle, 100, "/app/images/poubelle.png");
-        dragImage.drag(btnClassique, 101, "/app/images/classique.png");
-        dragImage.drag(btnProjectiles, 102, "/app/images/projectiles.png");
+        dragImage.drag(btnClassique, 101, "/app/images/chat.png");
+        dragImage.drag(btnSniper, 102, "/app/images/sniper.png");
         dragImage.drag(btnJournaliste, 103, "/app/images/journaliste.png");
 
         dragImage.survole(tileMap);
 
-        // drop
-        tileMap.setOnDragDropped(e -> { //quand la souris relâche
-            Dragboard db = e.getDragboard(); //on récupère le contenu de la souris
-            int id = Integer.parseInt(db.getString()); //remet l'id en int
+        //drop
+        tileMap.setOnDragDropped(e -> { //réagit quand la souris relache
+            Dragboard db = e.getDragboard();
+            int id = Integer.parseInt(db.getString());
 
-            //conversion des coordonées absolues de la souris en coordonées de case
-            int c = (int) (e.getX() / gameWorld.getTailleTile());
-            int l = (int) (e.getY() / gameWorld.getTailleTile());
+            //coordonnées en case
+            int colonne = (int) (e.getX() / gameWorld.getTailleTile());
+            int ligne = (int) (e.getY() / gameWorld.getTailleTile());
 
-            if (map[l][c] == 0) { //si c'est du sol
-
-                double posX = c * gameWorld.getTailleTile();
-                double posY = l * gameWorld.getTailleTile();
-                double[] coords = new double[]{posX, posY};
-
-                if (id == 100) {
-                    prix = 5;
-                    if (gameWorld.getTotalCoin().get() >= prix) { //si on a assez d'argent
-                        gameWorld.getTotalCoin().set(gameWorld.getTotalCoin().get() - prix);
-                        //on enleve le cout a notre argent total
-
-                        Poubelle p = new Poubelle(coords, 100.0, 5, 16.0, gameWorld);
-                        ImageView imgPoubelle = terrainVue.creerTour(p);
-
-                        imgPoubelle.setTranslateX(posX);
-                        imgPoubelle.setTranslateY(posY);
-
-                        carte.getChildren().add(imgPoubelle);
-
-                        map[l][c] = p.getpoids(); //on met son poids dans la map
-                    } else {
-                        System.out.println("Fond insuffisant");
-                    }
-                }
-
-                remplirMap();
-            } else {
-                System.out.println("Impossible de placer ici");
-            }
+            clicControl.placerStructure(ligne, colonne, id);
 
             e.consume();
-            gamePane.requestFocus();
         });
 
         //Initialisation des Managers
-        gameWorld = new GameWorld();
         gameWorld.getTheEnd().addListener((obs, oldV, newV) -> gameLoop.stop());
         cameraManager = new CameraManager(gamePane, carte, tileMap);
         cameraManager.initialiserCamera();
@@ -194,9 +160,6 @@ public class Controller implements Initializable {
 
     }
 
-
-
-
     @FXML
     private void pause() {
         if (enPause) {
@@ -212,14 +175,14 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    private void quitterPartie() {
+    private void quitterJeu() {
         gameLoop.stop();
         gamePane.getScene().setRoot(menu);
         isGameStarted.setValue(false);
     }
 
     @FXML
-    private void recommencerJeu() {
+    private void redemarrerJeu() {
         gameLoop.stop();
         temps.setValue(0);
         enPause = false;
@@ -231,9 +194,9 @@ public class Controller implements Initializable {
         carte.getChildren().removeIf(node -> node != tileMap);
         //supprime si l'element est différent de la tileMap (on garde juste elle)
 
-        map = TerrainVue.genererMap();
+        map = Terrain.genererMap();
         terrainVue.delimitationMap(tileMap);
-        remplirMap();
+        terrainVue.remplirMap(tileMap, map, clicControl);
 
         gameWorld.ajouterAnimal(new Racoutou(gameWorld));
         gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
@@ -244,82 +207,26 @@ public class Controller implements Initializable {
 
     @FXML
     private void placerPoubelle(){
-        prix = 5;
-
-        if (gameWorld.getTotalCoin().get() >= prix){
-            modePlacement = true;
-            aPlacer = 100;
-            cout = prix;
-        } else {
-            System.out.println("Fond insuffisant");
-        }
+        clicControl.setModePlacement(true);
+        clicControl.setIdEntite(100);
     }
 
     @FXML
     private void placerChatClassique() {
-        modePlacement = true;
-        aPlacer = 101;
+        clicControl.setModePlacement(true);
+        clicControl.setIdEntite(101);
     }
 
     @FXML
-    private void placerChatProjectiles() {
-        modePlacement = true;
-        aPlacer = 102;
+    private void placerChatSniper() {
+        clicControl.setModePlacement(true);
+        clicControl.setIdEntite(102);
     }
 
     @FXML
     private void placerChatJournaliste() {
-        modePlacement = true;
-        aPlacer = 103;
-    }
-
-    private void remplirMap() {
-        tileMap.getChildren().clear(); //pour ne pas superposer les tuiles
-
-        for (int l = 0; l < map.length; l++) {
-            int ligne = l;
-            for (int c = 0; c < map[l].length; c++) {
-                int colonne = c;
-
-                ImageView cases = terrainVue.creerTuile(map[l][c]); //image créé pour chaque coordonées
-
-                cases.setOnMouseClicked(e -> { //quand on clique sur la case
-                    if (modePlacement){ //si on a cliquer sur un bouton pour placer avant
-                        if (map[ligne][colonne] == 0){ //et que la tuile est du sol
-                            if (gameWorld.getTotalCoin().get() >= cout) { //et que on a assez d'argent
-                                gameWorld.getTotalCoin().set(gameWorld.getTotalCoin().get() - cout);
-                                //on enlève le cout a notre argent total
-
-                                //coordonées absolues de la tuile
-                                double posX = colonne * gameWorld.getTailleTile();
-                                double posY = ligne * gameWorld.getTailleTile();
-                                double[] coords = new double[]{posX, posY};
-
-                                if (aPlacer == 100) {
-                                    Poubelle p = new Poubelle(coords, 100.0, 3, 16.0, gameWorld);
-                                    ImageView imgPoubelle = terrainVue.creerTour(p);
-
-                                    imgPoubelle.setTranslateX(posX);
-                                    imgPoubelle.setTranslateY(posY);
-
-                                    carte.getChildren().add(imgPoubelle);
-
-                                    map[ligne][colonne] = p.getpoids(); //on met son poids dans la map
-                                }
-                                modePlacement = false; //placement fini
-                                remplirMap(); //rafraichissement de la map
-                            } else {
-                                System.out.println("Fond insuffisant");
-                            }
-                        } else {
-                            System.out.println("Impossible de placer ici");
-                        }
-                    }
-                });
-                tileMap.getChildren().add(cases);
-
-            }
-        }
+        clicControl.setModePlacement(true);
+        clicControl.setIdEntite(103);
     }
 
 

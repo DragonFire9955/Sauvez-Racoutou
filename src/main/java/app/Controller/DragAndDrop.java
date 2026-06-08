@@ -27,7 +27,6 @@ public class DragAndDrop {
 
     public void survole(TilePane tileMap){
         tileMap.setOnDragOver(e -> { //réagit quand la souris survole la map en maintenant quelque chose
-
             e.acceptTransferModes(TransferMode.COPY); //accpete que la souris survole la Tilemap sous forme de copy
             e.consume(); //fin de l'événement
         });

@@ -32,4 +32,7 @@ public abstract class Barrage extends Entite {
     public Entite getCible() {
         return getCiblesAccessibles(getRange(), Utilitaire.animauxToEntites(getWorld().getAnimaux())).getFirst();
     }
+
+    public abstract int getPoids();
+
 }

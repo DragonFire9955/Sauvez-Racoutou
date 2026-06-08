@@ -39,7 +39,7 @@ public class GameWorld {
 
     public GameWorld(){
 
-        map = TerrainVue.genererMap();
+        map = Terrain.genererMap();
         animauxList = FXCollections.observableArrayList();
         animauxList.add(new Racoutou(this));
         barrageList = FXCollections.observableArrayList();
@@ -48,7 +48,7 @@ public class GameWorld {
         //dijkRacoutou= new DeplacementDijkstra(tailleTile, map).calculerDistances(getTileRacoutou());
         dijkRacoutou2= new DeplacementDijkstra(tailleTile, map).testDijkstra(this.getRacoutou().getCoord());
 
-        totalCoin = new SimpleIntegerProperty(0);
+        totalCoin = new SimpleIntegerProperty(50);
 
         vagueActuelle = Vague.creerVague1(this);
         tempsVague = 0;

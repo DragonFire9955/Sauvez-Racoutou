@@ -1,6 +1,5 @@
 package app.Modele.Managers;
 
-import app.Modele.Chemins.DeplacementDijkstra;
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.Stunner;
 import app.Modele.Entites.Entite;
@@ -16,6 +15,10 @@ public class AnimauxManager {
 
     public static Animal creerChatClassique(GameWorld w) {
         return new Animal(EnnemisSpawn.randomCoord(w), 5, 10, 2, 5, 1, 1, w, true);
+    }
+
+    public static Animal creerChatClassique(double[] coord, GameWorld w) {
+        return new Animal(coord,5, 10, 2, 5, 1, 1, w, true);
     }
 
     public static Animal creerPouletClassique(GameWorld w) {

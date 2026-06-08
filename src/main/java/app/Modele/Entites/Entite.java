@@ -62,7 +62,6 @@ public abstract class Entite {
 
     public void handleCollisions(Entite cible, double dt) {
 
-        System.out.println(coll + "coll");
         if(this.equals(cible) || cible==null) {
 
             coll = false;
@@ -189,7 +188,6 @@ public abstract class Entite {
         this.coin = coin;
     }
     public  int getIdEntite(){return id;}
-
 
     public int[] getTile(){
         int[] tile = new int[2];

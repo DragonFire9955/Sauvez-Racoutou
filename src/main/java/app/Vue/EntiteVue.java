@@ -23,13 +23,13 @@ public class EntiteVue {
             case ChatScientifique chatScientifique ->
                     imageView.setImage(new Image("app/images/chat.png"));
             case PouletBouclier pouletBouclier ->
-                imageView.setImage(new Image("app/images/pouletBouclier.jpg"));
+                imageView.setImage(new Image("app/images/PouletBouclier.png"));
             case Stunner stunner ->
             {
                 if (stunner.isAllie())
                     imageView.setImage(new Image("app/images/chatJournaliste.jpg"));
                 else
-                    imageView.setImage(new Image("app/images/pouletMenotte.jpg"));
+                    imageView.setImage(new Image("app/images/pouletMenotte.png"));
             }
             case Animal animal ->
             {
