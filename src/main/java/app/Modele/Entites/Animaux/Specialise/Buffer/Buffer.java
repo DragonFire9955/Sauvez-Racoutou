@@ -42,7 +42,7 @@ public class Buffer extends Specialise {
 
     public void buff(){
         Animal cible = getAnimauxCiblesAccessibles().getFirst();
-        //System.out.println(cible.getClass().getName() +"  " + cible.getHealthProperty().getValue());
+        System.out.println(cible.getClass().getName() +"  " + cible.getHealthProperty().getValue());
         cible.setHealth(cible.getHealthProperty().getValue() + getListeBuff().getFirst());
 
     }
@@ -67,6 +67,7 @@ public class Buffer extends Specialise {
         int i;
 
         for(Animal a: copains) {
+            System.out.println(this.getClass());
             if(a.getClass() == this.getClass()) continue;
             i= 0;
             //Tant que distance supérieur ET pv supérieur

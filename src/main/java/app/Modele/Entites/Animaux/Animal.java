@@ -190,10 +190,17 @@ public class Animal extends Entite {
     }
 
     public  List<Animal> getAnimauxCopains(){
+        List<Animal> animauxCopains = new ArrayList<>();
         if(allie)
-            return getWorld().getAlliesAnimaux();
+            animauxCopains= getWorld().getAlliesAnimaux();
         else
-            return getWorld().getEnnemis();
+            animauxCopains= getWorld().getEnnemis();
+        for(int i = animauxCopains.size()-1; i>=0; i--){
+            if(animauxCopains.get(i).getClass() == this.getClass())
+                animauxCopains.remove(i);
+        }
+
+        return animauxCopains;
     }
 
 

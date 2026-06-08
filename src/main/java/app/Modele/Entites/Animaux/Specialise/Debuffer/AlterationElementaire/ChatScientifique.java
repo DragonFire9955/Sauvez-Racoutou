@@ -18,8 +18,8 @@ public class ChatScientifique extends AlterationElementaire {
 
         List<Object[]> listStats = StatsEntiteInitialiser.getStatsLevels("Chat scientifique");
 
-        facteurDivForce = (double) listStats.get(0)[11];
-        facteurDivVitesse = (double) listStats.get(0)[10];
+        facteurDivForce = (double) listStats.get(0)[10];
+        facteurDivVitesse = (double) listStats.get(0)[11];
     }
 
 

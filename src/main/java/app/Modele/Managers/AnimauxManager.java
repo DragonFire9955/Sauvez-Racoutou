@@ -32,7 +32,7 @@ public class AnimauxManager {
     }
 
     public static Animal creerChatJournaliste(GameWorld w){
-        return new Stunner("Chat journaliste", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Chat journaliste"), false);
+        return new Stunner("Chat journaliste", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Chat journaliste"), true);
     }
 
 // BUFFER

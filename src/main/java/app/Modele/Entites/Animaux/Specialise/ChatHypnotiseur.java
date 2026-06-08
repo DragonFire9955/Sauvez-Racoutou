@@ -3,6 +3,7 @@ package app.Modele.Entites.Animaux.Specialise;
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
+import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Modele.Utilitaires.Utilitaire;
 
 import java.util.HashMap;
@@ -18,7 +19,7 @@ public class ChatHypnotiseur extends Animal{
 
     public ChatHypnotiseur(double[] coord, GameWorld w) {
 
-        super("Chat hypnotiseur", coord, 6, 40, 0, 100, 1, 1, w, true);
+        super("Chat hypnotiseur", coord, w, StatsEntiteInitialiser.getStatsLevels("Chat hypnotiseur"), true);
         this.dmgSpecials=30;
         freqAtkSpeciale =1;
         rangeSpe= 10;

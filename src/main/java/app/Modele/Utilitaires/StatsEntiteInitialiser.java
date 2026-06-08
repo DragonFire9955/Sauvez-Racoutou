@@ -79,55 +79,43 @@ public class StatsEntiteInitialiser {
 
         statsLevels.add(new Object[]{
                 "Default",
-                70,    //Upgrade price
-                8.,     //Health
+                300,    //Upgrade price
+                50.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
                 0.,     //Speed
-                5.,     //Range
+                10.,     //Range
                 5.,     //Damage
-                1.,     //FreqAtk
-                15.,    //BuffRange
-                3.,     //TpsBuff
-                .5     //TpsRepo
+                2.5,     //FreqAtk
         });
 
         statsLevels.add(new Object[]{
-                "Spatule d'or",
-                150,    //Upgrade price
-                12.,     //Health   (+4)
+                "Casque solide",
+                800,    //Upgrade price
+                100.,     //Health   (+50)
                 0.,      //Speed
-                5.,      //Range
+                15.,      //Range   (+5)
                 7.,      //Damage    (+2)
-                1.2,    //FreqAtk (+.2)
-                15.,     //BuffRange
-                3.5,    //TpsBuff (+.5)
-                .5      //TpsRepo
+                2.3,    //FreqAtk (+.2)
         });
 
         statsLevels.add(new Object[]{
-                "BBQ modeste",
-                300,    //Upgrade price
-                20.,     //Health   (+8)
+                "Veste de motard",
+                1500,    //Upgrade price
+                200.,     //Health   (+100)
                 0.,      //Speed
-                8.,      //Range     (+3)
+                15.,      //Range
                 10.,     //Damage   (+3)
-                1.5,    //FreqAtk (+.3)
-                20.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
+                2.,    //FreqAtk (+.3)
         });
 
         statsLevels.add(new Object[]{
-                "licence VIP",
+                "Lunettes noires",
                 null,   //Upgrade price
-                30.,     //Health   (+10)
+                350.,     //Health   (+150)
                 0.,      //Speed
-                10.,     //Range     (+2)
+                20.,     //Range     (+5)
                 15.,     //Damage   (+5)
-                2.,      //FreqAtk (+.5)
-                25.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
+                1.5,      //FreqAtk (+.5)
         });
     }
 
@@ -135,46 +123,47 @@ public class StatsEntiteInitialiser {
 
         statsLevels.add(new Object[]{
                 "Default",
-                70,    //Upgrade price
-                8.,     //Health
+                25,    //Upgrade price
+                6.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
                 1.,     //Speed
                 5.,     //Range
-                5.,     //Damage
+                2.,     //Damage
                 1.,     //FreqAtk
         });
 
         statsLevels.add(new Object[]{
-                "Spatule d'or",
-                150,    //Upgrade price
+                "Patte de bronze",
+                75,    //Upgrade price
                 12.,     //Health   (+4)
                 1.,      //Speed
-                5.,      //Range
+                7.,      //Range    (+2)
                 7.,      //Damage    (+2)
+                1,    //FreqAtk
+        });
+
+        statsLevels.add(new Object[]{
+                "Patte d'argent",
+                150,    //Upgrade price
+                15.,     //Health   (+3)
+                1.5,      //Speed   (+.5)
+                8.,      //Range     (+1)
+                7.,     //Damage
                 1.2,    //FreqAtk (+.2)
         });
 
         statsLevels.add(new Object[]{
-                "BBQ modeste",
-                300,    //Upgrade price
-                20.,     //Health   (+8)
-                2.,      //Speed
-                8.,      //Range     (+3)
-                10.,     //Damage   (+3)
-                1.5,    //FreqAtk (+.3)
-        });
-
-        statsLevels.add(new Object[]{
-                "licence VIP",
+                "Patte d'or",
                 null,   //Upgrade price
-                30.,     //Health   (+10)
-                3.,      //Speed
-                10.,     //Range     (+2)
-                15.,     //Damage   (+5)
-                2.,      //FreqAtk (+.5)
+                15.,     //Health
+                1.8,      //Speed   (+.3)
+                8.,      //Range
+                9.,     //Damage    (+2)
+                1.5,    //FreqAtk (+.3)
         });
     }
 
+    /// TODO : PAS ENCORE FAIT
     private static void initStatsPouletClassique(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
@@ -184,41 +173,12 @@ public class StatsEntiteInitialiser {
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
                 1.,     //Speed
                 5.,     //Range
-                5.,     //Damage
+                1.,     //Damage
                 1.,     //FreqAtk
-        });
-
-        statsLevels.add(new Object[]{
-                "Spatule d'or",
-                150,    //Upgrade price
-                12.,     //Health   (+4)
-                1.,      //Speed
-                5.,      //Range
-                7.,      //Damage    (+2)
-                1.2,    //FreqAtk (+.2)
-        });
-
-        statsLevels.add(new Object[]{
-                "BBQ modeste",
-                300,    //Upgrade price
-                20.,     //Health   (+8)
-                2.,      //Speed
-                8.,      //Range     (+3)
-                10.,     //Damage   (+3)
-                1.5,    //FreqAtk (+.3)
-        });
-
-        statsLevels.add(new Object[]{
-                "licence VIP",
-                null,   //Upgrade price
-                30.,     //Health   (+10)
-                3.,      //Speed
-                10.,     //Range     (+2)
-                15.,     //Damage   (+5)
-                2.,      //FreqAtk (+.5)
         });
     }
 
+    /// TODO : PAS ENCORE FAIT
     private static void initStatsPouletBouclier(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
@@ -234,45 +194,6 @@ public class StatsEntiteInitialiser {
                 3.,     //TpsBuff
                 .5     //TpsRepo
         });
-
-        statsLevels.add(new Object[]{
-                "Spatule d'or",
-                150,    //Upgrade price
-                12.,     //Health   (+4)
-                1.,      //Speed
-                5.,      //Range
-                7.,      //Damage    (+2)
-                1.2,    //FreqAtk (+.2)
-                15.,     //BuffRange
-                3.5,    //TpsBuff (+.5)
-                .5      //TpsRepo
-        });
-
-        statsLevels.add(new Object[]{
-                "BBQ modeste",
-                300,    //Upgrade price
-                20.,     //Health   (+8)
-                2.,      //Speed
-                8.,      //Range     (+3)
-                10.,     //Damage   (+3)
-                1.5,    //FreqAtk (+.3)
-                20.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
-        });
-
-        statsLevels.add(new Object[]{
-                "licence VIP",
-                null,   //Upgrade price
-                30.,     //Health   (+10)
-                3.,      //Speed
-                10.,     //Range     (+2)
-                15.,     //Damage   (+5)
-                2.,      //FreqAtk (+.5)
-                25.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
-        });
     }
 
     private static void initStatsChatCuisinier(List<Object[]> statsLevels) {
@@ -284,10 +205,10 @@ public class StatsEntiteInitialiser {
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
                 0.,     //Speed
                 5.,     //Range
-                5.,     //Damage
+                .5,     //Damage
                 1.,     //FreqAtk
-                15.,    //BuffRange
-                3.,     //TpsBuff
+                20.,    //BuffRange
+                1.,     //TpsBuff
                 .5     //TpsRepo
         });
 
@@ -296,12 +217,12 @@ public class StatsEntiteInitialiser {
                 150,    //Upgrade price
                 12.,     //Health   (+4)
                 0.,      //Speed
-                5.,      //Range
-                7.,      //Damage    (+2)
-                1.2,    //FreqAtk (+.2)
-                15.,     //BuffRange
-                3.5,    //TpsBuff (+.5)
-                .5      //TpsRepo
+                7.,      //Range    (+2)
+                .8,      //Damage    (+.3)
+                1,    //FreqAtk
+                20.,     //BuffRange
+                1.,    //TpsBuff
+                1.      //TpsRepo   (+.5)
         });
 
         statsLevels.add(new Object[]{
@@ -309,12 +230,12 @@ public class StatsEntiteInitialiser {
                 300,    //Upgrade price
                 20.,     //Health   (+8)
                 0.,      //Speed
-                8.,      //Range     (+3)
-                10.,     //Damage   (+3)
-                1.5,    //FreqAtk (+.3)
-                20.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
+                7.,      //Range
+                .8,      //Damage
+                1,    //FreqAtk
+                30.,     //BuffRange    (+10)
+                1.2,    //TpsBuff        (+.2)
+                1.      //TpsRepo
         });
 
         statsLevels.add(new Object[]{
@@ -322,12 +243,12 @@ public class StatsEntiteInitialiser {
                 null,   //Upgrade price
                 30.,     //Health   (+10)
                 0.,      //Speed
-                10.,     //Range     (+2)
-                15.,     //Damage   (+5)
-                2.,      //FreqAtk (+.5)
-                25.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
+                9.,      //Range    (+2)
+                .8,      //Damage
+                1.5,    //FreqAtk   (+.5)
+                40.,     //BuffRange    (+10)
+                1.7,    //TpsBuff        (+.5)
+                1.2      //TpsRepo       (+.2)
         });
     }
 
@@ -335,58 +256,59 @@ public class StatsEntiteInitialiser {
 
         statsLevels.add(new Object[]{
                 "Default",
-                70,    //Upgrade price
-                8.,     //Health
+                120,    //Upgrade price
+                7.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
                 1.,     //Speed
-                5.,     //Range
-                5.,     //Damage
-                1.,     //FreqAtk
-                15.,    //BuffRange
+                2.,     //Range
+                .5,     //Damage
+                .2,     //FreqAtk
+                5.,    //BuffRange
                 3.,     //TpsBuff
                 .5     //TpsRepo
         });
 
         statsLevels.add(new Object[]{
-                "Spatule d'or",
-                150,    //Upgrade price
-                12.,     //Health   (+4)
+                "Trousse de secours",
+                180,    //Upgrade price
+                12.,     //Health   (+5)
                 1.,      //Speed
-                5.,      //Range
-                7.,      //Damage    (+2)
-                1.2,    //FreqAtk (+.2)
-                15.,     //BuffRange
-                3.5,    //TpsBuff (+.5)
-                .5      //TpsRepo
+                2.,      //Range
+                .5,      //Damage
+                .2,     //FreqAtk
+                6.,    //BuffRange  (+1)
+                3.5,     //TpsBuff  (.5)
+                .5     //TpsRepo
         });
 
         statsLevels.add(new Object[]{
-                "BBQ modeste",
+                "Sneakers",
                 300,    //Upgrade price
-                20.,     //Health   (+8)
-                2.,      //Speed
-                8.,      //Range     (+3)
-                10.,     //Damage   (+3)
-                1.5,    //FreqAtk (+.3)
-                20.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
+                12.,     //Health
+                1.5,      //Speed   (+.5)
+                1.5,      //Range   (-.5)
+                .5,      //Damage
+                .5,     //FreqAtk   (+.3)
+                6.,    //BuffRange
+                3.5,     //TpsBuff
+                .5     //TpsRepo
         });
 
         statsLevels.add(new Object[]{
-                "licence VIP",
+                "Docteur",
                 null,   //Upgrade price
-                30.,     //Health   (+10)
-                3.,      //Speed
-                10.,     //Range     (+2)
-                15.,     //Damage   (+5)
-                2.,      //FreqAtk (+.5)
-                25.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
+                20.,     //Health   (+8)
+                1.8,      //Speed   (+.3)
+                1.5,      //Range
+                .5,      //Damage
+                .5,     //FreqAtk
+                10.,    //BuffRange  (+4)
+                4,     //TpsBuff    (.5)
+                .5     //TpsRepo
         });
     }
 
+    /// TODO : PAS ENCORE FAIT
     private static void initStatsPouletConservateur(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
@@ -402,100 +324,69 @@ public class StatsEntiteInitialiser {
                 3.,     //TpsBuff
                 .5     //TpsRepo
         });
-
-        statsLevels.add(new Object[]{
-                "Spatule d'or",
-                150,    //Upgrade price
-                12.,     //Health   (+4)
-                1.,      //Speed
-                5.,      //Range
-                7.,      //Damage    (+2)
-                1.2,    //FreqAtk (+.2)
-                15.,     //BuffRange
-                3.5,    //TpsBuff (+.5)
-                .5      //TpsRepo
-        });
-
-        statsLevels.add(new Object[]{
-                "BBQ modeste",
-                300,    //Upgrade price
-                20.,     //Health   (+8)
-                2.,      //Speed
-                8.,      //Range     (+3)
-                10.,     //Damage   (+3)
-                1.5,    //FreqAtk (+.3)
-                20.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
-        });
-
-        statsLevels.add(new Object[]{
-                "licence VIP",
-                null,   //Upgrade price
-                30.,     //Health   (+10)
-                3.,      //Speed
-                10.,     //Range     (+2)
-                15.,     //Damage   (+5)
-                2.,      //FreqAtk (+.5)
-                25.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
-        });
     }
 
     private static void initStatsChatScientifique(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
                 "Default",
-                70,    //Upgrade price
+                100,    //Upgrade price
                 8.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
                 1.,     //Speed
                 5.,     //Range
-                5.,     //Damage
+                2.,     //Damage
                 1.,     //FreqAtk
-                15.,    //BuffRange
+                10.,    //BuffRange
                 3.,     //TpsBuff
-                .5     //TpsRepo
+                .5,     //TpsRepo
+                1.,      //DivForce
+                .9      //DivVit
         });
 
         statsLevels.add(new Object[]{
-                "Spatule d'or",
-                150,    //Upgrade price
-                12.,     //Health   (+4)
-                1.,      //Speed
-                5.,      //Range
-                7.,      //Damage    (+2)
-                1.2,    //FreqAtk (+.2)
-                15.,     //BuffRange
-                3.5,    //TpsBuff (+.5)
-                .5      //TpsRepo
+                "Remède douteux",
+                175,    //Upgrade price
+                10.,     //Health   (+2)
+                1.,     //Speed
+                7.,     //Range     (+2)
+                2.,     //Damage
+                1.,     //FreqAtk
+                10.,    //BuffRange
+                3.,     //TpsBuff
+                .5,     //TpsRepo
+                1.,      //DivForce
+                .7      //DivVit    (-.2)
         });
 
         statsLevels.add(new Object[]{
-                "BBQ modeste",
+                "L'anti-Hulk",
                 300,    //Upgrade price
-                20.,     //Health   (+8)
-                2.,      //Speed
-                8.,      //Range     (+3)
-                10.,     //Damage   (+3)
-                1.5,    //FreqAtk (+.3)
-                20.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
+                12.,     //Health   (+2)
+                1.,     //Speed
+                7.,     //Range
+                2.,     //Damage
+                1.,     //FreqAtk
+                12.,    //BuffRange (+2)
+                3.5,     //TpsBuff  (+.5)
+                .5,     //TpsRepo
+                .8,      //DivForce (-.2)
+                .7      //DivVit
         });
 
         statsLevels.add(new Object[]{
-                "licence VIP",
+                "Le Pr Raoult",     /// TODO : SVP je VEUX une image de Raoult pr l'image d'upgrade :pray:
                 null,   //Upgrade price
-                30.,     //Health   (+10)
-                3.,      //Speed
-                10.,     //Range     (+2)
-                15.,     //Damage   (+5)
-                2.,      //FreqAtk (+.5)
-                25.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
+                10.,     //Health   (-2)
+                .8,     //Speed     (-.2)
+                5.,     //Range     (-2)
+                1.5,     //Damage   (-.5)
+                .8,     //FreqAtk   (-.2)
+                25.,    //BuffRange (+13)
+                5.,     //TpsBuff  (+1.5)
+                1.,     //TpsRepo   (+.5)
+                .6,      //DivForce (-.2)
+                .5      //DivVit    (-.2)
         });
     }
 
@@ -503,58 +394,59 @@ public class StatsEntiteInitialiser {
 
         statsLevels.add(new Object[]{
                 "Default",
-                70,    //Upgrade price
-                8.,     //Health
+                100,    //Upgrade price
+                6.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
-                1.,     //Speed
-                5.,     //Range
-                5.,     //Damage
+                0.,     //Speed
+                2.,     //Range
+                1.,     //Damage
                 1.,     //FreqAtk
-                15.,    //BuffRange
-                3.,     //TpsBuff
-                .5     //TpsRepo
+                10.,    //BuffRange
+                1.,     //TpsBuff
+                1.     //TpsRepo
         });
 
         statsLevels.add(new Object[]{
-                "Spatule d'or",
-                150,    //Upgrade price
-                12.,     //Health   (+4)
-                1.,      //Speed
-                5.,      //Range
-                7.,      //Damage    (+2)
-                1.2,    //FreqAtk (+.2)
-                15.,     //BuffRange
-                3.5,    //TpsBuff (+.5)
-                .5      //TpsRepo
+                "Vieux bandeau",
+                200,    //Upgrade price
+                8.,     //Health    (+2)
+                0.,     //Speed
+                2.,     //Range
+                1.5,     //Damage   (+.5)
+                1.,     //FreqAtk
+                12.,    //BuffRange (+2)
+                1.,     //TpsBuff
+                1.     //TpsRepo
         });
 
         statsLevels.add(new Object[]{
-                "BBQ modeste",
-                300,    //Upgrade price
-                20.,     //Health   (+8)
-                2.,      //Speed
-                8.,      //Range     (+3)
-                10.,     //Damage   (+3)
-                1.5,    //FreqAtk (+.3)
-                20.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
+                "Bandeau fashion",
+                350,    //Upgrade price
+                15.,     //Health   (+7)
+                0.,     //Speed
+                4.,     //Range     (+2)
+                1.8,     //Damage   (+.3)
+                1.,     //FreqAtk
+                15.,    //BuffRange (+3)
+                1.2,     //TpsBuff  (+.2)
+                1.     //TpsRepo
         });
 
         statsLevels.add(new Object[]{
-                "licence VIP",
+                "Troisième oeil",
                 null,   //Upgrade price
-                30.,     //Health   (+10)
-                3.,      //Speed
-                10.,     //Range     (+2)
-                15.,     //Damage   (+5)
-                2.,      //FreqAtk (+.5)
-                25.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
+                23.,     //Health   (+8)
+                0.,     //Speed
+                6.,     //Range     (+2)
+                1.8,     //Damage
+                1.2,     //FreqAtk  (+.2)
+                20.,    //BuffRange (+5)
+                1.5,     //TpsBuff  (+.3)
+                1.     //TpsRepo
         });
     }
 
+    /// TODO : PAS ENCORE FAIT
     private static void initStatsChatJournaliste(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
@@ -615,6 +507,7 @@ public class StatsEntiteInitialiser {
         });
     }
 
+    /// TODO : PAS ENCORE FAIT
     private static void initStatsPouletMenottes(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
@@ -631,50 +524,9 @@ public class StatsEntiteInitialiser {
                 .5,      //TpsRepo
                 6       //NbrVictimes
         });
-
-        statsLevels.add(new Object[]{
-                "Spatule d'or",
-                150,    //Upgrade price
-                12.,     //Health   (+4)
-                1.,      //Speed
-                5.,      //Range
-                7.,      //Damage    (+2)
-                1.2,    //FreqAtk (+.2)
-                15.,     //BuffRange
-                3.5,    //TpsBuff (+.5)
-                .5,      //TpsRepo
-                3       //NbrVictimes
-        });
-
-        statsLevels.add(new Object[]{
-                "BBQ modeste",
-                300,    //Upgrade price
-                20.,     //Health   (+8)
-                2.,      //Speed
-                8.,      //Range     (+3)
-                10.,     //Damage   (+3)
-                1.5,    //FreqAtk (+.3)
-                20.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5,      //TpsRepo
-                4       //NbrVictimes   (+1)
-        });
-
-        statsLevels.add(new Object[]{
-                "licence VIP",
-                null,   //Upgrade price
-                30.,     //Health   (+10)
-                3.,      //Speed
-                10.,     //Range     (+2)
-                15.,     //Damage   (+5)
-                2.,      //FreqAtk (+.5)
-                25.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5,      //TpsRepo
-                6       //NbrVictimes   (+2)
-        });
     }
 
+    /// TODO : PAS ENCORE FAIT
     private static void initStatsPouletVolant(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
@@ -690,47 +542,9 @@ public class StatsEntiteInitialiser {
                 3.,     //TpsBuff
                 .5     //TpsRepo
         });
-
-        statsLevels.add(new Object[]{
-                "Spatule d'or",
-                150,    //Upgrade price
-                12.,     //Health   (+4)
-                1.,      //Speed
-                5.,      //Range
-                7.,      //Damage    (+2)
-                1.2,    //FreqAtk (+.2)
-                15.,     //BuffRange
-                3.5,    //TpsBuff (+.5)
-                .5      //TpsRepo
-        });
-
-        statsLevels.add(new Object[]{
-                "BBQ modeste",
-                300,    //Upgrade price
-                20.,     //Health   (+8)
-                2.,      //Speed
-                8.,      //Range     (+3)
-                10.,     //Damage   (+3)
-                1.5,    //FreqAtk (+.3)
-                20.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
-        });
-
-        statsLevels.add(new Object[]{
-                "licence VIP",
-                null,   //Upgrade price
-                30.,     //Health   (+10)
-                3.,      //Speed
-                10.,     //Range     (+2)
-                15.,     //Damage   (+5)
-                2.,      //FreqAtk (+.5)
-                25.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
-        });
     }
 
+    /// TODO : PAS ENCORE FAIT
     private static void initStatsChienInterim(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
@@ -787,6 +601,7 @@ public class StatsEntiteInitialiser {
         });
     }
 
+    /// TODO : PAS ENCORE FAIT
     private static void initStatsPouletMineur(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
@@ -802,47 +617,9 @@ public class StatsEntiteInitialiser {
                 3.,     //TpsBuff
                 .5     //TpsRepo
         });
-
-        statsLevels.add(new Object[]{
-                "Spatule d'or",
-                150,    //Upgrade price
-                12.,     //Health   (+4)
-                1.,      //Speed
-                5.,      //Range
-                7.,      //Damage    (+2)
-                1.2,    //FreqAtk (+.2)
-                15.,     //BuffRange
-                3.5,    //TpsBuff (+.5)
-                .5      //TpsRepo
-        });
-
-        statsLevels.add(new Object[]{
-                "BBQ modeste",
-                300,    //Upgrade price
-                20.,     //Health   (+8)
-                2.,      //Speed
-                8.,      //Range     (+3)
-                10.,     //Damage   (+3)
-                1.5,    //FreqAtk (+.3)
-                20.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
-        });
-
-        statsLevels.add(new Object[]{
-                "licence VIP",
-                null,   //Upgrade price
-                30.,     //Health   (+10)
-                3.,      //Speed
-                10.,     //Range     (+2)
-                15.,     //Damage   (+5)
-                2.,      //FreqAtk (+.5)
-                25.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
-        });
     }
 
+    /// TODO : PAS ENCORE FAIT
     private static void initStatsTaupe(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
