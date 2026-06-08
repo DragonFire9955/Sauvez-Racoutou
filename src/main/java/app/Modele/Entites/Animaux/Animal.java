@@ -17,9 +17,9 @@ public class Animal extends Entite {
     private boolean canAttack;
     private boolean allie;
 
-    public Animal(String name, double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie) {
-        super(name, coord, health, coin, r, dmg, freqAtk, w);
-        this.vitesse = vitesse;
+    public Animal(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
+        super(name, coord, w, statsLevels);
+        this.vitesse = (double) statsLevels.get(0)[3];
         canAttack=true;
         stunnedUntil = new double[2];
         slowUntil = new double[3];

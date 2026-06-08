@@ -8,12 +8,12 @@ import java.util.List;
 
 public class StatsEntiteInitialiser {
 
-    public static List<Object[]> getStatsLevels(Entite e) {
+    public static List<Object[]> getStatsLevels(String name) {
 
         List<Object[]> statsLevels = new ArrayList<>();
 
 
-        switch (e.getName()) {
+        switch (name) {
             case "Racoutou":
                 initStatsRacoutou(statsLevels);
                 break;
