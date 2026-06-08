@@ -27,7 +27,6 @@ public abstract class AlterationElementaire extends Debuffer {
 
                 if (getChrono() == dt) {
                     for (int i = 0; i < animaux.size() && i < getNbVictimes(); i++) {
-
                         actionDebuff(animaux.get(i), dt);
                     }
 
@@ -57,6 +56,7 @@ public abstract class AlterationElementaire extends Debuffer {
     }
 
     public abstract void actionDebuff(Animal a, double dt);
+
 
 
 }

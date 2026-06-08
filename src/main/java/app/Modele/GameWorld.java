@@ -23,7 +23,7 @@ public class GameWorld {
     private ObservableList<Barrage> barrageList;
     //private BooleanProperty theEnd;
     private IntegerProperty theEnd;
-    private final int tailleTile=32;
+    private final int tailleTile=64;
 
     private int[][] map;
     //private Map<Double, Noeud> dijkRacoutou;
