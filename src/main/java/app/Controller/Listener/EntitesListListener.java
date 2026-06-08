@@ -114,7 +114,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         AnchorPane.setTopAnchor(entityImageView, 14.0);
 
         //Nom de l'entité
-        Label entityNameLabel = new Label(e.getClass().getSimpleName());    ///TODO : pour ceux dans AnimauxManager ça met "Animal"...
+        Label entityNameLabel = new Label(e.getName());    ///TODO : pour ceux dans AnimauxManager ça met "Animal"...
         entityNameLabel.setAlignment(Pos.CENTER);
         entityNameLabel.setPrefSize(109, 26);
         entityNameLabel.setTextFill(Color.WHITE);

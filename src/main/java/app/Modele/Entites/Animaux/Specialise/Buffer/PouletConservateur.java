@@ -9,13 +9,8 @@ import java.util.List;
 
 public class PouletConservateur extends Buffer {
     public PouletConservateur( GameWorld w) {
-        super(EnnemisSpawn.randomCoord(w), 3, 3, 2, 2, 2, 1, w, false, 5, 5, 10, new ArrayList<>());
+        super("Poulet conservateur",  EnnemisSpawn.randomCoord(w), 3, 3, 2, 2, 2, 1, w, false, 5, 5, 10, new ArrayList<>());
         getListeBuff().add(0.5);
     }
 
-
-    @Override
-    public void actionBuff(Animal cible) {
-
-    }
 }

@@ -25,7 +25,7 @@ public class PouletVolant extends Volant {
 
     public PouletVolant(GameWorld w) {
 
-        super(EnnemisSpawn.randomCoord(w), 10, 2, 5, 2, 10, 1, w, false);
+        super("Poulet volant", EnnemisSpawn.randomCoord(w), 10, 2, 5, 2, 10, 1, w, false);
 
         cible = this.getAnimauxCibles().stream().filter(animal -> animal instanceof Racoutou).findFirst().orElse(null);
 

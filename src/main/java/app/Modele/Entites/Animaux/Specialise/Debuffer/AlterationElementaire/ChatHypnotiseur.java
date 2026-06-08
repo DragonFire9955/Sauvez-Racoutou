@@ -10,7 +10,7 @@ public class ChatHypnotiseur extends AlterationElementaire {
 
     public ChatHypnotiseur(double[] coord, GameWorld w) {
 
-        super(coord, 6, 40, 0, 10, 1, 1, w, true, 1, 5, 10, 5);
+        super("Chat Hypnotiseur", coord, 6, 40, 0, 10, 1, 1, w, true, 1, 5, 10, 5);
         this.tempsDirscours = 5;
     }
 
@@ -18,5 +18,4 @@ public class ChatHypnotiseur extends AlterationElementaire {
     public void actionDebuff(Animal a) {
         ///TODO : changer de camp
     }
-
 }

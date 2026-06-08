@@ -16,6 +16,8 @@ import static java.lang.Thread.sleep;
 
 public abstract class Entite {
 
+    private String name;
+
     private static int nbId =0;
     private int id;
     private GameWorld world;
@@ -38,12 +40,14 @@ public abstract class Entite {
     private List<Object[]> statsLevels;
 
 
-    protected Entite(double coord[], double health, int coin, double range, double dmg, double freqAtk, GameWorld w) {
+    protected Entite(String name, double coord[], double health, int coin, double range, double dmg, double freqAtk, GameWorld w) {
 
         this.id=nbId;
         nbId++;
 
         coll = false;
+
+        this.name = name;
 
         this.x = new SimpleDoubleProperty(coord[0]);
         this.y = new SimpleDoubleProperty(coord[1]);
@@ -240,5 +244,9 @@ public abstract class Entite {
         }
 
         return ciblesClassees;
+    }
+
+    public String getName() {
+        return name;
     }
 }

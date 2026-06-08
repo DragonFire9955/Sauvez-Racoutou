@@ -9,8 +9,8 @@ import java.util.List;
 public class Stunner extends Debuffer {
 
 
-    public Stunner(double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, int nbV, double stun, double tempsRecup, double rangeStun) {
-        super(coord, health, coin, vitesse, r, dmg, freqAtk, w, allie, nbV, stun, tempsRecup, rangeStun);
+    public Stunner(String name, double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, int nbV, double stun, double tempsRecup, double rangeStun) {
+        super(name, coord, health, coin, vitesse, r, dmg, freqAtk, w, allie, nbV, stun, tempsRecup, rangeStun);
     }
 
 

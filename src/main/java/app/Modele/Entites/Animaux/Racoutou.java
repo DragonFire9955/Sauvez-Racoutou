@@ -11,11 +11,11 @@ import static java.lang.Thread.sleep;
 public class Racoutou extends Animal {
 
     public Racoutou(GameWorld w) {
-        super(new double[]{(double) ((w.getTailleTile() * (w.getMap()[0].length/2))+w.getTailleTile()/2), (double) ((w.getTailleTile() * (w.getMap().length /2))+ w.getTailleTile()/2)}, 50, 0, 0, 7, 10, .5, w, true);
+        super("Racoutou", new double[]{(double) ((w.getTailleTile() * (w.getMap()[0].length/2))+w.getTailleTile()/2), (double) ((w.getTailleTile() * (w.getMap().length /2))+ w.getTailleTile()/2)}, 50, 0, 0, 7, 10, .5, w, true);
     }
 
     public Racoutou(double[] coord, GameWorld w) {
-        super(coord, 50, 0,  0, 7, 5, 2.5, w, true);
+        super("Racoutou", coord, 50, 0,  0, 7, 5, 2.5, w, true);
     }
 
     @Override

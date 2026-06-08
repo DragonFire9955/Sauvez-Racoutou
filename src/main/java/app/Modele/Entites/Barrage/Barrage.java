@@ -7,8 +7,8 @@ import app.Modele.Utilitaires.Utilitaire;
 public abstract class Barrage extends Entite {
     public double taille;
 
-    public Barrage(double[] coord, double health, int coin, double r, GameWorld w, double t){
-        super(coord, health, 5, 0, r, 0, w);
+    public Barrage(String name, double[] coord, double health, int coin, double r, GameWorld w, double t){
+        super(name, coord, health, 5, 0, r, 0, w);
         taille=t;
 
     }
