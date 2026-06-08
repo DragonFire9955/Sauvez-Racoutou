@@ -10,10 +10,13 @@ import javafx.beans.property.SimpleDoubleProperty;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static java.lang.Thread.sleep;
 
 public abstract class Entite {
+
+    private String name;
 
     private static int nbId =0;
     private int id;
@@ -34,12 +37,17 @@ public abstract class Entite {
 
     private double chrono;
 
+    private List<Object[]> statsLevels;
 
-    protected Entite(double coord[], double health, int coin, double range, double dmg, double freqAtk, GameWorld w) {
+
+    protected Entite(String name, double coord[], double health, int coin, double range, double dmg, double freqAtk, GameWorld w) {
+
         this.id=nbId;
         nbId++;
 
         coll = false;
+
+        this.name = name;
 
         this.x = new SimpleDoubleProperty(coord[0]);
         this.y = new SimpleDoubleProperty(coord[1]);
@@ -55,6 +63,8 @@ public abstract class Entite {
         alive = new SimpleBooleanProperty(true);
         actif=true;
         chrono=0;
+
+        statsLevels = new ArrayList<>();
     }
     public void update(double dt)  {
         this.handleCollisions(getCible(), dt);
@@ -168,6 +178,14 @@ public abstract class Entite {
         return alive;
     }
 
+    public List<Object[]> getStatsLevels() {
+        return statsLevels;
+    }
+
+    public void setStatsLevels(List<Object[]> statsLevels) {
+        this.statsLevels = statsLevels;
+    }
+
     public abstract Entite getDirection();
 
     public abstract Entite getCible();
@@ -207,6 +225,8 @@ public abstract class Entite {
         int i;
         for(Entite e: entites){
             //Si e dans le rayon d'action
+            if(e.equals(this)) continue;
+
             if(Utilitaire.distance(this.getX(), this.getY(), e.getX(), e.getY())<=range) {
                 i = 0;
                 //Tant que distance supérieur ET pv supérieur
@@ -221,10 +241,11 @@ public abstract class Entite {
                 ciblesClassees.add(i, e);
             }
         }
-        if(ciblesClassees.size()>2) {
-            for (int ind = 0; ind < ciblesClassees.size(); ind++) {
-            }
-        }
+
         return ciblesClassees;
+    }
+
+    public String getName() {
+        return name;
     }
 }

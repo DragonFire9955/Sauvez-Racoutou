@@ -1,8 +1,10 @@
 package app.Vue;
 
 import app.Modele.Entites.Animaux.Animal;
+import app.Modele.Entites.Animaux.Specialise.Buffer.ChatCuisinier;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
 import app.Modele.Entites.Animaux.Racoutou;
+import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.Stunner;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Entite;
@@ -13,47 +15,139 @@ public class EntiteVue {
 
     public static int tailleImage = 32;
 
-    public static ImageView appliquerBonneImage(Entite entite) {
+    public static ImageView appliquerBonneImage(Entite entite, boolean withInit) {
 
-        ImageView imageView = new ImageView();
 
-        switch (entite) {
-            case Racoutou racoutou ->
-                imageView.setImage(new Image("app/images/racoutou.png"));
-            case ChatScientifique chatScientifique ->
-                    imageView.setImage(new Image("app/images/chat.png"));
-            case PouletBouclier pouletBouclier ->
-                imageView.setImage(new Image("app/images/PouletBouclier.png"));
-            case Stunner stunner ->
-            {
-                if (stunner.isAllie())
-                    imageView.setImage(new Image("app/images/chatJournaliste.jpg"));
-                else
-                    imageView.setImage(new Image("app/images/pouletMenotte.png"));
-            }
-            case Animal animal ->
-            {
-                if (animal.isAllie())
-                    imageView.setImage(new Image("app/images/chat.png"));
-                else
-                    imageView.setImage(new Image("app/images/pouletClassique.png"));
-            }
-            default -> System.out.println("Image inconnue");
+        int taille;
+        ImageView imageView;
+        Image image;
 
+        switch (entite.getName()) {
+            case "Racoutou":
+                image = new Image("app/images/racoutou.png");
+                break;
+// CLASSIQUES
+            case "Chat classique":
+                image = new Image("app/images/chat.png");
+                break;
+            case "Poulet classique":
+                image = new Image("app/images/pouletClassique.png");
+                break;
+// SPECIALISES
+            case "Poulet bouclier":
+                image = new Image("app/images/pouletBouclier.png");
+                break;
+        // BUFFER
+            case "Chat cuisinier":
+                image = new Image("app/images/chatCuisinier.png");
+                break;
+            case "Chat médecin":
+                image = new Image("app/images/chatMedecin.png");
+                break;
+            case "Poulet conservateur":
+                image = new Image("app/images/pouletClassique.png"); /// TODO: IMG
+                break;
+        // DEBUFFER
+            // ALTERATIONS ELEMENTAIRES
+            case "Chat scientifique":
+                image = new Image("app/images/chatScientifique.png");
+                break;
+            case "Chat hypnotiseur":
+                image = new Image("app/images/chatHypnotiseur.png");
+                break;
+            // STUNNER
+            case "Chat journaliste":
+                image = new Image("app/images/chatJournaliste.png");
+                break;
+            case "Poulet menottes":
+                image = new Image("app/images/pouletMenottes.png");
+                break;
+// VOLANTS
+            case "Poulet volant":
+                image = new Image("app/images/pouletClassique.png"); /// TODO: IMG
+                break;
+            case "Chien intermittent":
+                image = new Image("app/images/chienInterim.jpg"); /// TODO: IMG
+                break;
+// CREUSANT
+            case "Poulet mineur":
+                image = new Image("app/images/pouletClassique.png"); /// TODO: IMG
+                break;
+            case "Taupe":
+                image = new Image("app/images/chienInterim.jpg"); /// TODO: IMG
+                break;
+
+            default:
+                System.out.println(entite.getClass());
+                System.out.println("Image inconnue");
+                image = null;
+                break;
         }
 
-        //Là j'initialise l'image comme il faut mais on peux en faire un personalisé dans les conditions au dessus
+        imageView = new ImageView(image);
+        if (entite instanceof Animal && (!((Animal) entite).isAllie() || (entite instanceof PouletIGPN)))
+            taille= (int) (tailleImage*.75);
+        else if (entite instanceof Racoutou)
+            taille = (int) (tailleImage*1.5);
+        else
+            taille=tailleImage;
 
-        imageView.setFitWidth(tailleImage);
-        imageView.setFitHeight(tailleImage);
+        if (withInit)
+            initImageView(entite, imageView, taille);
+
+        return imageView;
+    }
+
+    //Là j'initialise l'image comme il faut mais on peux en faire un personalisé dans les conditions au dessus
+    public static void initImageView(Entite entite, ImageView imageView, int taille) {
+
+        imageView.setFitWidth(taille);
+        imageView.setFitHeight(taille);
         imageView.setPreserveRatio(true);
         imageView.setSmooth(true);
         imageView.setCache(true);
         imageView.setId(""+entite.getId());
 
-        imageView.layoutXProperty().bind(entite.getXProperty().subtract(tailleImage/2));
-        imageView.layoutYProperty().bind(entite.getYProperty().subtract(tailleImage/2));
+        imageView.layoutXProperty().bind(entite.getXProperty().subtract(taille/2));
+        imageView.layoutYProperty().bind(entite.getYProperty().subtract(taille/2));
+    }
 
-        return imageView;
+
+    public static Image appliquerBonneImageGif(Entite entite) {
+
+        Image image;
+
+        switch (entite.getName()) {
+            case "Racoutou":
+                    image = new Image("app/images/gif/racoutou.gif");
+                    break;
+            case "Chat scientifique":
+                    image = new Image("app/images/gif/chatScientifique.gif");
+                    break;
+            case "Poulet bouclier":
+                    image = new Image("app/images/gif/pouletBouclier.gif");
+                    break;
+            case "Chat cuisinier":
+                    image = new Image("app/images/gif/chatCuisinier.gif");
+                    break;
+            case "Chat journaliste":
+                image = new Image("app/images/gif/chatJournaliste.gif");
+                break;
+            case "Poulet menottes":
+                image = new Image("app/images/gif/pouletMenottes.gif");
+                break;
+            case "Chat classique":
+                image = new Image("app/images/gif/chatClassique.gif");
+                break;
+            case "Poulet classique":
+                image = new Image("app/images/gif/pouletClassique.gif");
+                break;
+            default:
+                System.out.println("Image inconnue");
+                image = null;
+                break;
+        }
+
+        return image;
     }
 }

@@ -23,13 +23,13 @@ public class MenuController {
 
 
     @FXML
-    private Pane demarragePane;
+    public Pane demarragePane;
 
     private Controller controller;
 
     @FXML
     public void lancerJeu() throws IOException {
-        System.out.println("bobb");
+
         Pane jeu =FXMLLoader.load(MenuController.class.getResource("/app/main.fxml"));
         demarragePane.getScene().setRoot(jeu);
         isGameStarted.setValue(true);

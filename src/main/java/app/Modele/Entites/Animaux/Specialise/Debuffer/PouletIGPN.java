@@ -9,7 +9,7 @@ import java.util.List;
 public class PouletIGPN extends Debuffer {
 
     public PouletIGPN(double[] coord, GameWorld w) {
-        super(coord, 4, 1, 0, 2, 1, 1, w, true, 1, 5, 5, 10);
+        super("Poulet IGPN", coord, 4, 1, 0, 2, 1, 1, w, true, 1, 5, 5, 10);
     }
 
     @Override

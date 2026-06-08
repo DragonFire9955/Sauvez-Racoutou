@@ -14,8 +14,8 @@ public class CameraManager {
 
     private final Scale scale;
 
-    private final int tilesVisiblesX = 40;
-    private final int tilesVisiblesY = 23;
+    private final int tilesVisiblesX = 30;
+    private final int tilesVisiblesY = 18;
 
     private final double zoomMin = 1;
     private final double zoomMax = 2.5;

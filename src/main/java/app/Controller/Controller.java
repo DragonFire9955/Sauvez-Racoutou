@@ -1,16 +1,21 @@
 package app.Controller;
 
+import app.Controller.Listener.ControleurDeClic;
+import app.Controller.Listener.EntiteHealthListener;
+import app.Controller.Listener.EntitesListListener;
+import app.Controller.Listener.OnMouseClickedListener;
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.Buffer.ChatCuisinier;
+import app.Modele.Entites.Animaux.Specialise.Buffer.ChatMedecin;
 import app.Modele.Entites.Animaux.Specialise.Buffer.PouletConservateur;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Animaux.Volants.PouletVolant;
+import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.AnimauxManager;
-import app.Modele.Managers.EnnemisSpawn;
 import app.Modele.Terrain;
-import app.Modele.Vague;
+import app.Modele.Managers.EnnemisSpawn;
 import app.Vue.CameraManager;
 import app.Vue.EntiteVue;
 import app.Vue.TerrainVue;
@@ -19,13 +24,18 @@ import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -34,6 +44,8 @@ import static app.Controller.MenuController.*;
 public class Controller implements Initializable {
 
     // VUE
+    @FXML
+    private BorderPane applicationPane; // border pane parent de tous
     @FXML
     private Pane gamePane;
     @FXML
@@ -60,6 +72,12 @@ public class Controller implements Initializable {
     @FXML
     private VBox menuPause;
 
+
+    @FXML
+    private Pane finJeu;
+    @FXML
+    private ImageView imgFinJeu;
+
     private TerrainVue terrainVue;
     private boolean enPause = false;
 
@@ -77,6 +95,8 @@ public class Controller implements Initializable {
     private Timeline gameLoop;
     private IntegerProperty temps = new SimpleIntegerProperty(0);
 
+    //Listener
+    OnMouseClickedListener onMouseClickedListener;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -110,46 +130,96 @@ public class Controller implements Initializable {
             clicControl.placerStructure(ligne, colonne, id);
 
             e.consume();
+            gamePane.requestFocus();
         });
 
         //Initialisation des Managers
-        gameWorld.getTheEnd().addListener((obs, oldV, newV) -> gameLoop.stop());
+        gameWorld = new GameWorld();
+        gameWorld.getTheEnd().addListener((obs, oldV, newV) -> {
+
+            if(newV.intValue()>0){
+                imgFinJeu.setImage(new Image("app/images/gagne.gif"));
+            } else if (newV.intValue()<0) {
+                imgFinJeu.setImage(new Image("app/images/gif/perdue.gif"));
+            }
+            imgFinJeu.setFitWidth(300);
+            imgFinJeu.setFitHeight(300);
+            imgFinJeu.setPreserveRatio(true);
+            imgFinJeu.setSmooth(true);
+            imgFinJeu.setCache(true);
+            finJeu.setVisible(true);
+            isGameStarted.setValue(false);
+        });
+        /*
+        gameWorld.getTheEnd().addListener((obs, oldV, newV) -> {
+            if(newV == true) {
+                isGameStarted.setValue(false);
+                System.out.println(isGameStarted);
+                applicationPane.getScene().setRoot(menu);
+                System.out.println(applicationPane);
+            }
+        });
+
+         */
         cameraManager = new CameraManager(gamePane, carte, tileMap);
         cameraManager.initialiserCamera();
+
+        //Observable eventListener
+        onMouseClickedListener = new OnMouseClickedListener(tileMap, carte, gameWorld);
+        carte.addEventHandler(MouseEvent.MOUSE_MOVED, onMouseClickedListener);
+        carte.addEventHandler(MouseEvent.MOUSE_CLICKED, onMouseClickedListener);
 
         //Binding du label coin, à déplacer au bon endroit
         coinLabel.textProperty().bind(gameWorld.getTotalCoin().asString());
 
         //Binding label vague + timerVague
-        waveLabel.textProperty().bind(Vague.currentWave.asString());
-        waveTimerLabel.textProperty().bind(temps.multiply(0.017).asString("%.0f / " + Vague.waveDuration));
+
+        waveLabel.textProperty().bind(gameWorld.getNumeroVagueProperty().asString());
+
+
+
+        waveTimerLabel.textProperty().bind(gameWorld.getTempsActuelVagueProperty().asString().concat(" / ").concat(gameWorld.getDurreeVagueProperty().asString()));
+
 
         //TEMPORAIRE, A DELET
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
+        for (Entite e : gameWorld.getAnimaux()) {
+            e.getHealthProperty().addListener((observableValue, oldV, newV) -> {
+                if (oldV.doubleValue() < newV.doubleValue()) {
+                    Node entite = carte.lookup("#" + e.getId());
+                    //((ImageView) entite).setImage("URL NOUVELLE IMAGE AVEC DMG");
+                }
+            });
+        }
 
         //IMAGE DE RACOUTOU
         initRacoutou();
-
+        /*
         gameWorld.getAnimaux().getFirst().getAliveProperty().addListener((observable, oldValue, newValue) -> {
                     gamePane.getScene().setRoot(menu);
                     isGameStarted.setValue(false);
                 }
         );
+
+         */
         gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
         System.out.println(isGameStarted);
         isGameStarted.addListener(((observableValue, aBoolean, t1) -> {
-            initAnimation();
-            gameLoop.play();
+
+            if (t1 == true) {
+                initAnimation();
+                gameLoop.play();
+            } else
+                gameLoop.stop();
         }));
 
 
-        gamePane.sceneProperty().addListener((observable, oldValue, newValue) -> {
-
-            gamePane.setFocusTraversable(true);
+        applicationPane.sceneProperty().addListener((observable, oldValue, newValue) -> {
             gamePane.requestFocus();
+            gamePane.setFocusTraversable(true);
 
             //On met tout les évènements claviers
-            gamePane.setOnKeyPressed(event -> {
+            applicationPane.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ESCAPE){
                     pause();
                 }
@@ -157,7 +227,6 @@ public class Controller implements Initializable {
                 remetEnnemiTest(event);
             });
         });
-
     }
 
     @FXML
@@ -177,7 +246,7 @@ public class Controller implements Initializable {
     @FXML
     private void quitterJeu() {
         gameLoop.stop();
-        gamePane.getScene().setRoot(menu);
+        applicationPane.getScene().setRoot(menu);
         isGameStarted.setValue(false);
     }
 
@@ -249,6 +318,7 @@ public class Controller implements Initializable {
             System.out.println("nouveau PouletClassique");
 
             gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
+
         } else if (event.getCode() == KeyCode.A) {
 
             System.out.println("nouveau Racoutou");
@@ -258,7 +328,7 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau PouletBouclier");
 
-            gameWorld.ajouterAnimal(new PouletBouclier(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+            gameWorld.ajouterAnimal(new PouletBouclier(gameWorld));
         } else if (event.getCode() == KeyCode.M) {
 
             System.out.println("nouveau PouletMenotte");
@@ -274,12 +344,16 @@ public class Controller implements Initializable {
             System.out.println("nouveau ChatJournaliste");
 
             gameWorld.ajouterAnimal(AnimauxManager.creerChatJournaliste(gameWorld));
-        }
-        else if (event.getCode() == KeyCode.G) {
+        }else if (event.getCode() == KeyCode.G) {
 
             System.out.println("nouveau scientifique");
 
             gameWorld.ajouterAnimal(new ChatScientifique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+        } else if (event.getCode() == KeyCode.H) {
+
+            System.out.println("nouveau medecin");
+
+            gameWorld.ajouterAnimal(new ChatMedecin(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
         } else if (event.getCode() == KeyCode.B) {
 
             System.out.println("nouveau ChatCuisinier");
@@ -291,12 +365,12 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau Volant");
 
-            gameWorld.ajouterAnimal(new PouletVolant(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+            gameWorld.ajouterAnimal(new PouletVolant(gameWorld));
         } else if (event.getCode() == KeyCode.L) {
 
             System.out.println("nouveau pSoigne");
 
-            gameWorld.ajouterAnimal(new PouletConservateur(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+            gameWorld.ajouterAnimal(new PouletConservateur(gameWorld));
         }
 
 
@@ -304,39 +378,25 @@ public class Controller implements Initializable {
     }
 
     private void initRacoutou(){
-        carte.getChildren().add(EntiteVue.appliquerBonneImage(gameWorld.getRacoutou()));
-        VieControlleur barreVie = new VieControlleur(gameWorld.getRacoutou());
+        Entite racoutou = gameWorld.getRacoutou();
+        carte.getChildren().add(EntiteVue.appliquerBonneImage(racoutou, true));
+        racoutou.getHealthProperty().addListener(new EntiteHealthListener(carte, racoutou));
+        VieControlleur barreVie = new VieControlleur(racoutou);
         StackPane visuelBarre = barreVie.getConteneur();
-        visuelBarre.setId(gameWorld.getRacoutou().getId());
+        visuelBarre.setId(racoutou.getId());
         carte.getChildren().add(visuelBarre);
     }
 
-    //Partie render des Animaux sur la scène
-   /* private void affichageAnimaux() {
+    //REPETITION !!!
+    @FXML
+    public void lancerJeu() throws IOException {
 
-        for (Animaux a: gameWorld.getAnimaux()) {
+        Pane jeu = FXMLLoader.load(MenuController.class.getResource("/app/main.fxml"));
+        applicationPane.getScene().setRoot(jeu);
+        isGameStarted.setValue(true);
 
-        }
-    }*/
-
-    /*private void cleanupViews() {
-
-        //J'ai mis un Iterator car il permet de delet sans avoir de prb d'index
-        Iterator<Animaux> iterator = gameWorld.getAnimaux().iterator();
-
-        while (iterator.hasNext()) {
-
-            Animaux a = iterator.next();    //Je le stocke car si on le save pas on peux pas l'use, car on passera au suivant si on remet iterator.next
-
-            if (!a.isAlive()) {
-
-                iterator.remove();
-                carte.getChildren().remove(animauxVue.remove(a));
-            }
-        }
     }
 
-     */
 
 
 }

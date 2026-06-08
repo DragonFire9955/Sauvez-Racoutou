@@ -11,14 +11,14 @@ import java.util.List;
 import static java.lang.Thread.sleep;
 
 public class Animal extends Entite {
-    private double stunnedUntil[];
+    private double[] stunnedUntil;
     private double[] slowUntil;
     private double vitesse;
     private boolean canAttack;
     private boolean allie;
 
-    public Animal(double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie) {
-        super(coord, health, coin, r, dmg, freqAtk, w);
+    public Animal(String name, double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie) {
+        super(name, coord, health, coin, r, dmg, freqAtk, w);
         this.vitesse = vitesse;
         canAttack=true;
         stunnedUntil = new double[2];
@@ -29,11 +29,12 @@ public class Animal extends Entite {
     @Override
     public void update(double dt)  {
         super.update(dt);
+
         if (!isColl() && vitesse!=0) {
             deplacement();
         }
         else if(stunnedUntil[0]!=0){
-                unstuned(dt);
+            unstuned(dt);
         }
 
         if (slowUntil[0]!=0){
@@ -193,7 +194,25 @@ public class Animal extends Entite {
             return getWorld().getAlliesAnimaux();
         else
             return getWorld().getEnnemis();
+    }
 
+    public List<Animal> getAnimauxCopainsClasses(){
+
+        List<Animal> entitesTriees = new ArrayList<>();
+        List<Animal> copains = getAnimauxCopains();
+        int i;
+        for(Animal a: copains) {
+            if(a.equals(this)) continue;
+            i= 0;
+            //Tant que distance supérieur ET pv supérieur
+            while (i < entitesTriees.size()
+                    && Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())
+                    > Utilitaire.distance(this.getX(), this.getY(), entitesTriees.get(i).getX(), entitesTriees.get(i).getY())) {
+                i++;
+            }
+            entitesTriees.add(i, a);
+        }
+        return entitesTriees;
     }
 
 

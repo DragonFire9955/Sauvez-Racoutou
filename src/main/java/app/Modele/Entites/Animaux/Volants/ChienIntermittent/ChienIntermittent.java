@@ -39,7 +39,7 @@ public class ChienIntermittent extends Animal {
 
     public ChienIntermittent(double[] coord, GameWorld w, Canon canon) {
 
-        super(coord, 4, 0, 5, 30, 8, 10, w, true);
+        super("Chen intermittent", coord, 4, 0, 5, 30, 8, 10, w, true);
 
         this.canon=canon;
 

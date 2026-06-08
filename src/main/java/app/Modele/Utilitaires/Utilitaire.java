@@ -56,4 +56,14 @@ public class Utilitaire {
             animaux.add((Animal) e);
         return animaux;
     }
+
+    public static int getIndex(List<Integer> l, int val){
+        int i=0;
+        while (i<l.size() && l.get(i)!=val)
+            i++;
+        if(i==l.size())
+            return -1;
+        else
+            return i;
+    }
 }

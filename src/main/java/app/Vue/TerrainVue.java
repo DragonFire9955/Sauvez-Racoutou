@@ -1,26 +1,11 @@
 package app.Vue;
 
-import app.Controller.ControleurDeClic;
-import app.Modele.Entites.Entite;
-import javafx.scene.image.Image;
+import app.Controller.Listener.ControleurDeClic;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
 
 public class TerrainVue {
-
-    private Image base = new Image(getClass().getResourceAsStream("/app/images/herbe.png"), 32, 32, true, true);
-    private Image sol = new Image(getClass().getResourceAsStream("/app/images/sol.png"), 32, 32, true, true);
-    private Image tonneau = new Image(getClass().getResourceAsStream("/app/images/tonneau4.png"), 32, 32, true, true);
-    private Image hor = new Image(getClass().getResourceAsStream("/app/images/horizontal.png"), 32, 32, false, true);
-    private Image ver = new Image(getClass().getResourceAsStream("/app/images/vertical2.png"), 32, 32, false, true);
-
-    private Image poubelle = new Image(getClass().getResourceAsStream("/app/images/poubelle.png"), 32, 32, false, true);
-    private Image classique = new Image(getClass().getResourceAsStream("/app/images/chat.png"), 32, 32, false, true);
-    private Image sniper = new Image(getClass().getResourceAsStream("/app/images/sniper.png"), 32, 32, false, true);
-    private Image journaliste = new Image(getClass().getResourceAsStream("/app/images/journaliste.png"), 32, 32, false, true);
-
-    private int ligne;
 
     public void delimitationMap(TilePane tileMap){
         tileMap.setPrefColumns(44);
@@ -34,19 +19,19 @@ public class TerrainVue {
 
         switch (tuile) {
             case 1:
-                cases.setImage(base);
+                cases.setImage(ImageSetter.base);
                 break;
             case 2:
-                cases.setImage(tonneau);
+                cases.setImage(ImageSetter.tonneau);
                 break;
             case 3:
-                cases.setImage(hor);
+                cases.setImage(ImageSetter.hor);
                 break;
             case 4:
-                cases.setImage(ver);
+                cases.setImage(ImageSetter.ver);
                 break;
             default:
-                cases.setImage(sol);
+                cases.setImage(ImageSetter.sol);
                 break;
         }
 
@@ -58,7 +43,7 @@ public class TerrainVue {
 
         switch (idEntite) {
             case 100:
-                tour.setImage(poubelle);
+                tour.setImage(ImageSetter.poubelle);
                 break;
             default:
                 System.out.println("Barrage inconnu");
