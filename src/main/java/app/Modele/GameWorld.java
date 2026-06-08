@@ -7,7 +7,6 @@ import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import app.Modele.Utilitaires.Noeud;
-import app.Vue.TerrainVue;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -15,16 +14,14 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GameWorld {
 
     private ObservableList<Animal> animauxList;
     private ObservableList<Barrage> barrageList;
-    private BooleanProperty theEnd;
+    //private BooleanProperty theEnd;
+    private IntegerProperty theEnd;
     private final int tailleTile=32;
 
     private int[][] map;
@@ -32,44 +29,56 @@ public class GameWorld {
     private Map<Noeud, Noeud> dijkRacoutou2;
 
 
-    private HashMap<Integer, ArrayList<Animal>> vagueActuelle;
-    private double tempsVague;
+
+    private List<TreeMap<Integer, List<Animal>>> ensemblesVagues;
+    private IntegerProperty durreeVague;
+    private  int debutVague;
+    private IntegerProperty numeroVague;
+    private IntegerProperty tempsActuelVague;
+
+
 
     private IntegerProperty totalCoin;
 
     public GameWorld(){
 
-        map = TerrainVue.genererMap();
+        map = Terrain.genererMap();
         animauxList = FXCollections.observableArrayList();
         animauxList.add(new Racoutou(this));
         barrageList = FXCollections.observableArrayList();
-        theEnd= new SimpleBooleanProperty(false);
+        theEnd= new SimpleIntegerProperty(0);
 
         //dijkRacoutou= new DeplacementDijkstra(tailleTile, map).calculerDistances(getTileRacoutou());
         dijkRacoutou2= new DeplacementDijkstra(tailleTile, map).testDijkstra(this.getRacoutou().getCoord());
 
         totalCoin = new SimpleIntegerProperty(0);
 
+        ensemblesVagues = Vague.ensembleVagues(this);
+        durreeVague = new SimpleIntegerProperty(0);
+        debutVague=0;
+        numeroVague = new SimpleIntegerProperty(0);
+
+        tempsActuelVague = new SimpleIntegerProperty(0);
         //vagueActuelle = Vague.creerVague1(this);
-        tempsVague = 0;
+        //tempsVague = 0;
     }
 
 
     public void updateGW(double dt)  {
+        //if(getRacoutou() == null) theEnd.setValue(true);
+        if(!perdue() && !gagne()){
+            vagueManager(dt);
 
-        //vagueManager(dt);
-
-        for (Entite entite : animauxList) {
-            entite.update(dt);
+            for (Entite entite : animauxList) {
+                entite.update(dt);
+            }
+            for (Barrage barrage : barrageList) {
+                barrage.update(dt);
+            }
+            supprimerAnimauxMorts();
         }
-
-        for (Barrage barrage : barrageList) {
-            barrage.update(dt);
-        }
-
-        supprimerAnimauxMorts();
     }
-
+/*
     private void vagueManager(double dt) {
 
         tempsVague = dt;
@@ -78,6 +87,28 @@ public class GameWorld {
         if (vagueActuelle.containsKey(tempsActuel)) {
             animauxList.addAll(vagueActuelle.get(tempsActuel));
             vagueActuelle.remove(tempsActuel);
+        }
+    }
+
+ */
+
+    private void vagueManager(double dt) {
+
+        double tempsVague = dt - debutVague;
+
+        if(tempsVague>=(durreeVague.get()) && numeroVague.get()<ensemblesVagues.size()){
+            System.out.println(numeroVague);
+            numeroVague.set(numeroVague.get()+1);
+            debutVague = (int) dt;
+            durreeVague.set(ensemblesVagues.get(numeroVague.get()-1).lastKey() +10);
+            System.out.println(" Durée vague: "+durreeVague.get());
+            tempsVague = 0;
+        }
+
+        tempsActuelVague.set( (int) tempsVague);
+
+        if(numeroVague.get()!=0 && ensemblesVagues.get(numeroVague.get()-1).containsKey(tempsActuelVague.get())){
+            animauxList.addAll(ensemblesVagues.get(numeroVague.get()-1).pollFirstEntry().getValue());
         }
     }
 
@@ -138,13 +169,15 @@ public class GameWorld {
         return barrageList;
     }
 
-    public BooleanProperty getTheEnd(){
+    public IntegerProperty getTheEnd(){
         return theEnd;
     }
-
+/*
     public void changeStateTheEnd(){
         theEnd.set(!theEnd.getValue());
     }
+
+ */
 
     public int[][] getMap() {
         return map;
@@ -191,6 +224,41 @@ public class GameWorld {
     public void setMap(int[][] map) {
         this.map = map;
     }
+
+    public IntegerProperty getNumeroVagueProperty() {
+        return numeroVague;
+    }
+
+    public int getDurreeVague() {
+        return durreeVague.get();
+    }
+
+    public IntegerProperty getDurreeVagueProperty() {
+        return durreeVague;
+    }
+
+    public IntegerProperty getTempsActuelVagueProperty(){
+        return tempsActuelVague;
+    }
+
+    public boolean perdue(){
+        if(this.getRacoutou() == null){
+            theEnd.set(-1);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean gagne(){
+        if(numeroVague.get()>= ensemblesVagues.size() && this.getEnnemis().isEmpty()){
+            theEnd.set(1);
+            return true;
+        }
+
+        return  false;
+    }
+
+
 
 
 

@@ -23,7 +23,7 @@ public class MenuController {
 
 
     @FXML
-    private Pane demarragePane;
+    public Pane demarragePane;
 
     private Controller controller;
 

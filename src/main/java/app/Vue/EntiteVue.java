@@ -76,24 +76,26 @@ public class EntiteVue {
 
         switch (entite) {
             case Racoutou racoutou ->
-                    image = new Image("app/images/racoutou.png");
+                    image = new Image("app/images/gif/racoutou.gif");
             case ChatScientifique chatScientifique ->
-                    image = new Image("app/images/chat.png");
+                    image = new Image("app/images/gif/chatScientifique.gif");
             case PouletBouclier pouletBouclier ->
-                    image = new Image("app/images/pouletBouclier.jpg");
+                    image = new Image("app/images/gif/pouletBouclier.gif");
+            case ChatCuisinier chatCuisinier ->
+                    image = new Image("app/images/gif/chatCuisinier.gif");
             case Stunner stunner ->
             {
                 if (stunner.isAllie())
-                    image = new Image("app/images/chatJournaliste.jpg");
+                    image = new Image("app/images/gif/chatJournaliste.gif");
                 else
-                    image = new Image("app/images/pouletMenotte.jpg");
+                    image = new Image("app/images/gif/pouletMenottes.gif");
             }
             case Animal animal ->
             {
                 if (animal.isAllie())
-                    image = new Image("app/images/chat.png");
+                    image = new Image("app/images/gif/chatClassique.gif");
                 else
-                    image = new Image("app/images/pouletIGPN.gif");
+                    image = new Image("app/images/gif/pouletClassique.gif");
             }
             default -> {
                 System.out.println("Image inconnue");

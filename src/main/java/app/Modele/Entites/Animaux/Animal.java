@@ -29,6 +29,7 @@ public class Animal extends Entite {
     @Override
     public void update(double dt)  {
         super.update(dt);
+
         if (!isColl() && vitesse!=0) {
             deplacement();
         }
