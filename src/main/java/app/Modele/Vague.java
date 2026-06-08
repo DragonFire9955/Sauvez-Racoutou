@@ -1,7 +1,6 @@
 package app.Modele;
 
 import app.Modele.Entites.Animaux.Animal;
-import app.Modele.Entites.Animaux.Specialise.Buffer.PouletConservateur;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Animaux.Volants.PouletVolant;
 import app.Modele.Managers.AnimauxManager;
@@ -283,7 +282,7 @@ public class Vague {
                 a = new PouletBouclier(w);
                 break;
             case "PouletConservateur":
-                a = new PouletConservateur(w);
+                a = AnimauxManager.creerPouletConservateur(w);
                 break;
             case "PouletVolant":
                 a = new PouletVolant(w);
@@ -294,9 +293,4 @@ public class Vague {
         }
         return a;
     }
-
-
-
-
-
 }

@@ -13,7 +13,7 @@ public class PouletIGPN extends Debuffer {
     }
 
     @Override
-    public void debuff(double dt, List<Animal> animaux) {
+    public void debuff(double dt) {
         ///  TODO: ralentissement + force --
     }
 }

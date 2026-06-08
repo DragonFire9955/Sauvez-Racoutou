@@ -18,12 +18,11 @@ public class ChatScientifique extends AlterationElementaire {
     }
 
 
-    public void actionDebuff(Animal a) {
+    public void actionDebuff(Animal a, double dt) {
         a.setSlowUntil((getChrono() + getTempsAction()), a.getVitesse(), a.getDamage() );
-        System.out.println(a.getClass().getName()+" dmg:" + a.getDamage() +" v: "+a.getVitesse());
+
         a.setDamage(a.getDamage()/facteurDivForce);
         a.setVitesse(a.getVitesse()/facteurDivVitesse);
-        System.out.println(a.getClass().getName()+" dmg:" + a.getDamage() +" v: "+a.getVitesse());
         System.out.println();
         System.out.println("slow");
     }

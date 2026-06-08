@@ -15,7 +15,8 @@ public abstract class AlterationElementaire extends Debuffer {
         super(name, coord, health, coin, vitesse, r, dmg, freqAtk, w, allie, nbV, tDebuff, tempsRecup, rangeDebuff);
     }
 
-    public void debuff(double dt, List<Animal> animaux){
+    public void debuff(double dt){
+        List<Animal> animaux = getAnimauxCibles();
         if (!animaux.isEmpty()) {
 
             if (isActionSpecialePossible()) {
@@ -26,16 +27,8 @@ public abstract class AlterationElementaire extends Debuffer {
 
                 if (getChrono() == dt) {
                     for (int i = 0; i < animaux.size() && i < getNbVictimes(); i++) {
-                        /*
 
-                        cibles.get(i).setDamage(cibles.get(i).getDamage()/facteurDivForce);
-                        cibles.get(i).setVitesse(cibles.get(i).getVitesse()/facteurDivVitesse);
-                        cibles.get(i).setStunnedUntil(chrono + tempsSlow);
-                        System.out.println(dt);
-                        System.out.println("slow");
-
-                         */
-                        actionDebuff(animaux.get(i));
+                        actionDebuff(animaux.get(i), dt);
                     }
 
                 } else if (getChrono() + getTempsAction()>= dt) { //defiger bonhommes + this ne peut pas stun
@@ -63,7 +56,7 @@ public abstract class AlterationElementaire extends Debuffer {
         return l;
     }
 
-    public abstract void actionDebuff(Animal a);
+    public abstract void actionDebuff(Animal a, double dt);
 
 
 }
