@@ -1,10 +1,5 @@
 package app.Vue;
 
-import app.Modele.Entites.Animaux.Animal;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
-import app.Modele.Entites.Animaux.Racoutou;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.Stunner;
-import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Entite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -40,11 +35,10 @@ public class EntiteVue {
             case "Poulet classique":
                 image = new Image("app/images/pouletClassique.png");
                 break;
-            default: {
+            default:
                 System.out.println("Image inconnue");
                 image = null;
                 break;
-            }
         }
 
         imageView = new ImageView(image);
@@ -74,34 +68,35 @@ public class EntiteVue {
 
         Image image;
 
-        switch (entite) {
-            case Racoutou racoutou ->
+        switch (entite.getName()) {
+            case "Racoutou":
                     image = new Image("app/images/gif/racoutou.gif");
-            case ChatScientifique chatScientifique ->
+                    break;
+            case "Chat scientifique":
                     image = new Image("app/images/gif/chatScientifique.gif");
-            case PouletBouclier pouletBouclier ->
+                    break;
+            case "Poulet bouclier":
                     image = new Image("app/images/gif/pouletBouclier.gif");
-            case ChatCuisinier chatCuisinier ->
+                    break;
+            case "Chat cuisinier":
                     image = new Image("app/images/gif/chatCuisinier.gif");
-            case Stunner stunner ->
-            {
-                if (stunner.isAllie())
-                    image = new Image("app/images/gif/chatJournaliste.gif");
-                else
-                    image = new Image("app/images/gif/pouletMenottes.gif");
-            }
-            case Animal animal ->
-            {
-                if (animal.isAllie())
-                    image = new Image("app/images/gif/chatClassique.gif");
-                else
-                    image = new Image("app/images/gif/pouletClassique.gif");
-            }
-            default -> {
+                    break;
+            case "Chat journaliste":
+                image = new Image("app/images/gif/chatJournaliste.gif");
+                break;
+            case "Poulet menottes":
+                image = new Image("app/images/gif/pouletMenottes.gif");
+                break;
+            case "Chat classique":
+                image = new Image("app/images/gif/chatClassique.gif");
+                break;
+            case "Poulet classique":
+                image = new Image("app/images/gif/pouletClassique.gif");
+                break;
+            default:
                 System.out.println("Image inconnue");
                 image = null;
-            }
-
+                break;
         }
 
         return image;
