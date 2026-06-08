@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 
 public class EntiteVue {
 
-    public static int tailleImage = 32;
+    public static int tailleImage = 64;
 
     public static ImageView appliquerBonneImage(Entite entite, boolean withInit) {
 

@@ -13,7 +13,6 @@ import static java.lang.Thread.sleep;
 public class Animal extends Entite {
     private double[] stunnedUntil;
     private double[] slowUntil;
-    private double inverseUntil;
     private double vitesse;
     private boolean canAttack;
     private boolean allie;
@@ -24,7 +23,6 @@ public class Animal extends Entite {
         canAttack=true;
         stunnedUntil = new double[2];
         slowUntil = new double[3];
-        inverseUntil = 0;
         this.allie=allie;
     }
 
@@ -41,10 +39,6 @@ public class Animal extends Entite {
 
         if (slowUntil[0]!=0){
             endSlow(dt);
-        }
-
-        if(inverseUntil!=0){
-            endInverse(dt);
         }
     }
 
@@ -247,16 +241,4 @@ public class Animal extends Entite {
     public void setAllie(boolean allie) {
         this.allie = allie;
     }
-
-    public void setInverseUntil(double dt){
-        this.inverseUntil=dt;
-    }
-
-    public void endInverse(double dt){
-        if(dt>= this.inverseUntil)
-            this.setAllie(!isAllie());
-    }
-
-
-
 }

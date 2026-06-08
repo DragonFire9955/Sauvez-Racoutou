@@ -20,7 +20,6 @@ public class Buffer extends Specialise {
     @Override
     public void update(double dt) {
         super.update(dt);
-        System.out.println("super update");
         if(!getAnimauxCiblesAccessibles().isEmpty() && getChrono()==0){
             setChrono(dt);
             buff();
@@ -31,7 +30,7 @@ public class Buffer extends Specialise {
 
     public void buff(){
         Animal cible = getAnimauxCiblesAccessibles().getFirst();
-        System.out.println(cible.getClass().getName() +"  " + cible.getHealthProperty().getValue());
+        //System.out.println(cible.getClass().getName() +"  " + cible.getHealthProperty().getValue());
         cible.setHealth(cible.getHealthProperty().getValue() + getListeBuff().getFirst());
 
     }
@@ -54,7 +53,7 @@ public class Buffer extends Specialise {
         List<Animal> entitesTriees = new ArrayList<>();
         List<Animal> copains = getAnimauxCopains();
         int i;
-        
+
         for(Animal a: copains) {
             if(a.getClass() == this.getClass()) continue;
             i= 0;

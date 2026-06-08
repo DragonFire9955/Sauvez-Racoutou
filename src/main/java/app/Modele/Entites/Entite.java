@@ -1,6 +1,5 @@
 package app.Modele.Entites;
 
-import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Utilitaire;
 import javafx.beans.property.BooleanProperty;
@@ -10,7 +9,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static java.lang.Thread.sleep;
 
@@ -35,7 +33,7 @@ public abstract class Entite {
     private BooleanProperty alive;
     private boolean actif;
 
-    private double chrono;
+    private double chronoSpe;
 
     private List<Object[]> statsLevels;
 
@@ -62,7 +60,7 @@ public abstract class Entite {
 
         alive = new SimpleBooleanProperty(true);
         actif=true;
-        chrono=0;
+        chronoSpe =0;
 
         statsLevels = new ArrayList<>();
     }
@@ -79,14 +77,14 @@ public abstract class Entite {
         }
 
         if (Utilitaire.intersects(cible, this)){
-            if(chrono==0)
-                chrono=dt;
+            if(chronoSpe ==0)
+                chronoSpe =dt;
 
             coll = true;
 
-            if (((dt-chrono)) >= freqAtk) {
+            if (((dt- chronoSpe)) >= freqAtk) {
                 attaquer();
-                chrono = 0;
+                chronoSpe = 0;
             }
 
         } else {

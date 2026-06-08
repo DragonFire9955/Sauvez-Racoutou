@@ -4,7 +4,7 @@ import app.Controller.Listener.EntiteHealthListener;
 import app.Controller.Listener.EntitesListListener;
 import app.Controller.Listener.OnMouseClickedListener;
 import app.Modele.Entites.Animaux.Racoutou;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatHypnotiseur;
+import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Animaux.Volants.PouletVolant;
@@ -446,7 +446,7 @@ public class Controller implements Initializable {
         } else if (event.getCode() == KeyCode.K) {
 
             System.out.println("nouveau hypno");
-            gameWorld.ajouterAnimal(new ChatHypnotiseur(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+            gameWorld.ajouterAnimal(new ChatHypnotiseur(new double[]{gameWorld.getRacoutou().getX()+20, gameWorld.getRacoutou().getY()-20} , gameWorld));
 
         } else if (event.getCode() == KeyCode.H) {
 

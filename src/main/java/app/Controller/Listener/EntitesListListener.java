@@ -1,8 +1,10 @@
 package app.Controller.Listener;
 
 import app.Modele.Entites.Animaux.Animal;
+import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
+import app.Modele.Managers.AnimauxManager;
 import app.Vue.EntiteVue;
 import app.Controller.VieControlleur;
 import javafx.collections.ListChangeListener;
@@ -67,13 +69,6 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
                     carte.getChildren().add(imageEntite);
 
-                    //on lui crée sa description si c un allié
-                    if (e instanceof Animal && ((Animal) e).isAllie()) {
-
-                        ajoutZoneDescription(e);
-                        imageEntite.setOnMouseClicked(event -> afficherDescription(e));
-                    }
-
                     //créé la barre de vie et récupère son conteneur
                     VieControlleur barreVie = new VieControlleur(e);
                     StackPane visuelBarre = barreVie.getConteneur();
@@ -85,6 +80,13 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     visuelBarre.setId(e.getId());
                     //Je met le listener de ma vie ici car + pratique et évite les bugs du lookup()
                     e.getHealthProperty().addListener(new EntiteHealthListener(carte, e));
+
+                    //on lui crée sa description si c un allié
+                    if (e instanceof Animal && ((Animal) e).isAllie()) {
+
+                        ajoutZoneDescription(e);
+                        imageEntite.setOnMouseClicked(event -> afficherDescription(e));
+                    }
                 }
             }
         }
