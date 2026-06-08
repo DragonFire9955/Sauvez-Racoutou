@@ -33,22 +33,17 @@ public class Stunner extends Debuffer {
                         animaux.get(i).setVitesse(0);
                         animaux.get(i).setCanAttack(false);
                         animaux.get(i).setStunnedUntil(stunnedUntil);
-                        System.out.println("stun");
                     }
 
                 } else if (getChrono() + getTempsAction() >= dt) { //defiger bonhommes + this ne peut pas stun
                     setVitesse(getvInitial());
                     setActionSpecialePossible(false);
-                    System.out.println("debut cooldown");
                 }
-                System.out.println(getChrono() + "chrono");
-                System.out.println("dt " + dt);
             }
 
             if (isChronoDefini() && getChrono() + getTempsAction() + getTempsRepo() == dt) { //this peut stun à nouveau
                 setActionSpecialePossible(true);
                 setChronoDefini(false);
-                System.out.println("fin cool down");
             }
         }
     }

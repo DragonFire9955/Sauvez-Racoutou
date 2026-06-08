@@ -30,18 +30,13 @@ public abstract class AlterationElementaire extends Debuffer {
                         actionDebuff(animaux.get(i), dt);
                     }
 
-                } else if (getChrono() + getTempsAction()>= dt) { //defiger bonhommes + this ne peut pas stun
+                } else if (getChrono() + getTempsAction()>= dt) //defiger bonhommes + this ne peut pas stun
                     setActionSpecialePossible(false);
-                    System.out.println("debut cooldown");
-                }
-                System.out.println(getChrono() + "chrono");
-                System.out.println("dt " + dt);
             }
 
             if (isChronoDefini() && getChrono() + getTempsAction() + getTempsRepo() == dt) { //this peut stun à nouveau
                 setActionSpecialePossible(true);
                 setChronoDefini(false);
-                System.out.println("fin cool down");
             }
         }
     }

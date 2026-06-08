@@ -44,6 +44,9 @@ public class EntiteVue {
                 image = new Image("app/images/chienInterim.jpg"); /// TODO: IMG
                 break;
         // DEBUFFER
+            case "Poulet IGPN":
+                image = new Image("app/images/pouletIGPN.png");
+                break;
             // ALTERATIONS ELEMENTAIRES
             case "Chat scientifique":
                 image = new Image("app/images/chatScientifique.png");
@@ -120,6 +123,9 @@ public class EntiteVue {
             case "Chat scientifique":
                     image = new Image("app/images/gif/chatScientifique.gif");
                     break;
+            case "Poulet IGPN":
+                image = new Image("app/images/gif/pouletIGPN.gif");
+                break;
             case "Poulet bouclier":
                     image = new Image("app/images/gif/pouletBouclier.gif");
                     break;
