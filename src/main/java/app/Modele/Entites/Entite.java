@@ -222,6 +222,8 @@ public abstract class Entite {
         int i;
         for(Entite e: entites){
             //Si e dans le rayon d'action
+            if(e.equals(this)) continue;
+
             if(Utilitaire.distance(this.getX(), this.getY(), e.getX(), e.getY())<=range) {
                 i = 0;
                 //Tant que distance supérieur ET pv supérieur
@@ -236,10 +238,7 @@ public abstract class Entite {
                 ciblesClassees.add(i, e);
             }
         }
-        if(ciblesClassees.size()>2) {
-            for (int ind = 0; ind < ciblesClassees.size(); ind++) {
-            }
-        }
+
         return ciblesClassees;
     }
 }

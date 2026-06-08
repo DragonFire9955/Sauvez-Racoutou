@@ -16,6 +16,6 @@ public class PouletConservateur extends Buffer {
 
     @Override
     public void actionBuff(Animal cible) {
-        System.out.println("POULET");
+
     }
 }

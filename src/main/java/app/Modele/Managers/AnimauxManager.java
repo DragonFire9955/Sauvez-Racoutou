@@ -2,18 +2,21 @@ package app.Modele.Managers;
 
 import app.Modele.Chemins.DeplacementDijkstra;
 import app.Modele.Entites.Animaux.Animal;
+import app.Modele.Entites.Animaux.Specialise.Buffer.Buffer;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.Stunner;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Noeud;
 import app.Modele.Utilitaires.Utilitaire;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class AnimauxManager {
 
     public static GameWorld w;
 
+// CLASSIQUE
     public static Animal creerChatClassique(GameWorld w) {
         return new Animal(EnnemisSpawn.randomCoord(w), 5, 10, 2, 5, 1, 1, w, true);
     }
@@ -22,12 +25,32 @@ public class AnimauxManager {
         return new Animal(EnnemisSpawn.randomCoord(w), 50, 10, 2, 5, 1, 1, w, false);
     }
 
+// STUNNER
     public static Animal creerPouletMenotte(GameWorld w){
         return new Stunner(EnnemisSpawn.randomCoord(w), 5, 2, 1, 5, 1, 1, w, false, 1, 3, 5, 10);
     }
 
     public static Animal creerChatJournaliste(GameWorld w){
         return new Stunner(EnnemisSpawn.randomCoord(w), 8, 15, 3, .5, .5, 1, w, true, 1, 3, 5, 10);
+    }
+
+// BUFFER
+    public static Animal creerChatMedecin(GameWorld w) {
+        ArrayList<Double> lbuff = new ArrayList<>();
+        lbuff.add(1.);
+        return new Buffer(EnnemisSpawn.randomCoord(w), 7, 20, 3, 2, .5, 5, w, true, 3, 3, 5, lbuff);
+    }
+
+    public static Animal creerChatCuisinier(GameWorld w) {
+        ArrayList<Double> lbuff = new ArrayList<>();
+        lbuff.add(0.25);
+        return new Buffer (new double[]{w.getRacoutou().getX()-20, w.getRacoutou().getY()+20} , 8, 50, 0, 5, .5, 3, w, true, 15, 3, .5, lbuff);
+    }
+
+    public static Animal creerPouletConservateur(GameWorld w) {
+        ArrayList<Double> lbuff = new ArrayList<>();
+        lbuff.add(0.5);
+        return new Buffer (EnnemisSpawn.randomCoord(w), 3, 3, 2, 2, 2, 1, w, false, 5, 5, 10, lbuff);
     }
 
 

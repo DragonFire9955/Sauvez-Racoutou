@@ -194,7 +194,25 @@ public class Animal extends Entite {
             return getWorld().getAlliesAnimaux();
         else
             return getWorld().getEnnemis();
+    }
 
+    public List<Animal> getAnimauxCopainsClasses(){
+
+        List<Animal> entitesTriees = new ArrayList<>();
+        List<Animal> copains = getAnimauxCopains();
+        int i;
+        for(Animal a: copains) {
+            if(a.equals(this)) continue;
+            i= 0;
+            //Tant que distance supérieur ET pv supérieur
+            while (i < entitesTriees.size()
+                    && Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())
+                    > Utilitaire.distance(this.getX(), this.getY(), entitesTriees.get(i).getX(), entitesTriees.get(i).getY())) {
+                i++;
+            }
+            entitesTriees.add(i, a);
+        }
+        return entitesTriees;
     }
 
 
