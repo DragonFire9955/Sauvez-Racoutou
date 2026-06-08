@@ -2,10 +2,13 @@ package app.Modele.Entites.Animaux.Volants;
 
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.GameWorld;
+import app.Modele.Utilitaires.StatsEntiteInitialiser;
+
+import java.util.List;
 
 public class Volant extends Animal {
 
-    public Volant(String name, double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie) {
-        super(name, coord, health, coin, vitesse, r, dmg, freqAtk, w, allie);
+    public Volant(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
+        super(name, coord, w, statsLevels, allie);
     }
 }

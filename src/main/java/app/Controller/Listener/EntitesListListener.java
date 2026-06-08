@@ -94,7 +94,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
         AtomicInteger actualLevel = new AtomicInteger(0);   //Voir l'action de l'amélioration à la fin
 
-        AtomicInteger qtiteRevente = new AtomicInteger((int) (e.getStatsLevels().get(actualLevel.get())[1]) / 2);   //On définit la quantité rendue
+        AtomicInteger qtiteRevente = new AtomicInteger((int) (e.getCoin()/2));   //On définit la quantité rendue
 
         AnchorPane root = new AnchorPane();
         root.setPrefSize(260, 200);
@@ -209,10 +209,10 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         VBox upgradeBox = new VBox();
         upgradeBox.setPrefSize(109, 63);
 
-        Label nameUpgrade = new Label(e.getStatsLevels().get(actualLevel.get()+1)[0].toString());
+        Label nameUpgrade = new Label(e.getName());
         VBox.setMargin(nameUpgrade, new Insets(0, 0, 0, 40));
 
-        Label priceUpgrade = new Label(Integer.toString((int) (e.getStatsLevels().get(actualLevel.get())[1])));
+        Label priceUpgrade = new Label(Integer.toString((int) (e.getCoin())));
 
         priceUpgrade.setAlignment(Pos.CENTER);
         priceUpgrade.setPrefWidth(111);

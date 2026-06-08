@@ -77,45 +77,29 @@ public class StatsEntiteInitialiser {
 
     private static void initStatsRacoutou(List<Object[]> statsLevels) {
 
-    }
-
-    private static void initStatsChatClassique(List<Object[]> statsLevels) {
-
-    }
-
-    private static void initStatsPouletClassique(List<Object[]> statsLevels) {
-
-    }
-
-    private static void initStatsPouletBouclier(List<Object[]> statsLevels) {
-
-    }
-
-    private static void initStatsChatCuisinier(List<Object[]> statsLevels) {
-
         statsLevels.add(new Object[]{
                 "Default",
                 70,    //Upgrade price
-                8,     //Health
+                8.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
-                0,     //Speed
-                5,     //Range
-                5,     //Damage
-                1,     //FreqAtk
-                15,    //BuffRange
-                3,     //TpsBuff
+                0.,     //Speed
+                5.,     //Range
+                5.,     //Damage
+                1.,     //FreqAtk
+                15.,    //BuffRange
+                3.,     //TpsBuff
                 .5     //TpsRepo
         });
 
         statsLevels.add(new Object[]{
                 "Spatule d'or",
                 150,    //Upgrade price
-                12,     //Health   (+4)
-                0,      //Speed
-                5,      //Range
-                7,      //Damage    (+2)
+                12.,     //Health   (+4)
+                0.,      //Speed
+                5.,      //Range
+                7.,      //Damage    (+2)
                 1.2,    //FreqAtk (+.2)
-                15,     //BuffRange
+                15.,     //BuffRange
                 3.5,    //TpsBuff (+.5)
                 .5      //TpsRepo
         });
@@ -123,12 +107,12 @@ public class StatsEntiteInitialiser {
         statsLevels.add(new Object[]{
                 "BBQ modeste",
                 300,    //Upgrade price
-                20,     //Health   (+8)
-                0,      //Speed
-                8,      //Range     (+3)
-                10,     //Damage   (+3)
+                20.,     //Health   (+8)
+                0.,      //Speed
+                8.,      //Range     (+3)
+                10.,     //Damage   (+3)
                 1.5,    //FreqAtk (+.3)
-                20,     //BuffRange (+5)
+                20.,     //BuffRange (+5)
                 3.5,    //TpsBuff
                 .5      //TpsRepo
         });
@@ -136,12 +120,212 @@ public class StatsEntiteInitialiser {
         statsLevels.add(new Object[]{
                 "licence VIP",
                 null,   //Upgrade price
-                30,     //Health   (+10)
-                0,      //Speed
-                10,     //Range     (+2)
-                15,     //Damage   (+5)
-                2,      //FreqAtk (+.5)
-                25,     //BuffRange (+5)
+                30.,     //Health   (+10)
+                0.,      //Speed
+                10.,     //Range     (+2)
+                15.,     //Damage   (+5)
+                2.,      //FreqAtk (+.5)
+                25.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
+    }
+
+    private static void initStatsChatClassique(List<Object[]> statsLevels) {
+
+        statsLevels.add(new Object[]{
+                "Default",
+                70,    //Upgrade price
+                8.,     //Health
+                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
+                1.,     //Speed
+                5.,     //Range
+                5.,     //Damage
+                1.,     //FreqAtk
+        });
+
+        statsLevels.add(new Object[]{
+                "Spatule d'or",
+                150,    //Upgrade price
+                12.,     //Health   (+4)
+                1.,      //Speed
+                5.,      //Range
+                7.,      //Damage    (+2)
+                1.2,    //FreqAtk (+.2)
+        });
+
+        statsLevels.add(new Object[]{
+                "BBQ modeste",
+                300,    //Upgrade price
+                20.,     //Health   (+8)
+                2.,      //Speed
+                8.,      //Range     (+3)
+                10.,     //Damage   (+3)
+                1.5,    //FreqAtk (+.3)
+        });
+
+        statsLevels.add(new Object[]{
+                "licence VIP",
+                null,   //Upgrade price
+                30.,     //Health   (+10)
+                3.,      //Speed
+                10.,     //Range     (+2)
+                15.,     //Damage   (+5)
+                2.,      //FreqAtk (+.5)
+        });
+    }
+
+    private static void initStatsPouletClassique(List<Object[]> statsLevels) {
+
+        statsLevels.add(new Object[]{
+                "Default",
+                70,    //Upgrade price
+                8.,     //Health
+                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
+                1.,     //Speed
+                5.,     //Range
+                5.,     //Damage
+                1.,     //FreqAtk
+        });
+
+        statsLevels.add(new Object[]{
+                "Spatule d'or",
+                150,    //Upgrade price
+                12.,     //Health   (+4)
+                1.,      //Speed
+                5.,      //Range
+                7.,      //Damage    (+2)
+                1.2,    //FreqAtk (+.2)
+        });
+
+        statsLevels.add(new Object[]{
+                "BBQ modeste",
+                300,    //Upgrade price
+                20.,     //Health   (+8)
+                2.,      //Speed
+                8.,      //Range     (+3)
+                10.,     //Damage   (+3)
+                1.5,    //FreqAtk (+.3)
+        });
+
+        statsLevels.add(new Object[]{
+                "licence VIP",
+                null,   //Upgrade price
+                30.,     //Health   (+10)
+                3.,      //Speed
+                10.,     //Range     (+2)
+                15.,     //Damage   (+5)
+                2.,      //FreqAtk (+.5)
+        });
+    }
+
+    private static void initStatsPouletBouclier(List<Object[]> statsLevels) {
+
+        statsLevels.add(new Object[]{
+                "Default",
+                70,    //Upgrade price
+                8.,     //Health
+                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
+                1.,     //Speed
+                5.,     //Range
+                5.,     //Damage
+                1.,     //FreqAtk
+                15.,    //BuffRange
+                3.,     //TpsBuff
+                .5     //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "Spatule d'or",
+                150,    //Upgrade price
+                12.,     //Health   (+4)
+                1.,      //Speed
+                5.,      //Range
+                7.,      //Damage    (+2)
+                1.2,    //FreqAtk (+.2)
+                15.,     //BuffRange
+                3.5,    //TpsBuff (+.5)
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "BBQ modeste",
+                300,    //Upgrade price
+                20.,     //Health   (+8)
+                2.,      //Speed
+                8.,      //Range     (+3)
+                10.,     //Damage   (+3)
+                1.5,    //FreqAtk (+.3)
+                20.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "licence VIP",
+                null,   //Upgrade price
+                30.,     //Health   (+10)
+                3.,      //Speed
+                10.,     //Range     (+2)
+                15.,     //Damage   (+5)
+                2.,      //FreqAtk (+.5)
+                25.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
+    }
+
+    private static void initStatsChatCuisinier(List<Object[]> statsLevels) {
+
+        statsLevels.add(new Object[]{
+                "Default",
+                70,    //Upgrade price
+                8.,     //Health
+                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
+                0.,     //Speed
+                5.,     //Range
+                5.,     //Damage
+                1.,     //FreqAtk
+                15.,    //BuffRange
+                3.,     //TpsBuff
+                .5     //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "Spatule d'or",
+                150,    //Upgrade price
+                12.,     //Health   (+4)
+                0.,      //Speed
+                5.,      //Range
+                7.,      //Damage    (+2)
+                1.2,    //FreqAtk (+.2)
+                15.,     //BuffRange
+                3.5,    //TpsBuff (+.5)
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "BBQ modeste",
+                300,    //Upgrade price
+                20.,     //Health   (+8)
+                0.,      //Speed
+                8.,      //Range     (+3)
+                10.,     //Damage   (+3)
+                1.5,    //FreqAtk (+.3)
+                20.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "licence VIP",
+                null,   //Upgrade price
+                30.,     //Health   (+10)
+                0.,      //Speed
+                10.,     //Range     (+2)
+                15.,     //Damage   (+5)
+                2.,      //FreqAtk (+.5)
+                25.,     //BuffRange (+5)
                 3.5,    //TpsBuff
                 .5      //TpsRepo
         });
@@ -149,41 +333,569 @@ public class StatsEntiteInitialiser {
 
     private static void initStatsChatMedecin(List<Object[]> statsLevels) {
 
+        statsLevels.add(new Object[]{
+                "Default",
+                70,    //Upgrade price
+                8.,     //Health
+                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
+                1.,     //Speed
+                5.,     //Range
+                5.,     //Damage
+                1.,     //FreqAtk
+                15.,    //BuffRange
+                3.,     //TpsBuff
+                .5     //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "Spatule d'or",
+                150,    //Upgrade price
+                12.,     //Health   (+4)
+                1.,      //Speed
+                5.,      //Range
+                7.,      //Damage    (+2)
+                1.2,    //FreqAtk (+.2)
+                15.,     //BuffRange
+                3.5,    //TpsBuff (+.5)
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "BBQ modeste",
+                300,    //Upgrade price
+                20.,     //Health   (+8)
+                2.,      //Speed
+                8.,      //Range     (+3)
+                10.,     //Damage   (+3)
+                1.5,    //FreqAtk (+.3)
+                20.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "licence VIP",
+                null,   //Upgrade price
+                30.,     //Health   (+10)
+                3.,      //Speed
+                10.,     //Range     (+2)
+                15.,     //Damage   (+5)
+                2.,      //FreqAtk (+.5)
+                25.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
     }
 
     private static void initStatsPouletConservateur(List<Object[]> statsLevels) {
 
+        statsLevels.add(new Object[]{
+                "Default",
+                70,    //Upgrade price
+                8.,     //Health
+                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
+                1.,     //Speed
+                5.,     //Range
+                5.,     //Damage
+                1.,     //FreqAtk
+                15.,    //BuffRange
+                3.,     //TpsBuff
+                .5     //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "Spatule d'or",
+                150,    //Upgrade price
+                12.,     //Health   (+4)
+                1.,      //Speed
+                5.,      //Range
+                7.,      //Damage    (+2)
+                1.2,    //FreqAtk (+.2)
+                15.,     //BuffRange
+                3.5,    //TpsBuff (+.5)
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "BBQ modeste",
+                300,    //Upgrade price
+                20.,     //Health   (+8)
+                2.,      //Speed
+                8.,      //Range     (+3)
+                10.,     //Damage   (+3)
+                1.5,    //FreqAtk (+.3)
+                20.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "licence VIP",
+                null,   //Upgrade price
+                30.,     //Health   (+10)
+                3.,      //Speed
+                10.,     //Range     (+2)
+                15.,     //Damage   (+5)
+                2.,      //FreqAtk (+.5)
+                25.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
     }
 
     private static void initStatsChatScientifique(List<Object[]> statsLevels) {
 
+        statsLevels.add(new Object[]{
+                "Default",
+                70,    //Upgrade price
+                8.,     //Health
+                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
+                1.,     //Speed
+                5.,     //Range
+                5.,     //Damage
+                1.,     //FreqAtk
+                15.,    //BuffRange
+                3.,     //TpsBuff
+                .5     //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "Spatule d'or",
+                150,    //Upgrade price
+                12.,     //Health   (+4)
+                1.,      //Speed
+                5.,      //Range
+                7.,      //Damage    (+2)
+                1.2,    //FreqAtk (+.2)
+                15.,     //BuffRange
+                3.5,    //TpsBuff (+.5)
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "BBQ modeste",
+                300,    //Upgrade price
+                20.,     //Health   (+8)
+                2.,      //Speed
+                8.,      //Range     (+3)
+                10.,     //Damage   (+3)
+                1.5,    //FreqAtk (+.3)
+                20.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "licence VIP",
+                null,   //Upgrade price
+                30.,     //Health   (+10)
+                3.,      //Speed
+                10.,     //Range     (+2)
+                15.,     //Damage   (+5)
+                2.,      //FreqAtk (+.5)
+                25.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
     }
 
     private static void initStatsChatHypnotiseur(List<Object[]> statsLevels) {
 
+        statsLevels.add(new Object[]{
+                "Default",
+                70,    //Upgrade price
+                8.,     //Health
+                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
+                1.,     //Speed
+                5.,     //Range
+                5.,     //Damage
+                1.,     //FreqAtk
+                15.,    //BuffRange
+                3.,     //TpsBuff
+                .5     //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "Spatule d'or",
+                150,    //Upgrade price
+                12.,     //Health   (+4)
+                1.,      //Speed
+                5.,      //Range
+                7.,      //Damage    (+2)
+                1.2,    //FreqAtk (+.2)
+                15.,     //BuffRange
+                3.5,    //TpsBuff (+.5)
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "BBQ modeste",
+                300,    //Upgrade price
+                20.,     //Health   (+8)
+                2.,      //Speed
+                8.,      //Range     (+3)
+                10.,     //Damage   (+3)
+                1.5,    //FreqAtk (+.3)
+                20.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "licence VIP",
+                null,   //Upgrade price
+                30.,     //Health   (+10)
+                3.,      //Speed
+                10.,     //Range     (+2)
+                15.,     //Damage   (+5)
+                2.,      //FreqAtk (+.5)
+                25.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
     }
 
     private static void initStatsChatJournaliste(List<Object[]> statsLevels) {
 
+        statsLevels.add(new Object[]{
+                "Default",
+                70,    //Upgrade price
+                8.,     //Health
+                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
+                1.,     //Speed
+                5.,     //Range
+                5.,     //Damage
+                1.,     //FreqAtk
+                15.,    //BuffRange
+                3.,     //TpsBuff
+                .5,      //TpsRepo
+                6       //NbrVictimes
+        });
+
+        statsLevels.add(new Object[]{
+                "Spatule d'or",
+                150,    //Upgrade price
+                12.,     //Health   (+4)
+                1.,      //Speed
+                5.,      //Range
+                7.,      //Damage    (+2)
+                1.2,    //FreqAtk (+.2)
+                15.,     //BuffRange
+                3.5,    //TpsBuff (+.5)
+                .5,      //TpsRepo
+                3       //NbrVictimes
+        });
+
+        statsLevels.add(new Object[]{
+                "BBQ modeste",
+                300,    //Upgrade price
+                20.,     //Health   (+8)
+                2.,      //Speed
+                8.,      //Range     (+3)
+                10.,     //Damage   (+3)
+                1.5,    //FreqAtk (+.3)
+                20.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5,      //TpsRepo
+                4       //NbrVictimes   (+1)
+        });
+
+        statsLevels.add(new Object[]{
+                "licence VIP",
+                null,   //Upgrade price
+                30.,     //Health   (+10)
+                3.,      //Speed
+                10.,     //Range     (+2)
+                15.,     //Damage   (+5)
+                2.,      //FreqAtk (+.5)
+                25.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5,      //TpsRepo
+                6       //NbrVictimes   (+2)
+        });
     }
 
     private static void initStatsPouletMenottes(List<Object[]> statsLevels) {
 
+        statsLevels.add(new Object[]{
+                "Default",
+                70,    //Upgrade price
+                8.,     //Health
+                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
+                1.,     //Speed
+                5.,     //Range
+                5.,     //Damage
+                1.,     //FreqAtk
+                15.,    //BuffRange
+                3.,     //TpsBuff
+                .5,      //TpsRepo
+                6       //NbrVictimes
+        });
+
+        statsLevels.add(new Object[]{
+                "Spatule d'or",
+                150,    //Upgrade price
+                12.,     //Health   (+4)
+                1.,      //Speed
+                5.,      //Range
+                7.,      //Damage    (+2)
+                1.2,    //FreqAtk (+.2)
+                15.,     //BuffRange
+                3.5,    //TpsBuff (+.5)
+                .5,      //TpsRepo
+                3       //NbrVictimes
+        });
+
+        statsLevels.add(new Object[]{
+                "BBQ modeste",
+                300,    //Upgrade price
+                20.,     //Health   (+8)
+                2.,      //Speed
+                8.,      //Range     (+3)
+                10.,     //Damage   (+3)
+                1.5,    //FreqAtk (+.3)
+                20.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5,      //TpsRepo
+                4       //NbrVictimes   (+1)
+        });
+
+        statsLevels.add(new Object[]{
+                "licence VIP",
+                null,   //Upgrade price
+                30.,     //Health   (+10)
+                3.,      //Speed
+                10.,     //Range     (+2)
+                15.,     //Damage   (+5)
+                2.,      //FreqAtk (+.5)
+                25.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5,      //TpsRepo
+                6       //NbrVictimes   (+2)
+        });
     }
 
     private static void initStatsPouletVolant(List<Object[]> statsLevels) {
 
+        statsLevels.add(new Object[]{
+                "Default",
+                70,    //Upgrade price
+                8.,     //Health
+                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
+                1.,     //Speed
+                5.,     //Range
+                5.,     //Damage
+                1.,     //FreqAtk
+                15.,    //BuffRange
+                3.,     //TpsBuff
+                .5     //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "Spatule d'or",
+                150,    //Upgrade price
+                12.,     //Health   (+4)
+                1.,      //Speed
+                5.,      //Range
+                7.,      //Damage    (+2)
+                1.2,    //FreqAtk (+.2)
+                15.,     //BuffRange
+                3.5,    //TpsBuff (+.5)
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "BBQ modeste",
+                300,    //Upgrade price
+                20.,     //Health   (+8)
+                2.,      //Speed
+                8.,      //Range     (+3)
+                10.,     //Damage   (+3)
+                1.5,    //FreqAtk (+.3)
+                20.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "licence VIP",
+                null,   //Upgrade price
+                30.,     //Health   (+10)
+                3.,      //Speed
+                10.,     //Range     (+2)
+                15.,     //Damage   (+5)
+                2.,      //FreqAtk (+.5)
+                25.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
     }
 
     private static void initStatsChienInterim(List<Object[]> statsLevels) {
 
+        statsLevels.add(new Object[]{
+                "Default",
+                70,    //Upgrade price
+                8.,     //Health
+                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
+                1.,     //Speed
+                5.,     //Range
+                5.,     //Damage
+                1.,     //FreqAtk
+                15.,    //BuffRange
+                3.,     //TpsBuff
+                .5     //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "Spatule d'or",
+                150,    //Upgrade price
+                12.,     //Health   (+4)
+                1.,      //Speed
+                5.,      //Range
+                7.,      //Damage    (+2)
+                1.2,    //FreqAtk (+.2)
+                15.,     //BuffRange
+                3.5,    //TpsBuff (+.5)
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "BBQ modeste",
+                300,    //Upgrade price
+                20.,     //Health   (+8)
+                2.,      //Speed
+                8.,      //Range     (+3)
+                10.,     //Damage   (+3)
+                1.5,    //FreqAtk (+.3)
+                20.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "licence VIP",
+                null,   //Upgrade price
+                30.,     //Health   (+10)
+                3.,      //Speed
+                10.,     //Range     (+2)
+                15.,     //Damage   (+5)
+                2.,      //FreqAtk (+.5)
+                25.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
     }
 
     private static void initStatsPouletMineur(List<Object[]> statsLevels) {
 
+        statsLevels.add(new Object[]{
+                "Default",
+                70,    //Upgrade price
+                8.,     //Health
+                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
+                1.,     //Speed
+                5.,     //Range
+                5.,     //Damage
+                1.,     //FreqAtk
+                15.,    //BuffRange
+                3.,     //TpsBuff
+                .5     //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "Spatule d'or",
+                150,    //Upgrade price
+                12.,     //Health   (+4)
+                1.,      //Speed
+                5.,      //Range
+                7.,      //Damage    (+2)
+                1.2,    //FreqAtk (+.2)
+                15.,     //BuffRange
+                3.5,    //TpsBuff (+.5)
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "BBQ modeste",
+                300,    //Upgrade price
+                20.,     //Health   (+8)
+                2.,      //Speed
+                8.,      //Range     (+3)
+                10.,     //Damage   (+3)
+                1.5,    //FreqAtk (+.3)
+                20.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "licence VIP",
+                null,   //Upgrade price
+                30.,     //Health   (+10)
+                3.,      //Speed
+                10.,     //Range     (+2)
+                15.,     //Damage   (+5)
+                2.,      //FreqAtk (+.5)
+                25.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
     }
 
     private static void initStatsTaupe(List<Object[]> statsLevels) {
 
+        statsLevels.add(new Object[]{
+                "Default",
+                70,    //Upgrade price
+                8.,     //Health
+                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
+                1.,     //Speed
+                5.,     //Range
+                5.,     //Damage
+                1.,     //FreqAtk
+                15.,    //BuffRange
+                3.,     //TpsBuff
+                .5     //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "Spatule d'or",
+                150,    //Upgrade price
+                12.,     //Health   (+4)
+                1.,      //Speed
+                5.,      //Range
+                7.,      //Damage    (+2)
+                1.2,    //FreqAtk (+.2)
+                15.,     //BuffRange
+                3.5,    //TpsBuff (+.5)
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "BBQ modeste",
+                300,    //Upgrade price
+                20.,     //Health   (+8)
+                2.,      //Speed
+                8.,      //Range     (+3)
+                10.,     //Damage   (+3)
+                1.5,    //FreqAtk (+.3)
+                20.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "licence VIP",
+                null,   //Upgrade price
+                30.,     //Health   (+10)
+                3.,      //Speed
+                10.,     //Range     (+2)
+                15.,     //Damage   (+5)
+                2.,      //FreqAtk (+.5)
+                25.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
     }
 }

@@ -7,6 +7,7 @@ import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.Stunner;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Noeud;
+import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Modele.Utilitaires.Utilitaire;
 
 import java.util.ArrayList;
@@ -18,39 +19,39 @@ public class AnimauxManager {
 
 // CLASSIQUE
     public static Animal creerChatClassique(GameWorld w) {
-        return new Animal("Chat classique", EnnemisSpawn.randomCoord(w), 5, 10, 2, 5, 1, 1, w, true);
+        return new Animal("Chat classique", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Chat classique"), true);
     }
 
     public static Animal creerPouletClassique(GameWorld w) {
-        return new Animal("Poulet classique", EnnemisSpawn.randomCoord(w), 50, 10, 2, 5, 1, 1, w, false);
+        return new Animal("Poulet classique", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Poulet classique"), false);
     }
 
 // STUNNER
     public static Animal creerPouletMenotte(GameWorld w){
-        return new Stunner("Poulet menottes", EnnemisSpawn.randomCoord(w), 5, 2, 1, 5, 1, 1, w, false, 1, 3, 5, 10);
+        return new Stunner("Poulet menottes", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Poulet menottes"), false);
     }
 
     public static Animal creerChatJournaliste(GameWorld w){
-        return new Stunner("Chat journaliste", EnnemisSpawn.randomCoord(w), 8, 15, 3, .5, .5, 1, w, true, 1, 3, 5, 10);
+        return new Stunner("Chat journaliste", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Chat journaliste"), false);
     }
 
 // BUFFER
     public static Animal creerChatMedecin(GameWorld w) {
         ArrayList<Double> lbuff = new ArrayList<>();
         lbuff.add(1.);
-        return new Buffer("Chat médecin", EnnemisSpawn.randomCoord(w), 7, 20, 3, 2, .5, 5, w, true, 3, 3, 5, lbuff);
+        return new Buffer("Chat médecin", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Chat médecin"), true, lbuff);
     }
 
     public static Animal creerChatCuisinier(GameWorld w) {
         ArrayList<Double> lbuff = new ArrayList<>();
         lbuff.add(0.25);
-        return new Buffer ("Chat cuisinier", new double[]{w.getRacoutou().getX()-20, w.getRacoutou().getY()+20} , 8, 50, 0, 5, .5, 3, w, true, 15, 3, .5, lbuff);
+        return new Buffer ("Chat cuisinier", new double[]{w.getRacoutou().getX()-20, w.getRacoutou().getY()+20} , w, StatsEntiteInitialiser.getStatsLevels("Chat cuisinier"), true, lbuff);
     }
 
     public static Animal creerPouletConservateur(GameWorld w) {
         ArrayList<Double> lbuff = new ArrayList<>();
         lbuff.add(0.5);
-        return new Buffer ("Poulet conservateur", EnnemisSpawn.randomCoord(w), 3, 3, 2, 2, 2, 1, w, false, 5, 5, 10, lbuff);
+        return new Buffer ("Poulet conservateur", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Poulet conservateur"), false, lbuff);
     }
 
 

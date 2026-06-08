@@ -13,9 +13,9 @@ public class Canon extends Animal {
     private double scaleMax = 10;
     private double vitesseVol;
 
-    protected Canon(double[] coord, double health, int coin, double range, double dmg, double freqAtk, GameWorld w) {
-        super("Canon", coord, health, coin,0, range, dmg, freqAtk, w, true);
-        chien= new ChienIntermittent(coord, w, this);
+    protected Canon(double[] coord, GameWorld w, List<Object[]> statsLevels) {
+        super("Canon", coord, w, statsLevels, true);
+        chien= new ChienIntermittent(coord, w, statsLevels, this);
         vitesseVol=20;
 
     }

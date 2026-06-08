@@ -29,6 +29,8 @@ public abstract class Entite {
     private double damage;
     private double freqAtk;
 
+    private List<Object[]> statsLevels;
+
     private DoubleProperty health;
     private final double maxHealth;
     private int coin;
@@ -36,8 +38,6 @@ public abstract class Entite {
     private boolean actif;
 
     private double chrono;
-
-    private List<Object[]> statsLevels;
 
 
     protected Entite(String name, double coord[], GameWorld w, List<Object[]> statsLevels) {
@@ -64,7 +64,7 @@ public abstract class Entite {
         actif=true;
         chrono=0;
 
-        statsLevels = new ArrayList<>();
+        this.statsLevels = statsLevels;
     }
     public void update(double dt)  {
         this.handleCollisions(getCible(), dt);
@@ -147,6 +147,9 @@ public abstract class Entite {
         this.freqAtk = freqAtk;
     }
 
+    public List<Object[]> getStatsLevels() {
+        return statsLevels;
+    }
 
     public DoubleProperty getHealthProperty() {
         return health;
@@ -176,14 +179,6 @@ public abstract class Entite {
 
     public BooleanProperty getAliveProperty() {
         return alive;
-    }
-
-    public List<Object[]> getStatsLevels() {
-        return statsLevels;
-    }
-
-    public void setStatsLevels(List<Object[]> statsLevels) {
-        this.statsLevels = statsLevels;
     }
 
     public abstract Entite getDirection();

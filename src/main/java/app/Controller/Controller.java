@@ -4,7 +4,6 @@ import app.Controller.Listener.EntiteHealthListener;
 import app.Controller.Listener.EntitesListListener;
 import app.Controller.Listener.OnMouseClickedListener;
 import app.Modele.Entites.Animaux.Racoutou;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatHypnotiseur;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Animaux.Volants.PouletVolant;
@@ -13,6 +12,7 @@ import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.AnimauxManager;
 import app.Modele.Managers.EnnemisSpawn;
+import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Vue.CameraManager;
 import app.Vue.EntiteVue;
 import app.Vue.TerrainVue;
@@ -135,7 +135,7 @@ public class Controller implements Initializable {
                         gameWorld.getTotalCoin().set(gameWorld.getTotalCoin().get() - prix);
                         //on enleve le cout a notre argent total
 
-                        Poubelle p = new Poubelle(coords, 100.0, 5, 16.0, gameWorld);
+                        Poubelle p = new Poubelle(coords, gameWorld, StatsEntiteInitialiser.getStatsLevels("Poubelle"));
                         ImageView imgPoubelle = terrainVue.creerTour(p);
 
                         imgPoubelle.setTranslateX(posX);
@@ -291,7 +291,7 @@ public class Controller implements Initializable {
         terrainVue.delimitationMap(tileMap);
         remplirMap();
 
-        gameWorld.ajouterAnimal(new Racoutou(gameWorld));
+        gameWorld.ajouterAnimal(new Racoutou(gameWorld, StatsEntiteInitialiser.getStatsLevels("Racoutou")));
         gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
 
         gameLoop.play();
@@ -362,7 +362,7 @@ public class Controller implements Initializable {
                                 double[] coords = new double[]{posX, posY};
 
                                 if (aPlacer == 100) {
-                                    Poubelle p = new Poubelle(coords, 100.0, 3, 16.0, gameWorld);
+                                    Poubelle p = new Poubelle(coords, gameWorld, StatsEntiteInitialiser.getStatsLevels("Poubelle"));
                                     ImageView imgPoubelle = terrainVue.creerTour(p);
 
                                     imgPoubelle.setTranslateX(posX);
@@ -417,7 +417,7 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau Racoutou");
 
-            gameWorld.ajouterAnimal(new Racoutou(gameWorld));
+            gameWorld.ajouterAnimal(new Racoutou(gameWorld, StatsEntiteInitialiser.getStatsLevels("Racoutou")));
         } else if (event.getCode() == KeyCode.R) {
 
             System.out.println("nouveau PouletBouclier");
@@ -446,7 +446,7 @@ public class Controller implements Initializable {
         } else if (event.getCode() == KeyCode.K) {
 
             System.out.println("nouveau hypno");
-            gameWorld.ajouterAnimal(new ChatHypnotiseur(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+            //gameWorld.ajouterAnimal(new ChatHypnotiseur(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
 
         } else if (event.getCode() == KeyCode.H) {
 

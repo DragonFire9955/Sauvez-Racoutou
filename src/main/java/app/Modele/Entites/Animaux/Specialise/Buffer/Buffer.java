@@ -32,7 +32,6 @@ public class Buffer extends Specialise {
     @Override
     public void update(double dt) {
         super.update(dt);
-        System.out.println("super update");
         if(!getAnimauxCiblesAccessibles().isEmpty() && getChrono()==0){
             setChrono(dt);
             buff();
