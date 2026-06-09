@@ -414,7 +414,13 @@ public class Controller implements Initializable {
 
             gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
 
-        } else if (event.getCode() == KeyCode.A) {
+        } else if (event.getCode() == KeyCode.X) {
+
+            System.out.println("nouveau Racoutou");
+
+            gameWorld.ajouterAnimal(AnimauxManager.creerPouletRolleur(gameWorld));
+        }
+        else if (event.getCode() == KeyCode.A) {
 
             System.out.println("nouveau Racoutou");
 

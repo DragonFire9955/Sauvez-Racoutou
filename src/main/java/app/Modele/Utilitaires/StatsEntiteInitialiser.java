@@ -24,6 +24,9 @@ public class StatsEntiteInitialiser {
             case "Poulet classique":
                 initStatsPouletClassique(statsLevels);
                 break;
+            case "Poulet rolleur":
+                initStatsPouletRolleur(statsLevels);
+                break;
 // SPECIALISES
             case "Poulet bouclier":
                 initStatsPouletBouclier(statsLevels);
@@ -167,12 +170,25 @@ public class StatsEntiteInitialiser {
 
         statsLevels.add(new Object[]{
                 "Default",
-                70,     //Argent rapporté
+                8,     //Argent rapporté
                 10.,     //Health
                 1.,     //Speed
                 5.,     //Range
                 1.,     //Damage
                 1.,     //FreqAtk
+        });
+    }
+
+    private static void initStatsPouletRolleur(List<Object[]> statsLevels) {
+
+        statsLevels.add(new Object[]{
+                "Default",
+                12,     //Argent rapporté
+                7.,     //Health
+                2.,     //Speed
+                3.,     //Range
+                1.,     //Damage
+                .5,     //FreqAtk
         });
     }
 

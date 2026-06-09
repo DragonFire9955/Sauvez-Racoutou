@@ -26,6 +26,10 @@ public class AnimauxManager {
         return new Animal("Poulet classique", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Poulet classique"), false);
     }
 
+    public static Animal creerPouletRolleur(GameWorld w) {
+        return new Animal("Poulet rolleur", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Poulet rolleur"), false);
+    }
+
 // STUNNER
     public static Animal creerPouletMenotte(GameWorld w){
         return new Stunner("Poulet menottes", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Poulet menottes"), false);
