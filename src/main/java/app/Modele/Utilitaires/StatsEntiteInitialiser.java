@@ -89,7 +89,7 @@ public class StatsEntiteInitialiser {
         });
 
         statsLevels.add(new Object[]{
-                "Casque solide",
+                "Lunettes de soleil",
                 800,    //Upgrade price
                 100.,     //Health   (+50)
                 0.,      //Speed
@@ -99,7 +99,7 @@ public class StatsEntiteInitialiser {
         });
 
         statsLevels.add(new Object[]{
-                "Veste de motard",
+                "Cocktail",
                 1500,    //Upgrade price
                 200.,     //Health   (+100)
                 0.,      //Speed
@@ -109,7 +109,7 @@ public class StatsEntiteInitialiser {
         });
 
         statsLevels.add(new Object[]{
-                "Lunettes noires",
+                "La bouée",
                 null,   //Upgrade price
                 350.,     //Health   (+150)
                 0.,      //Speed
@@ -213,7 +213,7 @@ public class StatsEntiteInitialiser {
         });
 
         statsLevels.add(new Object[]{
-                "Spatule d'or",
+                "BBQ modeste",
                 150,    //Upgrade price
                 12.,     //Health   (+4)
                 0.,      //Speed
@@ -226,7 +226,7 @@ public class StatsEntiteInitialiser {
         });
 
         statsLevels.add(new Object[]{
-                "BBQ modeste",
+                "Spatule d'or",
                 300,    //Upgrade price
                 20.,     //Health   (+8)
                 0.,      //Speed
@@ -239,7 +239,7 @@ public class StatsEntiteInitialiser {
         });
 
         statsLevels.add(new Object[]{
-                "licence VIP",
+                "MOF",
                 null,   //Upgrade price
                 30.,     //Health   (+10)
                 0.,      //Speed
@@ -264,8 +264,8 @@ public class StatsEntiteInitialiser {
                 .5,     //Damage
                 .2,     //FreqAtk
                 5.,    //BuffRange
-                3.,     //TpsBuff
-                .5     //TpsRepo
+                1.,     //TpsBuff
+                1.     //TpsRepo
         });
 
         statsLevels.add(new Object[]{
@@ -277,12 +277,12 @@ public class StatsEntiteInitialiser {
                 .5,      //Damage
                 .2,     //FreqAtk
                 6.,    //BuffRange  (+1)
-                3.5,     //TpsBuff  (.5)
-                .5     //TpsRepo
+                1.5,     //TpsBuff  (.5)
+                1.     //TpsRepo
         });
 
         statsLevels.add(new Object[]{
-                "Sneakers",
+                "Giro",
                 300,    //Upgrade price
                 12.,     //Health
                 1.5,      //Speed   (+.5)
@@ -290,12 +290,12 @@ public class StatsEntiteInitialiser {
                 .5,      //Damage
                 .5,     //FreqAtk   (+.3)
                 6.,    //BuffRange
-                3.5,     //TpsBuff
-                .5     //TpsRepo
+                1.5,     //TpsBuff
+                1.     //TpsRepo
         });
 
         statsLevels.add(new Object[]{
-                "Docteur",
+                "Scalpel d'or",
                 null,   //Upgrade price
                 20.,     //Health   (+8)
                 1.8,      //Speed   (+.3)
@@ -407,7 +407,7 @@ public class StatsEntiteInitialiser {
         });
 
         statsLevels.add(new Object[]{
-                "Vieux bandeau",
+                "Créoles",
                 200,    //Upgrade price
                 8.,     //Health    (+2)
                 0.,     //Speed
@@ -420,7 +420,7 @@ public class StatsEntiteInitialiser {
         });
 
         statsLevels.add(new Object[]{
-                "Bandeau fashion",
+                "Boule de cristal",
                 350,    //Upgrade price
                 15.,     //Health   (+7)
                 0.,     //Speed
@@ -465,7 +465,7 @@ public class StatsEntiteInitialiser {
         });
 
         statsLevels.add(new Object[]{
-                "Spatule d'or",
+                "Pigiste",
                 150,    //Upgrade price
                 12.,     //Health   (+4)
                 1.,      //Speed
@@ -479,7 +479,7 @@ public class StatsEntiteInitialiser {
         });
 
         statsLevels.add(new Object[]{
-                "BBQ modeste",
+                "Reporterre novice",
                 300,    //Upgrade price
                 20.,     //Health   (+8)
                 2.,      //Speed
@@ -493,7 +493,7 @@ public class StatsEntiteInitialiser {
         });
 
         statsLevels.add(new Object[]{
-                "licence VIP",
+                "Reporterre aguerit",
                 null,   //Upgrade price
                 30.,     //Health   (+10)
                 3.,      //Speed
@@ -562,7 +562,7 @@ public class StatsEntiteInitialiser {
         });
 
         statsLevels.add(new Object[]{
-                "Spatule d'or",
+                "Personnalisé 1",
                 150,    //Upgrade price
                 12.,     //Health   (+4)
                 1.,      //Speed
@@ -575,7 +575,7 @@ public class StatsEntiteInitialiser {
         });
 
         statsLevels.add(new Object[]{
-                "BBQ modeste",
+                "Personnalisé 2",
                 300,    //Upgrade price
                 20.,     //Health   (+8)
                 2.,      //Speed
@@ -588,7 +588,7 @@ public class StatsEntiteInitialiser {
         });
 
         statsLevels.add(new Object[]{
-                "licence VIP",
+                "Personnalisé 3",
                 null,   //Upgrade price
                 30.,     //Health   (+10)
                 3.,      //Speed
@@ -637,7 +637,7 @@ public class StatsEntiteInitialiser {
         });
 
         statsLevels.add(new Object[]{
-                "Spatule d'or",
+                "Frontale",
                 150,    //Upgrade price
                 12.,     //Health   (+4)
                 1.,      //Speed
@@ -650,7 +650,7 @@ public class StatsEntiteInitialiser {
         });
 
         statsLevels.add(new Object[]{
-                "BBQ modeste",
+                "Casque de mineur",
                 300,    //Upgrade price
                 20.,     //Health   (+8)
                 2.,      //Speed
@@ -663,7 +663,7 @@ public class StatsEntiteInitialiser {
         });
 
         statsLevels.add(new Object[]{
-                "licence VIP",
+                "La pelle",
                 null,   //Upgrade price
                 30.,     //Health   (+10)
                 3.,      //Speed
