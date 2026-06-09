@@ -196,7 +196,7 @@ public class StatsEntiteInitialiser {
 
         statsLevels.add(new Object[]{
                 "Default",
-                70,     //Argent rapporté
+                15,     //Argent rapporté
                 10.,     //Health
                 .8,     //Speed
                 4.,     //Range
@@ -322,7 +322,7 @@ public class StatsEntiteInitialiser {
 
         statsLevels.add(new Object[]{
                 "Default",
-                70,     //Argent rapporté
+                30,     //Argent rapporté
                 25.,     //Health
                 1.1,     //Speed
                 6.,     //Range
