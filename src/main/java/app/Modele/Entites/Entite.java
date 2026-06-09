@@ -1,6 +1,5 @@
 package app.Modele.Entites;
 
-import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Utilitaire;
 import javafx.beans.property.BooleanProperty;
@@ -10,7 +9,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static java.lang.Thread.sleep;
 
@@ -29,18 +27,18 @@ public abstract class Entite {
     private double damage;
     private double freqAtk;
 
+    private List<Object[]> statsLevels;
+
     private DoubleProperty health;
     private final double maxHealth;
     private int coin;
     private BooleanProperty alive;
     private boolean actif;
 
-    private double chrono;
-
-    private List<Object[]> statsLevels;
+    private double chronoSpe;
 
 
-    protected Entite(String name, double coord[], double health, int coin, double range, double dmg, double freqAtk, GameWorld w) {
+    protected Entite(String name, double coord[], GameWorld w, List<Object[]> statsLevels) {
 
         this.id=nbId;
         nbId++;
@@ -51,20 +49,20 @@ public abstract class Entite {
 
         this.x = new SimpleDoubleProperty(coord[0]);
         this.y = new SimpleDoubleProperty(coord[1]);
-        this.health = new SimpleDoubleProperty(health);
-        this.maxHealth = health;
-        this.coin = coin;
-        this.range = range;
-        this.damage=dmg;
-        this.freqAtk=freqAtk;
+        this.health = new SimpleDoubleProperty((double) statsLevels.get(0)[2]);
+        this.maxHealth = health.getValue();
+        this.coin = (int) statsLevels.get(0)[1];
+        this.range = (double) statsLevels.get(0)[4];
+        this.damage = (double) statsLevels.get(0)[5];
+        this.freqAtk = (double) statsLevels.get(0)[6];
         this.world=w;
 
 
         alive = new SimpleBooleanProperty(true);
         actif=true;
-        chrono=0;
+        chronoSpe =0;
 
-        statsLevels = new ArrayList<>();
+        this.statsLevels = statsLevels;
     }
     public void update(double dt)  {
         this.handleCollisions(getCible(), dt);
@@ -79,14 +77,14 @@ public abstract class Entite {
         }
 
         if (Utilitaire.intersects(cible, this)){
-            if(chrono==0)
-                chrono=dt;
+            if(chronoSpe ==0)
+                chronoSpe =dt;
 
             coll = true;
 
-            if (((dt-chrono)) >= freqAtk) {
+            if (((dt- chronoSpe)) >= freqAtk) {
                 attaquer();
-                chrono = 0;
+                chronoSpe = 0;
             }
 
         } else {
@@ -147,6 +145,9 @@ public abstract class Entite {
         this.freqAtk = freqAtk;
     }
 
+    public List<Object[]> getStatsLevels() {
+        return statsLevels;
+    }
 
     public DoubleProperty getHealthProperty() {
         return health;
@@ -176,14 +177,6 @@ public abstract class Entite {
 
     public BooleanProperty getAliveProperty() {
         return alive;
-    }
-
-    public List<Object[]> getStatsLevels() {
-        return statsLevels;
-    }
-
-    public void setStatsLevels(List<Object[]> statsLevels) {
-        this.statsLevels = statsLevels;
     }
 
     public abstract Entite getDirection();

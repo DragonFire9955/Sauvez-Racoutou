@@ -5,6 +5,7 @@ import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.EnnemisSpawn;
+import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Modele.Utilitaires.Utilitaire;
 
 public class PouletVolant extends Volant {
@@ -25,7 +26,7 @@ public class PouletVolant extends Volant {
 
     public PouletVolant(GameWorld w) {
 
-        super("Poulet volant", EnnemisSpawn.randomCoord(w), 10, 2, 5, 2, 10, 1, w, false);
+        super("Poulet volant", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Poulet volant"), false);
 
         cible = this.getAnimauxCibles().stream().filter(animal -> animal instanceof Racoutou).findFirst().orElse(null);
 

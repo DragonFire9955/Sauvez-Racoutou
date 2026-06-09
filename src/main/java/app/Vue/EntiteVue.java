@@ -1,19 +1,16 @@
 package app.Vue;
 
 import app.Modele.Entites.Animaux.Animal;
-import app.Modele.Entites.Animaux.Specialise.Buffer.ChatCuisinier;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.Stunner;
-import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
+import app.Modele.Entites.Animaux.Specialise.Specialise;
 import app.Modele.Entites.Entite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class EntiteVue {
 
-    public static int tailleImage = 32;
+    public static int tailleImage = 64;
 
     public static ImageView appliquerBonneImage(Entite entite, boolean withInit) {
 
@@ -45,9 +42,12 @@ public class EntiteVue {
                 image = new Image("app/images/chatMedecin.png");
                 break;
             case "Poulet conservateur":
-                image = new Image("app/images/pouletClassique.png"); /// TODO: IMG
+                image = new Image("app/images/chienInterim.jpg"); /// TODO: IMG
                 break;
         // DEBUFFER
+            case "Poulet IGPN":
+                image = new Image("app/images/pouletIGPN.png");
+                break;
             // ALTERATIONS ELEMENTAIRES
             case "Chat scientifique":
                 image = new Image("app/images/chatScientifique.png");
@@ -110,6 +110,13 @@ public class EntiteVue {
 
         imageView.layoutXProperty().bind(entite.getXProperty().subtract(taille/2));
         imageView.layoutYProperty().bind(entite.getYProperty().subtract(taille/2));
+
+        if (entite instanceof Racoutou) {
+            System.out.println(" RRRR scale " + imageView.getScaleZ());
+            System.out.println("  RRRR translate " + imageView.getTranslateZ());
+        }
+
+
     }
 
 
@@ -124,6 +131,9 @@ public class EntiteVue {
             case "Chat scientifique":
                     image = new Image("app/images/gif/chatScientifique.gif");
                     break;
+            case "Poulet IGPN":
+                image = new Image("app/images/gif/pouletIGPN.gif");
+                break;
             case "Poulet bouclier":
                     image = new Image("app/images/gif/pouletBouclier.gif");
                     break;

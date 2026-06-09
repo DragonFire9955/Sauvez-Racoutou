@@ -1,5 +1,7 @@
 package app.Controller;
 
+import app.Modele.Entites.Animaux.Racoutou;
+import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
 import app.Vue.EntiteVue;
 import javafx.scene.layout.StackPane;
 import javafx.geometry.Pos;
@@ -33,8 +35,11 @@ public class VieControlleur {
         this.conteneur.getChildren().addAll(fondRouge, barreVerte);
 
         //la vie est décalé par rapport a l'entite
-        this.conteneur.layoutXProperty().bind(entite.getXProperty().subtract(EntiteVue.tailleImage/2));
-        this.conteneur.layoutYProperty().bind(entite.getYProperty().subtract(EntiteVue.tailleImage/2).subtract(6));
+        this.conteneur.layoutXProperty().bind(entite.getXProperty().subtract(EntiteVue.tailleImage/4));
+        if(entite instanceof Racoutou)
+            this.conteneur.layoutYProperty().bind(entite.getYProperty().subtract(EntiteVue.tailleImage/1.5));
+        else
+            this.conteneur.layoutYProperty().bind(entite.getYProperty().subtract(EntiteVue.tailleImage/2.5));
     }
 
     public StackPane getConteneur() {

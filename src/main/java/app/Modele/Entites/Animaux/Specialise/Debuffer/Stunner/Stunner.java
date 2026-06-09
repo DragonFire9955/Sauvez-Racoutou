@@ -9,13 +9,14 @@ import java.util.List;
 public class Stunner extends Debuffer {
 
 
-    public Stunner(String name, double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, int nbV, double stun, double tempsRecup, double rangeStun) {
-        super(name, coord, health, coin, vitesse, r, dmg, freqAtk, w, allie, nbV, stun, tempsRecup, rangeStun);
+    public Stunner(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
+
+        super(name, coord, w, statsLevels, allie);
     }
 
 
-    public void debuff(double dt, List<Animal> animaux) {
-
+    public void debuff(double dt) {
+        List<Animal> animaux = getListeCibles();
         if (!animaux.isEmpty()) {
 
             if (isActionSpecialePossible()) {
@@ -33,22 +34,17 @@ public class Stunner extends Debuffer {
                         animaux.get(i).setVitesse(0);
                         animaux.get(i).setCanAttack(false);
                         animaux.get(i).setStunnedUntil(stunnedUntil);
-                        System.out.println("stun");
                     }
 
                 } else if (getChrono() + getTempsAction() >= dt) { //defiger bonhommes + this ne peut pas stun
                     setVitesse(getvInitial());
                     setActionSpecialePossible(false);
-                    System.out.println("debut cooldown");
                 }
-                System.out.println(getChrono() + "chrono");
-                System.out.println("dt " + dt);
             }
 
             if (isChronoDefini() && getChrono() + getTempsAction() + getTempsRepo() == dt) { //this peut stun à nouveau
                 setActionSpecialePossible(true);
                 setChronoDefini(false);
-                System.out.println("fin cool down");
             }
         }
     }

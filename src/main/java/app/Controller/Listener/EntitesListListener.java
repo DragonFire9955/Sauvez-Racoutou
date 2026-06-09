@@ -1,10 +1,15 @@
 package app.Controller.Listener;
 
 import app.Modele.Entites.Animaux.Animal;
+import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
+import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
+import app.Modele.Entites.Animaux.Specialise.Specialise;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
+import app.Modele.Managers.AnimauxManager;
 import app.Vue.EntiteVue;
 import app.Controller.VieControlleur;
+import app.Vue.PerimetreVue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -54,6 +59,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
                     //On suppr du visuel
                     carte.getChildren().removeIf(node -> e.getId().equals(node.getId()));
+                    carte.getChildren().removeIf(node -> ("perim" + e.getId()).equals(node.getId()));
                 }
 
             }
@@ -64,15 +70,9 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
                     //affiche l'image de l'entite sur la carte
                     Node imageEntite = EntiteVue.appliquerBonneImage(e, true);
-
+                    if(e instanceof PouletIGPN)
+                        carte.getChildren().add(1, PerimetreVue.initPerimetre((Specialise) e, (ImageView) imageEntite));
                     carte.getChildren().add(imageEntite);
-
-                    //on lui crée sa description si c un allié
-                    if (e instanceof Animal && ((Animal) e).isAllie()) {
-
-                        ajoutZoneDescription(e);
-                        imageEntite.setOnMouseClicked(event -> afficherDescription(e));
-                    }
 
                     //créé la barre de vie et récupère son conteneur
                     VieControlleur barreVie = new VieControlleur(e);
@@ -85,6 +85,13 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     visuelBarre.setId(e.getId());
                     //Je met le listener de ma vie ici car + pratique et évite les bugs du lookup()
                     e.getHealthProperty().addListener(new EntiteHealthListener(carte, e));
+
+                    //on lui crée sa description si c un allié
+                    if (e instanceof Animal && ((Animal) e).isAllie()) {
+
+                        ajoutZoneDescription(e);
+                        imageEntite.setOnMouseClicked(event -> afficherDescription(e));
+                    }
                 }
             }
         }
@@ -94,7 +101,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
         AtomicInteger actualLevel = new AtomicInteger(0);   //Voir l'action de l'amélioration à la fin
 
-        AtomicInteger qtiteRevente = new AtomicInteger((int) (e.getStatsLevels().get(actualLevel.get())[1]) / 2);   //On définit la quantité rendue
+        AtomicInteger qtiteRevente = new AtomicInteger((int) (e.getCoin()/2));   //On définit la quantité rendue
 
         AnchorPane root = new AnchorPane();
         root.setPrefSize(260, 200);
@@ -114,7 +121,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         AnchorPane.setTopAnchor(entityImageView, 14.0);
 
         //Nom de l'entité
-        Label entityNameLabel = new Label(e.getName());    ///TODO : pour ceux dans AnimauxManager ça met "Animal"...
+        Label entityNameLabel = new Label(e.getName());
         entityNameLabel.setAlignment(Pos.CENTER);
         entityNameLabel.setPrefSize(109, 26);
         entityNameLabel.setTextFill(Color.WHITE);
@@ -209,10 +216,10 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         VBox upgradeBox = new VBox();
         upgradeBox.setPrefSize(109, 63);
 
-        Label nameUpgrade = new Label(e.getStatsLevels().get(actualLevel.get()+1)[0].toString());
+        Label nameUpgrade = new Label(e.getName());
         VBox.setMargin(nameUpgrade, new Insets(0, 0, 0, 40));
 
-        Label priceUpgrade = new Label(Integer.toString((int) (e.getStatsLevels().get(actualLevel.get())[1])));
+        Label priceUpgrade = new Label(Integer.toString((int) (e.getCoin())));
 
         priceUpgrade.setAlignment(Pos.CENTER);
         priceUpgrade.setPrefWidth(111);

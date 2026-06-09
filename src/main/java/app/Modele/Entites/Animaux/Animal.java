@@ -17,9 +17,9 @@ public class Animal extends Entite {
     private boolean canAttack;
     private boolean allie;
 
-    public Animal(String name, double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie) {
-        super(name, coord, health, coin, r, dmg, freqAtk, w);
-        this.vitesse = vitesse;
+    public Animal(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
+        super(name, coord, w, statsLevels);
+        this.vitesse = (double) statsLevels.get(0)[3];
         canAttack=true;
         stunnedUntil = new double[2];
         slowUntil = new double[3];
@@ -190,30 +190,19 @@ public class Animal extends Entite {
     }
 
     public  List<Animal> getAnimauxCopains(){
+        List<Animal> animauxCopains = new ArrayList<>();
         if(allie)
-            return getWorld().getAlliesAnimaux();
+            animauxCopains= getWorld().getAlliesAnimaux();
         else
-            return getWorld().getEnnemis();
-    }
-
-    public List<Animal> getAnimauxCopainsClasses(){
-
-        List<Animal> entitesTriees = new ArrayList<>();
-        List<Animal> copains = getAnimauxCopains();
-        int i;
-        for(Animal a: copains) {
-            if(a.equals(this)) continue;
-            i= 0;
-            //Tant que distance supérieur ET pv supérieur
-            while (i < entitesTriees.size()
-                    && Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())
-                    > Utilitaire.distance(this.getX(), this.getY(), entitesTriees.get(i).getX(), entitesTriees.get(i).getY())) {
-                i++;
-            }
-            entitesTriees.add(i, a);
+            animauxCopains= getWorld().getEnnemis();
+        for(int i = animauxCopains.size()-1; i>=0; i--){
+            if(animauxCopains.get(i).getClass() == this.getClass())
+                animauxCopains.remove(i);
         }
-        return entitesTriees;
+
+        return animauxCopains;
     }
+
 
 
     public void unstuned(double dt){
@@ -258,10 +247,6 @@ public class Animal extends Entite {
 
     public void setAllie(boolean allie) {
         this.allie = allie;
-    }
-
-    public int getPoids(){
-        return 0;
     }
 
 

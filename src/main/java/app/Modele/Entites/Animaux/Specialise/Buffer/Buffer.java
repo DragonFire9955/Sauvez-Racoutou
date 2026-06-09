@@ -4,6 +4,7 @@ import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.Specialise;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
+import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Modele.Utilitaires.Utilitaire;
 
 import java.util.ArrayList;
@@ -11,16 +12,26 @@ import java.util.List;
 
 public class Buffer extends Specialise {
 
+    private double buffRange;
+    private double tempsBuff;
+    private double tempsRepo;
+
     private ArrayList<Double> listeBuff;
-    public Buffer(String name, double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, double buffRange, double tempsBuff, double tempsRepo, ArrayList<Double> listeBuff) {
-        super(name, coord, health, coin, vitesse, r, dmg, freqAtk, w, allie, tempsBuff, tempsRepo, buffRange);
+
+    public Buffer(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie, ArrayList<Double> listeBuff) {
+
+        super(name, coord, w, statsLevels, allie);
+
+        this.buffRange = (double) statsLevels.get(0)[7];
+        this.tempsBuff = (double) statsLevels.get(0)[8];
+        this.tempsRepo = (double) statsLevels.get(0)[9];
+
         this.listeBuff=listeBuff;
     }
 
     @Override
     public void update(double dt) {
         super.update(dt);
-        System.out.println("super update");
         if(!getAnimauxCiblesAccessibles().isEmpty() && getChrono()==0){
             setChrono(dt);
             buff();
@@ -45,6 +56,29 @@ public class Buffer extends Specialise {
 
     public ArrayList<Double> getListeBuff() {
         return listeBuff;
+    }
+
+
+    // Retourne la liste d'animaux du même camp de classe différente classés par distance croissante et pv croissant
+    public List<Animal> getAnimauxCopainsClasses(){
+
+        List<Animal> entitesTriees = new ArrayList<>();
+        List<Animal> copains = getAnimauxCopains();
+        int i;
+
+        for(Animal a: copains) {
+            System.out.println(this.getClass());
+            if(a.getClass() == this.getClass()) continue;
+            i= 0;
+            //Tant que distance supérieur ET pv supérieur
+            while (i < entitesTriees.size()
+                    && Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())
+                    > Utilitaire.distance(this.getX(), this.getY(), entitesTriees.get(i).getX(), entitesTriees.get(i).getY())) {
+                i++;
+            }
+            entitesTriees.add(i, a);
+        }
+        return entitesTriees;
     }
 
     @Override

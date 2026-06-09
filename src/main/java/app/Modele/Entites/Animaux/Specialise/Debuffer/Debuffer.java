@@ -6,8 +6,13 @@ import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Utilitaire;
 
 import java.util.List;
+import java.util.Objects;
 
 public abstract class Debuffer extends Specialise {
+
+    private double rangeDebuff;
+    private double tDebuff;
+    private double tempsRecup;
 
     private double vInitial;
     
@@ -17,23 +22,27 @@ public abstract class Debuffer extends Specialise {
     private double chrono;
 
 
-    public Debuffer(String name, double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie,
-                    int nbV, double tDebuff, double tempsRecup, double rangeDebuff) {
-        super(name, coord, health, coin, vitesse, r, dmg, freqAtk, w, allie,  tDebuff, tempsRecup, rangeDebuff);
+    public Debuffer(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
+
+        super(name, coord, w, statsLevels, allie);
+
+        this.rangeDebuff = (double) statsLevels.get(0)[7];
+        this.tDebuff = (double) statsLevels.get(0)[8];
+        this.tempsRecup = (double) statsLevels.get(0)[9];
+        nbVictimes = (int) statsLevels.get(0)[10];
 
         vInitial=super.getVitesse();
-        
-        nbVictimes=nbV;
+
         chronoDefini=false;
         chrono=0;
     }
 
     public void update(double dt) { //dt = dt_controleur * 0.017
         super.update(dt);
-        debuff(dt, getListeCibles());
+        debuff(dt);
     }
 
-    public abstract void debuff(double dt, List<Animal> animaux);
+    public abstract void debuff(double dt);
 
     protected double getvInitial() {
         return vInitial;
@@ -58,6 +67,6 @@ public abstract class Debuffer extends Specialise {
     }
 
     public  List<Animal> getListeCibles(){
-        return Utilitaire.entitesToAnimaux(getCiblesAccessibles(getRangeEffect(), Utilitaire.animauxToEntites(getWorld().getAlliesAnimaux())));
+        return Utilitaire.entitesToAnimaux(getCiblesAccessibles(getRangeEffect(), Utilitaire.animauxToEntites(getAnimauxCibles())));
     };
 }

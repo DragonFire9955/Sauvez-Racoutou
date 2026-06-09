@@ -2,12 +2,15 @@ package app.Modele.Entites.Barrage;
 
 import app.Modele.GameWorld;
 
+import java.util.List;
+
 public class Poubelle extends Barrage {
     private int poids;
     private int id;
 
-    public Poubelle(double[] coord, double health, int coin, double r, GameWorld w){
-        super("Poubelle", coord, health, coin, r, w, 10);
+    //LA TAILLE ETAIT A 10 ICI, 100 HEALTH, 5 COIN, 16 RANGE
+    public Poubelle(double[] coord, GameWorld w, List<Object[]> statsLevels){
+        super("Poubelle", coord, w, statsLevels);
         //rendre static la taille?
         poids = 1;
         id = 100;

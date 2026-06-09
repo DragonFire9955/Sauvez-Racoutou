@@ -11,11 +11,12 @@ import java.util.List;
 //Altère les statistiques d'un ennemi qui serait rentrer dans son périmètre pendant un temps donné
 public abstract class AlterationElementaire extends Debuffer {
 
-    public AlterationElementaire(String name, double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, int nbV, double tDebuff, double tempsRecup, double rangeDebuff) {
-        super(name, coord, health, coin, vitesse, r, dmg, freqAtk, w, allie, nbV, tDebuff, tempsRecup, rangeDebuff);
+    public AlterationElementaire(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
+        super(name, coord, w, statsLevels, allie);
     }
 
-    public void debuff(double dt, List<Animal> animaux){
+    public void debuff(double dt){
+        List<Animal> animaux = getAnimauxCibles();
         if (!animaux.isEmpty()) {
 
             if (isActionSpecialePossible()) {
@@ -26,30 +27,16 @@ public abstract class AlterationElementaire extends Debuffer {
 
                 if (getChrono() == dt) {
                     for (int i = 0; i < animaux.size() && i < getNbVictimes(); i++) {
-                        /*
-
-                        cibles.get(i).setDamage(cibles.get(i).getDamage()/facteurDivForce);
-                        cibles.get(i).setVitesse(cibles.get(i).getVitesse()/facteurDivVitesse);
-                        cibles.get(i).setStunnedUntil(chrono + tempsSlow);
-                        System.out.println(dt);
-                        System.out.println("slow");
-
-                         */
-                        actionDebuff(animaux.get(i));
+                        actionDebuff(animaux.get(i), dt);
                     }
 
-                } else if (getChrono() + getTempsAction()>= dt) { //defiger bonhommes + this ne peut pas stun
+                } else if (getChrono() + getTempsAction()>= dt) //defiger bonhommes + this ne peut pas stun
                     setActionSpecialePossible(false);
-                    System.out.println("debut cooldown");
-                }
-                System.out.println(getChrono() + "chrono");
-                System.out.println("dt " + dt);
             }
 
             if (isChronoDefini() && getChrono() + getTempsAction() + getTempsRepo() == dt) { //this peut stun à nouveau
                 setActionSpecialePossible(true);
                 setChronoDefini(false);
-                System.out.println("fin cool down");
             }
         }
     }
@@ -63,7 +50,8 @@ public abstract class AlterationElementaire extends Debuffer {
         return l;
     }
 
-    public abstract void actionDebuff(Animal a);
+    public abstract void actionDebuff(Animal a, double dt);
+
 
 
 }
