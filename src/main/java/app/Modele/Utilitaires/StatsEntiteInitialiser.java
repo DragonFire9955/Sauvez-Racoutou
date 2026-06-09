@@ -163,14 +163,12 @@ public class StatsEntiteInitialiser {
         });
     }
 
-    /// TODO : PAS ENCORE FAIT
     private static void initStatsPouletClassique(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
                 "Default",
-                70,    //Upgrade price
-                8.,     //Health
-                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
+                70,     //Argent rapporté
+                10.,     //Health
                 1.,     //Speed
                 5.,     //Range
                 1.,     //Damage
@@ -178,21 +176,17 @@ public class StatsEntiteInitialiser {
         });
     }
 
-    /// TODO : PAS ENCORE FAIT
     private static void initStatsPouletBouclier(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
                 "Default",
-                70,    //Upgrade price
-                8.,     //Health
-                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
-                1.,     //Speed
-                5.,     //Range
-                5.,     //Damage
+                70,     //Argent rapporté
+                10.,     //Health
+                .8,     //Speed
+                4.,     //Range
+                8.,     //Damage
                 1.,     //FreqAtk
-                15.,    //BuffRange
-                3.,     //TpsBuff
-                .5     //TpsRepo
+                5.      //Bouclier
         });
     }
 
@@ -308,21 +302,19 @@ public class StatsEntiteInitialiser {
         });
     }
 
-    /// TODO : PAS ENCORE FAIT
     private static void initStatsPouletConservateur(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
                 "Default",
-                70,    //Upgrade price
-                8.,     //Health
-                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
-                1.,     //Speed
-                5.,     //Range
+                70,     //Argent rapporté
+                25.,     //Health
+                1.1,     //Speed
+                6.,     //Range
                 5.,     //Damage
-                1.,     //FreqAtk
+                1.2,     //FreqAtk
                 15.,    //BuffRange
                 3.,     //TpsBuff
-                .5     //TpsRepo
+                4.     //TpsRepo
         });
     }
 
@@ -446,12 +438,11 @@ public class StatsEntiteInitialiser {
         });
     }
 
-    /// TODO : PAS ENCORE FAIT
     private static void initStatsChatJournaliste(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
                 "Default",
-                70,    //Upgrade price
+                80,    //Upgrade price
                 8.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
                 1.,     //Speed
@@ -460,87 +451,80 @@ public class StatsEntiteInitialiser {
                 1.,     //FreqAtk
                 15.,    //BuffRange
                 3.,     //TpsBuff
-                .5,      //TpsRepo
-                6       //NbrVictimes
+                6.,      //TpsRepo
+                1       //NbrVictimes
         });
 
         statsLevels.add(new Object[]{
                 "Pigiste",
-                150,    //Upgrade price
-                12.,     //Health   (+4)
-                1.,      //Speed
-                5.,      //Range
-                7.,      //Damage    (+2)
-                1.2,    //FreqAtk (+.2)
-                15.,     //BuffRange
-                3.5,    //TpsBuff (+.5)
-                .5,      //TpsRepo
-                3       //NbrVictimes
+                125,    //Upgrade price
+                10.,     //Health   (+2)
+                1.2,     //Speed    (+.2)
+                5.,     //Range
+                6.,     //Damage    (+1)
+                1.1,     //FreqAtk  (+.1)
+                15.,    //BuffRange
+                3.,     //TpsBuff
+                6.,      //TpsRepo
+                1       //NbrVictimes
         });
 
         statsLevels.add(new Object[]{
                 "Reporterre novice",
-                300,    //Upgrade price
-                20.,     //Health   (+8)
-                2.,      //Speed
-                8.,      //Range     (+3)
-                10.,     //Damage   (+3)
-                1.5,    //FreqAtk (+.3)
-                20.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5,      //TpsRepo
-                4       //NbrVictimes   (+1)
+                200,    //Upgrade price
+                12.,     //Health   (+2)
+                1.3,     //Speed    (+.1)
+                6.,     //Range (+1)
+                6.,     //Damage
+                1.1,     //FreqAtk
+                18.,    //BuffRange (+3)
+                3.5,     //TpsBuff  (+.5)
+                5.5,      //TpsRepo (-.5)
+                2       //NbrVictimes   (+1)
         });
 
         statsLevels.add(new Object[]{
                 "Reporterre aguerit",
                 null,   //Upgrade price
-                30.,     //Health   (+10)
-                3.,      //Speed
-                10.,     //Range     (+2)
-                15.,     //Damage   (+5)
-                2.,      //FreqAtk (+.5)
-                25.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5,      //TpsRepo
-                6       //NbrVictimes   (+2)
+                15.,     //Health   (+3)
+                1.5,     //Speed    (+.2)
+                7.,     //Range     (+1)
+                7.,     //Damage    (+1)
+                1.2,     //FreqAtk  (+.1)
+                20.,    //BuffRange (+2)
+                3.5,     //TpsBuff
+                5.,      //TpsRepo  (-.5)
+                3       //NbrVictimes   (+1)
         });
     }
 
-    /// TODO : PAS ENCORE FAIT
     private static void initStatsPouletMenottes(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
                 "Default",
-                70,    //Upgrade price
-                8.,     //Health
-                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
-                1.,     //Speed
-                5.,     //Range
-                5.,     //Damage
+                50,     //Argent rapporté
+                30.,     //Health
+                1.2,     //Speed
+                8.,     //Range
+                10.,     //Damage
                 1.,     //FreqAtk
-                15.,    //BuffRange
+                20.,    //BuffRange
                 3.,     //TpsBuff
-                .5,      //TpsRepo
-                6       //NbrVictimes
+                5.,      //TpsRepo
+                8       //NbrVictimes
         });
     }
 
-    /// TODO : PAS ENCORE FAIT
     private static void initStatsPouletVolant(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
                 "Default",
-                70,    //Upgrade price
+                20,     //Argent rapporté
                 8.,     //Health
-                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
-                1.,     //Speed
-                5.,     //Range
+                2.5,     //Speed
+                3.,     //Range
                 5.,     //Damage
-                1.,     //FreqAtk
-                15.,    //BuffRange
-                3.,     //TpsBuff
-                .5     //TpsRepo
+                2.,     //FreqAtk
         });
     }
 
