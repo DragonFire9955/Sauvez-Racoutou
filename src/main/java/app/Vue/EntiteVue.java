@@ -3,6 +3,7 @@ package app.Vue;
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
+import app.Modele.Entites.Animaux.Specialise.Specialise;
 import app.Modele.Entites.Entite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -109,6 +110,13 @@ public class EntiteVue {
 
         imageView.layoutXProperty().bind(entite.getXProperty().subtract(taille/2));
         imageView.layoutYProperty().bind(entite.getYProperty().subtract(taille/2));
+
+        if (entite instanceof Racoutou) {
+            System.out.println(" RRRR scale " + imageView.getScaleZ());
+            System.out.println("  RRRR translate " + imageView.getTranslateZ());
+        }
+
+
     }
 
 

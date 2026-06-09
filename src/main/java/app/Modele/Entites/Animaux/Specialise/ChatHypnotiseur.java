@@ -21,7 +21,7 @@ public class ChatHypnotiseur extends Animal{
         super("Chat hypnotiseur", coord, 6, 40, 0, 100, 1, 1, w, true);
         this.dmgSpecials=30;
         freqAtkSpeciale =1;
-        rangeSpe= 10;
+        rangeSpe= 100;
         hypnoEnCours = new HashMap<>();
         chronoSpe=0;
     }
