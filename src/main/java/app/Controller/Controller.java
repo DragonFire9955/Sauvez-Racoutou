@@ -1,9 +1,6 @@
 package app.Controller;
 
-import app.Controller.Listener.ControleurDeClic;
-import app.Controller.Listener.EntiteHealthListener;
-import app.Controller.Listener.EntitesListListener;
-import app.Controller.Listener.OnMouseClickedListener;
+import app.Controller.Listener.*;
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.Buffer.ChatCuisinier;
 import app.Modele.Entites.Animaux.Specialise.Buffer.ChatMedecin;
@@ -81,11 +78,6 @@ public class Controller implements Initializable {
     private TerrainVue terrainVue;
     private boolean enPause = false;
 
-    private boolean modePlacement = false;
-    private int idEntite = -1;
-
-    private ControleurDeClic clicControl;
-
     //MODELE
     private int[][] map;
     private GameWorld gameWorld;
@@ -96,7 +88,7 @@ public class Controller implements Initializable {
     private IntegerProperty temps = new SimpleIntegerProperty(0);
 
     //Listener
-    OnMouseClickedListener onMouseClickedListener;
+    private ControleurDeClic clic;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -105,10 +97,9 @@ public class Controller implements Initializable {
         this.map = gameWorld.getMap();
 
         terrainVue = new TerrainVue();
-        clicControl = new ControleurDeClic(idEntite, modePlacement, gameWorld, terrainVue, carte, gamePane);
-
         terrainVue.delimitationMap(tileMap);
-        terrainVue.remplirMap(tileMap, map, clicControl);
+
+        terrainVue.remplirMap(tileMap, map);
 
         DragAndDrop dragImage = new DragAndDrop();
         dragImage.drag(btnPoubelle, 100, "/app/images/poubelle.png");
@@ -127,14 +118,13 @@ public class Controller implements Initializable {
             int colonne = (int) (e.getX() / gameWorld.getTailleTile());
             int ligne = (int) (e.getY() / gameWorld.getTailleTile());
 
-            clicControl.placerStructure(ligne, colonne, id);
+            clic.placerStructure(ligne, colonne, id);
 
             e.consume();
             gamePane.requestFocus();
         });
 
         //Initialisation des Managers
-        gameWorld = new GameWorld();
         gameWorld.getTheEnd().addListener((obs, oldV, newV) -> {
 
             if(newV.intValue()>0){
@@ -165,9 +155,9 @@ public class Controller implements Initializable {
         cameraManager.initialiserCamera();
 
         //Observable eventListener
-        onMouseClickedListener = new OnMouseClickedListener(tileMap, carte, gameWorld);
-        carte.addEventHandler(MouseEvent.MOUSE_MOVED, onMouseClickedListener);
-        carte.addEventHandler(MouseEvent.MOUSE_CLICKED, onMouseClickedListener);
+        clic = new ControleurDeClic(carte, gamePane, gameWorld, terrainVue);
+        carte.addEventHandler(MouseEvent.MOUSE_MOVED, clic);
+        carte.addEventHandler(MouseEvent.MOUSE_CLICKED, clic);
 
         //Binding du label coin, à déplacer au bon endroit
         coinLabel.textProperty().bind(gameWorld.getTotalCoin().asString());
@@ -257,17 +247,21 @@ public class Controller implements Initializable {
         enPause = false;
         menuPause.setVisible(false);
 
-        gameWorld.getAnimaux().clear();
-        gameWorld.getTotalCoin().set(50);
-
         carte.getChildren().removeIf(node -> node != tileMap);
         //supprime si l'element est différent de la tileMap (on garde juste elle)
 
-        map = Terrain.genererMap();
-        terrainVue.delimitationMap(tileMap);
-        terrainVue.remplirMap(tileMap, map, clicControl);
+        gameWorld = new GameWorld();
+        map = gameWorld.getMap();
 
-        gameWorld.ajouterAnimal(new Racoutou(gameWorld));
+        terrainVue.delimitationMap(tileMap);
+        terrainVue.remplirMap(tileMap, map);
+
+        coinLabel.textProperty().unbind();
+        coinLabel.textProperty().bind(gameWorld.getTotalCoin().asString());
+
+        gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
+
+        initRacoutou();
         gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
 
         gameLoop.play();
@@ -276,26 +270,26 @@ public class Controller implements Initializable {
 
     @FXML
     private void placerPoubelle(){
-        clicControl.setModePlacement(true);
-        clicControl.setIdEntite(100);
+        clic.setModePlacement(true);
+        clic.setIdEntite(100);
     }
 
     @FXML
     private void placerChatClassique() {
-        clicControl.setModePlacement(true);
-        clicControl.setIdEntite(101);
+        clic.setModePlacement(true);
+        clic.setIdEntite(101);
     }
 
     @FXML
     private void placerChatSniper() {
-        clicControl.setModePlacement(true);
-        clicControl.setIdEntite(102);
+        clic.setModePlacement(true);
+        clic.setIdEntite(102);
     }
 
     @FXML
     private void placerChatJournaliste() {
-        clicControl.setModePlacement(true);
-        clicControl.setIdEntite(103);
+        clic.setModePlacement(true);
+        clic.setIdEntite(103);
     }
 
 

@@ -53,16 +53,13 @@ public class TerrainVue {
         return tour;
     }
 
-    public void remplirMap(TilePane tileMap, int[][] map, ControleurDeClic clicControl) {
+    public void remplirMap(TilePane tileMap, int[][] map) {
         tileMap.getChildren().clear(); //on vide le images pour ne pas superposer
 
         for (int l = 0; l < map.length; l++) {
             for (int c = 0; c < map[l].length; c++) {
 
                 ImageView tuile = creerTuile(map[l][c]); //on rempli avec les images
-
-                tuile.addEventHandler(MouseEvent.MOUSE_CLICKED, clicControl);
-
                 tileMap.getChildren().add(tuile);
             }
         }

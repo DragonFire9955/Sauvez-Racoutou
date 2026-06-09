@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="applicationPane" prefHeight="896.0" prefWidth="1408.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller.Controller">
+<BorderPane fx:id="applicationPane" prefHeight="896.0" prefWidth="1408.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller.Controller">
    <center>
       <Pane fx:id="gamePane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -34,7 +40,7 @@
                         <ImageView fx:id="imgFinJeu" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Nouvelle Partie" onAction="#lancerJeu">
+                              <Button mnemonicParsing="false" onAction="#lancerJeu" text="Nouvelle Partie">
                                  <HBox.margin>
                                     <Insets right="50.0" />
                                  </HBox.margin>
@@ -50,16 +56,28 @@
                   </VBox>
                </children>
             </Pane>
-            <VBox fx:id="menuPause" alignment="CENTER" layoutX="320.0" layoutY="120.0" prefHeight="400.0" prefWidth="500.0" spacing="30.0" style="-fx-background-color: rgba(93, 64, 55, 0.75); -fx-background-radius: 10;" visible="false">
+            <VBox fx:id="menuPause" alignment="TOP_CENTER" layoutX="320.0" layoutY="120.0" prefHeight="400.0" prefWidth="500.0" spacing="30.0" style="-fx-background-color: rgba(93, 64, 55, 0.75); -fx-background-radius: 10;" visible="false">
                <padding>
-                  <Insets top="40.0" />
+                  <Insets top="50.0"/>
                </padding>
                <children>
-                  <Button onAction="#pause" style="-fx-font-size: 18px; -fx-background-color: #8D6E63; -fx-text-fill: white; -fx-pref-width: 150px; -fx-cursor: hand;" text="Reprendre" />
-
-                  <Button onAction="#redemarrerJeu" style="-fx-font-size: 18px; -fx-background-color: #E67E22; -fx-text-fill: white; -fx-pref-width: 150px; -fx-cursor: hand;" text="Redémarrer" />
-
-                  <Button onAction="#quitterJeu" style="-fx-font-size: 18px; -fx-background-color: #D7CCC8; -fx-text-fill: #3E2723; -fx-pref-width: 150px; -fx-cursor: hand;" text="Quitter" />
+                  <Label prefHeight="74.0" prefWidth="215.0" text="PAUSE" textFill="WHITE">
+                     <font>
+                        <Font name="Algerian" size="66.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="60.0" />
+                     </VBox.margin>
+                  </Label>
+                  <VBox alignment="CENTER" spacing="25.0">
+                     <children>
+                        <HBox alignment="CENTER" spacing="20.0">
+                           <Button onAction="#pause" style="-fx-font-size: 18px; -fx-background-color: #8D6E63; -fx-text-fill: white; -fx-pref-width: 150px; -fx-cursor: hand;" text="Reprendre" />
+                           <Button onAction="#redemarrerJeu" style="-fx-font-size: 18px; -fx-background-color: #E67E22; -fx-text-fill: white; -fx-pref-width: 150px; -fx-cursor: hand;" text="Redémarrer" />
+                        </HBox>
+                        <Button onAction="#quitterJeu" style="-fx-font-size: 18px; -fx-background-color: #D7CCC8; -fx-text-fill: #3E2723; -fx-pref-width: 150px; -fx-cursor: hand;" text="Quitter" />
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </children>
@@ -98,7 +116,7 @@
                   </ImageView>
                </children>
             </HBox>
-            <TilePane hgap="15.0" vgap="15.0" prefColumns="2" prefTileHeight="100.0" prefTileWidth="112.0">
+            <TilePane hgap="15.0" prefColumns="2" prefTileHeight="100.0" prefTileWidth="112.0" vgap="15.0">
                <children>
                   <Button fx:id="btnPoubelle" contentDisplay="TOP" onAction="#placerPoubelle" prefHeight="100.0" prefWidth="112.0" style="-fx-background-color: linear-gradient(to bottom right, #E53935, #E35D5B); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" text="Poubelle">
                      <font>

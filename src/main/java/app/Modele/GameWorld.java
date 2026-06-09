@@ -67,7 +67,7 @@ public class GameWorld {
     public void updateGW(double dt)  {
         //if(getRacoutou() == null) theEnd.setValue(true);
         if(!perdue() && !gagne()){
-            vagueManager(dt);
+            //vagueManager(dt);
 
             for (Entite entite : animauxList) {
                 entite.update(dt);
