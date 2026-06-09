@@ -55,9 +55,11 @@ public class Controller implements Initializable {
     @FXML
     private Button btnClassique;
     @FXML
-    private Button btnSniper;
+    private Button btnMedecin;
     @FXML
     private Button btnJournaliste;
+    @FXML
+    private Button btnScientifique;
 
 
     @FXML
@@ -68,7 +70,6 @@ public class Controller implements Initializable {
     private Label waveTimerLabel;
     @FXML
     private VBox menuPause;
-
 
     @FXML
     private Pane finJeu;
@@ -104,8 +105,9 @@ public class Controller implements Initializable {
         DragAndDrop dragImage = new DragAndDrop();
         dragImage.drag(btnPoubelle, 100, "/app/images/poubelle.png");
         dragImage.drag(btnClassique, 101, "/app/images/chat.png");
-        dragImage.drag(btnSniper, 102, "/app/images/sniper.png");
-        dragImage.drag(btnJournaliste, 103, "/app/images/journaliste.png");
+        dragImage.drag(btnMedecin, 102, "/app/images/chatMedecin.png");
+        dragImage.drag(btnJournaliste, 103, "/app/images/chatJournaliste.png");
+        dragImage.drag(btnScientifique, 104, "/app/images/chatScientifique.png");
 
         dragImage.survole(tileMap);
 
@@ -282,7 +284,7 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    private void placerChatSniper() {
+    private void placerChatMedecin() {
         clic.setModePlacement(true);
         clic.setIdEntite(102);
     }
@@ -291,6 +293,12 @@ public class Controller implements Initializable {
     private void placerChatJournaliste() {
         clic.setModePlacement(true);
         clic.setIdEntite(103);
+    }
+
+    @FXML
+    private void placerChatScientifique() {
+        clic.setModePlacement(true);
+        clic.setIdEntite(104);
     }
 
 
@@ -388,7 +396,8 @@ public class Controller implements Initializable {
 
 
 
-    }
+
+}
 
     private void initRacoutou(){
         Entite racoutou = gameWorld.getRacoutou();

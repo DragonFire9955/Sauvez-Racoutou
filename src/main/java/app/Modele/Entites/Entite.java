@@ -37,7 +37,7 @@ public abstract class Entite {
 
     private double chronoSpe;
 
-
+    //pour les animaux
     protected Entite(String name, double coord[], GameWorld w, List<Object[]> statsLevels) {
 
         this.id=nbId;
@@ -64,6 +64,28 @@ public abstract class Entite {
 
         this.statsLevels = statsLevels;
     }
+
+    //pour les barrages
+    protected Entite(String name, double coord[], GameWorld w, double health, int coin) {
+        this.id = nbId;
+        nbId++;
+
+        coll = false;
+        this.name = name;
+
+        this.x = new SimpleDoubleProperty(coord[0]);
+        this.y = new SimpleDoubleProperty(coord[1]);
+        this.health = new SimpleDoubleProperty(health);
+        this.maxHealth = health;
+        this.coin = coin;
+        this.world = w;
+
+        alive = new SimpleBooleanProperty(true);
+        actif = true;
+        chronoSpe = 0;
+    }
+
+
     public void update(double dt)  {
         this.handleCollisions(getCible(), dt);
     }

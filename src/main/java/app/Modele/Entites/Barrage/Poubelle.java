@@ -9,9 +9,8 @@ public class Poubelle extends Barrage {
     private int id;
 
     //LA TAILLE ETAIT A 10 ICI, 100 HEALTH, 5 COIN, 16 RANGE
-    public Poubelle(double[] coord, GameWorld w, List<Object[]> statsLevels){
-        super("Poubelle", coord, w, statsLevels);
-        //rendre static la taille?
+    public Poubelle(double[] coord, GameWorld w){
+        super("Poubelle", coord, w, 100.0, 5, 10.0);
         poids = 1;
         id = 100;
     }

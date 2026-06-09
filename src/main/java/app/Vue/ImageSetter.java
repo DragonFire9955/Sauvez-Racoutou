@@ -14,7 +14,8 @@ public class ImageSetter {
 
     public static Image poubelle = new Image(ImageSetter.class.getResourceAsStream("/app/images/poubelle.png"), 32, 32, false, true);
     public static Image classique = new Image(ImageSetter.class.getResourceAsStream("/app/images/chat.png"), 32, 32, false, true);
-    public static Image projectiles = new Image(ImageSetter.class.getResourceAsStream("/app/images/projectiles.png"), 32, 32, false, true);
-    public static Image journaliste = new Image(ImageSetter.class.getResourceAsStream("/app/images/journaliste.png"), 32, 32, false, true);
+    public static Image medecin = new Image(ImageSetter.class.getResourceAsStream("/app/images/chatMedecin.png"), 32, 32, false, true);
+    public static Image journaliste = new Image(ImageSetter.class.getResourceAsStream("/app/images/chatJournaliste.png"), 32, 32, false, true);
+
 
 }

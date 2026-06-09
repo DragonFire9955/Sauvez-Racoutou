@@ -9,9 +9,13 @@ public class StructureManager {
     public static Entite creerStructure(int id, double[] coords, GameWorld gameWorld) {
         switch (id) {
             case 100:
-                return new Poubelle(coords, 100.0, 5, 16.0, gameWorld);
+                return new Poubelle(coords, gameWorld);
             case 101:
                 return AnimauxManager.creerChatClassique(coords, gameWorld);
+            case 102:
+                return AnimauxManager.creerChatMedecin(coords, gameWorld);
+            case 103:
+                return AnimauxManager.creerChatJournaliste(coords, gameWorld);
             default:
                 return null;
         }
@@ -25,9 +29,9 @@ public class StructureManager {
             case 101:
                 return 10;
             case 102:
-                return 30;
+                return 20;
             case 103:
-                return 50;
+                return 30;
             default:
                 return 0;
         }
