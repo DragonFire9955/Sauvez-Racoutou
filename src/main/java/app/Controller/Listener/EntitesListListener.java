@@ -2,11 +2,14 @@ package app.Controller.Listener;
 
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
+import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
+import app.Modele.Entites.Animaux.Specialise.Specialise;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.AnimauxManager;
 import app.Vue.EntiteVue;
 import app.Controller.VieControlleur;
+import app.Vue.PerimetreVue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -56,6 +59,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
                     //On suppr du visuel
                     carte.getChildren().removeIf(node -> e.getId().equals(node.getId()));
+                    carte.getChildren().removeIf(node -> ("perim" + e.getId()).equals(node.getId()));
                 }
 
             }
@@ -66,7 +70,8 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
                     //affiche l'image de l'entite sur la carte
                     Node imageEntite = EntiteVue.appliquerBonneImage(e, true);
-
+                    if(e instanceof PouletIGPN)
+                        carte.getChildren().add(1, PerimetreVue.initPerimetre((Specialise) e, (ImageView) imageEntite));
                     carte.getChildren().add(imageEntite);
 
                     //créé la barre de vie et récupère son conteneur

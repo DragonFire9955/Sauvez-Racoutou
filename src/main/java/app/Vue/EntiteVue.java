@@ -3,6 +3,7 @@ package app.Vue;
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
+import app.Modele.Entites.Animaux.Specialise.Specialise;
 import app.Modele.Entites.Entite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -44,6 +45,9 @@ public class EntiteVue {
                 image = new Image("app/images/chienInterim.jpg"); /// TODO: IMG
                 break;
         // DEBUFFER
+            case "Poulet IGPN":
+                image = new Image("app/images/pouletIGPN.png");
+                break;
             // ALTERATIONS ELEMENTAIRES
             case "Chat scientifique":
                 image = new Image("app/images/chatScientifique.png");
@@ -106,6 +110,13 @@ public class EntiteVue {
 
         imageView.layoutXProperty().bind(entite.getXProperty().subtract(taille/2));
         imageView.layoutYProperty().bind(entite.getYProperty().subtract(taille/2));
+
+        if (entite instanceof Racoutou) {
+            System.out.println(" RRRR scale " + imageView.getScaleZ());
+            System.out.println("  RRRR translate " + imageView.getTranslateZ());
+        }
+
+
     }
 
 
@@ -120,6 +131,9 @@ public class EntiteVue {
             case "Chat scientifique":
                     image = new Image("app/images/gif/chatScientifique.gif");
                     break;
+            case "Poulet IGPN":
+                image = new Image("app/images/gif/pouletIGPN.gif");
+                break;
             case "Poulet bouclier":
                     image = new Image("app/images/gif/pouletBouclier.gif");
                     break;

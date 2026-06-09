@@ -22,7 +22,7 @@ public class ChatHypnotiseur extends Animal{
         super("Chat hypnotiseur", coord, w, StatsEntiteInitialiser.getStatsLevels("Chat hypnotiseur"), true);
         this.dmgSpecials=30;
         freqAtkSpeciale =1;
-        rangeSpe= 10;
+        rangeSpe= 100;
         hypnoEnCours = new HashMap<>();
         chronoSpe=0;
     }

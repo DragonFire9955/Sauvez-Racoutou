@@ -2,6 +2,8 @@ package app.Modele.Entites.Animaux.Specialise;
 
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.GameWorld;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 import java.util.List;
 
@@ -10,10 +12,10 @@ public abstract class Specialise extends Animal{
     private double rangeEffect;
     private double tempsAction;
     private double tempsRepo;
-    private boolean actionSpecialePossible;
+    private BooleanProperty actionSpecialePossible;
     private double chrono;
 
-    public Specialise(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie){
+    public Specialise(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
 
         super(name, coord, w, statsLevels, allie);
 
@@ -21,9 +23,7 @@ public abstract class Specialise extends Animal{
         this.tempsAction = (double) statsLevels.get(0)[8];
         this.tempsRepo = (double) statsLevels.get(0)[9];
 
-        this.actionSpecialePossible=true;
-
-        this.chrono=0;
+        this.actionSpecialePossible = new SimpleBooleanProperty(true);
     }
 
     public double getRangeEffect() {
@@ -48,10 +48,13 @@ public abstract class Specialise extends Animal{
     }
 
     public boolean isActionSpecialePossible() {
-        return actionSpecialePossible;
+        return actionSpecialePossible.get();
     }
     public void setActionSpecialePossible(boolean bool) {
-        this.actionSpecialePossible = bool;
+        this.actionSpecialePossible.set(bool);
+    }
+    public BooleanProperty getActionSpecialePossible(){
+        return actionSpecialePossible;
     }
 
 

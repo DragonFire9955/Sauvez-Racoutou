@@ -42,6 +42,9 @@ public class StatsEntiteInitialiser {
                 initStatsPouletConservateur(statsLevels);
                 break;
     // DEBUFFER
+            case "Poulet IGPN":
+                initPouletIGPN(statsLevels);
+                break;
         // ALTERATIONS ELEMENTAIRES
             case "Chat scientifique":
                 initStatsChatScientifique(statsLevels);
@@ -334,6 +337,26 @@ public class StatsEntiteInitialiser {
         });
     }
 
+    /// TODO : a faire, c un allié
+    private static void initPouletIGPN(List<Object[]> statsLevels) {
+
+        statsLevels.add(new Object[]{
+                "Default",
+                60,     //Argent rapporté
+                25.,     //Health
+                1.1,     //Speed
+                6.,     //Range
+                5.,     //Damage
+                1.2,     //FreqAtk
+                10.,    //BuffRange
+                3.,     //TpsBuff
+                .5,     //TpsRepo
+                3,      //NbrVictimes
+                .8,    //EffetForce
+                .8,     //EffetVit
+        });
+    }
+
     private static void initStatsChatScientifique(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
@@ -348,6 +371,7 @@ public class StatsEntiteInitialiser {
                 10.,    //BuffRange
                 3.,     //TpsBuff
                 .5,     //TpsRepo
+                2,      //NbrVictimes
                 1.,      //DivForce
                 .9      //DivVit
         });
@@ -363,6 +387,7 @@ public class StatsEntiteInitialiser {
                 10.,    //BuffRange
                 3.,     //TpsBuff
                 .5,     //TpsRepo
+                1,      //NbrVictimes
                 1.,      //DivForce
                 .7      //DivVit    (-.2)
         });
@@ -378,6 +403,7 @@ public class StatsEntiteInitialiser {
                 12.,    //BuffRange (+2)
                 3.5,     //TpsBuff  (+.5)
                 .5,     //TpsRepo
+                2,      //NbrVictimes   (+1)
                 .8,      //DivForce (-.2)
                 .7      //DivVit
         });
@@ -393,6 +419,7 @@ public class StatsEntiteInitialiser {
                 25.,    //BuffRange (+13)
                 5.,     //TpsBuff  (+1.5)
                 1.,     //TpsRepo   (+.5)
+                3,      //NbrVictimes   (+1)
                 .6,      //DivForce (-.2)
                 .5      //DivVit    (-.2)
         });
