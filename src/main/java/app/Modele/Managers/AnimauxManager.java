@@ -49,7 +49,7 @@ public class AnimauxManager {
     public static Animal creerChatCuisinier(GameWorld w) {
         ArrayList<Double> lbuff = new ArrayList<>();
         lbuff.add(0.25);
-        return new Buffer ("Chat cuisinier", new double[]{w.getRacoutou().getX()-20, w.getRacoutou().getY()+20} , w, StatsEntiteInitialiser.getStatsLevels("Chat cuisinier"), true, lbuff);
+        return new Buffer ("Chat cuisinier", new double[]{w.getRacoutou().getX()-20, w.getRacoutou().getY()+20} , w, StatsEntiteInitialiser.getStatsLevels("Chat femme"), true, lbuff);
     }
 
     public static Animal creerPouletConservateur(GameWorld w) {
