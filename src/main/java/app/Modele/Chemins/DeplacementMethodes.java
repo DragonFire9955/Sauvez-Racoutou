@@ -16,9 +16,9 @@ public class DeplacementMethodes {
         switch (type) {
             //Les coûts sont à changer, c'est juste un exemple et ça correspond pas à la logique des images mais bon hein XD
             case 0:
-                return 1;
+                return 0;
             case 1:
-                return 2;
+                return 1;
             case 2:
                 return 9999;
             default:

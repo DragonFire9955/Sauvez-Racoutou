@@ -10,8 +10,8 @@ public class TerrainVue {
     public void delimitationMap(TilePane tileMap){
         tileMap.setPrefColumns(44);
         tileMap.setPrefRows(28);
-        tileMap.setPrefTileWidth(32);
-        tileMap.setPrefTileHeight(32);
+        tileMap.setPrefTileWidth(64);
+        tileMap.setPrefTileHeight(64);
     }
 
     public ImageView creerTuile(int tuile){
@@ -34,7 +34,11 @@ public class TerrainVue {
                 cases.setImage(ImageSetter.sol);
                 break;
         }
-
+        cases.setFitHeight(64);
+        cases.setFitWidth(64);
+        cases.setPreserveRatio(true);
+        cases.setSmooth(true);
+        cases.setCache(true);
         return cases;
     }
 

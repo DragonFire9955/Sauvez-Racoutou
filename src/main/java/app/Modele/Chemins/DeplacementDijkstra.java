@@ -147,7 +147,7 @@ public class DeplacementDijkstra {
     }
 
     public static void main(String[] args) {
-        int tailleTile = 32;
+        int tailleTile = 64;
 
         int[][] map = new int[][]{
                 /*{0, 1, 1, 1, 1, 1},
