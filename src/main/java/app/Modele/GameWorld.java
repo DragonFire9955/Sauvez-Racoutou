@@ -255,7 +255,6 @@ public class GameWorld {
             theEnd.set(1);
             return true;
         }
-
         return  false;
     }
 

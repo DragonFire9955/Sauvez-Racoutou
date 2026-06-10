@@ -214,6 +214,10 @@ public class Controller implements Initializable {
             applicationPane.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ESCAPE){
                     pause();
+                } else if (event.getCode() == KeyCode.ENTER){
+                    gameWorld.setTotalCoin((gameWorld.getTotalCoin().get() + 10));
+                } else if (event.getCode() == KeyCode.DELETE){
+                    gameWorld.setTotalCoin((gameWorld.getTotalCoin().get() - 10));
                 }
 
                 remetEnnemiTest(event);
