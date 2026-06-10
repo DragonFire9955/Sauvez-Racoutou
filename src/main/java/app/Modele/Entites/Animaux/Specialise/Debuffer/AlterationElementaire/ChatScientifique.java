@@ -22,6 +22,15 @@ public class ChatScientifique extends AlterationElementaire {
         facteurDivVitesse = (double) listStats.get(0)[12];
     }
 
+    @Override
+    public void setStats(int actualLevel) {
+
+        super.setStats(actualLevel);
+
+        this.facteurDivForce = ((double) getStatsLevels().get(actualLevel)[11]);
+        this.facteurDivVitesse = ((double) getStatsLevels().get(actualLevel)[12]);
+    }
+
 
     public void actionDebuff(Animal a, double dt) {
         a.setSlowUntil((getChrono() + getTempsAction()), a.getVitesse(), a.getDamage() );

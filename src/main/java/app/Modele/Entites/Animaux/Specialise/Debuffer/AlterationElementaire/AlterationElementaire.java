@@ -34,7 +34,7 @@ public abstract class AlterationElementaire extends Debuffer {
                     setActionSpecialePossible(false);
             }
 
-            if (isChronoDefini() && getChrono() + getTempsAction() + getTempsRepo() == dt) { //this peut stun à nouveau
+            if (isChronoDefini() && getChrono() + getTempsAction() + getTempsRepo() <= dt) { //this peut stun à nouveau
                 setActionSpecialePossible(true);
                 setChronoDefini(false);
             }

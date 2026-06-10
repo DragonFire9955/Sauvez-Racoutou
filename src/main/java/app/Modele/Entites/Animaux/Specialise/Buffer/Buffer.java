@@ -4,6 +4,7 @@ import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.Specialise;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
+import app.Modele.Managers.AnimauxManager;
 import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Modele.Utilitaires.Utilitaire;
 

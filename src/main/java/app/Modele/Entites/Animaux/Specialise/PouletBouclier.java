@@ -26,6 +26,14 @@ public class PouletBouclier extends Animal {
         tankDmg();
     }
 
+    @Override
+    public void setStats(int actualLevel) {
+
+        super.setStats(actualLevel);
+
+        this.bouclier.setValue(((double) getStatsLevels().get(actualLevel)[7]));
+    }
+
     public void tankDmg() {
 
         double pvManquant = getMaxHealth() - getHealthProperty().getValue();

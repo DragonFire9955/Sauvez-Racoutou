@@ -200,6 +200,14 @@ public abstract class Entite {
     }
     public  int getIdEntite(){return id;}
 
+    public void setStats(int actualLevel) {
+
+        this.health.setValue((double) statsLevels.get(actualLevel)[2]);
+        this.range = ((double) statsLevels.get(actualLevel)[3]);
+        this.damage = ((double) statsLevels.get(actualLevel)[4]);
+        this.freqAtk = ((double) statsLevels.get(actualLevel)[5]);
+    }
+
 
     public int[] getTile(){
         int[] tile = new int[2];

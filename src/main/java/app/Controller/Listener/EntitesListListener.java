@@ -101,7 +101,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
         AtomicInteger actualLevel = new AtomicInteger(0);   //Voir l'action de l'amélioration à la fin
 
-        AtomicInteger qtiteRevente = new AtomicInteger((int) (e.getCoin()/2));   //On définit la quantité rendue
+        AtomicInteger qtiteRevente = new AtomicInteger(e.getCoin()/2);   //On définit la quantité rendue
 
         AnchorPane root = new AnchorPane();
         root.setPrefSize(260, 200);
@@ -272,9 +272,18 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         buyUpgradeButton.setOnMouseClicked(event -> {
 
             actualLevel.getAndIncrement();
+
+            //Partie FXML
             updateDescriptionStatLabel(e, actualLevel.get(), attributesVBox);
             updateDescriptionButtonUpgrade(e, actualLevel.get(), nameUpgrade, priceUpgrade);
             updateDescriptionSellButton(e, actualLevel.get(), qtiteRevente, sellButton);
+
+            //Partie Code
+            for (int i = 0; i < e.getStatsLevels().get(actualLevel.get()).length - 2; i++) {
+
+                e.setStats(actualLevel.get());
+            }
+
         });
 
 

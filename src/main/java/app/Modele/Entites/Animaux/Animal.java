@@ -19,7 +19,7 @@ public class Animal extends Entite {
 
     public Animal(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
         super(name, coord, w, statsLevels);
-        this.vitesse = (double) statsLevels.get(0)[3];
+        this.vitesse = (double) statsLevels.get(0)[6];
         canAttack=true;
         stunnedUntil = new double[2];
         slowUntil = new double[3];
@@ -40,6 +40,14 @@ public class Animal extends Entite {
         if (slowUntil[0]!=0){
             endSlow(dt);
         }
+    }
+
+    @Override
+    public void setStats(int actualLevel) {
+
+        super.setStats(actualLevel);
+
+        vitesse = ((double) getStatsLevels().get(actualLevel)[6]);
     }
 
     public void deplacement() {

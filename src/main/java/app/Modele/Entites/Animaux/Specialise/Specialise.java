@@ -26,6 +26,16 @@ public abstract class Specialise extends Animal{
         this.actionSpecialePossible = new SimpleBooleanProperty(true);
     }
 
+    @Override
+    public void setStats(int actualLevel) {
+
+        super.setStats(actualLevel);
+
+        this.rangeEffect = ((double) getStatsLevels().get(actualLevel)[7]);
+        this.tempsAction = ((double) getStatsLevels().get(actualLevel)[8]);
+        this.tempsRepo = ((double) getStatsLevels().get(actualLevel)[9]);
+    }
+
     public double getRangeEffect() {
         return rangeEffect;
     }
