@@ -219,11 +219,11 @@ public class StatsEntiteInitialiser {
                 70,    //Upgrade price
                 8.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
-                5.,     //Range
+                50.,     //Range
                 .5,     //Damage
                 1.,     //FreqAtk
                 0.,     //Speed
-                20.,    //BuffRange
+                200.,    //BuffRange
                 1.,     //TpsBuff
                 .5     //TpsRepo
         });

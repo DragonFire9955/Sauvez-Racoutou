@@ -35,15 +35,18 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
     @FXML
     private Pane carte;
+    private final PerimetreVue perim;
 
     private GameWorld gameWorld;
 
-    private final Map<String, Node> descriptionsMap = new HashMap<>();
+    private final Map<String, Node> descriptionsMap;
 
     public EntitesListListener(Pane carte,  GameWorld gameWorld) {
 
         this.carte = carte;
         this.gameWorld = gameWorld;
+        this.perim = new PerimetreVue(this.carte);
+        descriptionsMap = new HashMap<>();
     }
 
     @Override
@@ -69,10 +72,11 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     System.out.println("ajout dans list");
 
                     //affiche l'image de l'entite sur la carte
-                    Node imageEntite = EntiteVue.appliquerBonneImage(e, true);
-                    if(e instanceof PouletIGPN)
-                        carte.getChildren().add(1, PerimetreVue.initPerimetre((Specialise) e, (ImageView) imageEntite));
+                    ImageView imageEntite = EntiteVue.appliquerBonneImage(e, true);
                     carte.getChildren().add(imageEntite);
+
+                    // Création périmètre(s)
+                    perim.initPerimetre(e, imageEntite);
 
                     //créé la barre de vie et récupère son conteneur
                     VieControlleur barreVie = new VieControlleur(e);
@@ -90,7 +94,10 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     if (e instanceof Animal && ((Animal) e).isAllie()) {
 
                         ajoutZoneDescription(e);
-                        imageEntite.setOnMouseClicked(event -> afficherDescription(e));
+                        imageEntite.setOnMouseClicked(event -> {
+                            perim.changeVisibility(e);
+                            afficherDescription(e);
+                        });
                     }
                 }
             }
@@ -98,8 +105,6 @@ public class EntitesListListener implements ListChangeListener<Entite> {
     }
 
     public void ajoutZoneDescription(Entite e) {
-
-        AtomicInteger actualLevel = new AtomicInteger(0);   //Voir l'action de l'amélioration à la fin
 
         AtomicInteger qtiteRevente = new AtomicInteger(e.getCoin()/2);   //On définit la quantité rendue
 
@@ -154,8 +159,10 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         //Boutons close desc et sell
         Button closeButton = new Button("X");
         closeButton.setPrefSize(25, 25);
-        closeButton.setOnMouseClicked(event ->
-                root.setVisible(false)
+        closeButton.setOnMouseClicked(event -> {
+            root.setVisible(false);
+            carte.getChildren().removeIf(node -> node.getId().equals("perim"+ e.getId()) || node.getId().equals("perimSpe"+ e.getId()));
+            }
         );
 
 
@@ -260,7 +267,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         VBox attributesVBox = new VBox();
         attributesVBox.setPadding(new Insets(2));
 
-        updateDescriptionStatLabel(e, actualLevel.get(), attributesVBox);
+        updateDescriptionStatLabel(e, attributesVBox);
 
         ScrollPane attributesScrollPane = new ScrollPane(attributesVBox);
         attributesScrollPane.setPrefSize(127, 109);
@@ -271,17 +278,17 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         //Action du boutton pr améliorer
         buyUpgradeButton.setOnMouseClicked(event -> {
 
-            actualLevel.getAndIncrement();
+            e.setLevel(e.getLevel()+1);
 
             //Partie FXML
-            updateDescriptionStatLabel(e, actualLevel.get(), attributesVBox);
-            updateDescriptionButtonUpgrade(e, actualLevel.get(), nameUpgrade, priceUpgrade);
-            updateDescriptionSellButton(e, actualLevel.get(), qtiteRevente, sellButton);
+            updateDescriptionStatLabel(e, attributesVBox);
+            updateDescriptionButtonUpgrade(e, nameUpgrade, priceUpgrade);
+            updateDescriptionSellButton(e, qtiteRevente, sellButton);
 
             //Partie Code
-            for (int i = 0; i < e.getStatsLevels().get(actualLevel.get()).length - 2; i++) {
+            for (int i = 0; i < e.getStatsLevels().get(e.getLevel()).length - 2; i++) {
 
-                e.setStats(actualLevel.get());
+                e.setStats(e.getLevel());
             }
 
         });
@@ -322,43 +329,43 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         }
     }
 
-    private void updateDescriptionStatLabel(Entite e, int actualLevel, VBox attributesVBox) {
+    private void updateDescriptionStatLabel(Entite e, VBox attributesVBox) {
 
-        if (e.getStatsLevels() != null && e.getStatsLevels().size() > 1 && actualLevel < e.getStatsLevels().size()-1) {        //A suppr quand j'aurais fait pr tt les Entites
+        if (e.getStatsLevels() != null && e.getStatsLevels().size() > 1 && e.getLevel() < e.getStatsLevels().size()-1) {        //A suppr quand j'aurais fait pr tt les Entites
 
             attributesVBox.getChildren().clear();
 
-            for (int i = 0; i < e.getStatsLevels().get(actualLevel).length - 2; i++) {
+            for (int i = 0; i < e.getStatsLevels().get(e.getLevel()).length - 2; i++) {
 
-                Object actualStat = e.getStatsLevels().get(actualLevel)[i + 2];
-                Object newStat = e.getStatsLevels().get((actualLevel) + 1)[i + 2];
+                Object actualStat = e.getStatsLevels().get(e.getLevel())[i + 2];
+                Object newStat = e.getStatsLevels().get((e.getLevel()) + 1)[i + 2];
 
                 if (!actualStat.equals(newStat))
                     attributesVBox.getChildren().add(new Label(
-                            e.getStatsLevels().get(actualLevel)[i + 2].toString()
+                            e.getStatsLevels().get(e.getLevel())[i + 2].toString()
                                     + " -> "
-                                    + e.getStatsLevels().get((actualLevel) + 1)[i + 2].toString()
+                                    + e.getStatsLevels().get((e.getLevel()) + 1)[i + 2].toString()
                     ));
             }
         }
-        if (actualLevel >= e.getStatsLevels().size()-1) {
+        if (e.getLevel() >= e.getStatsLevels().size()-1) {
             attributesVBox.getChildren().clear();
             attributesVBox.getChildren().add(new Label("Maxed out"));
         }
     }
 
-    private void updateDescriptionButtonUpgrade(Entite e, int actualLevel, Label nameUpgrade, Label priceUpgrade) {
+    private void updateDescriptionButtonUpgrade(Entite e, Label nameUpgrade, Label priceUpgrade) {
 
-        if (actualLevel < e.getStatsLevels().size()-1 && e.getStatsLevels().get(actualLevel+1)[0] != null) {
+        if (e.getLevel() < e.getStatsLevels().size()-1 && e.getStatsLevels().get(e.getLevel()+1)[0] != null) {
 
-            nameUpgrade.setText(e.getStatsLevels().get(actualLevel+1)[0].toString());
-            priceUpgrade.setText((e.getStatsLevels().get(actualLevel)[1]).toString());
+            nameUpgrade.setText(e.getStatsLevels().get(e.getLevel()+1)[0].toString());
+            priceUpgrade.setText((e.getStatsLevels().get(e.getLevel())[1]).toString());
         }
     }
 
-    private void updateDescriptionSellButton(Entite e, int actualLevel, AtomicInteger qtiteRevente, Button sellButton) {
+    private void updateDescriptionSellButton(Entite e, AtomicInteger qtiteRevente, Button sellButton) {
 
-        qtiteRevente.set((int) (e.getStatsLevels().get(actualLevel)[1]) / 2);
+        qtiteRevente.set((int) (e.getStatsLevels().get(e.getLevel())[1]) / 2);
         sellButton.setText("Sell : " + qtiteRevente.get());
     }
 }
