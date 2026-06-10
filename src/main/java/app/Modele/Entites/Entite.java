@@ -28,7 +28,9 @@ public abstract class Entite {
     private double damage;
     private double freqAtk;
 
+    private int level;
     private List<Object[]> statsLevels;
+
 
     private DoubleProperty health;
     private final double maxHealth;
@@ -40,7 +42,7 @@ public abstract class Entite {
 
 
     protected Entite(String name, double coord[], GameWorld w, List<Object[]> statsLevels) {
-
+        this.level =0;
         this.statsLevels = statsLevels;
 
         this.id=nbId;
@@ -251,5 +253,13 @@ public abstract class Entite {
 
     public String getName() {
         return name;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

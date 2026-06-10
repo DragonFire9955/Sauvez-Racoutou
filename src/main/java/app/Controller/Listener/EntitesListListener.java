@@ -37,6 +37,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
     @FXML
     private Pane carte;
+    private final PerimetreVue perim;
 
     private GameWorld gameWorld;
 
@@ -44,6 +45,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
         this.carte = carte;
         this.gameWorld = gameWorld;
+        this.perim = new PerimetreVue(this.carte);
     }
 
     @Override
@@ -69,10 +71,11 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     System.out.println("ajout dans list");
 
                     //affiche l'image de l'entite sur la carte
-                    Node imageEntite = EntiteVue.appliquerBonneImage(e, true);
-                    if(e instanceof PouletIGPN)
-                        carte.getChildren().add(1, PerimetreVue.initPerimetre((Specialise) e, (ImageView) imageEntite));
+                    ImageView imageEntite = EntiteVue.appliquerBonneImage(e, true);
                     carte.getChildren().add(imageEntite);
+
+                    // Création périmètre(s)
+                    perim.initPerimetre(e, imageEntite);
 
                     //créé la barre de vie et récupère son conteneur
                     VieControlleur barreVie = new VieControlleur(e);
@@ -91,7 +94,10 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
                         InfoBulleListener infoBulleListener = new InfoBulleListener(carte, gameWorld, e);
                         infoBulleListener.ajoutZoneDescription();
-                        imageEntite.setOnMouseClicked(event -> infoBulleListener.afficherDescription());
+                        imageEntite.setOnMouseClicked(event -> {
+                            infoBulleListener.afficherDescription();
+                            perim.changeVisibility(e);
+                        });
                     }
                 }
             }
