@@ -112,7 +112,7 @@ public class Controller implements Initializable {
         dragImage.drag(btnPoubelle, 100, "/app/images/poubelle.png");
         dragImage.drag(btnClassique, 101, "/app/images/chat.png");
         dragImage.drag(btnProjectiles, 102, "/app/images/projectiles.png");
-        dragImage.drag(btnJournaliste, 103, "/app/images/chatJournaliste.png");
+        dragImage.drag(btnJournaliste, 103, "/app/images/chatJournaliste/niv0/img.png");
 
         dragImage.survole(tileMap);
 
@@ -166,7 +166,7 @@ public class Controller implements Initializable {
             if(newV.intValue()>0){
                 imgFinJeu.setImage(new Image("app/images/gagne.gif"));
             } else if (newV.intValue()<0) {
-                imgFinJeu.setImage(new Image("app/images/gif/perdue.gif"));
+                imgFinJeu.setImage(new Image("app/images/perdue.gif"));
             }
             imgFinJeu.setFitWidth(300);
             imgFinJeu.setFitHeight(300);

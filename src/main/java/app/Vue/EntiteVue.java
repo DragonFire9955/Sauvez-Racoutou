@@ -3,7 +3,6 @@ package app.Vue;
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
-import app.Modele.Entites.Animaux.Specialise.Specialise;
 import app.Modele.Entites.Entite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,35 +31,35 @@ public class EntiteVue {
                 break;
 // SPECIALISES
             case "Poulet bouclier":
-                image = new Image("app/images/pouletBouclier.png");
+                image = new Image("app/images/pouletBouclier/img.png");
                 break;
         // BUFFER
-            case "Chat cuisinier":
-                image = new Image("app/images/chatCuisinier.png");
+            case "chatCuisinier":
+                image = new Image("app/images/chatCuisinier/niv0/img.png");
                 break;
             case "Chat médecin":
-                image = new Image("app/images/chatMedecin.png");
+                image = new Image("app/images/chatMedecin/niv0/img.png");
                 break;
             case "Poulet conservateur":
                 image = new Image("app/images/chienInterim.jpg"); /// TODO: IMG
                 break;
         // DEBUFFER
             case "Poulet IGPN":
-                image = new Image("app/images/pouletIGPN.png");
+                image = new Image("app/images/pouletIGPN/img.png");
                 break;
             // ALTERATIONS ELEMENTAIRES
             case "Chat scientifique":
-                image = new Image("app/images/chatScientifique.png");
+                image = new Image("app/images/chatScientifique/niv0/img.png");
                 break;
             case "Chat hypnotiseur":
-                image = new Image("app/images/chatHypnotiseur.png");
+                image = new Image("app/images/chatHypnotiseur/niv0/img.png");
                 break;
             // STUNNER
             case "Chat journaliste":
-                image = new Image("app/images/chatJournaliste.png");
+                image = new Image("app/images/chatJournaliste/niv0/img.png");
                 break;
             case "Poulet menottes":
-                image = new Image("app/images/pouletMenottes.png");
+                image = new Image("app/images/pouletMenottes/img.png");
                 break;
 // VOLANTS
             case "Poulet volant":
@@ -126,31 +125,31 @@ public class EntiteVue {
 
         switch (entite.getName()) {
             case "Racoutou":
-                    image = new Image("app/images/gif/racoutou.gif");
+                    image = new Image("app/images/racoutou/niv0/degat.gif");
                     break;
             case "Chat scientifique":
-                    image = new Image("app/images/gif/chatScientifique.gif");
+                    image = new Image("app/images/chatScientifique/niv0/degat.gif");
                     break;
             case "Poulet IGPN":
-                image = new Image("app/images/gif/pouletIGPN.gif");
+                image = new Image("app/images/pouletIGPN/degat.gif");
                 break;
             case "Poulet bouclier":
-                    image = new Image("app/images/gif/pouletBouclier.gif");
+                    image = new Image("app/images/pouletBouclier/degat.gif");
                     break;
             case "Chat cuisinier":
-                    image = new Image("app/images/gif/chatCuisinier.gif");
+                    image = new Image("app/images/chatCuisinier/niv0/degat.gif");
                     break;
             case "Chat journaliste":
-                image = new Image("app/images/gif/chatJournaliste.gif");
+                image = new Image("app/images/chatJournaliste/niv0/degat.gif");
                 break;
             case "Poulet menottes":
-                image = new Image("app/images/gif/pouletMenottes.gif");
+                image = new Image("app/images/pouletMenottes/degat.gif");
                 break;
             case "Chat classique":
-                image = new Image("app/images/gif/chatClassique.gif");
+                image = new Image("app/images/chatClassique/niv0/degat.gif");
                 break;
             case "Poulet classique":
-                image = new Image("app/images/gif/pouletClassique.gif");
+                image = new Image("app/images/pouletClassique/degat.gif");
                 break;
             default:
                 System.out.println("Image inconnue");

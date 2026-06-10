@@ -186,7 +186,7 @@ public class Animal extends Entite {
         int i;
         for(Entite e: entites) {
             i= 0;
-            //Tant que distance supérieur ET pv supérieur
+            //Tant que distance supérieur
             while (i < entitesTriees.size()
                 && Utilitaire.distance(this.getX(), this.getY(), e.getX(), e.getY())
                    > Utilitaire.distance(this.getX(), this.getY(), entitesTriees.get(i).getX(), entitesTriees.get(i).getY())) {
