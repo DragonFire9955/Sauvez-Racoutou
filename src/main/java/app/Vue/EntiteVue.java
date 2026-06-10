@@ -20,14 +20,14 @@ public class EntiteVue {
 
         switch (entite.getName()) {
             case "Racoutou":
-                image = new Image("app/images/racoutou.png");
+                image = new Image("app/images/racoutou/niv0/img.png");
                 break;
 // CLASSIQUES
             case "Chat classique":
-                image = new Image("app/images/chat.png");
+                image = new Image("app/images/chatClassique/niv0/img.png");
                 break;
             case "Poulet classique":
-                image = new Image("app/images/pouletClassique.png");
+                image = new Image("app/images/pouletClassique/img.png");
                 break;
 // SPECIALISES
             case "Poulet bouclier":
@@ -63,14 +63,14 @@ public class EntiteVue {
                 break;
 // VOLANTS
             case "Poulet volant":
-                image = new Image("app/images/pouletClassique.png"); /// TODO: IMG
+                image = new Image("app/images/pouletClassique/img.png"); /// TODO: IMG
                 break;
             case "Chien intermittent":
                 image = new Image("app/images/chienInterim.jpg"); /// TODO: IMG
                 break;
 // CREUSANT
             case "Poulet mineur":
-                image = new Image("app/images/pouletClassique.png"); /// TODO: IMG
+                image = new Image("app/images/pouletClassique/img.png"); /// TODO: IMG
                 break;
             case "Taupe":
                 image = new Image("app/images/chienInterim.jpg"); /// TODO: IMG

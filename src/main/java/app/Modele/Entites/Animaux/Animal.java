@@ -256,4 +256,7 @@ public class Animal extends Entite {
     public void setAllie(boolean allie) {
         this.allie = allie;
     }
+
+
+
 }

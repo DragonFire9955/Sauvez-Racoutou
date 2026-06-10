@@ -17,9 +17,13 @@ public class AnimauxManager {
 
     public static GameWorld w;
 
-// CLASSIQUE
+    // CLASSIQUE
     public static Animal creerChatClassique(GameWorld w) {
         return new Animal("Chat classique", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Chat classique"), true);
+    }
+
+    public static Animal creerChatClassique(double[] coords, GameWorld w) {
+        return new Animal("Chat classique", coords, w, StatsEntiteInitialiser.getStatsLevels("Chat classique"), true);
     }
 
     public static Animal creerPouletClassique(GameWorld w) {
@@ -30,7 +34,7 @@ public class AnimauxManager {
         return new Animal("Poulet rolleur", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Poulet rolleur"), false);
     }
 
-// STUNNER
+    // STUNNER
     public static Animal creerPouletMenotte(GameWorld w){
         return new Stunner("Poulet menottes", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Poulet menottes"), false);
     }
@@ -39,11 +43,21 @@ public class AnimauxManager {
         return new Stunner("Chat journaliste", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Chat journaliste"), true);
     }
 
-// BUFFER
+    public static Animal creerChatJournaliste(double[] coords, GameWorld w){
+        return new Stunner("Chat journaliste", coords, w, StatsEntiteInitialiser.getStatsLevels("Chat journaliste"), true);
+    }
+
+    // BUFFER
     public static Animal creerChatMedecin(GameWorld w) {
         ArrayList<Double> lbuff = new ArrayList<>();
         lbuff.add(1.);
         return new Buffer("Chat médecin", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Chat médecin"), true, lbuff);
+    }
+
+    public static Animal creerChatMedecin(double[] coords, GameWorld w) {
+        ArrayList<Double> lbuff = new ArrayList<>();
+        lbuff.add(1.);
+        return new Buffer("Chat médecin", coords, w, StatsEntiteInitialiser.getStatsLevels("Chat médecin"), true, lbuff);
     }
 
     public static Animal creerChatCuisinier(GameWorld w) {

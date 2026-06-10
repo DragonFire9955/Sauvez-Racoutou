@@ -52,7 +52,7 @@ public class GameWorld {
         //dijkRacoutou= new DeplacementDijkstra(tailleTile, map).calculerDistances(getTileRacoutou());
         dijkRacoutou2= new DeplacementDijkstra(tailleTile, map).testDijkstra(this.getRacoutou().getCoord());
 
-        totalCoin = new SimpleIntegerProperty(0);
+        totalCoin = new SimpleIntegerProperty(100);
 
         ensemblesVagues = Vague.ensembleVagues(this);
         durreeVague = new SimpleIntegerProperty(0);
@@ -255,7 +255,6 @@ public class GameWorld {
             theEnd.set(1);
             return true;
         }
-
         return  false;
     }
 

@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="applicationPane" prefHeight="896.0" prefWidth="1408.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller.Controller">
+<?import javafx.scene.control.ProgressBar?>
+<BorderPane fx:id="applicationPane" prefHeight="896.0" prefWidth="1408.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller.Controller">
    <center>
       <Pane fx:id="gamePane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -28,21 +35,21 @@
             </Pane>
             <Pane fx:id="finJeu" prefHeight="465.0" prefWidth="744.0" translateX="200.0" translateY="50.0" visible="false">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a4a4a4" height="467.0" opacity="0.95" stroke="BLACK" strokeType="INSIDE" width="745.0" />
-                  <VBox alignment="CENTER" prefHeight="466.0" prefWidth="745.0">
+                  <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#1E3C4A" height="465.0" stroke="#4B6E7D" strokeWidth="2.0" width="744.0" opacity="0.95"/>
+                  <VBox alignment="CENTER" prefHeight="465.0" prefWidth="744.0" spacing="20.0">
                      <children>
-                        <ImageView fx:id="imgFinJeu" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <ImageView fx:id="imgFinJeu" fitHeight="260.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true" />
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="744.0" spacing="60.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Nouvelle Partie" onAction="#lancerJeu">
-                                 <HBox.margin>
-                                    <Insets right="50.0" />
-                                 </HBox.margin>
+                              <Button mnemonicParsing="false" onAction="#lancerJeu" prefHeight="55.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom right, #FF8C00, #F12711); -fx-background-radius: 12; -fx-cursor: hand;" text="Nouvelle Partie" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
                               </Button>
-                              <Button mnemonicParsing="false" text="Menu">
-                                 <HBox.margin>
-                                    <Insets left="50.0" />
-                                 </HBox.margin>
+                              <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom right, #4B6E7D, #2C5364); -fx-background-radius: 12; -fx-cursor: hand; -fx-border-color: #4B6E7D; -fx-border-radius: 12;" text="Menu" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
                               </Button>
                            </children>
                         </HBox>
@@ -50,143 +57,270 @@
                   </VBox>
                </children>
             </Pane>
-            <VBox fx:id="menuPause" alignment="CENTER" layoutX="320.0" layoutY="120.0" prefHeight="400.0" prefWidth="500.0" spacing="30.0" style="-fx-background-color: rgba(93, 64, 55, 0.75); -fx-background-radius: 10;" visible="false">
+            <VBox fx:id="menuPause" alignment="TOP_CENTER" layoutX="320.0" layoutY="120.0" prefHeight="400.0" prefWidth="500.0" spacing="30.0" visible="false" style="-fx-background-color: #1E3C4A; -fx-background-radius: 20; -fx-border-color: #4B6E7D; -fx-border-radius: 20; -fx-border-width: 2;">
                <padding>
-                  <Insets top="40.0" />
+                  <Insets top="50.0"/>
                </padding>
                <children>
-                  <Button onAction="#pause" style="-fx-font-size: 18px; -fx-background-color: #8D6E63; -fx-text-fill: white; -fx-pref-width: 150px;" text="Reprendre" />
-
-                  <Button onAction="#recommencerJeu" style="-fx-font-size: 18px; -fx-background-color: #E67E22; -fx-text-fill: white; -fx-pref-width: 150px;" text="Redémarrer" />
-
-                  <Button onAction="#quitterPartie" style="-fx-font-size: 18px; -fx-background-color: #D7CCC8; -fx-text-fill: #3E2723; -fx-pref-width: 150px;" text="Quitter" />
+                  <Label text="PAUSE" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="50.0"/>
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="60.0"/>
+                     </VBox.margin>
+                  </Label>
+                  <VBox alignment="CENTER" spacing="25.0">
+                     <children>
+                        <HBox alignment="CENTER" spacing="20.0">
+                           <children>
+                              <Button text="Reprendre" onAction="#pause" prefHeight="55.0" prefWidth="180.0" textFill="WHITE" style="-fx-background-color: linear-gradient(to bottom right, #4CAF50, #2E7D32); -fx-background-radius: 12; -fx-cursor: hand;">
+                                 <font>
+                                    <Font name="System Bold" size="18.0"/>
+                                 </font>
+                              </Button>
+                              <Button text="Redémarrer" onAction="#redemarrerJeu" prefHeight="55.0" prefWidth="180.0" textFill="WHITE" style="-fx-background-color: linear-gradient(to bottom right, #FF8C00, #F12711); -fx-background-radius: 12; -fx-cursor: hand;">
+                                 <font>
+                                    <Font name="System Bold" size="18.0"/>
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <Button text="Quitter" onAction="#quitterJeu" prefHeight="55.0" prefWidth="180.0" textFill="WHITE" style="-fx-background-color: linear-gradient(to bottom right, #4B6E7D, #2C5364); -fx-background-radius: 12; -fx-cursor: hand; -fx-border-color: #4B6E7D; -fx-border-radius: 12;">
+                           <font>
+                              <Font name="System Bold" size="18.0"/>
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </children>
       </Pane>
    </center>
    <right>
-      <Pane prefHeight="200.0" prefWidth="275.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox prefHeight="796.0" prefWidth="275.0" spacing="10.0" style="-fx-background-color: black; -fx-background-radius: 5;">
-               <children>
-                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="267.0" text="BOUTIQUE" textFill="WHITE">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <HBox prefHeight="29.0" prefWidth="265.0">
-                     <children>
-                        <Label prefHeight="32.0" prefWidth="47.0" text="Coins :" textFill="ORANGE">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="coinLabel" alignment="CENTER" prefHeight="13.0" prefWidth="97.0" text="coinAmount" textFill="WHITE">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                        </Label>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <Button contentDisplay="BOTTOM" mnemonicParsing="false" style="-fx-background-color: #fdfbe7;" text="Obstacle" textFill="LIME">
-                     <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/amel.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font size="21.0" />
-                     </font>
-                  </Button>
-                  <Button contentDisplay="BOTTOM" mnemonicParsing="false" style="-fx-background-color: #fdfbe7;" text="Tour" textFill="LIME">
-                     <font>
-                        <Font size="21.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/amel_2.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
-                     <children>
-                        <Button fx:id="btnPoubelle" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerPoubelle" style="-fx-background-color: #fdfbe7;" text="Poubelle" textFill="ORANGE">
-                           <graphic>
-                              <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/def_0.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="btnClassique" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerChatClassique" style="-fx-background-color: #fdfbe7;" text="Chat classique" textFill="ORANGE">
-                           <graphic>
-                              <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/def_1.png" />
-                                 </image></ImageView>
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
-                     <children>
-                        <Button fx:id="btnProjectiles" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerChatProjectiles" style="-fx-background-color: #fdfbe7;" text="Chat à projectiles" textFill="ORANGE">
-                           <graphic>
-                              <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/def_2.png" />
-                                 </image></ImageView>
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="btnJournaliste" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#placerChatJournaliste" style="-fx-background-color: #fdfbe7;" text="Chat journaliste" textFill="ORANGE">
-                           <graphic>
-                              <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/def_3.png" />
-                                 </image></ImageView>
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </HBox>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </VBox>
-         </children>
-      </Pane>
-   </right>
-   <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="796.0" prefWidth="275.0" spacing="15.0" style="-fx-background-color: #2C5364; -fx-border-width: 2 0 0 0; -fx-border-color: #4B6E7D;">
          <padding>
-            <Insets left="15.0" />
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </padding>
          <children>
-            <Button id="btnPause" mnemonicParsing="false" onAction="#pause" style="-fx-background-color: transparent;">
+            <Label alignment="CENTER" prefWidth="245.0" text="BOUTIQUE" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="245.0" style="-fx-background-color: #25252D; -fx-background-radius: 10;">
+               <children>
+                  <Label text="Coins :" textFill="ORANGE">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="coinLabel" alignment="CENTER" text="coinAmount" textFill="#FFD166">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="15.0" right="8.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/coin.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <TilePane hgap="15.0" prefColumns="2" prefTileHeight="100.0" prefTileWidth="112.0" vgap="15.0">
+               <children>
+                  <Button fx:id="btnPoubelle" contentDisplay="TOP" onAction="#placerPoubelle" prefHeight="100.0" prefWidth="112.0" style="-fx-background-color: linear-gradient(to bottom right, #E53935, #E35D5B); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" text="Poubelle">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <graphic>
+                        <HBox alignment="CENTER" spacing="5.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/poubelle.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text="5" textFill="#FFD166">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/coin.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnClassique" contentDisplay="TOP" onAction="#placerChatClassique" prefHeight="100.0" prefWidth="112.0" style="-fx-background-color: linear-gradient(to bottom right, #CCCCB2, #757519); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" text="Chat classique">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <graphic>
+                        <HBox alignment="CENTER" spacing="5.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/chat.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text="10" textFill="#FFD166">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/coin.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnMedecin" contentDisplay="TOP" onAction="#placerChatMedecin" prefHeight="100.0" prefWidth="112.0" style="-fx-background-color: linear-gradient(to bottom right, #FF8C00, #F12711); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" text="Chat médecin">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <graphic>
+                        <HBox alignment="CENTER" spacing="5.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/chatMedecin.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text="20" textFill="#FFD166">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/coin.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnJournaliste" contentDisplay="TOP" onAction="#placerChatJournaliste" prefHeight="100.0" prefWidth="112.0" style="-fx-background-color: linear-gradient(to bottom right, #FF007F, #7928CA); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" text="Chat journaliste">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <HBox alignment="CENTER" spacing="5.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/chatJournaliste.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text="30" textFill="#FFD166">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/coin.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnScientifique" contentDisplay="TOP" onAction="#placerChatScientifique" prefHeight="100.0" prefWidth="112.0" style="-fx-background-color: linear-gradient(to bottom right, #00C6FF, #0072FF); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" text="Chat scientifique">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <HBox alignment="CENTER" spacing="5.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/chatScientifique.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text="50" textFill="#FFD166">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/coin.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </graphic>
+                  </Button>
+               </children>
+            </TilePane>
+            <VBox spacing="15.0">
+               <children>
+                  <Button contentDisplay="TOP" prefHeight="60.0" prefWidth="245.0" style="-fx-background-color: linear-gradient(to right, #11998E, #38EF7D); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" text="Amélioration Obstacles">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <HBox alignment="CENTER" spacing="5.0">
+                           <children>
+                              <Label text="75" textFill="#FFD166">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/coin.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </graphic>
+                  </Button>
+                  <Button contentDisplay="TOP" prefHeight="60.0" prefWidth="245.0" style="-fx-background-color: linear-gradient(to right, #4568DC, #B06AB8); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" text="Amélioration Tours">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <HBox alignment="CENTER" spacing="5.0">
+                           <children>
+                              <Label text="100" textFill="#FFD166">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/coin.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </graphic>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+      </VBox>
+   </right>
+   <top>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="1408.0" style="-fx-background-color: #2C5364;">
+         <children>
+            <Button id="btnPause" mnemonicParsing="false" onAction="#pause" style="-fx-background-color: transparent; -fx-cursor: hand;">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -194,35 +328,16 @@
                      </image>
                   </ImageView>
                </graphic>
+               <HBox.margin>
+                  <Insets left="25.0" />
+               </HBox.margin>
             </Button>
-            <Label alignment="CENTER" prefHeight="80.0" prefWidth="1322.0" text="Sauvez Racoutou !" textFill="WHITE">
+            <Label alignment="CENTER" prefHeight="80.0" prefWidth="1150.0" text="SAUVEZ RACOUTOU !" textFill="linear-gradient(to right, #FF8C00, #FF007F)">
                <font>
-                  <Font name="Rockwell Bold Italic" size="65.0" />
+                  <Font name="Impact" size="55.0" />
                </font>
             </Label>
          </children>
       </HBox>
    </top>
-   <bottom>
-      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
-         <children>
-            <Label prefHeight="100.0" prefWidth="148.0" text="Vague : " textFill="#008fff">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <padding>
-                  <Insets left="15.0" />
-               </padding>
-            </Label>
-            <ImageView fitHeight="45.0" fitWidth="272.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/vie_1.png" />
-               </image>
-               <HBox.margin>
-                  <Insets left="100.0" top="25.0" />
-               </HBox.margin>
-            </ImageView>
-         </children>
-      </HBox>
-   </bottom>
 </BorderPane>
