@@ -90,7 +90,7 @@ public class StatsEntiteInitialiser {
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
                 10.,     //Range
                 5.,     //Damage
-                .5,     //FreqAtk
+                2.5,     //FreqAtk
                 0.,     //Speed
 
         });
@@ -101,7 +101,7 @@ public class StatsEntiteInitialiser {
                 100.,     //Health   (+50)
                 15.,      //Range   (+5)
                 7.,      //Damage    (+2)
-                .7,    //FreqAtk (+.2)
+                2.3,    //FreqAtk (+.2)
                 0.,      //Speed
 
         });
@@ -112,7 +112,7 @@ public class StatsEntiteInitialiser {
                 200.,     //Health   (+100)
                 15.,      //Range
                 10.,     //Damage   (+3)
-                1.,    //FreqAtk (+.3)
+                2.,    //FreqAtk (+.3)
                 0.,      //Speed
 
         });

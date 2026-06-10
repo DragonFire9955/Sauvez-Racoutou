@@ -1,5 +1,6 @@
 package app.Modele.Entites;
 
+import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Utilitaire;
 import javafx.beans.property.BooleanProperty;
@@ -35,7 +36,7 @@ public abstract class Entite {
     private BooleanProperty alive;
     private boolean actif;
 
-    private double chronoSpe;
+    private double chrono;
 
 
     protected Entite(String name, double coord[], GameWorld w, List<Object[]> statsLevels) {
@@ -53,16 +54,16 @@ public abstract class Entite {
         this.y = new SimpleDoubleProperty(coord[1]);
         this.health = new SimpleDoubleProperty((double) statsLevels.get(0)[2]);
         this.maxHealth = health.getValue();
-        this.coin = (int) statsLevels.get(0)[1];
-        this.range = (double) statsLevels.get(0)[4];
-        this.damage = (double) statsLevels.get(0)[5];
-        this.freqAtk = (double) statsLevels.get(0)[6];
+        this.coin = (int) statsLevels.getFirst()[1];
+        this.range = (double) statsLevels.getFirst()[3];
+        this.damage = (double) statsLevels.getFirst()[4];
+        this.freqAtk = (double) statsLevels.getFirst()[5];
         this.world=w;
 
 
         alive = new SimpleBooleanProperty(true);
         actif=true;
-        chronoSpe =0;
+        chrono =0;
     }
     public void update(double dt)  {
         this.handleCollisions(getCible(), dt);
@@ -77,14 +78,15 @@ public abstract class Entite {
         }
 
         if (Utilitaire.intersects(cible, this)){
-            if(chronoSpe ==0)
-                chronoSpe =dt;
+            if(chrono ==0)
+                chrono =dt;
 
             coll = true;
 
-            if (((dt- chronoSpe)) >= freqAtk) {
+            if ((dt- chrono) >= freqAtk) {
+                System.out.println(freqAtk);
                 attaquer();
-                chronoSpe = 0;
+                chrono = 0;
             }
 
         } else {
