@@ -16,6 +16,8 @@ public class Animal extends Entite {
     private double vitesse;
     private boolean canAttack;
     private boolean allie;
+    
+    private int cibleInt;
 
     public Animal(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
         super(name, coord, w, statsLevels);
@@ -24,6 +26,8 @@ public class Animal extends Entite {
         stunnedUntil = new double[2];
         slowUntil = new double[3];
         this.allie=allie;
+        
+        cibleInt = 3;
     }
 
     @Override
@@ -137,7 +141,7 @@ public class Animal extends Entite {
 
         if(!canAttack)return;
 
-        List<Entite> cibles = getEntitesCibles();
+        List<Entite> cibles = getEntitesCiblesNearest();
 
         if(cibles.isEmpty()) return;
 
@@ -152,20 +156,31 @@ public class Animal extends Entite {
 
         if(!allie)
             return getWorld().getRacoutou();
-        else
-            if (getEntitesCibles().isEmpty())
-                return null;
-            else
-                return getEntitesCibles().getFirst();
+        else {
+            if (getEntitesCiblesNearest().isEmpty()) return null;
+            
+            switch (cibleInt){
+                case 0: //Strongest
+                    return getEntitesCiblesNearest().getFirst();
+                case 1: //Weakest
+                    return getCiblesAccessibles(getRange(), getEntitesCiblesNearest()).getFirst();
+                case 2: //Farthest
+                    return getEntitesCiblesNearest().getLast();
+                case 3: //Nearest
+                    return getEntitesCiblesNearest().getFirst();
+                default:
+                    return null;
+            }
+        }
     }
 
     @Override
     public Entite getCible(){
 
-        if (getCiblesAccessibles(getRange(), getEntitesCibles()).isEmpty())
+        if (getCiblesAccessibles(getRange(), getEntitesCiblesNearest()).isEmpty())
             return null;
         else
-            return getCiblesAccessibles(getRange(), getEntitesCibles()).getFirst();
+            return getCiblesAccessibles(getRange(), getEntitesCiblesNearest()).getFirst();
     }
 
     public  List<Animal> getAnimauxCibles(){
@@ -175,7 +190,7 @@ public class Animal extends Entite {
             return getWorld().getAlliesAnimaux();
     }
 
-    public List<Entite> getEntitesCibles(){
+    public List<Entite> getEntitesCiblesNearest(){
         List<Entite> entites;
         if(allie)
             entites = Utilitaire.animauxToEntites(getWorld().getEnnemis());
@@ -190,6 +205,27 @@ public class Animal extends Entite {
             while (i < entitesTriees.size()
                 && Utilitaire.distance(this.getX(), this.getY(), e.getX(), e.getY())
                    > Utilitaire.distance(this.getX(), this.getY(), entitesTriees.get(i).getX(), entitesTriees.get(i).getY())) {
+                i++;
+            }
+            entitesTriees.add(i, e);
+        }
+        return entitesTriees;
+    }
+    public List<Entite> getEntitesCiblesStrongest(){
+        List<Entite> entites;
+        if(allie)
+            entites = Utilitaire.animauxToEntites(getWorld().getEnnemis());
+        else
+            entites = this.getWorld().getAlliesAnimauxBarrages();
+
+        List<Entite> entitesTriees = new ArrayList<>();
+        int i;
+        for(Entite e: entites) {
+            i= 0;
+            //Tant que distance supérieur ET pv supérieur
+            while (i < entitesTriees.size()
+                    && Utilitaire.distance(this.getX(), this.getY(), e.getX(), e.getY())
+                    > Utilitaire.distance(this.getX(), this.getY(), entitesTriees.get(i).getX(), entitesTriees.get(i).getY())) {
                 i++;
             }
             entitesTriees.add(i, e);
