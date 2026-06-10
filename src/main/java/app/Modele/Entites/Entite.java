@@ -40,6 +40,8 @@ public abstract class Entite {
 
     protected Entite(String name, double coord[], GameWorld w, List<Object[]> statsLevels) {
 
+        this.statsLevels = statsLevels;
+
         this.id=nbId;
         nbId++;
 
@@ -61,8 +63,6 @@ public abstract class Entite {
         alive = new SimpleBooleanProperty(true);
         actif=true;
         chronoSpe =0;
-
-        this.statsLevels = statsLevels;
     }
     public void update(double dt)  {
         this.handleCollisions(getCible(), dt);
