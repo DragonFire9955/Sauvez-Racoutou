@@ -14,6 +14,7 @@ import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.AnimauxManager;
 import app.Modele.Managers.EnnemisSpawn;
+import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Vue.CameraManager;
 import app.Vue.EntiteVue;
 import app.Vue.TerrainVue;
@@ -136,7 +137,7 @@ public class Controller implements Initializable {
                         gameWorld.getTotalCoin().set(gameWorld.getTotalCoin().get() - prix);
                         //on enleve le cout a notre argent total
 
-                        Poubelle p = new Poubelle(coords, 100.0, 5, 16.0, gameWorld);
+                        Poubelle p = new Poubelle(coords, gameWorld, StatsEntiteInitialiser.getStatsLevels("Poubelle"));
                         ImageView imgPoubelle = terrainVue.creerTour(p);
 
                         imgPoubelle.setTranslateX(posX);
@@ -292,7 +293,7 @@ public class Controller implements Initializable {
         terrainVue.delimitationMap(tileMap);
         remplirMap();
 
-        gameWorld.ajouterAnimal(new Racoutou(gameWorld));
+        gameWorld.ajouterAnimal(new Racoutou(gameWorld, StatsEntiteInitialiser.getStatsLevels("Racoutou")));
         gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
 
         gameLoop.play();
@@ -363,7 +364,7 @@ public class Controller implements Initializable {
                                 double[] coords = new double[]{posX, posY};
 
                                 if (aPlacer == 100) {
-                                    Poubelle p = new Poubelle(coords, 100.0, 3, 16.0, gameWorld);
+                                    Poubelle p = new Poubelle(coords, gameWorld, StatsEntiteInitialiser.getStatsLevels("Poubelle"));
                                     ImageView imgPoubelle = terrainVue.creerTour(p);
 
                                     imgPoubelle.setTranslateX(posX);
@@ -414,11 +415,17 @@ public class Controller implements Initializable {
 
             gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
 
-        } else if (event.getCode() == KeyCode.A) {
+        } else if (event.getCode() == KeyCode.X) {
 
             System.out.println("nouveau Racoutou");
 
-            gameWorld.ajouterAnimal(new Racoutou(gameWorld));
+            gameWorld.ajouterAnimal(AnimauxManager.creerPouletRolleur(gameWorld));
+        }
+        else if (event.getCode() == KeyCode.A) {
+
+            System.out.println("nouveau Racoutou");
+
+            gameWorld.ajouterAnimal(new Racoutou(gameWorld, StatsEntiteInitialiser.getStatsLevels("Racoutou")));
         } else if (event.getCode() == KeyCode.R) {
 
             System.out.println("nouveau PouletBouclier");

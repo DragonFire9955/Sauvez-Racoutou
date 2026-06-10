@@ -9,8 +9,9 @@ import java.util.List;
 public class Stunner extends Debuffer {
 
 
-    public Stunner(String name, double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, int nbV, double stun, double tempsRecup, double rangeStun) {
-        super(name, coord, health, coin, vitesse, r, dmg, freqAtk, w, allie, nbV, stun, tempsRecup, rangeStun);
+    public Stunner(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
+
+        super(name, coord, w, statsLevels, allie);
     }
 
 
@@ -41,7 +42,7 @@ public class Stunner extends Debuffer {
                 }
             }
 
-            if (isChronoDefini() && getChrono() + getTempsAction() + getTempsRepo() == dt) { //this peut stun à nouveau
+            if (isChronoDefini() && getChrono() + getTempsAction() + getTempsRepo() <= dt) { //this peut stun à nouveau
                 setActionSpecialePossible(true);
                 setChronoDefini(false);
             }

@@ -3,9 +3,12 @@ package app.Modele.Entites.Animaux.Specialise;
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
+import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Modele.Utilitaires.Utilitaire;
+import javafx.beans.property.SimpleDoubleProperty;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 // pour l'instant extend animal comme bouclier (PAS DE CHRONO)
@@ -18,10 +21,12 @@ public class ChatHypnotiseur extends Animal{
 
     public ChatHypnotiseur(double[] coord, GameWorld w) {
 
-        super("Chat hypnotiseur", coord, 6, 40, 0, 100, 1, 1, w, true);
-        this.dmgSpecials=30;
-        freqAtkSpeciale =1;
-        rangeSpe= 100;
+        super("Chat hypnotiseur", coord, w, StatsEntiteInitialiser.getStatsLevels("Chat hypnotiseur"), true);
+
+        List<Object[]> statsJSPQUOIFAIRE = StatsEntiteInitialiser.getStatsLevels("Chat hypnotiseur");
+        this.dmgSpecials = (double) statsJSPQUOIFAIRE.get(0)[7];
+        this.freqAtkSpeciale = (double) statsJSPQUOIFAIRE.get(0)[8];
+        this.rangeSpe = (double) statsJSPQUOIFAIRE.get(0)[9];
         hypnoEnCours = new HashMap<>();
         chronoSpe=0;
     }
@@ -38,6 +43,16 @@ public class ChatHypnotiseur extends Animal{
             attaqueSpeciale((Animal) getCibleSpeciale());
             chronoSpe = 0;
         }
+    }
+
+    @Override
+    public void setStats(int actualLevel) {
+
+        super.setStats(actualLevel);
+
+        this.dmgSpecials = ((double) getStatsLevels().get(actualLevel)[7]);
+        this.freqAtkSpeciale = ((double) getStatsLevels().get(actualLevel)[8]);
+        this.rangeSpe = ((double) getStatsLevels().get(actualLevel)[9]);
     }
 
     public void attaqueSpeciale(Animal cible){

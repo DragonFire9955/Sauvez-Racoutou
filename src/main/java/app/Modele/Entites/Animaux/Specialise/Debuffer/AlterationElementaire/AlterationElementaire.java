@@ -11,8 +11,8 @@ import java.util.List;
 //Altère les statistiques d'un ennemi qui serait rentrer dans son périmètre pendant un temps donné
 public abstract class AlterationElementaire extends Debuffer {
 
-    public AlterationElementaire(String name, double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, int nbV, double tDebuff, double tempsRecup, double rangeDebuff) {
-        super(name, coord, health, coin, vitesse, r, dmg, freqAtk, w, allie, nbV, tDebuff, tempsRecup, rangeDebuff);
+    public AlterationElementaire(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
+        super(name, coord, w, statsLevels, allie);
     }
 
     public void debuff(double dt){
@@ -34,7 +34,7 @@ public abstract class AlterationElementaire extends Debuffer {
                     setActionSpecialePossible(false);
             }
 
-            if (isChronoDefini() && getChrono() + getTempsAction() + getTempsRepo() == dt) { //this peut stun à nouveau
+            if (isChronoDefini() && getChrono() + getTempsAction() + getTempsRepo() <= dt) { //this peut stun à nouveau
                 setActionSpecialePossible(true);
                 setChronoDefini(false);
             }

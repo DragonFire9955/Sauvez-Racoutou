@@ -4,6 +4,7 @@ import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.Buffer.Buffer;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
+import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Modele.Utilitaires.Utilitaire;
 
 import java.lang.reflect.Array;
@@ -22,24 +23,39 @@ public class PouletIGPN extends Debuffer {
     private double effetForce;
     private double effetVitesse;
 
+    List<Entite> cibles;
+
     public PouletIGPN(double[] coord, GameWorld w) {
-        super("Poulet IGPN", coord, 4, 1, 1, 2, 0.5, 1, w, true, 3, 5, 2, 100);
+        super("Poulet IGPN", coord, w, StatsEntiteInitialiser.getStatsLevels("Poulet IGPN"), true);
         affectes = new HashMap<>();
-        effetForce = 0.8;
-        effetVitesse = 0.8;
+        List<Object[]> statsLevels = StatsEntiteInitialiser.getStatsLevels("Poulet IGPN");
+        effetForce = (double) statsLevels.get(0)[11];
+        effetVitesse = (double) statsLevels.get(0)[12];
+
+        cibles = new ArrayList<>();
+    }
+
+    @Override
+    public void setStats(int actualLevel) {
+
+        super.setStats(actualLevel);
+
+        this.effetForce = ((int) getStatsLevels().get(actualLevel)[11]);
+        this.effetVitesse = ((int) getStatsLevels().get(actualLevel)[12]);
     }
 
     @Override
     public void debuff(double dt) {
-        List<Entite> cibles = getCiblesAccessibles(getRangeEffect(), Utilitaire.animauxToEntites(getAnimauxCibles()));
+        cibles = getCiblesAccessibles(getRangeEffect(), Utilitaire.animauxToEntites(getAnimauxCibles()));
         //Arreter l'effet quand sorti du perimètre
-        for(Map.Entry<Animal, Double[]> entry: affectes.entrySet()){
-            if(!cibles.contains(entry.getKey())) {
-                entry.getKey().setDamage(entry.getValue()[0]);
-                entry.getKey().setVitesse(entry.getValue()[1]);
-                affectes.remove(entry.getKey());
+        for (Animal a: affectes.keySet()) {
+            if(!cibles.contains(a)) {
+                a.setDamage(affectes.get(a)[0]);
+                a.setVitesse(affectes.get(a)[1]);
             }
         }
+        affectes.keySet().removeIf(a -> !cibles.contains(a));
+
 
         if(!cibles.isEmpty()){
             if (isActionSpecialePossible()) {
@@ -61,20 +77,37 @@ public class PouletIGPN extends Debuffer {
                     }
 
                 } else { //defiger bonhommes + this ne peut pas stun
-                    for(Map.Entry<Animal, Double[]> entry: affectes.entrySet()){
-                        entry.getKey().setDamage(entry.getValue()[0]);
-                        entry.getKey().setVitesse(entry.getValue()[1]);
-                        affectes.remove(entry.getKey());
+                    for (Animal a: affectes.keySet()) {
+                        if(!cibles.contains(a)) {
+                            a.setDamage(affectes.get(a)[0]);
+                            a.setVitesse(affectes.get(a)[1]);
+                        }
                     }
+                    affectes.keySet().removeIf(a -> !cibles.contains(a));
                     setActionSpecialePossible(false);
                 }
             }
 
-            if (isChronoDefini() && getChrono() + getTempsAction() + getTempsRepo() == dt) { //this peut stun à nouveau
+            if (isChronoDefini() && getChrono() + getTempsAction() + getTempsRepo() <= dt) { //this peut stun à nouveau
                 setActionSpecialePossible(true);
                 setChronoDefini(false);
             }
         }
+    }
 
+    @Override
+    public boolean isAlive() {
+        boolean isAlive = super.isAlive();
+
+        if (!isAlive)
+            for (Animal a: affectes.keySet()) {
+                if(!cibles.contains(a)) {
+                    a.setDamage(affectes.get(a)[0]);
+                    a.setVitesse(affectes.get(a)[1]);
+                }
+            }
+        affectes.keySet().removeIf(a -> !cibles.contains(a));
+
+        return isAlive;
     }
 }

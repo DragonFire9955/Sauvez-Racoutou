@@ -7,6 +7,7 @@ import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import app.Modele.Utilitaires.Noeud;
+import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -44,7 +45,7 @@ public class GameWorld {
 
         map = Terrain.genererMap();
         animauxList = FXCollections.observableArrayList();
-        animauxList.add(new Racoutou(this));
+        animauxList.add(new Racoutou(this, StatsEntiteInitialiser.getStatsLevels("Racoutou")));
         barrageList = FXCollections.observableArrayList();
         theEnd= new SimpleIntegerProperty(0);
 

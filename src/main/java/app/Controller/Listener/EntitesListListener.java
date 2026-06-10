@@ -101,7 +101,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
         AtomicInteger actualLevel = new AtomicInteger(0);   //Voir l'action de l'amélioration à la fin
 
-        AtomicInteger qtiteRevente = new AtomicInteger((int) (e.getStatsLevels().get(actualLevel.get())[1]) / 2);   //On définit la quantité rendue
+        AtomicInteger qtiteRevente = new AtomicInteger(e.getCoin()/2);   //On définit la quantité rendue
 
         AnchorPane root = new AnchorPane();
         root.setPrefSize(260, 200);
@@ -121,7 +121,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         AnchorPane.setTopAnchor(entityImageView, 14.0);
 
         //Nom de l'entité
-        Label entityNameLabel = new Label(e.getName());    ///TODO : pour ceux dans AnimauxManager ça met "Animal"...
+        Label entityNameLabel = new Label(e.getName());
         entityNameLabel.setAlignment(Pos.CENTER);
         entityNameLabel.setPrefSize(109, 26);
         entityNameLabel.setTextFill(Color.WHITE);
@@ -216,10 +216,10 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         VBox upgradeBox = new VBox();
         upgradeBox.setPrefSize(109, 63);
 
-        Label nameUpgrade = new Label(e.getStatsLevels().get(actualLevel.get()+1)[0].toString());
+        Label nameUpgrade = new Label(e.getName());
         VBox.setMargin(nameUpgrade, new Insets(0, 0, 0, 40));
 
-        Label priceUpgrade = new Label(Integer.toString((int) (e.getStatsLevels().get(actualLevel.get())[1])));
+        Label priceUpgrade = new Label(Integer.toString((int) (e.getCoin())));
 
         priceUpgrade.setAlignment(Pos.CENTER);
         priceUpgrade.setPrefWidth(111);
@@ -272,9 +272,18 @@ public class EntitesListListener implements ListChangeListener<Entite> {
         buyUpgradeButton.setOnMouseClicked(event -> {
 
             actualLevel.getAndIncrement();
+
+            //Partie FXML
             updateDescriptionStatLabel(e, actualLevel.get(), attributesVBox);
             updateDescriptionButtonUpgrade(e, actualLevel.get(), nameUpgrade, priceUpgrade);
             updateDescriptionSellButton(e, actualLevel.get(), qtiteRevente, sellButton);
+
+            //Partie Code
+            for (int i = 0; i < e.getStatsLevels().get(actualLevel.get()).length - 2; i++) {
+
+                e.setStats(actualLevel.get());
+            }
+
         });
 
 

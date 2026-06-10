@@ -17,9 +17,9 @@ public class Animal extends Entite {
     private boolean canAttack;
     private boolean allie;
 
-    public Animal(String name, double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie) {
-        super(name, coord, health, coin, r, dmg, freqAtk, w);
-        this.vitesse = vitesse;
+    public Animal(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
+        super(name, coord, w, statsLevels);
+        this.vitesse = (double) statsLevels.get(0)[6];
         canAttack=true;
         stunnedUntil = new double[2];
         slowUntil = new double[3];
@@ -40,6 +40,14 @@ public class Animal extends Entite {
         if (slowUntil[0]!=0){
             endSlow(dt);
         }
+    }
+
+    @Override
+    public void setStats(int actualLevel) {
+
+        super.setStats(actualLevel);
+
+        vitesse = ((double) getStatsLevels().get(actualLevel)[6]);
     }
 
     public void deplacement() {
@@ -190,10 +198,17 @@ public class Animal extends Entite {
     }
 
     public  List<Animal> getAnimauxCopains(){
+        List<Animal> animauxCopains = new ArrayList<>();
         if(allie)
-            return getWorld().getAlliesAnimaux();
+            animauxCopains= getWorld().getAlliesAnimaux();
         else
-            return getWorld().getEnnemis();
+            animauxCopains= getWorld().getEnnemis();
+        for(int i = animauxCopains.size()-1; i>=0; i--){
+            if(animauxCopains.get(i).getClass() == this.getClass())
+                animauxCopains.remove(i);
+        }
+
+        return animauxCopains;
     }
 
 

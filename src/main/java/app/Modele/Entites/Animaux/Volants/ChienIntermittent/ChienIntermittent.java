@@ -17,6 +17,8 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
+import java.util.List;
+
 public class ChienIntermittent extends Animal {
 
     private Canon canon;
@@ -37,9 +39,9 @@ public class ChienIntermittent extends Animal {
     private boolean scaleMaxAtteint = false;
     private double distanceMaxScale = 0;
 
-    public ChienIntermittent(double[] coord, GameWorld w, Canon canon) {
+    public ChienIntermittent(double[] coord, GameWorld w, List<Object[]> statsLevels, Canon canon) {
 
-        super("Chen intermittent", coord, 4, 0, 5, 30, 8, 10, w, true);
+        super("Chen intermittent", coord, w, statsLevels, true);
 
         this.canon=canon;
 

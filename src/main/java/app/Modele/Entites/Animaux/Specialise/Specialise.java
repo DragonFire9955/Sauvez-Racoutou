@@ -15,13 +15,25 @@ public abstract class Specialise extends Animal{
     private BooleanProperty actionSpecialePossible;
     private double chrono;
 
-    public Specialise(String name, double[] coord, double health, int coin, double vitesse, double r, double dmg, double freqAtk, GameWorld w, boolean allie, double tempsAction, double tempsRepo, double rangeEffect){
-        super(name, coord, health, coin, vitesse, r, dmg, freqAtk, w, allie);
-        this.rangeEffect=rangeEffect;
-        this.tempsAction=tempsAction;
-        this.tempsRepo=tempsRepo;
-        this.actionSpecialePossible= new SimpleBooleanProperty(true);
-        this.chrono=0;
+    public Specialise(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
+
+        super(name, coord, w, statsLevels, allie);
+
+        this.rangeEffect = (double) statsLevels.get(0)[7];
+        this.tempsAction = (double) statsLevels.get(0)[8];
+        this.tempsRepo = (double) statsLevels.get(0)[9];
+
+        this.actionSpecialePossible = new SimpleBooleanProperty(true);
+    }
+
+    @Override
+    public void setStats(int actualLevel) {
+
+        super.setStats(actualLevel);
+
+        this.rangeEffect = ((double) getStatsLevels().get(actualLevel)[7]);
+        this.tempsAction = ((double) getStatsLevels().get(actualLevel)[8]);
+        this.tempsRepo = ((double) getStatsLevels().get(actualLevel)[9]);
     }
 
     public double getRangeEffect() {
