@@ -1,6 +1,7 @@
 package app.Controller;
 
 import app.Controller.Listener.*;
+import app.Modele.AudioManager;
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
@@ -10,11 +11,11 @@ import app.Modele.Entites.Animaux.Volants.PouletVolant;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.AnimauxManager;
-import app.Modele.Terrain;
 import app.Modele.Managers.EnnemisSpawn;
 import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Vue.CameraManager;
 import app.Vue.EntiteVue;
+import app.Vue.ImageSetter;
 import app.Vue.TerrainVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -24,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -70,6 +72,17 @@ public class Controller implements Initializable {
     private Label waveTimerLabel;
     @FXML
     private VBox menuPause;
+    @FXML
+    private VBox menuReglages;
+    @FXML
+    private Button btnSon;
+    @FXML
+    private ComboBox<String> comboResolution;
+    @FXML
+    private ImageView imgSon;
+
+    private Image imageSonOn;
+    private Image imageSonOff;
 
     @FXML
     private Pane finJeu;
@@ -142,6 +155,7 @@ public class Controller implements Initializable {
             finJeu.setVisible(true);
             isGameStarted.setValue(false);
         });
+
         /*
         gameWorld.getTheEnd().addListener((obs, oldV, newV) -> {
             if(newV == true) {
@@ -223,6 +237,50 @@ public class Controller implements Initializable {
                 remetEnnemiTest(event);
             });
         });
+
+        comboResolution.getItems().addAll(
+                "1280 x 720",
+                "1366 x 768",
+                "1408 x 896",
+                "1600 x 900",
+                "1920 x 1080"
+        );
+
+        comboResolution.setValue("1408 x 896");
+
+        comboResolution.setOnAction(e -> {
+
+            String resolution = comboResolution.getValue();
+
+            String[] parties = resolution.split(" x ");
+
+            double largeur = Integer.parseInt(parties[0]);
+            double hauteur = Integer.parseInt(parties[1]);
+
+            applicationPane.getScene().getWindow().setWidth(largeur);
+            applicationPane.getScene().getWindow().setHeight(hauteur);
+
+        });
+
+        AudioManager.getInstance().jouerMusique("/app/audio/epic.wav");
+
+        imageSonOn = ImageSetter.sonOn;
+        imageSonOff = ImageSetter.sonOff;
+
+        AudioManager.getInstance().sonActiveProperty().addListener((obs, ancien, estActive) -> {
+            if (estActive) {
+                imgSon.setImage(imageSonOn);
+            } else {
+                imgSon.setImage(imageSonOff);
+            }
+        });
+    }
+
+    @FXML
+    private void clicBoutonSon() {
+        boolean etatActuel = AudioManager.getInstance().sonActiveProperty().get();
+
+        AudioManager.getInstance().sonActiveProperty().set(!etatActuel);
     }
 
     @FXML
@@ -247,14 +305,26 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    private void ouvrirReglages() {
+        menuPause.setVisible(false);
+        menuReglages.setVisible(true);
+    }
+
+    @FXML
+    private void retourPause() {
+        menuReglages.setVisible(false);
+        menuPause.setVisible(true);
+    }
+
+    @FXML
     private void redemarrerJeu() {
         gameLoop.stop();
         temps.setValue(0);
         enPause = false;
         menuPause.setVisible(false);
+        finJeu.setVisible(false);
 
         carte.getChildren().removeIf(node -> node != tileMap);
-        //supprime si l'element est différent de la tileMap (on garde juste elle)
 
         gameWorld = new GameWorld();
         map = gameWorld.getMap();
@@ -262,16 +332,47 @@ public class Controller implements Initializable {
         terrainVue.delimitationMap(tileMap);
         terrainVue.remplirMap(tileMap, map);
 
+        carte.removeEventHandler(MouseEvent.MOUSE_MOVED, clic);
+        carte.removeEventHandler(MouseEvent.MOUSE_CLICKED, clic);
+
+        clic = new ControleurDeClic(carte, gamePane, gameWorld, terrainVue);
+        carte.addEventHandler(MouseEvent.MOUSE_MOVED, clic);
+        carte.addEventHandler(MouseEvent.MOUSE_CLICKED, clic);
+
         coinLabel.textProperty().unbind();
         coinLabel.textProperty().bind(gameWorld.getTotalCoin().asString());
+
+        waveLabel.textProperty().unbind();
+        waveLabel.textProperty().bind(gameWorld.getNumeroVagueProperty().asString());
+
+        waveTimerLabel.textProperty().unbind();
+        waveTimerLabel.textProperty().bind(gameWorld.getTempsActuelVagueProperty().asString().concat(" / ").concat(gameWorld.getDurreeVagueProperty().asString()));
+
+        gameWorld.getTheEnd().addListener((obs, oldV, newV) -> {
+            if(newV.intValue() > 0){
+                imgFinJeu.setImage(new Image("app/images/gagne.gif"));
+            } else if (newV.intValue() < 0) {
+                imgFinJeu.setImage(new Image("app/images/gif/perdue.gif"));
+            }
+            imgFinJeu.setFitWidth(300);
+            imgFinJeu.setFitHeight(300);
+            imgFinJeu.setPreserveRatio(true);
+            imgFinJeu.setSmooth(true);
+            imgFinJeu.setCache(true);
+            finJeu.setVisible(true);
+            isGameStarted.setValue(false);
+        });
 
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
 
         initRacoutou();
-        gameWorld.ajouterAnimal(new Racoutou(gameWorld, StatsEntiteInitialiser.getStatsLevels("Racoutou")));
-        gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
 
+        cameraManager.centrerCarte();
+        cameraManager.verifierLimitesCamera();
+
+        initAnimation();
         gameLoop.play();
+
         gamePane.requestFocus();
     }
 
@@ -304,7 +405,6 @@ public class Controller implements Initializable {
         clic.setModePlacement(true);
         clic.setIdEntite(104);
     }
-
 
     private void initAnimation() {
         gameLoop = new Timeline();
