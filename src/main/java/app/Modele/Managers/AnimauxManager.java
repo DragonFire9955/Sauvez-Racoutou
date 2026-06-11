@@ -19,45 +19,43 @@ public class AnimauxManager {
 
     // CLASSIQUE
     public static Animal creerChatClassique(GameWorld w) {
-        return new Animal("Chat classique", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Chat classique"), true);
+        return creerChatClassique(EnnemisSpawn.randomCoord(w), w);
     }
 
     public static Animal creerChatClassique(double[] coords, GameWorld w) {
-        return new Animal("Chat classique", coords, w, StatsEntiteInitialiser.getStatsLevels("Chat classique"), true);
+        return new Animal("chatClassique", coords, w, StatsEntiteInitialiser.getStatsLevels("chatClassique"), true);
     }
 
     public static Animal creerPouletClassique(GameWorld w) {
-        return new Animal("Poulet classique", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Poulet classique"), false);
+        return new Animal("pouletClassique", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("pouletClassique"), false);
     }
 
     public static Animal creerPouletRolleur(GameWorld w) {
-        return new Animal("Poulet rolleur", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Poulet rolleur"), false);
+        return new Animal("pouletRolleur", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("pouletRolleur"), false);
     }
 
     // STUNNER
     public static Animal creerPouletMenotte(GameWorld w){
-        return new Stunner("Poulet menottes", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Poulet menottes"), false);
+        return new Stunner("pouletMenottes", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("pouletMenottes"), false);
     }
 
     public static Animal creerChatJournaliste(GameWorld w){
-        return new Stunner("Chat journaliste", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Chat journaliste"), true);
+        return creerChatJournaliste(EnnemisSpawn.randomCoord(w), w);
     }
 
     public static Animal creerChatJournaliste(double[] coords, GameWorld w){
-        return new Stunner("Chat journaliste", coords, w, StatsEntiteInitialiser.getStatsLevels("Chat journaliste"), true);
+        return new Stunner("chatJournaliste", coords, w, StatsEntiteInitialiser.getStatsLevels("chatJournaliste"), true);
     }
 
     // BUFFER
     public static Animal creerChatMedecin(GameWorld w) {
-        ArrayList<Double> lbuff = new ArrayList<>();
-        lbuff.add(1.);
-        return new Buffer("Chat médecin", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Chat médecin"), true, lbuff);
+        return creerChatMedecin(EnnemisSpawn.randomCoord(w), w);
     }
 
     public static Animal creerChatMedecin(double[] coords, GameWorld w) {
         ArrayList<Double> lbuff = new ArrayList<>();
         lbuff.add(1.);
-        return new Buffer("Chat médecin", coords, w, StatsEntiteInitialiser.getStatsLevels("Chat médecin"), true, lbuff);
+        return new Buffer("chatMedecin", coords, w, StatsEntiteInitialiser.getStatsLevels("chatMedecin"), true, lbuff);
     }
 
     public static Animal creerChatCuisinier(GameWorld w) {
@@ -69,7 +67,7 @@ public class AnimauxManager {
     public static Animal creerPouletConservateur(GameWorld w) {
         ArrayList<Double> lbuff = new ArrayList<>();
         lbuff.add(0.5);
-        return new Buffer ("Poulet conservateur", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Poulet conservateur"), false, lbuff);
+        return new Buffer ("pouletConservateur", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("pouletConservateur"), false, lbuff);
     }
 
 

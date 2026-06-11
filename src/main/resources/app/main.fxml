@@ -79,7 +79,7 @@
                                     <Font name="System Bold" size="18.0"/>
                                  </font>
                               </Button>
-                              <Button text="Redémarrer" onAction="#redemarrerJeu" prefHeight="55.0" prefWidth="180.0" textFill="WHITE" style="-fx-background-color: linear-gradient(to bottom right, #FF8C00, #F12711); -fx-background-radius: 12; -fx-cursor: hand;">
+                              <Button text="Redémarrer" onAction="#lancerJeu" prefHeight="55.0" prefWidth="180.0" textFill="WHITE" style="-fx-background-color: linear-gradient(to bottom right, #FF8C00, #F12711); -fx-background-radius: 12; -fx-cursor: hand;">
                                  <font>
                                     <Font name="System Bold" size="18.0"/>
                                  </font>
@@ -168,7 +168,7 @@
                            <children>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/chat.png" />
+                                    <Image url="@images/chatClassique/niv0/img.png" />
                                  </image>
                               </ImageView>
                               <Label text="10" textFill="#FFD166">
@@ -194,7 +194,7 @@
                            <children>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/chatMedecin.png" />
+                                    <Image url="@images/chatMedecin/niv0/img.png" />
                                  </image>
                               </ImageView>
                               <Label text="20" textFill="#FFD166">
@@ -220,7 +220,7 @@
                            <children>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/chatJournaliste.png" />
+                                    <Image url="@images/chatJournaliste/niv0/img.png" />
                                  </image>
                               </ImageView>
                               <Label text="30" textFill="#FFD166">
@@ -246,7 +246,7 @@
                            <children>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/chatScientifique.png" />
+                                    <Image url="@images/chatScientifique/niv0/img.png" />
                                  </image>
                               </ImageView>
                               <Label text="50" textFill="#FFD166">

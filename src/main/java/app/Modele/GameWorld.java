@@ -45,7 +45,7 @@ public class GameWorld {
 
         map = Terrain.genererMap();
         animauxList = FXCollections.observableArrayList();
-        animauxList.add(new Racoutou(this, StatsEntiteInitialiser.getStatsLevels("Racoutou")));
+        animauxList.add(new Racoutou(this, StatsEntiteInitialiser.getStatsLevels("racoutou")));
         barrageList = FXCollections.observableArrayList();
         theEnd= new SimpleIntegerProperty(0);
 

@@ -4,6 +4,8 @@ import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.AnimauxManager;
 import app.Modele.Utilitaires.Utilitaire;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,7 @@ public class Animal extends Entite {
     private double[] slowUntil;
     private double vitesse;
     private boolean canAttack;
-    private boolean allie;
+    private BooleanProperty allie;
 
     public Animal(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
         super(name, coord, w, statsLevels);
@@ -23,7 +25,7 @@ public class Animal extends Entite {
         canAttack=true;
         stunnedUntil = new double[2];
         slowUntil = new double[3];
-        this.allie=allie;
+        this.allie= new SimpleBooleanProperty(allie);
     }
 
     @Override
@@ -150,7 +152,7 @@ public class Animal extends Entite {
     @Override
     public Entite getDirection(){
 
-        if(!allie)
+        if(!allie.get())
             return getWorld().getRacoutou();
         else
             if (getEntitesCibles().isEmpty())
@@ -169,7 +171,7 @@ public class Animal extends Entite {
     }
 
     public  List<Animal> getAnimauxCibles(){
-        if(allie)
+        if(allie.get())
             return getWorld().getEnnemis();
         else
             return getWorld().getAlliesAnimaux();
@@ -177,7 +179,7 @@ public class Animal extends Entite {
 
     public List<Entite> getEntitesCibles(){
         List<Entite> entites;
-        if(allie)
+        if(allie.get())
             entites = Utilitaire.animauxToEntites(getWorld().getEnnemis());
         else
             entites = this.getWorld().getAlliesAnimauxBarrages();
@@ -199,7 +201,7 @@ public class Animal extends Entite {
 
     public  List<Animal> getAnimauxCopains(){
         List<Animal> animauxCopains = new ArrayList<>();
-        if(allie)
+        if(allie.get())
             animauxCopains= getWorld().getAlliesAnimaux();
         else
             animauxCopains= getWorld().getEnnemis();
@@ -249,12 +251,16 @@ public class Animal extends Entite {
         }
     }
 
-    public boolean isAllie() {
+    public BooleanProperty getAllie(){
         return allie;
     }
 
+    public boolean isAllie() {
+        return allie.get();
+    }
+
     public void setAllie(boolean allie) {
-        this.allie = allie;
+        this.allie.set(allie);
     }
 
 
