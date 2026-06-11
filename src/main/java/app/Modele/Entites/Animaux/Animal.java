@@ -67,7 +67,10 @@ public class Animal extends Entite {
         if(cible==null) return;
         //if(cible instanceof Racoutou) AnimauxManager.deplacementEnnemi(this);
         if(cible instanceof Racoutou) AnimauxManager.deplacementEnnemi2(this);
+        else
+            AnimauxManager.deplacementAllie(this, (Animal) cible);
 
+        /*
         else {
             double dx = cible.getX() - this.getX();
             double dy = cible.getY() - this.getY();
@@ -83,6 +86,8 @@ public class Animal extends Entite {
             this.setX(this.getX() + dx * this.getVitesse());
             this.setY(this.getY() + dy * this.getVitesse());
         }
+        
+         */
 
     }
 

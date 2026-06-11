@@ -14,12 +14,12 @@ public class ChatScientifique extends AlterationElementaire {
 
     public ChatScientifique(double[] coord, GameWorld w) {
 
-        super("Chat scientifique", coord, w, StatsEntiteInitialiser.getStatsLevels("Chat scientifique"), true);
+        super("chatScientifique", coord, w, StatsEntiteInitialiser.getStatsLevels("chatScientifique"), true);
 
-        List<Object[]> listStats = StatsEntiteInitialiser.getStatsLevels("Chat scientifique");
+        List<Object[]> listStats = StatsEntiteInitialiser.getStatsLevels("chatScientifique");
 
-        facteurDivForce = (double) listStats.get(0)[11];
-        facteurDivVitesse = (double) listStats.get(0)[12];
+        facteurDivForce = (double) listStats.getFirst()[11];
+        facteurDivVitesse = (double) listStats.getFirst()[12];
     }
 
     @Override
@@ -35,8 +35,10 @@ public class ChatScientifique extends AlterationElementaire {
     public void actionDebuff(Animal a, double dt) {
         a.setSlowUntil((getChrono() + getTempsAction()), a.getVitesse(), a.getDamage() );
 
-        a.setDamage(a.getDamage()/facteurDivForce);
-        a.setVitesse(a.getVitesse()/facteurDivVitesse);
+        System.out.println("avant "+ a.getVitesse());
+        a.setDamage(a.getDamage()*facteurDivForce);
+        a.setVitesse(a.getVitesse()*facteurDivVitesse);
+        System.out.println("apres "+ a.getVitesse());
         System.out.println();
         System.out.println("slow");
     }

@@ -17,12 +17,12 @@ public class EntiteVue {
         if(entite instanceof Animal && !((Animal) entite).isAllie())
             imageView = new ImageView(new Image("app/images/"+ entite.getName()+"/img.png"));
         else
-            imageView = new ImageView(new Image("app/images/"+ entite.getName()+"/niv0/img.png"));
+            imageView = new ImageView(new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/img.png"));
 
         if (entite instanceof Animal && (!((Animal) entite).isAllie() || (entite instanceof PouletIGPN)))
             taille= (int) (tailleImage*.75);
         else if (entite instanceof Racoutou)
-            taille = (int) (tailleImage*2);
+            taille = (int) (tailleImage*4);
         else
             taille=tailleImage;
 

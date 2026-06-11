@@ -188,8 +188,6 @@ public class Controller implements Initializable {
             });
         }
 
-        //IMAGE DE RACOUTOU
-        initRacoutou();
         /*
         gameWorld.getAnimaux().getFirst().getAliveProperty().addListener((observable, oldValue, newValue) -> {
                     gamePane.getScene().setRoot(menu);
@@ -230,6 +228,9 @@ public class Controller implements Initializable {
 
         //PROJECTILES
         gameWorld.getProjectiles().addListener(new ProjectileListener(carte));
+
+        //IMAGE DE RACOUTOU
+        initRacoutou();
     }
 
     @FXML
@@ -362,7 +363,7 @@ public class Controller implements Initializable {
         } else if (event.getCode() == KeyCode.Y) {
 
             System.out.println("nouveau scientifique");
-            gameWorld.ajouterAnimal(new ChatScientifique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+            gameWorld.ajouterAnimal(new ChatScientifique(gameWorld.getRacoutou().getCoord(), gameWorld));
 
         } else if (event.getCode() == KeyCode.G) {
 
@@ -408,12 +409,20 @@ public class Controller implements Initializable {
 
     private void initRacoutou(){
         Entite racoutou = gameWorld.getRacoutou();
-        carte.getChildren().add(EntiteVue.appliquerBonneImage(racoutou, true));
+        ImageView imgRacoutou = EntiteVue.appliquerBonneImage(racoutou, true);
+        carte.getChildren().add(imgRacoutou);
         racoutou.getHealthProperty().addListener(new EntiteHealthListener(carte, racoutou));
-        VieControlleur barreVie = new VieControlleur(racoutou);
+        VieControlleur barreVie = new VieControlleur(racoutou, imgRacoutou);
         StackPane visuelBarre = barreVie.getConteneur();
         visuelBarre.setId(racoutou.getId());
         carte.getChildren().add(visuelBarre);
+
+        InfoBulleListener infoBulleListener = new InfoBulleListener(carte, gameWorld, racoutou);
+        imgRacoutou.setOnMouseClicked(event -> {
+            infoBulleListener.afficherDescription();
+        });
+        infoBulleListener.ajoutZoneDescription();
+
     }
 
     //REPETITION !!!

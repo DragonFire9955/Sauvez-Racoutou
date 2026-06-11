@@ -3,10 +3,7 @@ package app.Modele.Entites;
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Utilitaire;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +25,11 @@ public abstract class Entite {
     private double damage;
     private double freqAtk;
 
-    private int level;
+    private IntegerProperty level;
     private List<Object[]> statsLevels;
 
     private DoubleProperty health;
-    private final double maxHealth;
+    private double maxHealth;
     private int coin;
     private BooleanProperty alive;
     private boolean actif;
@@ -41,7 +38,7 @@ public abstract class Entite {
 
 
     protected Entite(String name, double coord[], GameWorld w, List<Object[]> statsLevels) {
-        this.level =0;
+        this.level = new SimpleIntegerProperty(0);
         this.statsLevels = statsLevels;
 
         this.id=nbId;
@@ -53,7 +50,7 @@ public abstract class Entite {
 
         this.x = new SimpleDoubleProperty(coord[0]);
         this.y = new SimpleDoubleProperty(coord[1]);
-        this.health = new SimpleDoubleProperty((double) statsLevels.get(0)[2]);
+        this.health = new SimpleDoubleProperty((double) statsLevels.getFirst()[2]);
         this.maxHealth = health.getValue();
         this.coin = (int) statsLevels.getFirst()[1];
         this.range = (double) statsLevels.getFirst()[3];
@@ -205,7 +202,10 @@ public abstract class Entite {
 
     public void setStats(int actualLevel) {
 
-        this.health.setValue((double) statsLevels.get(actualLevel)[2]);
+        this.coin = ((int) statsLevels.get(actualLevel)[1]);
+        //Calcul des pv par pourcentage
+        this.health.setValue((double) statsLevels.get(actualLevel)[2] * (health.getValue()*100/maxHealth));
+        maxHealth = this.health.get();
         this.range = ((double) statsLevels.get(actualLevel)[3]);
         this.damage = ((double) statsLevels.get(actualLevel)[4]);
         this.freqAtk = ((double) statsLevels.get(actualLevel)[5]);
@@ -254,11 +254,22 @@ public abstract class Entite {
         return name;
     }
 
-    public int getLevel() {
+    public IntegerProperty getLevelProperty(){
         return level;
     }
 
+    public int getLevel() {
+        return level.get();
+    }
+
     public void setLevel(int level) {
-        this.level = level;
+        this.level.set(level);
+    }
+
+    public void incrementerLevel(){
+        if(getLevel()<3){
+            setLevel(getLevel()+1);
+            setStats(getLevel());
+        }
     }
 }

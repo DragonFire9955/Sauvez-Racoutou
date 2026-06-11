@@ -207,8 +207,9 @@ public class InfoBulleListener {
 
         //Image upgrade
         ImageView upgradeImageView = new ImageView(
-                new Image("app/images/pouletIGPN.gif")
+                new Image("app/images/"+ e.getName()+"/niv"+(e.getLevel()+1)+"/img.png")
         );
+
         upgradeImageView.setFitWidth(38);
         upgradeImageView.setFitHeight(38);
         upgradeImageView.setPreserveRatio(true);
@@ -240,12 +241,17 @@ public class InfoBulleListener {
         //Action du boutton pr améliorer
         buyUpgradeButton.setOnMouseClicked(event -> {
 
-            actualLevel++;
+            e.incrementerLevel();
 
             //Partie FXML
+            entityImageView.setImage(new Image("app/images/"+ e.getName()+"/niv"+e.getLevel()+"/img.png"));
+
             updateDescriptionStatLabel(attributesVBox);
             updateDescriptionButtonUpgrade(nameUpgrade, priceUpgrade);
             updateDescriptionSellButton(sellButton);
+
+            upgradeImageView.setImage(new Image("app/images/"+ e.getName()+"/niv"+(e.getLevel()+1)+"/img.png"));
+
 
             //Partie Code
             for (int i = 0; i < e.getStatsLevels().get(actualLevel).length - 2; i++) {
@@ -276,7 +282,7 @@ public class InfoBulleListener {
         carte.getChildren().addAll(root);
     }
 
-    void afficherDescription() {
+    public void afficherDescription() {
 
         descriptionsMap.values().forEach(n -> n.setVisible(false));
 

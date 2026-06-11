@@ -80,7 +80,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     perim.initPerimetre(e, imageEntite);
 
                     //créé la barre de vie et récupère son conteneur
-                    VieControlleur barreVie = new VieControlleur(e);
+                    VieControlleur barreVie = new VieControlleur(e, imageEntite);
                     StackPane visuelBarre = barreVie.getConteneur();
 
                     //affiche la vie
@@ -99,6 +99,9 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                             }
                         });
 
+                    //Liaison niveau / image
+                    e.getLevelProperty().addListener((observableValue, oldV, newV) ->
+                            ((ImageView) carte.lookup("#"+e.getId())).setImage(new Image("/app/images/"+e.getName()+"/niv"+newV+"/img.png")));
                     //on lui crée sa description si c un allié
                     if (e instanceof Animal && ((Animal) e).isAllie()) {
 

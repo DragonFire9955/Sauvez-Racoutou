@@ -48,7 +48,7 @@ public class GameWorld {
         theEnd= new SimpleIntegerProperty(0);
 
         //dijkRacoutou= new DeplacementDijkstra(tailleTile, map).calculerDistances(getTileRacoutou());
-        dijkRacoutou2= new DeplacementDijkstra(tailleTile, map).testDijkstra(this.getRacoutou().getCoord());
+        dijkRacoutou2= new DeplacementDijkstra(tailleTile, map).dijkstra(this.getRacoutou().getCoord());
 
         projectiles = FXCollections.observableArrayList();
 

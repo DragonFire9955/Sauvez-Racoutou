@@ -16,6 +16,7 @@ import java.util.Map;
 public class AnimauxManager {
 
     public static GameWorld w;
+    public static DeplacementDijkstra dijk = new DeplacementDijkstra(w.getTailleTile(), w.getMap());
 
     // CLASSIQUE
     public static Animal creerChatClassique(GameWorld w) {
@@ -77,6 +78,54 @@ public class AnimauxManager {
                 coord[0] * w.getTailleTile() + ((double) w.getTailleTile() / 2) };
     }
 
+
+    public static void deplacementAllie(Animal attaquant, Animal etoileDuNord){
+
+        GameWorld w = attaquant.getWorld();
+
+        //map <clef= Noeud, value= Predecesseur>
+        Map<Noeud, Noeud> dijkstra = dijk.dijkstraCible(attaquant.getCoord(), etoileDuNord.getCoord());
+
+        //direction = noeud suivant
+        Noeud dir = dijkstra.get(new Noeud(attaquant.getTile()[0], attaquant.getTile()[1]));
+        double[] cible;
+        int[] tile;
+
+
+        //Dejà sur la tuile actuelle ou prochaine tuile = racoutout
+        if(!dijkstra.containsKey(dir)){
+            cible= etoileDuNord.getCoord();
+            //Si déjà proche de racoutou: stop
+            if (Utilitaire.distance(attaquant.getX(), attaquant.getY(), etoileDuNord.getX(), etoileDuNord.getY()) < 2)
+                return;
+        }
+        else if(dijkstra.get(dir) ==null) { //prochaine tuile = racoutou
+            cible= etoileDuNord.getCoord();
+        }
+        else {
+            //tile vers laquelle il se dirige
+            tile = new int[]{dir.getI(), dir.getJ()};
+            //centre de la tile direction
+            cible= centreTile(w, tile);
+            //tile suivante dir
+            int[] tileSuiv= new int[]{dijkstra.get(dir).getI(), dijkstra.get(dir).getJ()};
+            //centre de la tile suivante
+            double[] cibleSuiv= centreTile(w, tileSuiv);
+            if (Utilitaire.distance(cible[0], cible[1], attaquant.getX(), attaquant.getY()) < 2)
+                cible=cibleSuiv;
+        }
+
+        double dist = Utilitaire.distance(cible[0], cible[1], attaquant.getX(), attaquant.getY());
+        double dx = cible[0] - attaquant.getX();
+        double dy = cible[1] - attaquant.getY();
+
+        dx /= dist;
+        dy /= dist;
+
+        attaquant.setX(attaquant.getX() + dx * attaquant.getVitesse());
+        attaquant.setY(attaquant.getY() + dy * attaquant.getVitesse());
+
+    }
 
     public static void deplacementEnnemi2(Animal a) {
 
