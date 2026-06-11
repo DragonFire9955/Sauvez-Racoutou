@@ -14,7 +14,7 @@ public class PouletBouclier extends Animal {
 
     public PouletBouclier(GameWorld w) {
 
-        super("Poulet bouclier", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Poulet bouclier"), false);
+        super("pouletBouclier", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Poulet bouclier"), false);
 
         this.bouclier = new SimpleDoubleProperty((double) StatsEntiteInitialiser.getStatsLevels("Poulet bouclier").get(0)[7]);
     }

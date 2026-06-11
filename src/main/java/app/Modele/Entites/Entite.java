@@ -31,7 +31,6 @@ public abstract class Entite {
     private int level;
     private List<Object[]> statsLevels;
 
-
     private DoubleProperty health;
     private final double maxHealth;
     private int coin;
@@ -86,7 +85,6 @@ public abstract class Entite {
             coll = true;
 
             if ((dt- chrono) >= freqAtk) {
-                System.out.println(freqAtk);
                 attaquer();
                 chrono = 0;
             }

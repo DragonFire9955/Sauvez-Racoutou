@@ -14,21 +14,21 @@ public class StatsEntiteInitialiser {
 
 
         switch (name) {
-            case "Racoutou":
+            case "racoutou":
                 initStatsRacoutou(statsLevels);
                 break;
 // CLASSIQUES
-            case "Chat classique":
+            case "chatClassique":
                 initStatsChatClassique(statsLevels);
                 break;
-            case "Poulet classique":
+            case "pouletClassique":
                 initStatsPouletClassique(statsLevels);
                 break;
-            case "Poulet rolleur":
+            case "pouletRolleur":
                 initStatsPouletRolleur(statsLevels);
                 break;
 // SPECIALISES
-            case "Poulet bouclier":
+            case "pouletBouclier":
                 initStatsPouletBouclier(statsLevels);
                 break;
             case "Poulet projectible":
@@ -38,30 +38,31 @@ public class StatsEntiteInitialiser {
             case "chatCuisinier":
                 initStatsChatCuisinier(statsLevels);
                 break;
-            case "Chat médecin":
+            case "chatMedecin":
                 initStatsChatMedecin(statsLevels);
                 break;
-            case "Poulet conservateur":
+            case "pouletConservateur":
                 initStatsPouletConservateur(statsLevels);
                 break;
     // DEBUFFER
-            case "Poulet IGPN":
+            case "pouletIGPN":
                 initPouletIGPN(statsLevels);
                 break;
         // ALTERATIONS ELEMENTAIRES
-            case "Chat scientifique":
+            case "chatScientifique":
                 initStatsChatScientifique(statsLevels);
                 break;
-            case "Chat hypnotiseur":
+            case "chatHypnotiseur":
                 initStatsChatHypnotiseur(statsLevels);
                 break;
         // STUNNER
-            case "Chat journaliste":
+            case "chatJournaliste":
                 initStatsChatJournaliste(statsLevels);
                 break;
-            case "Poulet menottes":
+            case "pouletMenottes":
                 initStatsPouletMenottes(statsLevels);
                 break;
+/*
 // VOLANTS
             case "Poulet volant":
                 initStatsPouletVolant(statsLevels);
@@ -77,6 +78,8 @@ public class StatsEntiteInitialiser {
                 initStatsTaupe(statsLevels);
                 break;
 
+ */
+
             default:
                 break;
         }
@@ -88,8 +91,8 @@ public class StatsEntiteInitialiser {
 
         statsLevels.add(new Object[]{
                 "Default",
-                300,    //Upgrade price
-                50.,     //Health
+                3,    //Upgrade price
+                500.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
                 40.,     //Range
                 5.,     //Damage
@@ -100,7 +103,7 @@ public class StatsEntiteInitialiser {
 
         statsLevels.add(new Object[]{
                 "Lunettes de soleil",
-                800,    //Upgrade price
+                8,    //Upgrade price
                 100.,     //Health   (+50)
                 45.,      //Range   (+5)
                 7.,      //Damage    (+2)
@@ -111,7 +114,7 @@ public class StatsEntiteInitialiser {
 
         statsLevels.add(new Object[]{
                 "Cocktail",
-                1500,    //Upgrade price
+                15,    //Upgrade price
                 200.,     //Health   (+100)
                 45.,      //Range
                 10.,     //Damage   (+3)
@@ -460,7 +463,7 @@ public class StatsEntiteInitialiser {
                 0.,     //Speed
                 1.8,    //DmgSpe
                 1.5,     //freqAtkSpeciale  (+.3)
-                150.     //rangeSpe
+                400.     //rangeSpe
         });
 
         statsLevels.add(new Object[]{

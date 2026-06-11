@@ -10,6 +10,8 @@ import app.Modele.Managers.AnimauxManager;
 import app.Vue.EntiteVue;
 import app.Controller.VieControlleur;
 import app.Vue.PerimetreVue;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -88,6 +90,14 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     visuelBarre.setId(e.getId());
                     //Je met le listener de ma vie ici car + pratique et évite les bugs du lookup()
                     e.getHealthProperty().addListener(new EntiteHealthListener(carte, e));
+                    if( e instanceof Animal)
+                        ((Animal) e).getAllie().addListener(new ChangeListener<Boolean>() {
+                            @Override
+                            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                                Node entite = carte.lookup("#" + e.getId());
+                                ((ImageView) entite).setImage(EntiteVue.appliquerImageHypno(e));
+                            }
+                        });
 
                     //on lui crée sa description si c un allié
                     if (e instanceof Animal && ((Animal) e).isAllie()) {

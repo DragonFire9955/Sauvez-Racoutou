@@ -27,6 +27,8 @@ public class GameWorld {
     //private Map<Double, Noeud> dijkRacoutou;
     private Map<Noeud, Noeud> dijkRacoutou2;
 
+
+
     private List<TreeMap<Integer, List<Animal>>> ensemblesVagues;
     private IntegerProperty durreeVague;
     private  int debutVague;
@@ -41,7 +43,7 @@ public class GameWorld {
 
         map = Terrain.genererMap();
         animauxList = FXCollections.observableArrayList();
-        animauxList.add(new Racoutou(this, StatsEntiteInitialiser.getStatsLevels("Racoutou")));
+        animauxList.add(new Racoutou(this, StatsEntiteInitialiser.getStatsLevels("racoutou")));
         barrageList = FXCollections.observableArrayList();
         theEnd= new SimpleIntegerProperty(0);
 

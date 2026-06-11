@@ -12,6 +12,27 @@ public class EntiteVue {
     public static int tailleImage = 64;
 
     public static ImageView appliquerBonneImage(Entite entite, boolean withInit) {
+        int taille;
+        ImageView imageView;
+        if(entite instanceof Animal && !((Animal) entite).isAllie())
+            imageView = new ImageView(new Image("app/images/"+ entite.getName()+"/img.png"));
+        else
+            imageView = new ImageView(new Image("app/images/"+ entite.getName()+"/niv0/img.png"));
+
+        if (entite instanceof Animal && (!((Animal) entite).isAllie() || (entite instanceof PouletIGPN)))
+            taille= (int) (tailleImage*.75);
+        else if (entite instanceof Racoutou)
+            taille = (int) (tailleImage*2);
+        else
+            taille=tailleImage;
+
+        if (withInit)
+            initImageView(entite, imageView, taille);
+
+        return imageView;
+    }
+    /*
+    public static ImageView appliquerBonneImage(Entite entite, boolean withInit) {
 
 
         int taille;
@@ -20,14 +41,14 @@ public class EntiteVue {
 
         switch (entite.getName()) {
             case "Racoutou":
-                image = new Image("app/images/racoutou.png");
+                image = new Image("app/images/racoutou/niv0/img.png");
                 break;
 // CLASSIQUES
             case "Chat classique":
-                image = new Image("app/images/chat.png");
+                image = new Image("app/images/chatClassique/niv0/img.png");
                 break;
             case "Poulet classique":
-                image = new Image("app/images/pouletClassique.png");
+                image = new Image("app/images/pouletClassique/img.png");
                 break;
 // SPECIALISES
             case "Poulet bouclier":
@@ -61,20 +82,25 @@ public class EntiteVue {
             case "Poulet menottes":
                 image = new Image("app/images/pouletMenottes/img.png");
                 break;
+        /*
 // VOLANTS
             case "Poulet volant":
-                image = new Image("app/images/pouletClassique.png"); /// TODO: IMG
+                image = new Image("app/images/pouletClassique/img.png"); /// TODO: IMG
                 break;
             case "Chien intermittent":
                 image = new Image("app/images/chienInterim.jpg"); /// TODO: IMG
                 break;
 // CREUSANT
+
             case "Poulet mineur":
-                image = new Image("app/images/pouletClassique.png"); /// TODO: IMG
+                image = new Image("app/images/pouletClassique/img.png"); /// TODO: IMG
                 break;
             case "Taupe":
                 image = new Image("app/images/chienInterim.jpg"); /// TODO: IMG
                 break;
+
+             */
+    /*
 
             default:
                 System.out.println(entite.getClass());
@@ -96,6 +122,7 @@ public class EntiteVue {
 
         return imageView;
     }
+    */
 
     //Là j'initialise l'image comme il faut mais on peux en faire un personalisé dans les conditions au dessus
     public static void initImageView(Entite entite, ImageView imageView, int taille) {
@@ -118,8 +145,18 @@ public class EntiteVue {
 
     }
 
-
     public static Image appliquerBonneImageGif(Entite entite) {
+        Image img;
+        if(entite instanceof Animal && !((Animal) entite).isAllie())
+            img = new Image("app/images/"+ entite.getName()+"/degat.gif");
+        else
+            img = new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/degat.gif");
+        return img;
+
+    }
+
+/*
+        public static Image appliquerBonneImageGif(Entite entite) {
 
         Image image;
 
@@ -148,7 +185,7 @@ public class EntiteVue {
             case "Chat classique":
                 image = new Image("app/images/chatClassique/niv0/degat.gif");
                 break;
-            case "Poulet classique":
+            case "pouletClassique":
                 image = new Image("app/images/pouletClassique/degat.gif");
                 break;
             default:
@@ -158,5 +195,25 @@ public class EntiteVue {
         }
 
         return image;
+
+
     }
+
+ */
+
+    public static Image appliquerImageHypno(Entite e){
+
+        return new Image("app/images/"+ e.getName()+"/hypno.gif");
+    }
+
+    public static Image appliquerImageSoin(Entite entite){
+        Image img;
+        if(entite instanceof Animal && !((Animal) entite).isAllie())
+            img = new Image("app/images/"+ entite.getName()+"/soin.gif");
+        else
+            img = new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/soin.gif");
+        return img;
+    }
+
+
 }
