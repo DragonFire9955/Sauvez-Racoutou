@@ -8,12 +8,11 @@ import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
-import app.Modele.Entites.Animaux.Specialise.PouletProjectible;
+import app.Modele.Entites.Animaux.PouletProjectible;
 import app.Modele.Entites.Animaux.Volants.PouletVolant;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.AnimauxManager;
-import app.Modele.Terrain;
 import app.Modele.Managers.EnnemisSpawn;
 import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Vue.CameraManager;
@@ -399,7 +398,8 @@ public class Controller implements Initializable {
             System.out.println("nouveau pSoigne");
             gameWorld.ajouterAnimal(AnimauxManager.creerPouletConservateur(gameWorld));
         } else if (event.getCode() == KeyCode.P) {
-            gameWorld.ajouterAnimal(new PouletProjectible("Poulet projectible", EnnemisSpawn.randomCoord(gameWorld), gameWorld, StatsEntiteInitialiser.getStatsLevels("Poulet projectible"), false));
+            System.out.println("nouveau pouletProjectible");
+            gameWorld.ajouterAnimal(new PouletProjectible("pouletProjectible", EnnemisSpawn.randomCoord(gameWorld), gameWorld, StatsEntiteInitialiser.getStatsLevels("pouletProjectible"), false));
         }
 
 

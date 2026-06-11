@@ -6,6 +6,7 @@ import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
+import app.Modele.Projectile.ProjectileSimple;
 import app.Modele.Utilitaires.Noeud;
 import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import javafx.beans.property.IntegerProperty;

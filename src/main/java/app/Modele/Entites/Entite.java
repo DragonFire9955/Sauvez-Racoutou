@@ -53,7 +53,7 @@ public abstract class Entite {
 
         this.x = new SimpleDoubleProperty(coord[0]);
         this.y = new SimpleDoubleProperty(coord[1]);
-        this.health = new SimpleDoubleProperty((double) statsLevels.get(0)[2]);
+        this.health = new SimpleDoubleProperty((double) statsLevels.getFirst()[2]);
         this.maxHealth = health.getValue();
         this.coin = (int) statsLevels.getFirst()[1];
         this.range = (double) statsLevels.getFirst()[3];
