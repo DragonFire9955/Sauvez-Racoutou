@@ -31,6 +31,9 @@ public class StatsEntiteInitialiser {
             case "Poulet bouclier":
                 initStatsPouletBouclier(statsLevels);
                 break;
+            case "Poulet projectible":
+                initStatsPouletProjectible(statsLevels);
+                break;
     // BUFFER
             case "chatCuisinier":
                 initStatsChatCuisinier(statsLevels);
@@ -209,6 +212,22 @@ public class StatsEntiteInitialiser {
                 1.,     //FreqAtk
                 .8,     //Speed
                 5.      //Bouclier
+        });
+    }
+
+    private static void initStatsPouletProjectible(List<Object[]> statsLevels) {
+
+        statsLevels.add(new Object[]{
+                "Default",
+                15,     //Argent rapporté
+                10.,     //Health
+                35.,     //Range
+                5.,     //Damage
+                1.,     //FreqAtk
+                3.8,     //Speed
+                100.,    //RangeEffect
+                3.,     //tempsAction
+                2.     //tempsRepo
         });
     }
 

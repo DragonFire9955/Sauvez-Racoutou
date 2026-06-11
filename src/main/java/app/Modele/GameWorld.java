@@ -8,9 +8,7 @@ import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import app.Modele.Utilitaires.Noeud;
 import app.Modele.Utilitaires.StatsEntiteInitialiser;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,15 +27,13 @@ public class GameWorld {
     //private Map<Double, Noeud> dijkRacoutou;
     private Map<Noeud, Noeud> dijkRacoutou2;
 
-
-
     private List<TreeMap<Integer, List<Animal>>> ensemblesVagues;
     private IntegerProperty durreeVague;
     private  int debutVague;
     private IntegerProperty numeroVague;
     private IntegerProperty tempsActuelVague;
 
-
+    ObservableList<ProjectileSimple> projectiles;
 
     private IntegerProperty totalCoin;
 
@@ -51,6 +47,8 @@ public class GameWorld {
 
         //dijkRacoutou= new DeplacementDijkstra(tailleTile, map).calculerDistances(getTileRacoutou());
         dijkRacoutou2= new DeplacementDijkstra(tailleTile, map).testDijkstra(this.getRacoutou().getCoord());
+
+        projectiles = FXCollections.observableArrayList();
 
         totalCoin = new SimpleIntegerProperty(0);
 
@@ -68,7 +66,7 @@ public class GameWorld {
     public void updateGW(double dt)  {
         //if(getRacoutou() == null) theEnd.setValue(true);
         if(!perdue() && !gagne()){
-            vagueManager(dt);
+            //vagueManager(dt);
 
             for (Entite entite : animauxList) {
                 entite.update(dt);
@@ -76,7 +74,12 @@ public class GameWorld {
             for (Barrage barrage : barrageList) {
                 barrage.update(dt);
             }
+            for (ProjectileSimple p : projectiles) {
+                p.update(dt);
+            }
+
             supprimerAnimauxMorts();
+            supprimerProjectilesMorts();
         }
     }
 /*
@@ -125,6 +128,18 @@ public class GameWorld {
         for(int i=animauxList.size()-1;i>=0;i--)
             if (!animauxList.get(i).isAlive())
                 supprimerAnimal(animauxList.get(i));
+    }
+
+    public void addProjectile(ProjectileSimple p) {
+        projectiles.add(p);
+    }
+    public void supprimerProjectilesMorts() {
+
+        for (int i = projectiles.size() - 1; i >= 0; i--) {
+            if (projectiles.get(i).isDead()) {
+                projectiles.remove(i);
+            }
+        }
     }
 
     public ObservableList<Animal> getAnimaux() {
@@ -186,6 +201,10 @@ public class GameWorld {
 
     public int getTailleTile(){
         return tailleTile;
+    }
+
+    public ObservableList<ProjectileSimple> getProjectiles() {
+        return projectiles;
     }
 
     public IntegerProperty getTotalCoin() {
