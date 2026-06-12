@@ -87,7 +87,7 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
     }
 
     public void placerStructure(int ligne, int colonne, String nom) {
-        int prixStructure = (int) StatsEntiteInitialiser.getStatsLevels(nom).getFirst()[1] * 2;
+        int prixStructure = (int) StatsEntiteInitialiser.getStatsLevels(nom).getFirst()[1];
 
         if (gameWorld.getMap()[ligne][colonne] <= 1) { // si c'est du sol
             if (gameWorld.getTotalCoin().get() >= prixStructure) { // si on a assez d'argent

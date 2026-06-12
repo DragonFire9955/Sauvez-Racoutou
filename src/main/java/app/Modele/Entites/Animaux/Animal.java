@@ -168,9 +168,9 @@ public class Animal extends Entite {
 
             switch (cibleInt){
                 case 0: //Strongest
-                    return getEntitesCiblesNearest().getFirst();
+                    return getAnimauxCiblesWeakest().getLast();
                 case 1: //Weakest
-                    return getCiblesAccessibles(getRange(), getEntitesCiblesNearest()).getFirst();
+                    return getAnimauxCiblesWeakest().getLast();
                 case 2: //Farthest
                     return getEntitesCiblesNearest().getLast();
                 case 3: //Nearest
@@ -195,6 +195,21 @@ public class Animal extends Entite {
             return getWorld().getEnnemis();
         else
             return getWorld().getAlliesAnimaux();
+    }
+
+    public List<Animal> getAnimauxCiblesWeakest(){
+        List<Animal> animaux = new ArrayList<>();
+        int i;
+        for(Animal a: getAnimauxCibles()) {
+            i= 0;
+            //Tant que distance supérieur
+            while (i < animaux.size()
+                    && a.getHealthProperty().getValue()> getAnimauxCibles().get(i).getHealthProperty().getValue()) {
+                i++;
+            }
+            animaux.add(i, a);
+        }
+        return animaux;
     }
 
     public List<Entite> getEntitesCiblesNearest(){
@@ -302,5 +317,9 @@ public class Animal extends Entite {
 
     public void setAllie(boolean allie) {
         this.allie.set(allie);
+    }
+
+    public void setCibleInt(int cibleInt) {
+        this.cibleInt = cibleInt;
     }
 }

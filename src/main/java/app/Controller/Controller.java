@@ -10,7 +10,6 @@ import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
-import app.Modele.Entites.Animaux.Specialise.PouletProjectible;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.EntitesManager;
@@ -485,8 +484,6 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau pSoigne");
             gameWorld.ajouterAnimal(EntitesManager.creerPouletConservateur(gameWorld));
-        } else if (event.getCode() == KeyCode.P) {
-            gameWorld.ajouterAnimal(new PouletProjectible("Poulet projectible", EnnemisSpawn.randomCoord(gameWorld), gameWorld, StatsEntiteInitialiser.getStatsLevels("Poulet projectible"), false));
         }
 
         if (event.getCode() == KeyCode.ENTER){
@@ -507,10 +504,9 @@ public class Controller implements Initializable {
         visuelBarre.setId("visuBarre"+racoutou.getId());
         carte.getChildren().add(visuelBarre);
 
-
         InfoBulleListener infoBulleListener = new InfoBulleListener(carte, gameWorld, racoutou);
         imgRacoutou.setOnMouseClicked(event -> {
-            infoBulleListener.afficherDescription();
+            infoBulleListener.changeAfficherDescription();
         });
         infoBulleListener.ajoutZoneDescription();
 
@@ -545,16 +541,16 @@ public class Controller implements Initializable {
         poubellePrixLabel.setText(StatsEntiteInitialiser.getStatsLevels(poubelle.getId()).getFirst()[1].toString());
 
         chatJournaliste.setOnAction(boutonsshop);
-        chatJournalistePrixLabel.setText(String.valueOf((2 * (int) (StatsEntiteInitialiser.getStatsLevels(chatJournaliste.getId()).getFirst()[1]))));
+        chatJournalistePrixLabel.setText(String.valueOf(((int) (StatsEntiteInitialiser.getStatsLevels(chatJournaliste.getId()).getFirst()[1]))));
 
         chatMedecin.setOnAction(boutonsshop);
-        chatMedecinPrixLabel.setText(String.valueOf((2 * (int) StatsEntiteInitialiser.getStatsLevels(chatMedecin.getId()).getFirst()[1])));
+        chatMedecinPrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(chatMedecin.getId()).getFirst()[1])));
 
         chatClassique.setOnAction(boutonsshop);
-        chatClassiquePrixLabel.setText(String.valueOf((2 * (int) StatsEntiteInitialiser.getStatsLevels(chatClassique.getId()).getFirst()[1])));
+        chatClassiquePrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(chatClassique.getId()).getFirst()[1])));
 
         chatScientifique.setOnAction(boutonsshop);
-        chatScientifiquePrixLabel.setText(String.valueOf((2 * (int) StatsEntiteInitialiser.getStatsLevels(chatScientifique.getId()).getFirst()[1])));
+        chatScientifiquePrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(chatScientifique.getId()).getFirst()[1])));
 
     }
 

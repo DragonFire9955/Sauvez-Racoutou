@@ -22,7 +22,6 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
     @FXML
     private Pane carte;
-    private final PerimetreVue perim;
 
     private GameWorld gameWorld;
 
@@ -30,7 +29,6 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
         this.carte = carte;
         this.gameWorld = gameWorld;
-        this.perim = new PerimetreVue(this.carte);
     }
 
     @Override
@@ -49,6 +47,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     carte.getChildren().removeIf(node -> e.getId().equals(node.getId()));
                     carte.getChildren().removeIf(node -> ("perim" + e.getId()).equals(node.getId()));
                     carte.getChildren().removeIf(node -> ("visuBarre" + e.getId()).equals(node.getId()));
+                    carte.getChildren().removeIf(node ->("infoBulle"+e.getId()).equals(node.getId()));
                 }
 
             }
@@ -64,6 +63,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     carte.getChildren().add(imageEntite);
 
                     // Création périmètre(s)
+                    PerimetreVue perim = new PerimetreVue(this.carte, e);
                     perim.initPerimetre(e, imageEntite);
 
                     //créé la barre de vie et récupère son conteneur
@@ -93,8 +93,8 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                         InfoBulleListener infoBulleListener = new InfoBulleListener(carte, gameWorld, e);
                         infoBulleListener.ajoutZoneDescription();
                         imageEntite.setOnMouseClicked(event -> {
-                            infoBulleListener.afficherDescription();
-                            perim.changeVisibility(e);
+                            infoBulleListener.changeAfficherDescription();
+                            perim.changeVisibility();
                         });
                     }
                 }

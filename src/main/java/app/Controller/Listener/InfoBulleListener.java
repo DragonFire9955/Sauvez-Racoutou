@@ -1,5 +1,6 @@
 package app.Controller.Listener;
 
+import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.EnnemisSpawn;
@@ -26,11 +27,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class InfoBulleListener {
 
     private Pane carte;
+    AnchorPane root;
 
     private GameWorld gameWorld;
     private Entite e;
-
-    private final Map<String, Node> descriptionsMap;
 
     private int actualLevel;
     int qtiteRevente;
@@ -40,11 +40,10 @@ public class InfoBulleListener {
     public InfoBulleListener(Pane carte, GameWorld w, Entite e){
 
         this.carte = carte;
+        root = new AnchorPane();
 
         this.gameWorld = w;
         this.e = e;
-
-        this.descriptionsMap = new HashMap<>();
 
         actualLevel = 0;
         qtiteRevente = e.getCoin()/2;
@@ -54,7 +53,7 @@ public class InfoBulleListener {
 
     public void ajoutZoneDescription() {
 
-        AnchorPane root = new AnchorPane();
+        root.setId("infoBulle"+e.getId());
         root.setPrefSize(260, 200);
         root.setStyle(
                 "-fx-background-color: rgb(196,196,196);" +
@@ -83,60 +82,67 @@ public class InfoBulleListener {
         AnchorPane.setTopAnchor(entityNameLabel, 14.0);
 
         //Zone de sélection de cible
+        if( e instanceof Animal) {
+            List<String> target = new ArrayList<>();
+            target.add("Strongest");
+            target.add("Weakest");
+            target.add("Farthest");
+            target.add("Nearest");
 
-        List<String> target = new ArrayList<>();
-        target.add("Strongest");
-        target.add("Weakest");
-        target.add("Farthest");
-        target.add("Nearest");
+            actualTargetInt = target.size() - 1;
 
-        actualTargetInt = target.size()-1;
+            Label targetLabel = new Label(target.getLast());
+            targetLabel.setAlignment(Pos.CENTER);
+            targetLabel.setPrefSize(67, 26);
+            targetLabel.setStyle("-fx-background-color: rgba(0,0,0,0.3);");
+            targetLabel.setTextFill(Color.WHITE);
+            targetLabel.setFont(Font.font(10));
 
-        Label targetLabel = new Label(target.getLast());
-        targetLabel.setAlignment(Pos.CENTER);
-        targetLabel.setPrefSize(67, 26);
-        targetLabel.setStyle("-fx-background-color: rgba(0,0,0,0.3);");
-        targetLabel.setTextFill(Color.WHITE);
-        targetLabel.setFont(Font.font(10));
+            Button previousButton = new Button("<");
+            previousButton.setPrefSize(17, 17);
+            previousButton.setFont(Font.font(7));
+            previousButton.setOnMouseClicked(event -> {
 
-        Button previousButton = new Button("<");
-        previousButton.setPrefSize(17, 17);
-        previousButton.setFont(Font.font(7));
-        previousButton.setOnMouseClicked(event -> {
+                actualTargetInt++;
 
-            actualTargetInt++;
+                if (actualTargetInt >= target.size())
+                    actualTargetInt = 0;
 
-            if(actualTargetInt >= target.size())
-                actualTargetInt = 0;
+                targetLabel.setText(target.get(actualTargetInt));
+                ((Animal) e).setCibleInt(actualTargetInt);
+            });
 
-            targetLabel.setText(target.get(actualTargetInt));
+            Button nextButton = new Button(">");
+            nextButton.setPrefSize(17, 17);
+            nextButton.setFont(Font.font(7));
+            nextButton.setOnMouseClicked(event -> {
 
-        });
+                actualTargetInt--;
 
-        Button nextButton = new Button(">");
-        nextButton.setPrefSize(17, 17);
-        nextButton.setFont(Font.font(7));
-        nextButton.setOnMouseClicked(event -> {
+                if (actualTargetInt < 0)
+                    actualTargetInt = target.size() - 1;
 
-            actualTargetInt--;
+                targetLabel.setText(target.get(actualTargetInt));
+                ((Animal) e).setCibleInt(actualTargetInt);
+            });
 
-            if(actualTargetInt < 0)
-                actualTargetInt = target.size()-1;
+            HBox targetBox = new HBox(5, previousButton, targetLabel, nextButton);
+            targetBox.setLayoutX(14);
+            targetBox.setLayoutY(110);
 
-            targetLabel.setText(target.get(actualTargetInt));
-
-        });
-
-        HBox targetBox = new HBox(5, previousButton, targetLabel, nextButton);
-        targetBox.setLayoutX(14);
-        targetBox.setLayoutY(110);
-
+            root.getChildren().add(targetBox);
+        }
         //Boutons close desc et sell
         Button closeButton = new Button("X");
         closeButton.setPrefSize(25, 25);
-        closeButton.setOnMouseClicked(event ->
-                root.setVisible(false)
-        );
+        closeButton.setOnMouseClicked(event -> {
+            root.setVisible(false);
+            carte.lookup("#perim"+e.getId()).setVisible(false);
+            Node perimSpe = carte.lookup("#perimSpe"+e.getId());
+            if (perimSpe != null)
+                perimSpe.setVisible(false);
+
+        });
 
 
         Button sellButton = new Button();
@@ -205,7 +211,8 @@ public class InfoBulleListener {
         priceUpgrade.setPrefWidth(111);
         priceUpgrade.setFont(Font.font(16));
 
-        Label levelLabel = new Label("0/4");
+        Label levelLabel = new Label(actualLevel + "/4");
+        levelLabel.textProperty().bind(e.getLevelProperty().asString().concat("/4"));
         levelLabel.setAlignment(Pos.CENTER);
         levelLabel.setPrefWidth(111);
         levelLabel.setFont(Font.font(10));
@@ -269,7 +276,6 @@ public class InfoBulleListener {
         root.getChildren().addAll(
                 entityImageView,
                 entityNameLabel,
-                targetBox,
                 sellBox,
                 upgradePane,
                 upgradeImageView,
@@ -279,25 +285,15 @@ public class InfoBulleListener {
         //Je le cache pour l'instant, il sera affiché quand je cliquerais sur la troupe
         root.setVisible(false);
 
-        //je l'add à la map
-        descriptionsMap.put(e.getId(), root);
-
         carte.getChildren().addAll(root);
     }
 
-    public void afficherDescription() {
+    public void changeAfficherDescription() {
 
-        descriptionsMap.values().forEach(n -> n.setVisible(false));
-
-        Node desc = descriptionsMap.get(e.getId());
-
-        if (desc != null) {
-            //repositionne au bon endroit
-            desc.setLayoutX(e.getX()+20);
-            desc.setLayoutY(e.getY()-200);
-            desc.setVisible(true);
-            desc.toFront();
-        }
+        root.setLayoutX(e.getX()+20);
+        root.setLayoutY(e.getY()-200);
+        root.toFront();
+        root.setVisible(!root.isVisible());
     }
 
     private void updateDescriptionStatLabel(VBox attributesVBox) {
