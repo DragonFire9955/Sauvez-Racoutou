@@ -3,6 +3,7 @@ package app.Vue;
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
+import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,8 +14,11 @@ public class EntiteVue {
 
     public static ImageView appliquerBonneImage(Entite entite, boolean withInit) {
         int taille;
+        System.out.println(entite.getName());
         ImageView imageView;
-        if(entite instanceof Animal && !((Animal) entite).isAllie())
+        if(entite instanceof Barrage)
+            imageView = new ImageView(new Image("app/images/barrage/niv"+ entite.getLevel()+"/img.png"));
+        else if(entite instanceof Animal && !((Animal) entite).isAllie())
             imageView = new ImageView(new Image("app/images/"+ entite.getName()+"/img.png"));
         else
             imageView = new ImageView(new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/img.png"));

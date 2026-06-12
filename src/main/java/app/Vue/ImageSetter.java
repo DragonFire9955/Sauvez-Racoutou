@@ -12,7 +12,7 @@ public class ImageSetter {
     public static Image hor = new Image(ImageSetter.class.getResourceAsStream("/app/images/horizontal.png"), 32, 32, false, true);
     public static Image ver = new Image(ImageSetter.class.getResourceAsStream("/app/images/vertical2.png"), 32, 32, false, true);
 
-    public static Image poubelle = new Image(ImageSetter.class.getResourceAsStream("/app/images/poubelle.png"), 32, 32, false, true);
+    public static Image poubelle = new Image(ImageSetter.class.getResourceAsStream("/app/images/barrage/niv0/img.png"), 32, 32, false, true);
     public static Image classique = new Image(ImageSetter.class.getResourceAsStream("/app/images/chatClassique/niv0/img.png"), 32, 32, false, true);
     public static Image medecin = new Image(ImageSetter.class.getResourceAsStream("/app/images/chatMedecin/niv0/img.png"), 32, 32, false, true);
     public static Image journaliste = new Image(ImageSetter.class.getResourceAsStream("/app/images/chatJournaliste/niv0/img.png"), 32, 32, false, true);

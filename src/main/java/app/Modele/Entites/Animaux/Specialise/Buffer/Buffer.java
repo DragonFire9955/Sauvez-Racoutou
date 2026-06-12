@@ -21,9 +21,9 @@ public class Buffer extends Specialise {
 
         super(name, coord, w, statsLevels, allie);
 
-        this.buffRange = (double) statsLevels.get(0)[7];
-        this.tempsBuff = (double) statsLevels.get(0)[8];
-        this.tempsRepo = (double) statsLevels.get(0)[9];
+        setRangeEffect( (double) statsLevels.get(0)[7]);
+        setTempsAction( (double) statsLevels.get(0)[8]);
+        setTempsRepo( (double) statsLevels.get(0)[9]);
 
         this.listeBuff=listeBuff;
     }
@@ -42,13 +42,11 @@ public class Buffer extends Specialise {
     public void buff(){
         Animal cible = getAnimauxCiblesAccessibles().getFirst();
         cible.setHealth(cible.getHealthProperty().getValue() + getListeBuff().getFirst());
-
     }
 
 
 
     public List<Animal> getAnimauxCiblesAccessibles(){
-
         return Utilitaire.entitesToAnimaux(getCiblesAccessibles(getRangeEffect(), Utilitaire.animauxToEntites(getAnimauxCopains())));
     }
 
@@ -66,7 +64,7 @@ public class Buffer extends Specialise {
 
         for(Animal a: copains) {
             System.out.println(this.getClass());
-            if(a.getClass() == this.getClass()) continue;
+            if(a.getClass() == this.getClass() || a.getHealthProperty().getValue() == a.getMaxHealth()) continue;
             i= 0;
             //Tant que distance supérieur ET pv supérieur
             while (i < entitesTriees.size()
@@ -81,7 +79,7 @@ public class Buffer extends Specialise {
 
     @Override
     public Entite getDirection() {
-        if(getAnimauxCopains().isEmpty()) {
+        if(getAnimauxCopainsClasses().isEmpty()) {
             System.out.println("pas de cops");
             return null;
         }

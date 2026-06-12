@@ -9,6 +9,7 @@ import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.Stunner;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Barrage.Barrage;
+import app.Modele.Entites.Barrage.Poubelle;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Noeud;
@@ -230,7 +231,7 @@ public class EntitesManager {
                 break;
 
             case "poubelle":
-                e = creerPouletMenotte(w);
+                e = new Poubelle(coord, w);
                 break;
 
             default:

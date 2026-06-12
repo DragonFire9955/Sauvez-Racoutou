@@ -19,7 +19,13 @@ public class DeplacementMethodes {
                 return 0;
             case 1:
                 return 1;
-            case 2:
+            case 2: // poubelle
+                return 4;
+            case 3: // voiture
+                return 10;
+            case 4: //bus
+                return 20;
+            case 5: //batiment
                 return 9999;
             default:
                 return 1;

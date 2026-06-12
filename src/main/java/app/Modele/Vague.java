@@ -2,7 +2,6 @@ package app.Modele;
 
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
-import app.Modele.Entites.Animaux.Volants.PouletVolant;
 import app.Modele.Managers.EntitesManager;
 
 import java.util.*;
@@ -283,9 +282,6 @@ public class Vague {
                 break;
             case "pouletConservateur":
                 a = EntitesManager.creerPouletConservateur(w);
-                break;
-            case "pouletVolant":
-                a = new PouletVolant(w);
                 break;
             default:
                 a = null;

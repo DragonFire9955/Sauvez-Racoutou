@@ -4,13 +4,13 @@ import app.Controller.Listener.EntiteHealthListener;
 import app.Controller.Listener.EntitesListListener;
 import app.Controller.Listener.*;
 import app.Modele.AudioManager;
+import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Animaux.Specialise.PouletProjectible;
-import app.Modele.Entites.Animaux.Volants.PouletVolant;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.EntitesManager;
@@ -114,6 +114,10 @@ public class Controller implements Initializable {
         initButtonsPlacement();
 
         gameWorld = new GameWorld();
+        //IMAGE DE RACOUTOU
+        initRacoutou();
+        gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
+        gameWorld.getBarrage().addListener(new EntitesListListener(carte, gameWorld));
         this.map = gameWorld.getMap();
 
         terrainVue = new TerrainVue();
@@ -193,7 +197,6 @@ public class Controller implements Initializable {
 
 
         //TEMPORAIRE, A DELET
-        gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
         for (Entite e : gameWorld.getAnimaux()) {
             e.getHealthProperty().addListener((observableValue, oldV, newV) -> {
                 if (oldV.doubleValue() < newV.doubleValue()) {
@@ -203,8 +206,6 @@ public class Controller implements Initializable {
             });
         }
 
-        //IMAGE DE RACOUTOU
-        initRacoutou();
         /*
         gameWorld.getAnimaux().getFirst().getAliveProperty().addListener((observable, oldValue, newValue) -> {
                     gamePane.getScene().setRoot(menu);
@@ -213,7 +214,7 @@ public class Controller implements Initializable {
         );
 
          */
-        gameWorld.ajouterAnimal(EntitesManager.creerPouletClassique(gameWorld));
+
         System.out.println(isGameStarted);
         isGameStarted.addListener(((observableValue, aBoolean, t1) -> {
 
@@ -245,9 +246,6 @@ public class Controller implements Initializable {
 
         //PROJECTILES
         gameWorld.getProjectiles().addListener(new ProjectileListener(carte));
-
-        //IMAGE DE RACOUTOU
-        initRacoutou();
 
         comboResolution.getItems().addAll(
                 "1280 x 720",
@@ -361,7 +359,6 @@ public class Controller implements Initializable {
 
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
 
-        gameWorld.ajouterAnimal(new Racoutou(gameWorld, StatsEntiteInitialiser.getStatsLevels("racoutou")));
         initRacoutou();
 
         cameraManager.centrerCarte();
@@ -434,12 +431,7 @@ public class Controller implements Initializable {
 
             gameWorld.ajouterAnimal(EntitesManager.creerPouletRolleur(gameWorld));
         }
-        else if (event.getCode() == KeyCode.A) {
-
-            System.out.println("nouveau Racoutou");
-
-            gameWorld.ajouterAnimal(new Racoutou(gameWorld, StatsEntiteInitialiser.getStatsLevels("racoutou")));
-        } else if (event.getCode() == KeyCode.R) {
+        else if (event.getCode() == KeyCode.R) {
 
             System.out.println("nouveau PouletBouclier");
 
@@ -489,11 +481,6 @@ public class Controller implements Initializable {
             System.out.println("nouveau PouletConservateur");
             gameWorld.ajouterAnimal(EntitesManager.creerPouletConservateur(gameWorld));
 
-        }else if (event.getCode() == KeyCode.V) {
-
-            System.out.println("nouveau Volant");
-
-            gameWorld.ajouterAnimal(new PouletVolant(gameWorld));
         } else if (event.getCode() == KeyCode.L) {
 
             System.out.println("nouveau pSoigne");
@@ -504,18 +491,22 @@ public class Controller implements Initializable {
 
         if (event.getCode() == KeyCode.ENTER){
             gameWorld.setTotalCoin(1000);
+        } else if (event.getCode() == KeyCode.A) {
+            gameWorld.getRacoutou().estAttaque(1);
         }
     }
 
     private void initRacoutou(){
         Entite racoutou = gameWorld.getRacoutou();
-        ImageView imgRacoutou = EntiteVue.appliquerBonneImage(racoutou, true);
+       ImageView imgRacoutou = EntiteVue.appliquerBonneImage(racoutou, true);
         carte.getChildren().add(imgRacoutou);
+
         racoutou.getHealthProperty().addListener(new EntiteHealthListener(carte, racoutou));
         VieControlleur barreVie = new VieControlleur(racoutou, imgRacoutou);
         StackPane visuelBarre = barreVie.getConteneur();
-        visuelBarre.setId(racoutou.getId());
+        visuelBarre.setId("visuBarre"+racoutou.getId());
         carte.getChildren().add(visuelBarre);
+
 
         InfoBulleListener infoBulleListener = new InfoBulleListener(carte, gameWorld, racoutou);
         imgRacoutou.setOnMouseClicked(event -> {
@@ -551,7 +542,7 @@ public class Controller implements Initializable {
             clic.setName(((Button) (actionEvent.getSource())).getId());
         };
         poubelle.setOnAction(boutonsshop);
-        //poubellePrixLabel.setText(StatsEntiteInitialiser.getStatsLevels(poubelle.getId()).getFirst()[1].toString());
+        poubellePrixLabel.setText(StatsEntiteInitialiser.getStatsLevels(poubelle.getId()).getFirst()[1].toString());
 
         chatJournaliste.setOnAction(boutonsshop);
         chatJournalistePrixLabel.setText(String.valueOf((2 * (int) (StatsEntiteInitialiser.getStatsLevels(chatJournaliste.getId()).getFirst()[1]))));

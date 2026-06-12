@@ -62,6 +62,11 @@ public class StatsEntiteInitialiser {
             case "pouletMenottes":
                 initStatsPouletMenottes(statsLevels);
                 break;
+
+
+            case "poubelle":
+                initStatsPoubelle(statsLevels);
+                break;
 /*
 // VOLANTS
             case "Poulet volant":
@@ -673,6 +678,63 @@ public class StatsEntiteInitialiser {
 
     /// TODO : PAS ENCORE FAIT
     private static void initStatsTaupe(List<Object[]> statsLevels) {
+
+        statsLevels.add(new Object[]{
+                "Default",
+                70,    //Upgrade price
+                8.,     //Health
+                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
+                40.,     //Range
+                5.,     //Damage
+                1.,     //FreqAtk
+                1.,     //Speed
+                150.,    //BuffRange
+                3.,     //TpsBuff
+                .5     //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "Frontale",
+                150,    //Upgrade price
+                12.,     //Health   (+4)
+                40.,      //Range
+                7.,      //Damage    (+2)
+                1.2,    //FreqAtk (+.2)
+                1.,      //Speed
+                150.,     //BuffRange
+                3.5,    //TpsBuff (+.5)
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "Casque de mineur",
+                300,    //Upgrade price
+                20.,     //Health   (+8)
+                43.,      //Range     (+3)
+                10.,     //Damage   (+3)
+                1.5,    //FreqAtk (+.3)
+                2.,      //Speed
+                155.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
+
+        statsLevels.add(new Object[]{
+                "La pelle",
+                null,   //Upgrade price
+                30.,     //Health   (+10)
+                45.,     //Range     (+2)
+                15.,     //Damage   (+5)
+                2.,      //FreqAtk (+.5)
+                3.,      //Speed
+                160.,     //BuffRange (+5)
+                3.5,    //TpsBuff
+                .5      //TpsRepo
+        });
+    }
+
+    /// TODO : PAS ENCORE FAIT
+    private static void initStatsPoubelle(List<Object[]> statsLevels) {
 
         statsLevels.add(new Object[]{
                 "Default",

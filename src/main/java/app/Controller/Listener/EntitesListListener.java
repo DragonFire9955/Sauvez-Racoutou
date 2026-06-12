@@ -1,6 +1,7 @@
 package app.Controller.Listener;
 
 import app.Modele.Entites.Animaux.Animal;
+import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Vue.EntiteVue;
@@ -35,6 +36,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
     @Override
     public void onChanged(ListChangeListener.Change<? extends Entite> c){
 
+        int i = 0;
         while(c.next()) {
             if (c.wasRemoved()) {
                 for (Entite e: c.getRemoved()) {
@@ -46,13 +48,16 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     //On suppr du visuel
                     carte.getChildren().removeIf(node -> e.getId().equals(node.getId()));
                     carte.getChildren().removeIf(node -> ("perim" + e.getId()).equals(node.getId()));
+                    carte.getChildren().removeIf(node -> ("visuBarre" + e.getId()).equals(node.getId()));
                 }
 
             }
             if (c.wasAdded()) {
+
                 //parcours les entités ajoutés
                 for (Entite e: c.getAddedSubList()) {
                     System.out.println("ajout dans list");
+                    System.out.println(e.getClass());
 
                     //affiche l'image de l'entite sur la carte
                     ImageView imageEntite = EntiteVue.appliquerBonneImage(e, true);
@@ -68,8 +73,6 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     //affiche la vie
                     carte.getChildren().add(visuelBarre);
 
-                    //associe l'id de la vie a l'entite pour les remove ensemble
-                    visuelBarre.setId(e.getId());
                     //Je met le listener de ma vie ici car + pratique et évite les bugs du lookup()
                     e.getHealthProperty().addListener(new EntiteHealthListener(carte, e));
                     if( e instanceof Animal)
@@ -96,6 +99,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     }
                 }
             }
+            i++;
         }
     }
 }

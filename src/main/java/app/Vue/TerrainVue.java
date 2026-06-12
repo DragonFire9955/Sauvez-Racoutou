@@ -21,13 +21,13 @@ public class TerrainVue {
             case 1:
                 cases.setImage(ImageSetter.base);
                 break;
-            case 2:
+            case 5:
                 cases.setImage(ImageSetter.tonneau);
                 break;
-            case 3:
+            case 11:
                 cases.setImage(ImageSetter.hor);
                 break;
-            case 4:
+            case 12:
                 cases.setImage(ImageSetter.ver);
                 break;
             default:

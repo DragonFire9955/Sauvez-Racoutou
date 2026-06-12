@@ -17,6 +17,7 @@ public class VieControlleur {
 
     public VieControlleur(Entite entite, ImageView img) {
         this.conteneur = new StackPane();
+        conteneur.setId("visuBarre"+entite.getId());
         this.conteneur.setAlignment(Pos.CENTER_LEFT);
         //pour que le vie se vide vers la gauche
 

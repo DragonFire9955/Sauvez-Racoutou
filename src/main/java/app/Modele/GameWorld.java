@@ -42,8 +42,8 @@ public class GameWorld {
     public GameWorld(){
 
         map = Terrain.genererMap();
-        animauxList = FXCollections.observableArrayList();
-        animauxList.add(new Racoutou(this, StatsEntiteInitialiser.getStatsLevels("racoutou")));
+        this.animauxList = FXCollections.observableList(new ArrayList<>());
+        this.animauxList.add(new Racoutou(this, StatsEntiteInitialiser.getStatsLevels("racoutou")));
         barrageList = FXCollections.observableArrayList();
         theEnd= new SimpleIntegerProperty(0);
 
@@ -80,7 +80,7 @@ public class GameWorld {
                 p.update(dt);
             }
 
-            supprimerAnimauxMorts();
+            supprimerEntitesMorts();
             supprimerProjectilesMorts();
         }
     }
@@ -126,10 +126,15 @@ public class GameWorld {
         animauxList.remove(a);
     }
 
-    public void supprimerAnimauxMorts() {
+
+    public void supprimerEntitesMorts(){
         for(int i=animauxList.size()-1;i>=0;i--)
             if (!animauxList.get(i).isAlive())
                 supprimerAnimal(animauxList.get(i));
+
+        for(int i= barrageList.size()-1; i>=0; i--)
+            if(!barrageList.get(i).isAlive())
+                supprimerBarrage(barrageList.get(i));
     }
 
     public void addProjectile(ProjectileSimple p) {
@@ -178,12 +183,16 @@ public class GameWorld {
     }
 
     public void ajouterBarrage(Barrage b) {
+
         barrageList.add(b);
-        map[b.getTile()[0]][b.getTile()[1]] = b.getPoids();
+        map[b.getTile()[0]][b.getTile()[1]] = b.getIdPoids();
         dijkRacoutou2 = new DeplacementDijkstra(tailleTile, map).dijkstra(this.getRacoutou().getCoord());
     }
     public void supprimerBarrage(Barrage b) {
+
+        map[b.getTile()[0]][b.getTile()[1]] = 1;
         barrageList.remove(b);
+        dijkRacoutou2 = new DeplacementDijkstra(tailleTile, map).dijkstra(this.getRacoutou().getCoord());
     }
     public ObservableList<Barrage> getBarrage() {
         return barrageList;

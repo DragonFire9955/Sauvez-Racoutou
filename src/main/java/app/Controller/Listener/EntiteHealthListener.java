@@ -1,5 +1,6 @@
 package app.Controller.Listener;
 
+import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Entite;
 import app.Vue.EntiteVue;
 import javafx.beans.value.ChangeListener;
@@ -28,20 +29,21 @@ public class EntiteHealthListener implements ChangeListener<Number> {
     @Override
     public void changed(ObservableValue<? extends Number> observableValue, Number oldV, Number newV) {
 
-        System.out.println(newV + " : " + oldV);
         if (newV.doubleValue() < oldV.doubleValue()) {
-
+            System.out.println("DEGAT");
             Node entite = carte.lookup("#" + e.getId());
             ((ImageView) entite).setImage(EntiteVue.appliquerBonneImageGif(e));
+            System.out.println( ((ImageView) entite).getImage().getUrl());
 
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     ((ImageView) entite).setImage(EntiteVue.appliquerBonneImage(e, false).getImage());
+                    System.out.println("REMISE IMG");
                 }
-            }, 1000);
-        } else if (newV.doubleValue() >oldV.doubleValue()) {
+            }, 900);
+        } else if (newV.doubleValue() > oldV.doubleValue()) {
             Node entite = carte.lookup("#" + e.getId());
             ((ImageView) entite).setImage(EntiteVue.appliquerImageSoin(e));
 
