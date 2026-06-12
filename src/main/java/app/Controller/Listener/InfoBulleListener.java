@@ -83,9 +83,6 @@ public class InfoBulleListener {
         AnchorPane.setTopAnchor(entityNameLabel, 14.0);
 
         //Zone de sélection de cible
-        Button previousButton = new Button("<");
-        previousButton.setPrefSize(17, 17);
-        previousButton.setFont(Font.font(7));
 
         List<String> target = new ArrayList<>();
         target.add("Strongest");
@@ -102,15 +99,29 @@ public class InfoBulleListener {
         targetLabel.setTextFill(Color.WHITE);
         targetLabel.setFont(Font.font(10));
 
+        Button previousButton = new Button("<");
+        previousButton.setPrefSize(17, 17);
+        previousButton.setFont(Font.font(7));
+        previousButton.setOnMouseClicked(event -> {
+
+            actualTargetInt++;
+
+            if(actualTargetInt >= target.size())
+                actualTargetInt = 0;
+
+            targetLabel.setText(target.get(actualTargetInt));
+
+        });
+
         Button nextButton = new Button(">");
         nextButton.setPrefSize(17, 17);
         nextButton.setFont(Font.font(7));
         nextButton.setOnMouseClicked(event -> {
 
-            if(actualTargetInt <= 0)
-                actualTargetInt = target.size()-1;
-
             actualTargetInt--;
+
+            if(actualTargetInt < 0)
+                actualTargetInt = target.size()-1;
 
             targetLabel.setText(target.get(actualTargetInt));
 
