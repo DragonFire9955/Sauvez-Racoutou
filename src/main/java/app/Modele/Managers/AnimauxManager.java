@@ -16,7 +16,7 @@ import java.util.Map;
 public class AnimauxManager {
 
     public static GameWorld w;
-    public static DeplacementDijkstra dijk = new DeplacementDijkstra(w.getTailleTile(), w.getMap());
+
 
     // CLASSIQUE
     public static Animal creerChatClassique(GameWorld w) {
@@ -82,9 +82,9 @@ public class AnimauxManager {
     public static void deplacementAllie(Animal attaquant, Animal etoileDuNord){
 
         GameWorld w = attaquant.getWorld();
-
+        DeplacementDijkstra dijk = new DeplacementDijkstra(w.getTailleTile(), w.getMap());
         //map <clef= Noeud, value= Predecesseur>
-        Map<Noeud, Noeud> dijkstra = dijk.dijkstraCible(attaquant.getCoord(), etoileDuNord.getCoord());
+        Map<Noeud, Noeud> dijkstra = dijk.dijkstraCible(etoileDuNord.getCoord(), attaquant.getCoord());
 
         //direction = noeud suivant
         Noeud dir = dijkstra.get(new Noeud(attaquant.getTile()[0], attaquant.getTile()[1]));

@@ -29,7 +29,7 @@ public abstract class Entite {
     private List<Object[]> statsLevels;
 
     private DoubleProperty health;
-    private double maxHealth;
+    private DoubleProperty maxHealth;
     private int coin;
     private BooleanProperty alive;
     private boolean actif;
@@ -51,7 +51,7 @@ public abstract class Entite {
         this.x = new SimpleDoubleProperty(coord[0]);
         this.y = new SimpleDoubleProperty(coord[1]);
         this.health = new SimpleDoubleProperty((double) statsLevels.getFirst()[2]);
-        this.maxHealth = health.getValue();
+        this.maxHealth = new SimpleDoubleProperty(health.getValue());
         this.coin = (int) statsLevels.getFirst()[1];
         this.range = (double) statsLevels.getFirst()[3];
         this.damage = (double) statsLevels.getFirst()[4];
@@ -151,12 +151,16 @@ public abstract class Entite {
     public DoubleProperty getHealthProperty() {
         return health;
     }
-    public double getMaxHealth() {
+
+    public DoubleProperty getHealthMaxProperty(){
         return maxHealth;
     }
+    public double getMaxHealth() {
+        return maxHealth.get();
+    }
     public void setHealth(double value) {
-        if(value>maxHealth)
-            health.set(maxHealth);
+        if(value>maxHealth.getValue())
+            health.set(maxHealth.getValue());
         else {
             health.set(Math.max(0, value));
             if (health.getValue()== 0) {
@@ -201,11 +205,11 @@ public abstract class Entite {
     public  int getIdEntite(){return id;}
 
     public void setStats(int actualLevel) {
-
-        this.coin = ((int) statsLevels.get(actualLevel)[1]);
+        if(actualLevel<3)
+            this.coin = ((int) statsLevels.get(actualLevel)[1]);
         //Calcul des pv par pourcentage
-        this.health.setValue((double) statsLevels.get(actualLevel)[2] * (health.getValue()*100/maxHealth));
-        maxHealth = this.health.get();
+        this.health.setValue((double) statsLevels.get(actualLevel)[2] * (health.getValue()*100/maxHealth.getValue()));
+        maxHealth.setValue(this.health.get());
         this.range = ((double) statsLevels.get(actualLevel)[3]);
         this.damage = ((double) statsLevels.get(actualLevel)[4]);
         this.freqAtk = ((double) statsLevels.get(actualLevel)[5]);

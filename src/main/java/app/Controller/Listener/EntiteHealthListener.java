@@ -28,6 +28,7 @@ public class EntiteHealthListener implements ChangeListener<Number> {
     @Override
     public void changed(ObservableValue<? extends Number> observableValue, Number oldV, Number newV) {
 
+        System.out.println(newV + " : " + oldV);
         if (newV.doubleValue() < oldV.doubleValue()) {
 
             Node entite = carte.lookup("#" + e.getId());

@@ -271,20 +271,20 @@ public class Vague {
         Animal a;
 
         switch (classe) {
-            case "PouletClassique":
+            case "pouletClassique":
                 a = AnimauxManager.creerPouletClassique(w);
                 break;
-            case "PouletMenotte":
+            case "pouletMenotte":
                 a = AnimauxManager.creerPouletMenotte(w);
                 break;
 
-            case "PouletBouclier":
+            case "pouletBouclier":
                 a = new PouletBouclier(w);
                 break;
-            case "PouletConservateur":
+            case "pouletConservateur":
                 a = AnimauxManager.creerPouletConservateur(w);
                 break;
-            case "PouletVolant":
+            case "pouletVolant":
                 a = new PouletVolant(w);
                 break;
             default:

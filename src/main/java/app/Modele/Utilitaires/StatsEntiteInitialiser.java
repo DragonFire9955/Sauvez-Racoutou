@@ -104,7 +104,7 @@ public class StatsEntiteInitialiser {
         statsLevels.add(new Object[]{
                 "Lunettes de soleil",
                 8,    //Upgrade price
-                100.,     //Health   (+50)
+                1000.,     //Health   (+50)
                 45.,      //Range   (+5)
                 7.,      //Damage    (+2)
                 2.3,    //FreqAtk (+.2)
@@ -115,7 +115,7 @@ public class StatsEntiteInitialiser {
         statsLevels.add(new Object[]{
                 "Cocktail",
                 15,    //Upgrade price
-                200.,     //Health   (+100)
+                2000.,     //Health   (+100)
                 45.,      //Range
                 10.,     //Damage   (+3)
                 2.,    //FreqAtk (+.3)
@@ -126,7 +126,7 @@ public class StatsEntiteInitialiser {
         statsLevels.add(new Object[]{
                 "La bouée",
                 null,   //Upgrade price
-                350.,     //Health   (+150)
+                3500.,     //Health   (+150)
                 50.,     //Range     (+5)
                 40.,     //Damage   (+5)
                 1.5,      //FreqAtk (+.5)

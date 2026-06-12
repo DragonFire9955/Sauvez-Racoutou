@@ -24,12 +24,14 @@ public class VieControlleur {
         Rectangle barreRouge = new Rectangle(img.getFitWidth()/2, img.getFitHeight()/20);
         barreRouge.setFill(Color.RED);
 
+
         //dessus vert pour les pv restants
         Rectangle barreVerte = new Rectangle(img.getFitWidth()/2, img.getFitHeight()/20);
         barreVerte.setFill(Color.GREEN);
+        barreVerte.widthProperty().bind(entite.getHealthProperty().multiply(img.getFitWidth()/2).divide(entite.getHealthMaxProperty()));
 
         //la largeur du rectangle vert est associé a la vie qu'il reste (vie / max * largeur)
-        barreVerte.widthProperty().bind(entite.getHealthProperty().divide(entite.getMaxHealth()).multiply(img.getFitWidth()/2));
+        //barreVerte.widthProperty().bind(entite.getHealthProperty().divide(entite.getMaxHealth()).multiply(img.getFitWidth()/2));
 
 
         //pour que le rouge soit derriere le vert

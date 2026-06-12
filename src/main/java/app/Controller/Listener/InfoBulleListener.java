@@ -251,14 +251,6 @@ public class InfoBulleListener {
             updateDescriptionSellButton(sellButton);
 
             upgradeImageView.setImage(new Image("app/images/"+ e.getName()+"/niv"+(e.getLevel()+1)+"/img.png"));
-
-
-            //Partie Code
-            for (int i = 0; i < e.getStatsLevels().get(actualLevel).length - 2; i++) {
-
-                e.setStats(actualLevel);
-            }
-
         });
 
 

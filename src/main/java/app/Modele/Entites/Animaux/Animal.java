@@ -86,7 +86,7 @@ public class Animal extends Entite {
             this.setX(this.getX() + dx * this.getVitesse());
             this.setY(this.getY() + dy * this.getVitesse());
         }
-        
+
          */
 
     }
