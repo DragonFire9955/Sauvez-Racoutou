@@ -3,6 +3,7 @@ package app.Modele.Utilitaires;
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
+import app.Modele.ProjectileSimple;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,11 @@ public class Utilitaire {
         }
         //Si coll avec batiment return true
         return map[tileY][tileX] == 2;
+    }
+
+    public static boolean intersects(ProjectileSimple p, Entite cible) {
+
+        return distance(cible.getX(), cible.getY(), p.getX(), p.getY())<=p.getSize();
     }
 
     public static int divisionEuclidienne(double dividende, double diviseur){

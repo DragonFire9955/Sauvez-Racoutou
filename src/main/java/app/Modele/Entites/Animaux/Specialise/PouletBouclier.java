@@ -14,7 +14,7 @@ public class PouletBouclier extends Animal {
 
     public PouletBouclier(GameWorld w) {
 
-        super("Poulet bouclier", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Poulet bouclier"), false);
+        super("pouletBouclier", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("Poulet bouclier"), false);
 
         this.bouclier = new SimpleDoubleProperty((double) StatsEntiteInitialiser.getStatsLevels("Poulet bouclier").get(0)[7]);
     }
@@ -24,6 +24,14 @@ public class PouletBouclier extends Animal {
 
         super.update(dt);
         tankDmg();
+    }
+
+    @Override
+    public void setStats(int actualLevel) {
+
+        super.setStats(actualLevel);
+
+        this.bouclier.setValue(((double) getStatsLevels().get(actualLevel)[7]));
     }
 
     public void tankDmg() {

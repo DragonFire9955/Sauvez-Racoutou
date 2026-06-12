@@ -17,8 +17,8 @@ public class CameraManager {
     private final int tilesVisiblesX = 30;
     private final int tilesVisiblesY = 18;
 
-    private final double zoomMin = 1;
-    private final double zoomMax = 2.5;
+    private final double zoomMin = .5;
+    private final double zoomMax = 2;
 
     private final double vitesseCamera = 16;
 

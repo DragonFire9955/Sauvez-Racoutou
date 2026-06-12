@@ -3,7 +3,7 @@ package app.Modele;
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Animaux.Volants.PouletVolant;
-import app.Modele.Managers.AnimauxManager;
+import app.Modele.Managers.EntitesManager;
 
 import java.util.*;
 
@@ -271,20 +271,20 @@ public class Vague {
         Animal a;
 
         switch (classe) {
-            case "PouletClassique":
-                a = AnimauxManager.creerPouletClassique(w);
+            case "pouletClassique":
+                a = EntitesManager.creerPouletClassique(w);
                 break;
-            case "PouletMenotte":
-                a = AnimauxManager.creerPouletMenotte(w);
+            case "pouletMenotte":
+                a = EntitesManager.creerPouletMenotte(w);
                 break;
 
-            case "PouletBouclier":
+            case "pouletBouclier":
                 a = new PouletBouclier(w);
                 break;
-            case "PouletConservateur":
-                a = AnimauxManager.creerPouletConservateur(w);
+            case "pouletConservateur":
+                a = EntitesManager.creerPouletConservateur(w);
                 break;
-            case "PouletVolant":
+            case "pouletVolant":
                 a = new PouletVolant(w);
                 break;
             default:

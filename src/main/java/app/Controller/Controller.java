@@ -1,5 +1,7 @@
 package app.Controller;
 
+import app.Controller.Listener.EntiteHealthListener;
+import app.Controller.Listener.EntitesListListener;
 import app.Controller.Listener.*;
 import app.Modele.AudioManager;
 import app.Modele.Entites.Animaux.Racoutou;
@@ -7,10 +9,11 @@ import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
+import app.Modele.Entites.Animaux.Specialise.PouletProjectible;
 import app.Modele.Entites.Animaux.Volants.PouletVolant;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
-import app.Modele.Managers.AnimauxManager;
+import app.Modele.Managers.EntitesManager;
 import app.Modele.Managers.EnnemisSpawn;
 import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Vue.CameraManager;
@@ -21,6 +24,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -44,53 +49,45 @@ import static app.Controller.MenuController.*;
 public class Controller implements Initializable {
 
     // VUE
-    @FXML
-    private BorderPane applicationPane; // border pane parent de tous
-    @FXML
-    private Pane gamePane;
-    @FXML
-    private Pane carte;
-    @FXML
-    private TilePane tileMap;
+    @FXML private BorderPane applicationPane; // border pane parent de tous
+    @FXML private Pane gamePane;
+    @FXML private Pane carte;
+    @FXML private TilePane tileMap;
 
-    @FXML
-    private Button btnPoubelle;
-    @FXML
-    private Button btnClassique;
-    @FXML
-    private Button btnMedecin;
-    @FXML
-    private Button btnJournaliste;
-    @FXML
-    private Button btnScientifique;
+    @FXML private Button poubelle;
+    @FXML private Label poubellePrixLabel;
 
+    @FXML private Button chatClassique;
+    @FXML private Label chatClassiquePrixLabel;
 
-    @FXML
-    private Label coinLabel;
-    @FXML
-    private Label waveLabel;
-    @FXML
-    private Label waveTimerLabel;
-    @FXML
-    private VBox menuPause;
-    @FXML
-    private VBox menuReglages;
-    @FXML
-    private ComboBox<String> comboResolution;
-    @FXML
-    private ImageView imgSon;
-    @FXML
-    private Slider sliderVolume;
-    @FXML
-    private Label labelTitreMusique;
+    @FXML private Button chatMedecin;
+    @FXML private Label chatMedecinPrixLabel;
+
+    @FXML private Button chatJournaliste;
+    @FXML private Label chatJournalistePrixLabel;
+
+    @FXML private Button chatScientifique;
+    @FXML private Label chatScientifiquePrixLabel;
+
+    @FXML private Label coinLabel;
+
+    @FXML private Label waveLabel;
+    @FXML private Label waveTimerLabel;
+
+    @FXML private VBox menuPause;
+
+    @FXML private VBox menuReglages;
+    @FXML private ComboBox<String> comboResolution;
+    @FXML private ImageView imgSon;
+    @FXML private Slider sliderVolume;
+    @FXML private Label labelTitreMusique;
 
     private Image imageSonOn;
     private Image imageSonOff;
 
-    @FXML
-    private Pane finJeu;
-    @FXML
-    private ImageView imgFinJeu;
+
+    @FXML private Pane finJeu;
+    @FXML private ImageView imgFinJeu;
 
     private TerrainVue terrainVue;
     private boolean enPause = false;
@@ -110,6 +107,8 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        initButtonsPlacement();
+
         gameWorld = new GameWorld();
         this.map = gameWorld.getMap();
 
@@ -119,11 +118,11 @@ public class Controller implements Initializable {
         terrainVue.remplirMap(tileMap, map);
 
         DragAndDrop dragImage = new DragAndDrop();
-        dragImage.drag(btnPoubelle, 100, "/app/images/poubelle.png");
-        dragImage.drag(btnClassique, 101, "/app/images/chat.png");
-        dragImage.drag(btnMedecin, 102, "/app/images/chatMedecin.png");
-        dragImage.drag(btnJournaliste, 103, "/app/images/chatJournaliste.png");
-        dragImage.drag(btnScientifique, 104, "/app/images/chatScientifique.png");
+        dragImage.drag(poubelle);
+        dragImage.drag(chatClassique);
+        dragImage.drag(chatMedecin);
+        dragImage.drag(chatJournaliste);
+        dragImage.drag(chatScientifique);
 
         dragImage.survole(tileMap);
 
@@ -136,7 +135,7 @@ public class Controller implements Initializable {
             int colonne = (int) (e.getX() / gameWorld.getTailleTile());
             int ligne = (int) (e.getY() / gameWorld.getTailleTile());
 
-            clic.placerStructure(ligne, colonne, id);
+            clic.placerStructure(ligne, colonne, "poubelle");
 
             e.consume();
             gamePane.requestFocus();
@@ -158,7 +157,6 @@ public class Controller implements Initializable {
             finJeu.setVisible(true);
             isGameStarted.setValue(false);
         });
-
         /*
         gameWorld.getTheEnd().addListener((obs, oldV, newV) -> {
             if(newV == true) {
@@ -211,7 +209,7 @@ public class Controller implements Initializable {
         );
 
          */
-        gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
+        gameWorld.ajouterAnimal(EntitesManager.creerPouletClassique(gameWorld));
         System.out.println(isGameStarted);
         isGameStarted.addListener(((observableValue, aBoolean, t1) -> {
 
@@ -240,6 +238,12 @@ public class Controller implements Initializable {
                 remetEnnemiTest(event);
             });
         });
+
+        //PROJECTILES
+        gameWorld.getProjectiles().addListener(new ProjectileListener(carte));
+
+        //IMAGE DE RACOUTOU
+        initRacoutou();
 
         comboResolution.getItems().addAll(
                 "1280 x 720",
@@ -372,9 +376,9 @@ public class Controller implements Initializable {
         waveTimerLabel.textProperty().bind(gameWorld.getTempsActuelVagueProperty().asString().concat(" / ").concat(gameWorld.getDurreeVagueProperty().asString()));
 
         gameWorld.getTheEnd().addListener((obs, oldV, newV) -> {
-            if(newV.intValue()>0){
+            if(newV.intValue() > 0){
                 imgFinJeu.setImage(new Image("app/images/gagne.gif"));
-            } else if (newV.intValue()<0) {
+            } else if (newV.intValue() < 0) {
                 imgFinJeu.setImage(new Image("app/images/gif/perdue.gif"));
             }
             imgFinJeu.setFitWidth(300);
@@ -388,6 +392,7 @@ public class Controller implements Initializable {
 
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
 
+        gameWorld.ajouterAnimal(new Racoutou(gameWorld, StatsEntiteInitialiser.getStatsLevels("racoutou")));
         initRacoutou();
 
         cameraManager.centrerCarte();
@@ -395,10 +400,12 @@ public class Controller implements Initializable {
 
         initAnimation();
         gameLoop.play();
-
         gamePane.requestFocus();
     }
 
+
+
+    /*
     @FXML
     private void placerPoubelle(){
         clic.setModePlacement(true);
@@ -429,6 +436,9 @@ public class Controller implements Initializable {
         clic.setIdEntite(104);
     }
 
+     */
+
+
     private void initAnimation() {
         gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
@@ -447,19 +457,19 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau PouletClassique");
 
-            gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
+            gameWorld.ajouterAnimal(EntitesManager.creerPouletClassique(gameWorld));
 
         } else if (event.getCode() == KeyCode.X) {
 
             System.out.println("nouveau Racoutou");
 
-            gameWorld.ajouterAnimal(AnimauxManager.creerPouletRolleur(gameWorld));
+            gameWorld.ajouterAnimal(EntitesManager.creerPouletRolleur(gameWorld));
         }
         else if (event.getCode() == KeyCode.A) {
 
             System.out.println("nouveau Racoutou");
 
-            gameWorld.ajouterAnimal(new Racoutou(gameWorld, StatsEntiteInitialiser.getStatsLevels("Racoutou")));
+            gameWorld.ajouterAnimal(new Racoutou(gameWorld, StatsEntiteInitialiser.getStatsLevels("racoutou")));
         } else if (event.getCode() == KeyCode.R) {
 
             System.out.println("nouveau PouletBouclier");
@@ -469,21 +479,21 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau PouletMenotte");
 
-            gameWorld.ajouterAnimal(AnimauxManager.creerPouletMenotte(gameWorld));
+            gameWorld.ajouterAnimal(EntitesManager.creerPouletMenotte(gameWorld));
         } else if (event.getCode() == KeyCode.C) {
 
             System.out.println("nouveau ChatClassique");
 
-            gameWorld.ajouterAnimal(AnimauxManager.creerChatClassique(gameWorld));
+            gameWorld.ajouterAnimal(EntitesManager.creerChatClassique(gameWorld));
         } else if (event.getCode() == KeyCode.J) {
 
             System.out.println("nouveau ChatJournaliste");
 
-            gameWorld.ajouterAnimal(AnimauxManager.creerChatJournaliste(gameWorld));
+            gameWorld.ajouterAnimal(EntitesManager.creerChatJournaliste(gameWorld));
         } else if (event.getCode() == KeyCode.Y) {
 
             System.out.println("nouveau scientifique");
-            gameWorld.ajouterAnimal(new ChatScientifique(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+            gameWorld.ajouterAnimal(new ChatScientifique(gameWorld.getRacoutou().getCoord(), gameWorld));
 
         } else if (event.getCode() == KeyCode.G) {
 
@@ -498,17 +508,17 @@ public class Controller implements Initializable {
         } else if (event.getCode() == KeyCode.H) {
 
             System.out.println("nouveau medecin");
-            gameWorld.ajouterAnimal(AnimauxManager.creerChatMedecin(gameWorld));
+            gameWorld.ajouterAnimal(EntitesManager.creerChatMedecin(gameWorld));
 
         } else if (event.getCode() == KeyCode.B) {
 
             System.out.println("nouveau ChatCuisinier");
-            gameWorld.ajouterAnimal(AnimauxManager.creerChatCuisinier(gameWorld));
+            gameWorld.ajouterAnimal(EntitesManager.creerChatCuisinier(gameWorld));
 
         }else if (event.getCode() == KeyCode.W) {
 
             System.out.println("nouveau PouletConservateur");
-            gameWorld.ajouterAnimal(AnimauxManager.creerPouletConservateur(gameWorld));
+            gameWorld.ajouterAnimal(EntitesManager.creerPouletConservateur(gameWorld));
 
         }else if (event.getCode() == KeyCode.V) {
 
@@ -518,22 +528,32 @@ public class Controller implements Initializable {
         } else if (event.getCode() == KeyCode.L) {
 
             System.out.println("nouveau pSoigne");
-            gameWorld.ajouterAnimal(AnimauxManager.creerPouletConservateur(gameWorld));
+            gameWorld.ajouterAnimal(EntitesManager.creerPouletConservateur(gameWorld));
+        } else if (event.getCode() == KeyCode.P) {
+            gameWorld.ajouterAnimal(new PouletProjectible("Poulet projectible", EnnemisSpawn.randomCoord(gameWorld), gameWorld, StatsEntiteInitialiser.getStatsLevels("Poulet projectible"), false));
         }
 
-
-
-
-}
+        if (event.getCode() == KeyCode.ENTER){
+            gameWorld.setTotalCoin(1000);
+        }
+    }
 
     private void initRacoutou(){
         Entite racoutou = gameWorld.getRacoutou();
-        carte.getChildren().add(EntiteVue.appliquerBonneImage(racoutou, true));
+        ImageView imgRacoutou = EntiteVue.appliquerBonneImage(racoutou, true);
+        carte.getChildren().add(imgRacoutou);
         racoutou.getHealthProperty().addListener(new EntiteHealthListener(carte, racoutou));
-        VieControlleur barreVie = new VieControlleur(racoutou);
+        VieControlleur barreVie = new VieControlleur(racoutou, imgRacoutou);
         StackPane visuelBarre = barreVie.getConteneur();
         visuelBarre.setId(racoutou.getId());
         carte.getChildren().add(visuelBarre);
+
+        InfoBulleListener infoBulleListener = new InfoBulleListener(carte, gameWorld, racoutou);
+        imgRacoutou.setOnMouseClicked(event -> {
+            infoBulleListener.afficherDescription();
+        });
+        infoBulleListener.ajoutZoneDescription();
+
     }
 
     //REPETITION !!!
@@ -543,6 +563,38 @@ public class Controller implements Initializable {
         Pane jeu = FXMLLoader.load(MenuController.class.getResource("/app/main.fxml"));
         applicationPane.getScene().setRoot(jeu);
         isGameStarted.setValue(true);
+
+    }
+
+    public void initButtonsPlacement(){
+        /*
+        boutonsPlacement = FXCollections.observableList(new ArrayList<>());;
+        boutonsPlacement.add(poubelle);
+        boutonsPlacement.add(chatClassique);
+        boutonsPlacement.add(chatJournaliste);
+        boutonsPlacement.add(chatScientifique);
+        boutonsPlacement.add(chatMedecin);
+
+         */
+
+        EventHandler<ActionEvent> boutonsshop = actionEvent -> {
+            clic.setModePlacement(true);
+            clic.setName(((Button) (actionEvent.getSource())).getId());
+        };
+        poubelle.setOnAction(boutonsshop);
+        //poubellePrixLabel.setText(StatsEntiteInitialiser.getStatsLevels(poubelle.getId()).getFirst()[1].toString());
+
+        chatJournaliste.setOnAction(boutonsshop);
+        chatJournalistePrixLabel.setText(String.valueOf((2 * (int) (StatsEntiteInitialiser.getStatsLevels(chatJournaliste.getId()).getFirst()[1]))));
+
+        chatMedecin.setOnAction(boutonsshop);
+        chatMedecinPrixLabel.setText(String.valueOf((2 * (int) StatsEntiteInitialiser.getStatsLevels(chatMedecin.getId()).getFirst()[1])));
+
+        chatClassique.setOnAction(boutonsshop);
+        chatClassiquePrixLabel.setText(String.valueOf((2 * (int) StatsEntiteInitialiser.getStatsLevels(chatClassique.getId()).getFirst()[1])));
+
+        chatScientifique.setOnAction(boutonsshop);
+        chatScientifiquePrixLabel.setText(String.valueOf((2 * (int) StatsEntiteInitialiser.getStatsLevels(chatScientifique.getId()).getFirst()[1])));
 
     }
 

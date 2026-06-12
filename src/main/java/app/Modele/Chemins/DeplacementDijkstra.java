@@ -29,72 +29,8 @@ public class DeplacementDijkstra {
         this.tailleTile=tailleTile;
     }
 
-    //Ajout du ptn de départ
-    public Map<Double, Noeud> calculerDistances(int[] coord) {
 
-        Noeud dep = new Noeud(coord[0], coord[1]);
-
-        //On crée une liste qui trie pour le meilleur getCoutEstimDepArr (plus petit -> plus grand)
-        PriorityQueue<Noeud> listNoeudsPasVu = new PriorityQueue<>(Comparator.comparingInt(Noeud::getCoutDepuisDeprt));
-
-        //Recevra touts les noeuds passés
-        Set<Noeud> listNoeudsVu = new HashSet<>();
-
-        //Pr chq noeud, le meilleur coût
-        Map<Double, Noeud> mapNoeuds = new HashMap<>();
-
-        //Init
-        dep.setCoutDepuisDeprt(0);
-
-        //Ajout du pnt de départ
-        listNoeudsPasVu.add(dep);
-        mapNoeuds.put(coordToDouble(coord), dep);
-        //System.out.println("voisin racoutou "+ dep.getParent());
-
-        while (!listNoeudsPasVu.isEmpty()) {
-
-            //Noeud avec coût minimal actuel
-            Noeud noeudActuel = listNoeudsPasVu.poll();
-
-            if (listNoeudsVu.contains(noeudActuel))
-                continue;
-
-            //On add le noeud actuel à la liste des noeuds passés
-            listNoeudsVu.add(noeudActuel);
-
-            //On check les voisins
-            for (Noeud voisin : DeplacementMethodes.getVoisins(noeudActuel, map, lignes, colonnes)) {
-
-                //Déjà traité
-                if (listNoeudsVu.contains(voisin))
-                    continue;
-
-                //On calcule le poids du voisin en question
-                int nvmCout = noeudActuel.getCoutDepuisDeprt() + DeplacementMethodes.getCout(map, voisin.getI(), voisin.getJ());
-
-                //Si il en existe un meilleur on skip
-                if (mapNoeuds.containsValue(voisin)
-                        && nvmCout >= voisin.getCoutDepuisDeprt())
-                    continue;
-                //On set le voisin avec ce nvm meilleur cout
-                voisin.setCoutDepuisDeprt(nvmCout);
-
-                //On ajoute comme parent du voisin le noeud actuel (permet de remonter à dep)
-                voisin.setParent(noeudActuel);
-
-                //Sinon on le met dedans (logique)
-                mapNoeuds.put(coordToDouble(voisin.getCoord()), voisin);
-
-                //On ajoute le voisin en question à la liste des non-vus
-                listNoeudsPasVu.add(voisin);
-
-            }
-        }
-
-        return mapNoeuds;
-    }
-
-    public HashMap<Noeud, Noeud> testDijkstra(double[] dep){
+    public HashMap<Noeud, Noeud> dijkstra(double[] dep){
 
         //Noeud actuel = point de départ
         Noeud actuel= new Noeud(getTile(tailleTile, dep)[0], getTile(tailleTile, dep)[1]);
@@ -146,8 +82,61 @@ public class DeplacementDijkstra {
         return parent;
     }
 
+
+    public HashMap<Noeud, Noeud> dijkstraCible(double[] dep, double[] cible){
+
+        //Noeud actuel = point de départ
+        Noeud actuel= new Noeud(getTile(tailleTile, dep)[0], getTile(tailleTile, dep)[1]);
+        Noeud destination = new Noeud(getTile(tailleTile, cible)[0], getTile(tailleTile, cible)[1]);
+        actuel.setParent(null);
+        actuel.setCoutDepuisDeprt(0);
+
+        PriorityQueue<Noeud> fifo = new PriorityQueue<>(Comparator.comparingInt(Noeud::getCoutDepuisDeprt));
+        HashMap<Noeud, Integer> noeudsVisites = new HashMap<>();
+        HashMap<Noeud, Noeud> parent = new HashMap<>();
+        fifo.add(actuel);
+        parent.put(actuel, null);
+
+
+        while(actuel!=null && !actuel.equals(destination)){
+            //si actuel pas encore visité
+            if(!noeudsVisites.containsKey(actuel)){
+                //ajout actuel à noeuds Visités
+                noeudsVisites.put(actuel, actuel.getCoutDepuisDeprt());
+
+                //Pour tous les voisins du noeud actuel
+
+                for(Noeud voisin: DeplacementMethodes.getVoisins(actuel, map, lignes, colonnes)) {
+
+                    //Si le voisin n'a pas été visité
+                    if (!noeudsVisites.containsKey(voisin)){
+
+                        int nouveauCout =actuel.getCoutDepuisDeprt()+ DeplacementMethodes.getCout(map, voisin.getI(), voisin.getJ());
+                        //Si dans la fifo + nvCout< ancienCout: l'enlève de la fifo
+                        if(fifo.contains(voisin) && nouveauCout<voisin.getCoutDepuisDeprt())
+                            fifo.remove(voisin);
+
+                        //Si pas dans la fifo
+                        if(!fifo.contains(voisin)) {
+                            //set le cout
+                            voisin.setCoutDepuisDeprt(actuel.getCoutDepuisDeprt() + DeplacementMethodes.getCout(map, voisin.getI(), voisin.getJ()));
+                            //set le parent: necessaire?
+                            voisin.setParent(actuel);
+                            //ajout à la fifo
+                            fifo.add(voisin);
+                            //ajout à la map parent <Noeud, Prédecesseur>
+                            parent.put(voisin, actuel);
+                        }
+                    }
+                }
+            }
+            actuel=fifo.poll();
+        }
+        return parent;
+    }
+
     public static void main(String[] args) {
-        int tailleTile = 32;
+        int tailleTile = 64;
 
         int[][] map = new int[][]{
                 /*{0, 1, 1, 1, 1, 1},
@@ -168,7 +157,7 @@ public class DeplacementDijkstra {
         };
 
         int i, j;
-        Map<Noeud, Noeud> parents= new DeplacementDijkstra(tailleTile, map).testDijkstra(new double[]{0,0});
+        Map<Noeud, Noeud> parents= new DeplacementDijkstra(tailleTile, map).dijkstra(new double[]{0,0});
         for (int ligne = 0; ligne<  map.length; ligne++) {
             for (int col = 0; col < map[ligne].length; col++) {
 

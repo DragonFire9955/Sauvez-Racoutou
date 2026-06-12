@@ -4,7 +4,6 @@ import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.Specialise;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
-import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Modele.Utilitaires.Utilitaire;
 
 import java.util.ArrayList;
@@ -42,7 +41,6 @@ public class Buffer extends Specialise {
 
     public void buff(){
         Animal cible = getAnimauxCiblesAccessibles().getFirst();
-        System.out.println(cible.getClass().getName() +"  " + cible.getHealthProperty().getValue());
         cible.setHealth(cible.getHealthProperty().getValue() + getListeBuff().getFirst());
 
     }

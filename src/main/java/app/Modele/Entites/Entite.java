@@ -1,11 +1,9 @@
 package app.Modele.Entites;
 
+import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Utilitaire;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,18 +25,21 @@ public abstract class Entite {
     private double damage;
     private double freqAtk;
 
+    private IntegerProperty level;
     private List<Object[]> statsLevels;
 
     private DoubleProperty health;
-    private final double maxHealth;
+    private DoubleProperty maxHealth;
     private int coin;
     private BooleanProperty alive;
     private boolean actif;
 
-    private double chronoSpe;
+    private double chrono;
 
-    //pour les animaux
+
     protected Entite(String name, double coord[], GameWorld w, List<Object[]> statsLevels) {
+        this.level = new SimpleIntegerProperty(0);
+        this.statsLevels = statsLevels;
 
         this.id=nbId;
         nbId++;
@@ -49,43 +50,19 @@ public abstract class Entite {
 
         this.x = new SimpleDoubleProperty(coord[0]);
         this.y = new SimpleDoubleProperty(coord[1]);
-        this.health = new SimpleDoubleProperty((double) statsLevels.get(0)[2]);
-        this.maxHealth = health.getValue();
-        this.coin = (int) statsLevels.get(0)[1];
-        this.range = (double) statsLevels.get(0)[4];
-        this.damage = (double) statsLevels.get(0)[5];
-        this.freqAtk = (double) statsLevels.get(0)[6];
+        this.health = new SimpleDoubleProperty((double) statsLevels.getFirst()[2]);
+        this.maxHealth = new SimpleDoubleProperty(health.getValue());
+        this.coin = (int) statsLevels.getFirst()[1];
+        this.range = (double) statsLevels.getFirst()[3];
+        this.damage = (double) statsLevels.getFirst()[4];
+        this.freqAtk = (double) statsLevels.getFirst()[5];
         this.world=w;
 
 
         alive = new SimpleBooleanProperty(true);
         actif=true;
-        chronoSpe =0;
-
-        this.statsLevels = statsLevels;
+        chrono =0;
     }
-
-    //pour les barrages
-    protected Entite(String name, double coord[], GameWorld w, double health, int coin) {
-        this.id = nbId;
-        nbId++;
-
-        coll = false;
-        this.name = name;
-
-        this.x = new SimpleDoubleProperty(coord[0]);
-        this.y = new SimpleDoubleProperty(coord[1]);
-        this.health = new SimpleDoubleProperty(health);
-        this.maxHealth = health;
-        this.coin = coin;
-        this.world = w;
-
-        alive = new SimpleBooleanProperty(true);
-        actif = true;
-        chronoSpe = 0;
-    }
-
-
     public void update(double dt)  {
         this.handleCollisions(getCible(), dt);
     }
@@ -99,14 +76,14 @@ public abstract class Entite {
         }
 
         if (Utilitaire.intersects(cible, this)){
-            if(chronoSpe ==0)
-                chronoSpe =dt;
+            if(chrono ==0)
+                chrono =dt;
 
             coll = true;
 
-            if (((dt- chronoSpe)) >= freqAtk) {
+            if ((dt- chrono) >= freqAtk) {
                 attaquer();
-                chronoSpe = 0;
+                chrono = 0;
             }
 
         } else {
@@ -174,12 +151,16 @@ public abstract class Entite {
     public DoubleProperty getHealthProperty() {
         return health;
     }
-    public double getMaxHealth() {
+
+    public DoubleProperty getHealthMaxProperty(){
         return maxHealth;
     }
+    public double getMaxHealth() {
+        return maxHealth.get();
+    }
     public void setHealth(double value) {
-        if(value>maxHealth)
-            health.set(maxHealth);
+        if(value>maxHealth.getValue())
+            health.set(maxHealth.getValue());
         else {
             health.set(Math.max(0, value));
             if (health.getValue()== 0) {
@@ -211,6 +192,7 @@ public abstract class Entite {
 
     public void estAttaque(double damage){
 
+        System.out.println(getHealthProperty().getValue()-damage);
         setHealth(getHealthProperty().getValue()-damage);
     }
 
@@ -221,6 +203,18 @@ public abstract class Entite {
         this.coin = coin;
     }
     public  int getIdEntite(){return id;}
+
+    public void setStats(int actualLevel) {
+        if(actualLevel<3)
+            this.coin = ((int) statsLevels.get(actualLevel)[1]);
+        //Calcul des pv par pourcentage
+        this.health.setValue((double) statsLevels.get(actualLevel)[2] * (health.getValue()*100/maxHealth.getValue()));
+        maxHealth.setValue(this.health.get());
+        this.range = ((double) statsLevels.get(actualLevel)[3]);
+        this.damage = ((double) statsLevels.get(actualLevel)[4]);
+        this.freqAtk = ((double) statsLevels.get(actualLevel)[5]);
+    }
+
 
     public int[] getTile(){
         int[] tile = new int[2];
@@ -262,5 +256,24 @@ public abstract class Entite {
 
     public String getName() {
         return name;
+    }
+
+    public IntegerProperty getLevelProperty(){
+        return level;
+    }
+
+    public int getLevel() {
+        return level.get();
+    }
+
+    public void setLevel(int level) {
+        this.level.set(level);
+    }
+
+    public void incrementerLevel(){
+        if(getLevel()<3){
+            setLevel(getLevel()+1);
+            setStats(getLevel());
+        }
     }
 }

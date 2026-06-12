@@ -42,6 +42,14 @@ public abstract class Debuffer extends Specialise {
         debuff(dt);
     }
 
+    @Override
+    public void setStats(int actualLevel) {
+
+        super.setStats(actualLevel);
+
+        this.nbVictimes = ((int) getStatsLevels().get(actualLevel)[10]);
+    }
+
     public abstract void debuff(double dt);
 
     protected double getvInitial() {

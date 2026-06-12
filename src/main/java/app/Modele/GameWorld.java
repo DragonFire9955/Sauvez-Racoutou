@@ -8,9 +8,7 @@ import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import app.Modele.Utilitaires.Noeud;
 import app.Modele.Utilitaires.StatsEntiteInitialiser;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,7 +35,7 @@ public class GameWorld {
     private IntegerProperty numeroVague;
     private IntegerProperty tempsActuelVague;
 
-
+    ObservableList<ProjectileSimple> projectiles;
 
     private IntegerProperty totalCoin;
 
@@ -45,14 +43,16 @@ public class GameWorld {
 
         map = Terrain.genererMap();
         animauxList = FXCollections.observableArrayList();
-        animauxList.add(new Racoutou(this, StatsEntiteInitialiser.getStatsLevels("Racoutou")));
+        animauxList.add(new Racoutou(this, StatsEntiteInitialiser.getStatsLevels("racoutou")));
         barrageList = FXCollections.observableArrayList();
         theEnd= new SimpleIntegerProperty(0);
 
         //dijkRacoutou= new DeplacementDijkstra(tailleTile, map).calculerDistances(getTileRacoutou());
-        dijkRacoutou2= new DeplacementDijkstra(tailleTile, map).testDijkstra(this.getRacoutou().getCoord());
+        dijkRacoutou2= new DeplacementDijkstra(tailleTile, map).dijkstra(this.getRacoutou().getCoord());
 
-        totalCoin = new SimpleIntegerProperty(100);
+        projectiles = FXCollections.observableArrayList();
+
+        totalCoin = new SimpleIntegerProperty(0);
 
         ensemblesVagues = Vague.ensembleVagues(this);
         durreeVague = new SimpleIntegerProperty(0);
@@ -76,7 +76,12 @@ public class GameWorld {
             for (Barrage barrage : barrageList) {
                 barrage.update(dt);
             }
+            for (ProjectileSimple p : projectiles) {
+                p.update(dt);
+            }
+
             supprimerAnimauxMorts();
+            supprimerProjectilesMorts();
         }
     }
 /*
@@ -127,6 +132,18 @@ public class GameWorld {
                 supprimerAnimal(animauxList.get(i));
     }
 
+    public void addProjectile(ProjectileSimple p) {
+        projectiles.add(p);
+    }
+    public void supprimerProjectilesMorts() {
+
+        for (int i = projectiles.size() - 1; i >= 0; i--) {
+            if (projectiles.get(i).isDead()) {
+                projectiles.remove(i);
+            }
+        }
+    }
+
     public ObservableList<Animal> getAnimaux() {
         return animauxList;
     }
@@ -162,6 +179,8 @@ public class GameWorld {
 
     public void ajouterBarrage(Barrage b) {
         barrageList.add(b);
+        map[b.getTile()[0]][b.getTile()[1]] = b.getPoids();
+        dijkRacoutou2 = new DeplacementDijkstra(tailleTile, map).dijkstra(this.getRacoutou().getCoord());
     }
     public void supprimerBarrage(Barrage b) {
         barrageList.remove(b);
@@ -186,6 +205,10 @@ public class GameWorld {
 
     public int getTailleTile(){
         return tailleTile;
+    }
+
+    public ObservableList<ProjectileSimple> getProjectiles() {
+        return projectiles;
     }
 
     public IntegerProperty getTotalCoin() {
@@ -255,6 +278,7 @@ public class GameWorld {
             theEnd.set(1);
             return true;
         }
+
         return  false;
     }
 

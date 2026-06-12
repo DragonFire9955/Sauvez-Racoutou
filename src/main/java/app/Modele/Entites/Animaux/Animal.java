@@ -2,8 +2,10 @@ package app.Modele.Entites.Animaux;
 
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
-import app.Modele.Managers.AnimauxManager;
+import app.Modele.Managers.EntitesManager;
 import app.Modele.Utilitaires.Utilitaire;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +17,19 @@ public class Animal extends Entite {
     private double[] slowUntil;
     private double vitesse;
     private boolean canAttack;
-    private boolean allie;
+    private BooleanProperty allie;
+
+    private int cibleInt;
 
     public Animal(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
         super(name, coord, w, statsLevels);
-        this.vitesse = (double) statsLevels.get(0)[3];
+        this.vitesse = (double) statsLevels.get(0)[6];
         canAttack=true;
         stunnedUntil = new double[2];
         slowUntil = new double[3];
-        this.allie=allie;
+        this.allie= new SimpleBooleanProperty(allie);
+
+        cibleInt = 3;
     }
 
     @Override
@@ -42,6 +48,14 @@ public class Animal extends Entite {
         }
     }
 
+    @Override
+    public void setStats(int actualLevel) {
+
+        super.setStats(actualLevel);
+
+        vitesse = ((double) getStatsLevels().get(actualLevel)[6]);
+    }
+
     public void deplacement() {
         //tant qu'il n'y a pas de cible ou qu'il y a une cible dans le perimètre d'action: immobile
 
@@ -52,8 +66,11 @@ public class Animal extends Entite {
 
         if(cible==null) return;
         //if(cible instanceof Racoutou) AnimauxManager.deplacementEnnemi(this);
-        if(cible instanceof Racoutou) AnimauxManager.deplacementEnnemi2(this);
+        if(cible instanceof Racoutou) EntitesManager.deplacementEnnemi2(this);
+        else
+            EntitesManager.deplacementAllie(this, (Animal) cible);
 
+        /*
         else {
             double dx = cible.getX() - this.getX();
             double dy = cible.getY() - this.getY();
@@ -69,6 +86,8 @@ public class Animal extends Entite {
             this.setX(this.getX() + dx * this.getVitesse());
             this.setY(this.getY() + dy * this.getVitesse());
         }
+
+         */
 
     }
 
@@ -129,7 +148,7 @@ public class Animal extends Entite {
 
         if(!canAttack)return;
 
-        List<Entite> cibles = getEntitesCibles();
+        List<Entite> cibles = getEntitesCiblesNearest();
 
         if(cibles.isEmpty()) return;
 
@@ -142,34 +161,66 @@ public class Animal extends Entite {
     @Override
     public Entite getDirection(){
 
-        if(!allie)
+        if(!allie.get())
             return getWorld().getRacoutou();
-        else
-            if (getEntitesCibles().isEmpty())
-                return null;
-            else
-                return getEntitesCibles().getFirst();
+        else {
+            if (getEntitesCiblesNearest().isEmpty()) return null;
+
+            switch (cibleInt){
+                case 0: //Strongest
+                    return getEntitesCiblesNearest().getFirst();
+                case 1: //Weakest
+                    return getCiblesAccessibles(getRange(), getEntitesCiblesNearest()).getFirst();
+                case 2: //Farthest
+                    return getEntitesCiblesNearest().getLast();
+                case 3: //Nearest
+                    return getEntitesCiblesNearest().getFirst();
+                default:
+                    return null;
+            }
+        }
     }
 
     @Override
     public Entite getCible(){
 
-        if (getCiblesAccessibles(getRange(), getEntitesCibles()).isEmpty())
+        if (getCiblesAccessibles(getRange(), getEntitesCiblesNearest()).isEmpty())
             return null;
         else
-            return getCiblesAccessibles(getRange(), getEntitesCibles()).getFirst();
+            return getCiblesAccessibles(getRange(), getEntitesCiblesNearest()).getFirst();
     }
 
     public  List<Animal> getAnimauxCibles(){
-        if(allie)
+        if(allie.get())
             return getWorld().getEnnemis();
         else
             return getWorld().getAlliesAnimaux();
     }
 
-    public List<Entite> getEntitesCibles(){
+    public List<Entite> getEntitesCiblesNearest(){
         List<Entite> entites;
-        if(allie)
+        if(allie.get())
+            entites = Utilitaire.animauxToEntites(getWorld().getEnnemis());
+        else
+            entites = this.getWorld().getAlliesAnimauxBarrages();
+
+        List<Entite> entitesTriees = new ArrayList<>();
+        int i;
+        for(Entite e: entites) {
+            i= 0;
+            //Tant que distance supérieur
+            while (i < entitesTriees.size()
+                && Utilitaire.distance(this.getX(), this.getY(), e.getX(), e.getY())
+                   > Utilitaire.distance(this.getX(), this.getY(), entitesTriees.get(i).getX(), entitesTriees.get(i).getY())) {
+                i++;
+            }
+            entitesTriees.add(i, e);
+        }
+        return entitesTriees;
+    }
+    public List<Entite> getEntitesCiblesStrongest(){
+        List<Entite> entites;
+        if(allie.get())
             entites = Utilitaire.animauxToEntites(getWorld().getEnnemis());
         else
             entites = this.getWorld().getAlliesAnimauxBarrages();
@@ -180,8 +231,8 @@ public class Animal extends Entite {
             i= 0;
             //Tant que distance supérieur ET pv supérieur
             while (i < entitesTriees.size()
-                && Utilitaire.distance(this.getX(), this.getY(), e.getX(), e.getY())
-                   > Utilitaire.distance(this.getX(), this.getY(), entitesTriees.get(i).getX(), entitesTriees.get(i).getY())) {
+                    && Utilitaire.distance(this.getX(), this.getY(), e.getX(), e.getY())
+                    > Utilitaire.distance(this.getX(), this.getY(), entitesTriees.get(i).getX(), entitesTriees.get(i).getY())) {
                 i++;
             }
             entitesTriees.add(i, e);
@@ -191,7 +242,7 @@ public class Animal extends Entite {
 
     public  List<Animal> getAnimauxCopains(){
         List<Animal> animauxCopains = new ArrayList<>();
-        if(allie)
+        if(allie.get())
             animauxCopains= getWorld().getAlliesAnimaux();
         else
             animauxCopains= getWorld().getEnnemis();
@@ -241,14 +292,15 @@ public class Animal extends Entite {
         }
     }
 
-    public boolean isAllie() {
+    public BooleanProperty getAllie(){
         return allie;
     }
 
-    public void setAllie(boolean allie) {
-        this.allie = allie;
+    public boolean isAllie() {
+        return allie.get();
     }
 
-
-
+    public void setAllie(boolean allie) {
+        this.allie.set(allie);
+    }
 }

@@ -28,10 +28,22 @@ public class EntiteHealthListener implements ChangeListener<Number> {
     @Override
     public void changed(ObservableValue<? extends Number> observableValue, Number oldV, Number newV) {
 
+        System.out.println(newV + " : " + oldV);
         if (newV.doubleValue() < oldV.doubleValue()) {
 
             Node entite = carte.lookup("#" + e.getId());
             ((ImageView) entite).setImage(EntiteVue.appliquerBonneImageGif(e));
+
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    ((ImageView) entite).setImage(EntiteVue.appliquerBonneImage(e, false).getImage());
+                }
+            }, 1000);
+        } else if (newV.doubleValue() >oldV.doubleValue()) {
+            Node entite = carte.lookup("#" + e.getId());
+            ((ImageView) entite).setImage(EntiteVue.appliquerImageSoin(e));
 
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {

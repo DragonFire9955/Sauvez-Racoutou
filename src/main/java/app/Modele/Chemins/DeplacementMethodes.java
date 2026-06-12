@@ -16,9 +16,9 @@ public class DeplacementMethodes {
         switch (type) {
             //Les coûts sont à changer, c'est juste un exemple et ça correspond pas à la logique des images mais bon hein XD
             case 0:
-                return 1;
+                return 0;
             case 1:
-                return 2;
+                return 1;
             case 2:
                 return 9999;
             default:
@@ -37,13 +37,13 @@ public class DeplacementMethodes {
                 {0, 1},
                 {-1, 0},
                 {1, 0}};
-        int[][] diagonales = {
+        /*int[][] diagonales = {
                 //diagonales
                 {1, 1},
                 {-1, -1},
                 {1, -1},
                 {-1, 1}
-        };
+        };*/
 
         for (int[] d : directionsSimples) {
             //n pour noeud
@@ -60,7 +60,7 @@ public class DeplacementMethodes {
             }
         }
 
-        for(int[] d : diagonales) {
+        /*for(int[] d : diagonales) {
             //n pour noeud
             int ni = noeud.getI() + d[0];
             int nj = noeud.getJ() + d[1];
@@ -76,7 +76,7 @@ public class DeplacementMethodes {
                     voisins.add(new Noeud(ni, nj));
                 }
             }
-        }
+        }*/
 
         if(noeud.equals(new Noeud(11, 21)))
             for(Noeud n: voisins){

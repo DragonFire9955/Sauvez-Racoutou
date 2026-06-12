@@ -14,51 +14,55 @@ public class StatsEntiteInitialiser {
 
 
         switch (name) {
-            case "Racoutou":
+            case "racoutou":
                 initStatsRacoutou(statsLevels);
                 break;
 // CLASSIQUES
-            case "Chat classique":
+            case "chatClassique":
                 initStatsChatClassique(statsLevels);
                 break;
-            case "Poulet classique":
+            case "pouletClassique":
                 initStatsPouletClassique(statsLevels);
                 break;
-            case "Poulet rolleur":
+            case "pouletRolleur":
                 initStatsPouletRolleur(statsLevels);
                 break;
 // SPECIALISES
-            case "Poulet bouclier":
+            case "pouletBouclier":
                 initStatsPouletBouclier(statsLevels);
                 break;
+            case "Poulet projectible":
+                initStatsPouletProjectible(statsLevels);
+                break;
     // BUFFER
-            case "Chat cuisinier":
+            case "chatCuisinier":
                 initStatsChatCuisinier(statsLevels);
                 break;
-            case "Chat médecin":
+            case "chatMedecin":
                 initStatsChatMedecin(statsLevels);
                 break;
-            case "Poulet conservateur":
+            case "pouletConservateur":
                 initStatsPouletConservateur(statsLevels);
                 break;
     // DEBUFFER
-            case "Poulet IGPN":
+            case "pouletIGPN":
                 initPouletIGPN(statsLevels);
                 break;
         // ALTERATIONS ELEMENTAIRES
-            case "Chat scientifique":
+            case "chatScientifique":
                 initStatsChatScientifique(statsLevels);
                 break;
-            case "Chat hypnotiseur":
+            case "chatHypnotiseur":
                 initStatsChatHypnotiseur(statsLevels);
                 break;
         // STUNNER
-            case "Chat journaliste":
+            case "chatJournaliste":
                 initStatsChatJournaliste(statsLevels);
                 break;
-            case "Poulet menottes":
+            case "pouletMenottes":
                 initStatsPouletMenottes(statsLevels);
                 break;
+/*
 // VOLANTS
             case "Poulet volant":
                 initStatsPouletVolant(statsLevels);
@@ -74,6 +78,8 @@ public class StatsEntiteInitialiser {
                 initStatsTaupe(statsLevels);
                 break;
 
+ */
+
             default:
                 break;
         }
@@ -85,43 +91,46 @@ public class StatsEntiteInitialiser {
 
         statsLevels.add(new Object[]{
                 "Default",
-                300,    //Upgrade price
-                50.,     //Health
+                3,    //Upgrade price
+                500.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
-                0.,     //Speed
-                10.,     //Range
+                40.,     //Range
                 5.,     //Damage
                 2.5,     //FreqAtk
+                0.,     //Speed
+
         });
 
         statsLevels.add(new Object[]{
                 "Lunettes de soleil",
-                800,    //Upgrade price
-                100.,     //Health   (+50)
-                0.,      //Speed
-                15.,      //Range   (+5)
+                8,    //Upgrade price
+                1000.,     //Health   (+50)
+                45.,      //Range   (+5)
                 7.,      //Damage    (+2)
                 2.3,    //FreqAtk (+.2)
+                0.,      //Speed
+
         });
 
         statsLevels.add(new Object[]{
                 "Cocktail",
-                1500,    //Upgrade price
-                200.,     //Health   (+100)
-                0.,      //Speed
-                15.,      //Range
+                15,    //Upgrade price
+                2000.,     //Health   (+100)
+                45.,      //Range
                 10.,     //Damage   (+3)
                 2.,    //FreqAtk (+.3)
+                0.,      //Speed
+
         });
 
         statsLevels.add(new Object[]{
                 "La bouée",
                 null,   //Upgrade price
-                350.,     //Health   (+150)
-                0.,      //Speed
-                20.,     //Range     (+5)
-                15.,     //Damage   (+5)
+                3500.,     //Health   (+150)
+                50.,     //Range     (+5)
+                40.,     //Damage   (+5)
                 1.5,      //FreqAtk (+.5)
+                0.,      //Speed
         });
     }
 
@@ -132,40 +141,40 @@ public class StatsEntiteInitialiser {
                 25,    //Upgrade price
                 6.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
-                1.,     //Speed
-                5.,     //Range
+                40.,     //Range
                 2.,     //Damage
                 1.,     //FreqAtk
+                1.,     //Speed
         });
 
         statsLevels.add(new Object[]{
                 "Patte de bronze",
                 75,    //Upgrade price
                 12.,     //Health   (+4)
-                1.,      //Speed
-                7.,      //Range    (+2)
+                42.,      //Range    (+2)
                 7.,      //Damage    (+2)
                 1,    //FreqAtk
+                1.,      //Speed
         });
 
         statsLevels.add(new Object[]{
                 "Patte d'argent",
                 150,    //Upgrade price
                 15.,     //Health   (+3)
-                1.5,      //Speed   (+.5)
-                8.,      //Range     (+1)
+                43.,      //Range     (+1)
                 7.,     //Damage
                 1.2,    //FreqAtk (+.2)
+                1.5,      //Speed   (+.5)
         });
 
         statsLevels.add(new Object[]{
                 "Patte d'or",
                 null,   //Upgrade price
                 15.,     //Health
-                1.8,      //Speed   (+.3)
-                8.,      //Range
+                43.,      //Range
                 9.,     //Damage    (+2)
                 1.5,    //FreqAtk (+.3)
+                1.8,      //Speed   (+.3)
         });
     }
 
@@ -175,10 +184,10 @@ public class StatsEntiteInitialiser {
                 "Default",
                 8,     //Argent rapporté
                 10.,     //Health
-                1.,     //Speed
-                5.,     //Range
+                40.,     //Range
                 1.,     //Damage
                 1.,     //FreqAtk
+                1.,     //Speed
         });
     }
 
@@ -188,10 +197,10 @@ public class StatsEntiteInitialiser {
                 "Default",
                 12,     //Argent rapporté
                 7.,     //Health
-                2.,     //Speed
-                3.,     //Range
+                40.,     //Range
                 1.,     //Damage
                 .5,     //FreqAtk
+                2.,     //Speed
         });
     }
 
@@ -201,11 +210,27 @@ public class StatsEntiteInitialiser {
                 "Default",
                 15,     //Argent rapporté
                 10.,     //Health
-                .8,     //Speed
-                4.,     //Range
+                35.,     //Range
                 8.,     //Damage
                 1.,     //FreqAtk
+                .8,     //Speed
                 5.      //Bouclier
+        });
+    }
+
+    private static void initStatsPouletProjectible(List<Object[]> statsLevels) {
+
+        statsLevels.add(new Object[]{
+                "Default",
+                15,     //Argent rapporté
+                10.,     //Health
+                35.,     //Range
+                5.,     //Damage
+                1.,     //FreqAtk
+                3.8,     //Speed
+                100.,    //RangeEffect
+                3.,     //tempsAction
+                2.     //tempsRepo
         });
     }
 
@@ -216,11 +241,11 @@ public class StatsEntiteInitialiser {
                 70,    //Upgrade price
                 8.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
-                0.,     //Speed
-                5.,     //Range
+                40.,     //Range
                 .5,     //Damage
                 1.,     //FreqAtk
-                20.,    //BuffRange
+                0.,     //Speed
+                150.,    //BuffRange
                 1.,     //TpsBuff
                 .5     //TpsRepo
         });
@@ -229,11 +254,11 @@ public class StatsEntiteInitialiser {
                 "BBQ modeste",
                 150,    //Upgrade price
                 12.,     //Health   (+4)
-                0.,      //Speed
-                7.,      //Range    (+2)
+                42.,      //Range    (+2)
                 .8,      //Damage    (+.3)
-                1,    //FreqAtk
-                20.,     //BuffRange
+                1.,    //FreqAtk
+                0.,      //Speed
+                150.,     //BuffRange
                 1.,    //TpsBuff
                 1.      //TpsRepo   (+.5)
         });
@@ -242,11 +267,11 @@ public class StatsEntiteInitialiser {
                 "Spatule d'or",
                 300,    //Upgrade price
                 20.,     //Health   (+8)
-                0.,      //Speed
-                7.,      //Range
+                42.,      //Range
                 .8,      //Damage
-                1,    //FreqAtk
-                30.,     //BuffRange    (+10)
+                1.,    //FreqAtk
+                0.,      //Speed
+                160.,     //BuffRange    (+10)
                 1.2,    //TpsBuff        (+.2)
                 1.      //TpsRepo
         });
@@ -255,11 +280,11 @@ public class StatsEntiteInitialiser {
                 "MOF",
                 null,   //Upgrade price
                 30.,     //Health   (+10)
-                0.,      //Speed
-                9.,      //Range    (+2)
+                44.,      //Range    (+2)
                 .8,      //Damage
                 1.5,    //FreqAtk   (+.5)
-                40.,     //BuffRange    (+10)
+                0.,      //Speed
+                170.,     //BuffRange    (+10)
                 1.7,    //TpsBuff        (+.5)
                 1.2      //TpsRepo       (+.2)
         });
@@ -272,11 +297,11 @@ public class StatsEntiteInitialiser {
                 120,    //Upgrade price
                 7.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
-                1.,     //Speed
-                2.,     //Range
+                40.,     //Range
                 .5,     //Damage
                 .2,     //FreqAtk
-                5.,    //BuffRange
+                1.,     //Speed
+                150.,    //BuffRange
                 1.,     //TpsBuff
                 1.     //TpsRepo
         });
@@ -285,11 +310,11 @@ public class StatsEntiteInitialiser {
                 "Trousse de secours",
                 180,    //Upgrade price
                 12.,     //Health   (+5)
-                1.,      //Speed
-                2.,      //Range
+                40.,      //Range
                 .5,      //Damage
                 .2,     //FreqAtk
-                6.,    //BuffRange  (+1)
+                1.,      //Speed
+                151.,    //BuffRange  (+1)
                 1.5,     //TpsBuff  (.5)
                 1.     //TpsRepo
         });
@@ -298,11 +323,11 @@ public class StatsEntiteInitialiser {
                 "Giro",
                 300,    //Upgrade price
                 12.,     //Health
-                1.5,      //Speed   (+.5)
-                1.5,      //Range   (-.5)
+                35.,      //Range   (-.5)
                 .5,      //Damage
                 .5,     //FreqAtk   (+.3)
-                6.,    //BuffRange
+                1.5,      //Speed   (+.5)
+                151.,    //BuffRange
                 1.5,     //TpsBuff
                 1.     //TpsRepo
         });
@@ -311,11 +336,11 @@ public class StatsEntiteInitialiser {
                 "Scalpel d'or",
                 null,   //Upgrade price
                 20.,     //Health   (+8)
-                1.8,      //Speed   (+.3)
-                1.5,      //Range
+                35,      //Range
                 .5,      //Damage
                 .5,     //FreqAtk
-                10.,    //BuffRange  (+4)
+                1.8,      //Speed   (+.3)
+                155.,    //BuffRange  (+4)
                 4,     //TpsBuff    (.5)
                 .5     //TpsRepo
         });
@@ -327,11 +352,11 @@ public class StatsEntiteInitialiser {
                 "Default",
                 30,     //Argent rapporté
                 25.,     //Health
-                1.1,     //Speed
-                6.,     //Range
+                40.,     //Range
                 5.,     //Damage
                 1.2,     //FreqAtk
-                15.,    //BuffRange
+                1.1,     //Speed
+                150.,    //BuffRange
                 3.,     //TpsBuff
                 4.     //TpsRepo
         });
@@ -344,13 +369,13 @@ public class StatsEntiteInitialiser {
                 "Default",
                 60,     //Argent rapporté
                 25.,     //Health
-                1.1,     //Speed
-                6.,     //Range
+                40.,     //Range
                 5.,     //Damage
                 1.2,     //FreqAtk
-                10.,    //BuffRange
+                1.1,     //Speed
+                150.,    //BuffRange
                 3.,     //TpsBuff
-                .5,     //TpsRepo
+                5.,     //TpsRepo
                 3,      //NbrVictimes
                 .8,    //EffetForce
                 .8,     //EffetVit
@@ -364,11 +389,11 @@ public class StatsEntiteInitialiser {
                 100,    //Upgrade price
                 8.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
-                1.,     //Speed
-                5.,     //Range
+                40.,     //Range
                 2.,     //Damage
                 1.,     //FreqAtk
-                10.,    //BuffRange
+                1.,     //Speed
+                150.,    //BuffRange
                 3.,     //TpsBuff
                 .5,     //TpsRepo
                 2,      //NbrVictimes
@@ -380,11 +405,11 @@ public class StatsEntiteInitialiser {
                 "Remède douteux",
                 175,    //Upgrade price
                 10.,     //Health   (+2)
-                1.,     //Speed
-                7.,     //Range     (+2)
+                42.,     //Range     (+2)
                 2.,     //Damage
                 1.,     //FreqAtk
-                10.,    //BuffRange
+                1.,     //Speed
+                150.,    //BuffRange
                 3.,     //TpsBuff
                 .5,     //TpsRepo
                 1,      //NbrVictimes
@@ -396,11 +421,11 @@ public class StatsEntiteInitialiser {
                 "L'anti-Hulk",
                 300,    //Upgrade price
                 12.,     //Health   (+2)
-                1.,     //Speed
-                7.,     //Range
+                42.,     //Range
                 2.,     //Damage
                 1.,     //FreqAtk
-                12.,    //BuffRange (+2)
+                1.,     //Speed
+                152.,    //BuffRange (+2)
                 3.5,     //TpsBuff  (+.5)
                 .5,     //TpsRepo
                 2,      //NbrVictimes   (+1)
@@ -412,14 +437,14 @@ public class StatsEntiteInitialiser {
                 "Le Pr Raoult",     /// TODO : SVP je VEUX une image de Raoult pr l'image d'upgrade :pray:
                 null,   //Upgrade price
                 10.,     //Health   (-2)
-                .8,     //Speed     (-.2)
-                5.,     //Range     (-2)
+                40.,     //Range     (-2)
                 1.5,     //Damage   (-.5)
                 .8,     //FreqAtk   (-.2)
-                25.,    //BuffRange (+13)
+                .8,     //Speed     (-.2)
+                160.,    //BuffRange (+13)
                 5.,     //TpsBuff  (+1.5)
                 1.,     //TpsRepo   (+.5)
-                3,      //NbrVictimes   (+1)
+                3,      //NbrVictimes  (+1)
                 .6,      //DivForce (-.2)
                 .5      //DivVit    (-.2)
         });
@@ -432,52 +457,52 @@ public class StatsEntiteInitialiser {
                 100,    //Upgrade price
                 6.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
-                0.,     //Speed
-                2.,     //Range
+                40.,     //Range
                 1.,     //Damage
                 1.,     //FreqAtk
-                10.,    //BuffRange
-                1.,     //TpsBuff
-                1.     //TpsRepo
+                0.,     //Speed
+                1.8,    //DmgSpe
+                1.5,     //freqAtkSpeciale  (+.3)
+                400.     //rangeSpe
         });
 
         statsLevels.add(new Object[]{
                 "Créoles",
                 200,    //Upgrade price
                 8.,     //Health    (+2)
-                0.,     //Speed
-                2.,     //Range
+                40.,     //Range
                 1.5,     //Damage   (+.5)
                 1.,     //FreqAtk
-                12.,    //BuffRange (+2)
-                1.,     //TpsBuff
-                1.     //TpsRepo
+                0.,     //Speed
+                3.6,    //DmgSpe (+1.8)
+                1.5,     //freqAtkSpeciale
+                160.     //rangeSpe  (+10)
         });
 
         statsLevels.add(new Object[]{
                 "Boule de cristal",
                 350,    //Upgrade price
-                15.,     //Health   (+7)
+                16.,     //Health   (+8)
+                41.,     //Range     (+1)
+                1.5,     //Damage
+                1.2,     //FreqAtk  (+.2)
                 0.,     //Speed
-                4.,     //Range     (+2)
-                1.8,     //Damage   (+.3)
-                1.,     //FreqAtk
-                15.,    //BuffRange (+3)
-                1.2,     //TpsBuff  (+.2)
-                1.     //TpsRepo
+                5,    //DmgSpe (+1.4)
+                1.7,     //freqAtkSpeciale  (+.2)
+                165.     //rangeSpe  (+5)
         });
 
         statsLevels.add(new Object[]{
                 "Troisième oeil",
                 null,   //Upgrade price
-                23.,     //Health   (+8)
+                25.,     //Health   (+9)
+                41.,     //Range
+                1.5,     //Damage
+                1.5,     //FreqAtk  (+.5)
                 0.,     //Speed
-                6.,     //Range     (+2)
-                1.8,     //Damage
-                1.2,     //FreqAtk  (+.2)
-                20.,    //BuffRange (+5)
-                1.5,     //TpsBuff  (+.3)
-                1.     //TpsRepo
+                7,    //DmgSpe (+2)
+                2.,     //freqAtkSpeciale  (+.3)
+                170.     //rangeSpe  (+5)
         });
     }
 
@@ -488,11 +513,11 @@ public class StatsEntiteInitialiser {
                 80,    //Upgrade price
                 8.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
-                1.,     //Speed
-                5.,     //Range
+                40.,     //Range
                 5.,     //Damage
                 1.,     //FreqAtk
-                15.,    //BuffRange
+                1.,     //Speed
+                150.,    //BuffRange
                 3.,     //TpsBuff
                 6.,      //TpsRepo
                 1       //NbrVictimes
@@ -502,11 +527,11 @@ public class StatsEntiteInitialiser {
                 "Pigiste",
                 125,    //Upgrade price
                 10.,     //Health   (+2)
-                1.2,     //Speed    (+.2)
-                5.,     //Range
+                40.,     //Range
                 6.,     //Damage    (+1)
                 1.1,     //FreqAtk  (+.1)
-                15.,    //BuffRange
+                1.2,     //Speed    (+.2)
+                150.,    //BuffRange
                 3.,     //TpsBuff
                 6.,      //TpsRepo
                 1       //NbrVictimes
@@ -516,11 +541,11 @@ public class StatsEntiteInitialiser {
                 "Reporterre novice",
                 200,    //Upgrade price
                 12.,     //Health   (+2)
-                1.3,     //Speed    (+.1)
-                6.,     //Range (+1)
+                41.,     //Range (+1)
                 6.,     //Damage
                 1.1,     //FreqAtk
-                18.,    //BuffRange (+3)
+                1.3,     //Speed    (+.1)
+                153.,    //BuffRange (+3)
                 3.5,     //TpsBuff  (+.5)
                 5.5,      //TpsRepo (-.5)
                 2       //NbrVictimes   (+1)
@@ -530,11 +555,11 @@ public class StatsEntiteInitialiser {
                 "Reporterre aguerit",
                 null,   //Upgrade price
                 15.,     //Health   (+3)
-                1.5,     //Speed    (+.2)
-                7.,     //Range     (+1)
+                42.,     //Range     (+1)
                 7.,     //Damage    (+1)
                 1.2,     //FreqAtk  (+.1)
-                20.,    //BuffRange (+2)
+                1.5,     //Speed    (+.2)
+                155.,    //BuffRange (+2)
                 3.5,     //TpsBuff
                 5.,      //TpsRepo  (-.5)
                 3       //NbrVictimes   (+1)
@@ -547,11 +572,11 @@ public class StatsEntiteInitialiser {
                 "Default",
                 50,     //Argent rapporté
                 30.,     //Health
-                1.2,     //Speed
-                8.,     //Range
+                40.,     //Range
                 10.,     //Damage
                 1.,     //FreqAtk
-                20.,    //BuffRange
+                1.2,     //Speed
+                150.,    //BuffRange
                 3.,     //TpsBuff
                 5.,      //TpsRepo
                 8       //NbrVictimes
@@ -564,10 +589,10 @@ public class StatsEntiteInitialiser {
                 "Default",
                 20,     //Argent rapporté
                 8.,     //Health
-                2.5,     //Speed
-                3.,     //Range
+                40.,     //Range
                 5.,     //Damage
                 2.,     //FreqAtk
+                2.5     //Speed
         });
     }
 
@@ -579,11 +604,11 @@ public class StatsEntiteInitialiser {
                 70,    //Upgrade price
                 8.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
-                1.,     //Speed
-                5.,     //Range
+                40.,     //Range
                 5.,     //Damage
                 1.,     //FreqAtk
-                15.,    //BuffRange
+                1.,     //Speed
+                150.,    //BuffRange
                 3.,     //TpsBuff
                 .5     //TpsRepo
         });
@@ -592,11 +617,11 @@ public class StatsEntiteInitialiser {
                 "Personnalisé 1",
                 150,    //Upgrade price
                 12.,     //Health   (+4)
-                1.,      //Speed
-                5.,      //Range
+                40.,      //Range
                 7.,      //Damage    (+2)
                 1.2,    //FreqAtk (+.2)
-                15.,     //BuffRange
+                1.,      //Speed
+                150.,     //BuffRange
                 3.5,    //TpsBuff (+.5)
                 .5      //TpsRepo
         });
@@ -605,11 +630,11 @@ public class StatsEntiteInitialiser {
                 "Personnalisé 2",
                 300,    //Upgrade price
                 20.,     //Health   (+8)
-                2.,      //Speed
-                8.,      //Range     (+3)
+                43.,      //Range     (+3)
                 10.,     //Damage   (+3)
                 1.5,    //FreqAtk (+.3)
-                20.,     //BuffRange (+5)
+                2.,      //Speed
+                155.,     //BuffRange (+5)
                 3.5,    //TpsBuff
                 .5      //TpsRepo
         });
@@ -618,11 +643,11 @@ public class StatsEntiteInitialiser {
                 "Personnalisé 3",
                 null,   //Upgrade price
                 30.,     //Health   (+10)
-                3.,      //Speed
-                10.,     //Range     (+2)
+                45.,     //Range     (+2)
                 15.,     //Damage   (+5)
                 2.,      //FreqAtk (+.5)
-                25.,     //BuffRange (+5)
+                3.,      //Speed
+                160.,     //BuffRange (+5)
                 3.5,    //TpsBuff
                 .5      //TpsRepo
         });
@@ -636,11 +661,11 @@ public class StatsEntiteInitialiser {
                 70,    //Upgrade price
                 8.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
-                1.,     //Speed
-                5.,     //Range
+                40.,     //Range
                 5.,     //Damage
                 1.,     //FreqAtk
-                15.,    //BuffRange
+                1.,     //Speed
+                150.,    //BuffRange
                 3.,     //TpsBuff
                 .5     //TpsRepo
         });
@@ -654,11 +679,11 @@ public class StatsEntiteInitialiser {
                 70,    //Upgrade price
                 8.,     //Health
                 //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
-                1.,     //Speed
-                5.,     //Range
+                40.,     //Range
                 5.,     //Damage
                 1.,     //FreqAtk
-                15.,    //BuffRange
+                1.,     //Speed
+                150.,    //BuffRange
                 3.,     //TpsBuff
                 .5     //TpsRepo
         });
@@ -667,11 +692,11 @@ public class StatsEntiteInitialiser {
                 "Frontale",
                 150,    //Upgrade price
                 12.,     //Health   (+4)
-                1.,      //Speed
-                5.,      //Range
+                40.,      //Range
                 7.,      //Damage    (+2)
                 1.2,    //FreqAtk (+.2)
-                15.,     //BuffRange
+                1.,      //Speed
+                150.,     //BuffRange
                 3.5,    //TpsBuff (+.5)
                 .5      //TpsRepo
         });
@@ -680,11 +705,11 @@ public class StatsEntiteInitialiser {
                 "Casque de mineur",
                 300,    //Upgrade price
                 20.,     //Health   (+8)
-                2.,      //Speed
-                8.,      //Range     (+3)
+                43.,      //Range     (+3)
                 10.,     //Damage   (+3)
                 1.5,    //FreqAtk (+.3)
-                20.,     //BuffRange (+5)
+                2.,      //Speed
+                155.,     //BuffRange (+5)
                 3.5,    //TpsBuff
                 .5      //TpsRepo
         });
@@ -693,11 +718,11 @@ public class StatsEntiteInitialiser {
                 "La pelle",
                 null,   //Upgrade price
                 30.,     //Health   (+10)
-                3.,      //Speed
-                10.,     //Range     (+2)
+                45.,     //Range     (+2)
                 15.,     //Damage   (+5)
                 2.,      //FreqAtk (+.5)
-                25.,     //BuffRange (+5)
+                3.,      //Speed
+                160.,     //BuffRange (+5)
                 3.5,    //TpsBuff
                 .5      //TpsRepo
         });
