@@ -3,7 +3,7 @@ package app.Modele.Utilitaires;
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
-import app.Modele.ProjectileSimple;
+import app.Modele.Projectile.ProjectileSimple;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
-package app.Modele;
+package app.Modele.Projectile;
 
-import app.Modele.Entites.Animaux.Specialise.PouletProjectible;
+import app.Modele.Entites.Animaux.PouletProjectible;
 import app.Modele.Entites.Entite;
 import app.Modele.Utilitaires.Utilitaire;
 import javafx.beans.property.DoubleProperty;
@@ -69,7 +69,6 @@ public class ProjectileSimple {
             tempsMort = 0;
         }
         if (Utilitaire.intersects(this, cible)) {
-            System.out.println("a");
             cible.estAttaque(damage);
             dead = true;
             tempsMort = 0;

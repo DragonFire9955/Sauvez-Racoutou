@@ -1,13 +1,13 @@
-package app.Modele.Entites.Animaux.Specialise;
+package app.Modele.Entites.Animaux;
 
 import app.Modele.GameWorld;
 import app.Modele.Entites.Entite;
-import app.Modele.ProjectileSimple;
+import app.Modele.Projectile.ProjectileSimple;
 import app.Modele.Utilitaires.Utilitaire;
 
 import java.util.List;
 
-public class PouletProjectible extends Specialise {
+public class PouletProjectible extends Animal {
 
     private double cooldown;
     private final double initVit;
@@ -27,14 +27,14 @@ public class PouletProjectible extends Specialise {
         super.update(dt);
         ;
         if (cooldown == 0)
-            cooldown = dt + getTempsRepo();
+            cooldown = dt + getFreqAtk();
 
-        List<Entite> cibles = getCiblesAccessibles(getRangeEffect(), Utilitaire.animauxToEntites(getWorld().getAlliesAnimaux()));
+        List<Entite> cibles = getCiblesAccessibles(getRange(), Utilitaire.animauxToEntites(getWorld().getAlliesAnimaux()));
         if (cibles.isEmpty()) return;
         Entite cible = cibles.getFirst();
 
         double dist = Utilitaire.distance(getX(), getY(), cible.getX(), cible.getY());
-        if (dist < getRangeEffect()) {
+        if (dist < getRange()) {
             setVitesse(0);
 
             if (dt >= cooldown) {
@@ -47,9 +47,5 @@ public class PouletProjectible extends Specialise {
         else {
             setVitesse(initVit);
         }
-    }
-
-    public double getProjectileDmg() {
-        return projectileDmg;
     }
 }

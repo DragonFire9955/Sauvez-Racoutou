@@ -1,6 +1,6 @@
 package app.Vue;
 
-import app.Modele.ProjectileSimple;
+import app.Modele.Projectile.ProjectileSimple;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 

@@ -31,7 +31,7 @@ public class StatsEntiteInitialiser {
             case "pouletBouclier":
                 initStatsPouletBouclier(statsLevels);
                 break;
-            case "Poulet projectible":
+            case "pouletProjectible":
                 initStatsPouletProjectible(statsLevels);
                 break;
     // BUFFER
@@ -229,7 +229,7 @@ public class StatsEntiteInitialiser {
                 "Default",
                 15,     //Argent rapporté
                 10.,     //Health
-                35.,     //Range
+                150.,     //Range
                 5.,     //Damage
                 1.,     //FreqAtk
                 3.8,     //Speed
