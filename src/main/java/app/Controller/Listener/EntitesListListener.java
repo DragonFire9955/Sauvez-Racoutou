@@ -238,7 +238,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
         //Image upgrade
         ImageView upgradeImageView = new ImageView(
-                new Image("app/images/pouletIGPN.gif")
+                new Image("app/images/gif/pouletIGPN.gif")
         );
         upgradeImageView.setFitWidth(38);
         upgradeImageView.setFitHeight(38);

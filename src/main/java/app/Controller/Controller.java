@@ -28,6 +28,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
@@ -75,11 +76,13 @@ public class Controller implements Initializable {
     @FXML
     private VBox menuReglages;
     @FXML
-    private Button btnSon;
-    @FXML
     private ComboBox<String> comboResolution;
     @FXML
     private ImageView imgSon;
+    @FXML
+    private Slider sliderVolume;
+    @FXML
+    private Label labelTitreMusique;
 
     private Image imageSonOn;
     private Image imageSonOff;
@@ -241,12 +244,12 @@ public class Controller implements Initializable {
         comboResolution.getItems().addAll(
                 "1280 x 720",
                 "1366 x 768",
-                "1408 x 896",
-                "1600 x 900",
+                "1408 x 900",
+                "1600 x 1000",
                 "1920 x 1080"
         );
 
-        comboResolution.setValue("1408 x 896");
+        comboResolution.setValue("1408 x 900");
 
         comboResolution.setOnAction(e -> {
 
@@ -262,7 +265,9 @@ public class Controller implements Initializable {
 
         });
 
-        AudioManager.getInstance().jouerMusique("/app/audio/epic.wav");
+        AudioManager.getInstance().jouerMusique(AudioManager.getInstance().getMusiqueActuelle());
+
+        actualiserTitreMusique();
 
         imageSonOn = ImageSetter.sonOn;
         imageSonOff = ImageSetter.sonOff;
@@ -274,13 +279,31 @@ public class Controller implements Initializable {
                 imgSon.setImage(imageSonOff);
             }
         });
+
+        sliderVolume.valueProperty().bindBidirectional(AudioManager.getInstance().volumeProperty());
+    }
+
+    private void actualiserTitreMusique() {
+        String titre = AudioManager.getInstance().getNomMusiqueActuelle();
+        labelTitreMusique.setText(titre);
     }
 
     @FXML
     private void clicBoutonSon() {
         boolean etatActuel = AudioManager.getInstance().sonActiveProperty().get();
-
         AudioManager.getInstance().sonActiveProperty().set(!etatActuel);
+    }
+
+    @FXML
+    private void musiquePrecedente() {
+        AudioManager.getInstance().pistePrecedente();
+        actualiserTitreMusique();
+    }
+
+    @FXML
+    private void musiqueSuivante() {
+        AudioManager.getInstance().pisteSuivante();
+        actualiserTitreMusique();
     }
 
     @FXML
@@ -349,9 +372,9 @@ public class Controller implements Initializable {
         waveTimerLabel.textProperty().bind(gameWorld.getTempsActuelVagueProperty().asString().concat(" / ").concat(gameWorld.getDurreeVagueProperty().asString()));
 
         gameWorld.getTheEnd().addListener((obs, oldV, newV) -> {
-            if(newV.intValue() > 0){
+            if(newV.intValue()>0){
                 imgFinJeu.setImage(new Image("app/images/gagne.gif"));
-            } else if (newV.intValue() < 0) {
+            } else if (newV.intValue()<0) {
                 imgFinJeu.setImage(new Image("app/images/gif/perdue.gif"));
             }
             imgFinJeu.setFitWidth(300);
