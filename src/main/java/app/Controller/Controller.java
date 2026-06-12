@@ -3,6 +3,7 @@ package app.Controller;
 import app.Controller.Listener.EntiteHealthListener;
 import app.Controller.Listener.EntitesListListener;
 import app.Controller.Listener.*;
+import app.Modele.AudioManager;
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
@@ -13,11 +14,11 @@ import app.Modele.Entites.Animaux.Volants.PouletVolant;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.AnimauxManager;
-import app.Modele.Terrain;
 import app.Modele.Managers.EnnemisSpawn;
 import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Vue.CameraManager;
 import app.Vue.EntiteVue;
+import app.Vue.ImageSetter;
 import app.Vue.TerrainVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -27,6 +28,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -73,6 +75,17 @@ public class Controller implements Initializable {
     private Label waveTimerLabel;
     @FXML
     private VBox menuPause;
+    @FXML
+    private VBox menuReglages;
+    @FXML
+    private Button btnSon;
+    @FXML
+    private ComboBox<String> comboResolution;
+    @FXML
+    private ImageView imgSon;
+
+    private Image imageSonOn;
+    private Image imageSonOff;
 
 
     @FXML
@@ -108,8 +121,7 @@ public class Controller implements Initializable {
 
         DragAndDrop dragImage = new DragAndDrop();
         dragImage.drag(btnPoubelle, 100, "/app/images/poubelle.png");
-        dragImage.drag(btnClassique, 101, "/app/images/chatClassique/niv0/img.png");
-        dragImage.drag(btnJournaliste, 103, "/app/images/chatJournaliste/niv0/img.png");
+        dragImage.drag(btnClassique, 101, "/app/images/chat.png");
         dragImage.drag(btnMedecin, 102, "/app/images/chatMedecin.png");
         dragImage.drag(btnJournaliste, 103, "/app/images/chatJournaliste.png");
         dragImage.drag(btnScientifique, 104, "/app/images/chatScientifique.png");
@@ -128,6 +140,7 @@ public class Controller implements Initializable {
             clic.placerStructure(ligne, colonne, id);
 
             e.consume();
+            gamePane.requestFocus();
         });
 
         //Initialisation des Managers
@@ -188,6 +201,8 @@ public class Controller implements Initializable {
             });
         }
 
+        //IMAGE DE RACOUTOU
+        initRacoutou();
         /*
         gameWorld.getAnimaux().getFirst().getAliveProperty().addListener((observable, oldValue, newValue) -> {
                     gamePane.getScene().setRoot(menu);
@@ -231,6 +246,50 @@ public class Controller implements Initializable {
 
         //IMAGE DE RACOUTOU
         initRacoutou();
+
+        comboResolution.getItems().addAll(
+                "1280 x 720",
+                "1366 x 768",
+                "1408 x 896",
+                "1600 x 900",
+                "1920 x 1080"
+        );
+
+        comboResolution.setValue("1408 x 896");
+
+        comboResolution.setOnAction(e -> {
+
+            String resolution = comboResolution.getValue();
+
+            String[] parties = resolution.split(" x ");
+
+            double largeur = Integer.parseInt(parties[0]);
+            double hauteur = Integer.parseInt(parties[1]);
+
+            applicationPane.getScene().getWindow().setWidth(largeur);
+            applicationPane.getScene().getWindow().setHeight(hauteur);
+
+        });
+
+        AudioManager.getInstance().jouerMusique("/app/audio/epic.wav");
+
+        imageSonOn = ImageSetter.sonOn;
+        imageSonOff = ImageSetter.sonOff;
+
+        AudioManager.getInstance().sonActiveProperty().addListener((obs, ancien, estActive) -> {
+            if (estActive) {
+                imgSon.setImage(imageSonOn);
+            } else {
+                imgSon.setImage(imageSonOff);
+            }
+        });
+    }
+
+    @FXML
+    private void clicBoutonSon() {
+        boolean etatActuel = AudioManager.getInstance().sonActiveProperty().get();
+
+        AudioManager.getInstance().sonActiveProperty().set(!etatActuel);
     }
 
     @FXML
@@ -255,11 +314,24 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    private void ouvrirReglages() {
+        menuPause.setVisible(false);
+        menuReglages.setVisible(true);
+    }
+
+    @FXML
+    private void retourPause() {
+        menuReglages.setVisible(false);
+        menuPause.setVisible(true);
+    }
+
+    @FXML
     private void redemarrerJeu() {
         gameLoop.stop();
         temps.setValue(0);
         enPause = false;
         menuPause.setVisible(false);
+        finJeu.setVisible(false);
 
         gameWorld.getAnimaux().clear();
         gameWorld.getBarrage().clear();
@@ -270,10 +342,30 @@ public class Controller implements Initializable {
         //supprime si l'element est différent de la tileMap (on garde juste elle)
 
 
-        gameWorld.ajouterAnimal(new Racoutou(gameWorld, StatsEntiteInitialiser.getStatsLevels("Racoutou")));
-        initRacoutou();
-        gameWorld.ajouterAnimal(AnimauxManager.creerPouletClassique(gameWorld));
+        gameWorld.getTheEnd().addListener((obs, oldV, newV) -> {
+            if(newV.intValue() > 0){
+                imgFinJeu.setImage(new Image("app/images/gagne.gif"));
+            } else if (newV.intValue() < 0) {
+                imgFinJeu.setImage(new Image("app/images/gif/perdue.gif"));
+            }
+            imgFinJeu.setFitWidth(300);
+            imgFinJeu.setFitHeight(300);
+            imgFinJeu.setPreserveRatio(true);
+            imgFinJeu.setSmooth(true);
+            imgFinJeu.setCache(true);
+            finJeu.setVisible(true);
+            isGameStarted.setValue(false);
+        });
 
+        gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
+
+        gameWorld.ajouterAnimal(new Racoutou(gameWorld, StatsEntiteInitialiser.getStatsLevels("racoutou")));
+        initRacoutou();
+
+        cameraManager.centrerCarte();
+        cameraManager.verifierLimitesCamera();
+
+        initAnimation();
         gameLoop.play();
         gamePane.requestFocus();
     }
@@ -402,9 +494,6 @@ public class Controller implements Initializable {
         } else if (event.getCode() == KeyCode.P) {
             gameWorld.ajouterAnimal(new PouletProjectible("Poulet projectible", EnnemisSpawn.randomCoord(gameWorld), gameWorld, StatsEntiteInitialiser.getStatsLevels("Poulet projectible"), false));
         }
-
-
-
     }
 
     private void initRacoutou(){

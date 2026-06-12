@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 public class ImageSetter {
 
-    public static Image chat = new Image(ImageSetter.class.getResourceAsStream("/app/images/chatClassique/niv0/img.png"));
+    public static Image chat = new Image(ImageSetter.class.getResourceAsStream("/app/images/chat.png"));
 
     public static Image base = new Image(ImageSetter.class.getResourceAsStream("/app/images/herbe.png"), 32, 32, true, true);
     public static Image sol = new Image(ImageSetter.class.getResourceAsStream("/app/images/sol.png"), 32, 32, true, true);
@@ -17,5 +17,7 @@ public class ImageSetter {
     public static Image medecin = new Image(ImageSetter.class.getResourceAsStream("/app/images/chatMedecin/niv0/img.png"), 32, 32, false, true);
     public static Image journaliste = new Image(ImageSetter.class.getResourceAsStream("/app/images/chatJournaliste/niv0/img.png"), 32, 32, false, true);
 
+    public static Image sonOff = new Image(ImageSetter.class.getResourceAsStream("/app/images/son_off.png"));
+    public static Image sonOn = new Image(ImageSetter.class.getResourceAsStream("/app/images/son_on.png"));
 
 }
