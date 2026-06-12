@@ -2,7 +2,7 @@ package app.Modele.Entites.Animaux;
 
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
-import app.Modele.Managers.AnimauxManager;
+import app.Modele.Managers.EntitesManager;
 import app.Modele.Utilitaires.Utilitaire;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -66,9 +66,9 @@ public class Animal extends Entite {
 
         if(cible==null) return;
         //if(cible instanceof Racoutou) AnimauxManager.deplacementEnnemi(this);
-        if(cible instanceof Racoutou) AnimauxManager.deplacementEnnemi2(this);
+        if(cible instanceof Racoutou) EntitesManager.deplacementEnnemi2(this);
         else
-            AnimauxManager.deplacementAllie(this, (Animal) cible);
+            EntitesManager.deplacementAllie(this, (Animal) cible);
 
         /*
         else {

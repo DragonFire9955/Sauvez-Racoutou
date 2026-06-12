@@ -1,13 +1,11 @@
 package app.Controller.Listener;
 
-import app.Modele.Entites.Animaux.Animal;
-import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
-import app.Modele.Managers.StructureManager;
+import app.Modele.Managers.EntitesManager;
+import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Vue.TerrainVue;
 import javafx.event.EventHandler;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -22,7 +20,7 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
     private final Pane gamePane;
     private final Rectangle highlight;
 
-    private int idEntite = -1;
+    private String name;
     private boolean modePlacement = false;
 
     public ControleurDeClic(Pane carte, Pane gamePane, GameWorld gameWorld, TerrainVue terrainVue) {
@@ -67,7 +65,7 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
             int colonne = (int) (e.getX() / gameWorld.getTailleTile());
             int ligne = (int) (e.getY() / gameWorld.getTailleTile());
 
-            placerStructure(ligne, colonne, idEntite);
+            placerStructure(ligne, colonne, name);
 
             setModePlacement(false);
             e.consume();
@@ -88,22 +86,23 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
         highlight.setLayoutY(row * tileSize);
     }
 
-    public void placerStructure(int ligne, int colonne, int idEntite) {
-        int prixStructure = StructureManager.getPrix(idEntite);
+    public void placerStructure(int ligne, int colonne, String nom) {
+        int prixStructure = (int) StatsEntiteInitialiser.getStatsLevels(nom).getFirst()[1] * 2;
 
-        if (gameWorld.getMap()[ligne][colonne] == 0) { // si c'est du sol
+        if (gameWorld.getMap()[ligne][colonne] <= 1) { // si c'est du sol
             if (gameWorld.getTotalCoin().get() >= prixStructure) { // si on a assez d'argent
 
                 // on déduit le prix
                 gameWorld.getTotalCoin().set(gameWorld.getTotalCoin().get() - prixStructure);
 
                 // pour avoir les coordonnées absolues de la case
-                double posX = colonne * gameWorld.getTailleTile();
-                double posY = ligne * gameWorld.getTailleTile();
-                double[] coords = new double[]{posX, posY};
+                double posX = colonne * gameWorld.getTailleTile() + gameWorld.getTailleTile()*0.5;
+                double posY = ligne * gameWorld.getTailleTile() + gameWorld.getTailleTile()*0.5;
+                double[] coord = new double[]{posX, posY};
 
-                Entite entite = StructureManager.creerStructure(idEntite, coords, gameWorld);
-
+                //Entite entite = StructureManager.creerStructure(idEntite, coord, gameWorld);
+                EntitesManager.creerEntite(nom, coord, gameWorld);
+                /*
                 if (entite instanceof Barrage) {
                     Barrage b = (Barrage) entite;
                     gameWorld.ajouterBarrage(b);
@@ -120,6 +119,8 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
                     gameWorld.ajouterAnimal(a);
                 }
 
+                 */
+
                 gamePane.requestFocus();
             }
         }
@@ -132,7 +133,7 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
         }
     }
 
-    public void setIdEntite(int idEntite) {
-        this.idEntite = idEntite;
+    public void setName(String name) {
+        this.name = name;
     }
 }

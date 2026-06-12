@@ -179,6 +179,8 @@ public class GameWorld {
 
     public void ajouterBarrage(Barrage b) {
         barrageList.add(b);
+        map[b.getTile()[0]][b.getTile()[1]] = b.getPoids();
+        dijkRacoutou2 = new DeplacementDijkstra(tailleTile, map).dijkstra(this.getRacoutou().getCoord());
     }
     public void supprimerBarrage(Barrage b) {
         barrageList.remove(b);

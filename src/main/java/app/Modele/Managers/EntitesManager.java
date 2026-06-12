@@ -3,7 +3,12 @@ package app.Modele.Managers;
 import app.Modele.Chemins.DeplacementDijkstra;
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.Buffer.Buffer;
+import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
+import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
+import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.Stunner;
+import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
+import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Noeud;
@@ -13,9 +18,9 @@ import app.Modele.Utilitaires.Utilitaire;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class AnimauxManager {
+public class EntitesManager {
 
-    public static GameWorld w;
+
 
 
     // CLASSIQUE
@@ -60,9 +65,13 @@ public class AnimauxManager {
     }
 
     public static Animal creerChatCuisinier(GameWorld w) {
+        return creerChatCuisinier(new double[]{w.getRacoutou().getX()-20, w.getRacoutou().getY()+20}, w);
+    }
+
+    public static Animal creerChatCuisinier(double[] coord, GameWorld w) {
         ArrayList<Double> lbuff = new ArrayList<>();
         lbuff.add(0.25);
-        return new Buffer ("chatCuisinier", new double[]{w.getRacoutou().getX()-20, w.getRacoutou().getY()+20} , w, StatsEntiteInitialiser.getStatsLevels("chatCuisinier"), true, lbuff);
+        return new Buffer ("chatCuisinier", coord , w, StatsEntiteInitialiser.getStatsLevels("chatCuisinier"), true, lbuff);
     }
 
     public static Animal creerPouletConservateur(GameWorld w) {
@@ -174,8 +183,66 @@ public class AnimauxManager {
         a.setX(a.getX() + dx * a.getVitesse());
         a.setY(a.getY() + dy * a.getVitesse());
     }
+    
+    
+    public static void creerEntite(String nom, double[] coord, GameWorld w) {
+        Entite e;
+        switch (nom) {
+// CLASSIQUES
+            case "chatClassique":
+                e = creerChatClassique(coord, w);
+                break;
+            case "pouletClassique":
+                e = creerPouletClassique(w);
+                break;
+
+// SPECIALISES
+            case "pouletBouclier":
+                e = new PouletBouclier(w);
+                break;
+            // BUFFER
+            case "chatCuisinier":
+                e =  creerChatCuisinier(coord, w);
+                break;
+            case "chatMedecin":
+                e = creerChatMedecin(coord, w);
+                break;
+            case "pouletConservateur":
+                e = creerPouletConservateur(w);
+                break;
+            // DEBUFFER
+            case "pouletIGPN":
+                e = new PouletIGPN(coord, w);
+                break;
+            // ALTERATIONS ELEMENTAIRES
+            case "chatScientifique":
+                e = new ChatScientifique(coord, w);
+                break;
+            case "chatHypnotiseur":
+                e = new ChatHypnotiseur(coord, w);
+                break;
+            // STUNNER
+            case "chatJournaliste":
+                e = creerChatJournaliste(coord, w);
+                break;
+            case "pouletMenottes":
+                e = creerPouletMenotte(w);
+                break;
+
+            case "poubelle":
+                e = creerPouletMenotte(w);
+                break;
+
+            default:
+                System.out.println("Entite inconnue");
+                e = null;
+        }
 
 
-
-
+        if(nom.equals("poubelle")) {
+            w.ajouterBarrage((Barrage) e);
+        }
+        else
+            w.ajouterAnimal( (Animal) e);
+    }
 }
