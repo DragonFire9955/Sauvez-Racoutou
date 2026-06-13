@@ -39,7 +39,6 @@ public class ChatHypnotiseur extends Animal{
             chronoSpe=dt;
 
         if (((dt-chronoSpe)) >= freqAtkSpeciale) {
-            System.out.println("CIBLE: "+getCibleSpeciale());
             attaqueSpeciale((Animal) getCibleSpeciale());
             chronoSpe = 0;
         }
@@ -58,7 +57,6 @@ public class ChatHypnotiseur extends Animal{
     public void attaqueSpeciale(Animal cible){
 
         if(cible!=null) {
-            System.out.println(!hypnoEnCours.containsKey(cible));
             if (!hypnoEnCours.containsKey(cible)) {
                 hypnoEnCours.put(cible, .0);
             }
@@ -66,7 +64,6 @@ public class ChatHypnotiseur extends Animal{
             hypnoEnCours.put(cible, (hypnoEnCours.get(cible) + dmgSpecials));
             if (cible.getHealthProperty().get() <= hypnoEnCours.get(cible)) {
                 cible.setAllie(true);
-                System.out.println("new allié bidiboup");
             }
         }
     }

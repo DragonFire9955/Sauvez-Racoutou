@@ -68,7 +68,6 @@ public class PouletIGPN extends Debuffer {
                     Animal a;
                     for (int i = 0; i < cibles.size() && affectes.size()<= getNbVictimes(); i++) {
                         a = (Animal) cibles.get(i);
-                        System.out.println("AAAA:"+ a);
                         if(!affectes.containsKey(a)) {
                             affectes.put(a, new Double[]{a.getDamage(), a.getVitesse()});
                             a.setDamage(a.getDamage() * effetForce);

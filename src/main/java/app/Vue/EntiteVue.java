@@ -14,7 +14,6 @@ public class EntiteVue {
 
     public static ImageView appliquerBonneImage(Entite entite, boolean withInit) {
         int taille;
-        System.out.println(entite.getName());
         ImageView imageView;
         if(entite instanceof Barrage)
             imageView = new ImageView(new Image("app/images/poubelle/niv" + entite.getLevel()+"/img.png"));
@@ -140,13 +139,6 @@ public class EntiteVue {
 
         imageView.layoutXProperty().bind(entite.getXProperty().subtract(taille/2));
         imageView.layoutYProperty().bind(entite.getYProperty().subtract(taille/2));
-
-        if (entite instanceof Racoutou) {
-            System.out.println(" RRRR scale " + imageView.getScaleZ());
-            System.out.println("  RRRR translate " + imageView.getTranslateZ());
-        }
-
-
     }
 
     public static Image appliquerBonneImageGif(Entite entite) {
