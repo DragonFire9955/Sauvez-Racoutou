@@ -4,8 +4,6 @@ import javafx.scene.image.Image;
 
 public class ImageSetter {
 
-    public static Image chat = new Image(ImageSetter.class.getResourceAsStream("/app/images/chat.png"));
-
     public static Image base = new Image(ImageSetter.class.getResourceAsStream("/app/images/herbe.png"), 32, 32, true, true);
     public static Image sol = new Image(ImageSetter.class.getResourceAsStream("/app/images/sol.png"), 32, 32, true, true);
     public static Image tonneau = new Image(ImageSetter.class.getResourceAsStream("/app/images/tonneau4.png"), 32, 32, true, true);

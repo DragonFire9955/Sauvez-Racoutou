@@ -21,9 +21,9 @@ public class Buffer extends Specialise {
 
         super(name, coord, w, statsLevels, allie);
 
-        setRangeEffect( (double) statsLevels.get(0)[7]);
-        setTempsAction( (double) statsLevels.get(0)[8]);
-        setTempsRepo( (double) statsLevels.get(0)[9]);
+        setRangeEffect( (double) statsLevels.getFirst()[7]);
+        setTempsAction( (double) statsLevels.getFirst()[8]);
+        setTempsRepo( (double) statsLevels.getFirst()[9]);
 
         this.listeBuff=listeBuff;
     }
