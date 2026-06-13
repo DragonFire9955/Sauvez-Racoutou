@@ -192,7 +192,6 @@ public abstract class Entite {
 
     public void estAttaque(double damage){
 
-        System.out.println(getHealthProperty().getValue()-damage);
         setHealth(getHealthProperty().getValue()-damage);
     }
 

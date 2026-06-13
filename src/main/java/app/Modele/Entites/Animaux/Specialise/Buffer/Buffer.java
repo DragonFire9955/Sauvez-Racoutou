@@ -63,7 +63,6 @@ public class Buffer extends Specialise {
         int i;
 
         for(Animal a: copains) {
-            System.out.println(this.getClass());
             if(a.getClass() == this.getClass() || a.getHealthProperty().getValue() == a.getMaxHealth()) continue;
             i= 0;
             //Tant que distance supérieur ET pv supérieur

@@ -1,10 +1,16 @@
 package app.Controller.Listener;
 
 import app.Modele.Entites.Animaux.Animal;
+import app.Modele.Entites.Animaux.Specialise.Buffer.Buffer;
+import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
+import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
+import app.Modele.Entites.Animaux.Specialise.Specialise;
+import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.EnnemisSpawn;
 import app.Vue.EntiteVue;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -32,7 +38,6 @@ public class InfoBulleListener {
     private GameWorld gameWorld;
     private Entite e;
 
-    private int actualLevel;
     int qtiteRevente;
 
     private int actualTargetInt;
@@ -45,7 +50,6 @@ public class InfoBulleListener {
         this.gameWorld = w;
         this.e = e;
 
-        actualLevel = 0;
         qtiteRevente = e.getCoin()/2;
 
         actualTargetInt = 0;
@@ -55,11 +59,7 @@ public class InfoBulleListener {
 
         root.setId("infoBulle"+e.getId());
         root.setPrefSize(260, 200);
-        root.setStyle(
-                "-fx-background-color: rgb(196,196,196);" +
-                        "-fx-border-color: black;" +
-                        "-fx-border-radius: 2;"
-        );
+        setGoodStyle();
 
         //Image principale
         ImageView entityImageView = EntiteVue.appliquerBonneImage(e, false);
@@ -211,8 +211,8 @@ public class InfoBulleListener {
         priceUpgrade.setPrefWidth(111);
         priceUpgrade.setFont(Font.font(16));
 
-        Label levelLabel = new Label(actualLevel + "/4");
-        levelLabel.textProperty().bind(e.getLevelProperty().asString().concat("/4"));
+        Label levelLabel = new Label(e.getLevel()+1 + "/4");
+        levelLabel.textProperty().bind(e.getLevelProperty().add(1).asString().concat("/4"));
         levelLabel.setAlignment(Pos.CENTER);
         levelLabel.setPrefWidth(111);
         levelLabel.setFont(Font.font(10));
@@ -261,14 +261,21 @@ public class InfoBulleListener {
 
             e.incrementerLevel();
 
-            //Partie FXML
+            if (e.getLevel() == 3) {
+
+                buyUpgradeButton.setDisable(true);
+                upgradeImageView.setImage(null);
+                upgradeBox.setStyle("-fx-background-color: darkgrey");
+            } else {
+
+                updateDescriptionStatLabel(attributesVBox);
+                updateDescriptionButtonUpgrade(nameUpgrade, priceUpgrade);
+                updateDescriptionSellButton(sellButton);
+
+                upgradeImageView.setImage(new Image("app/images/" + e.getName() + "/niv" + (e.getLevel() + 1) + "/img.png"));
+            }
+
             entityImageView.setImage(new Image("app/images/"+ e.getName()+"/niv"+e.getLevel()+"/img.png"));
-
-            updateDescriptionStatLabel(attributesVBox);
-            updateDescriptionButtonUpgrade(nameUpgrade, priceUpgrade);
-            updateDescriptionSellButton(sellButton);
-
-            upgradeImageView.setImage(new Image("app/images/"+ e.getName()+"/niv"+(e.getLevel()+1)+"/img.png"));
         });
 
 
@@ -288,6 +295,64 @@ public class InfoBulleListener {
         carte.getChildren().addAll(root);
     }
 
+    public void setGoodStyle() {
+
+        if (e.getName().equals("poubelle"))
+            root.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom right, #E53935, #E35D5B); -fx-text-fill: white; -fx-background-radius: 12;-fx-cursor: hand;" +
+                        "-fx-border-color: black;" +
+                        "-fx-border-radius: 2;"
+            );
+        else if (e.getName().equals("racoutou"))
+            root.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom right, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #9400D3); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                            "-fx-border-color: black;" +
+                            "-fx-border-radius: 2;"
+            );
+        else if (e.getName().equals("chatClassique"))
+            root.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom right, #CCCCB2, #757519); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                            "-fx-border-color: black;" +
+                            "-fx-border-radius: 2;"
+            );
+        else if (e.getName().equals("chatCuisinier"))
+            root.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom right, #00C9A7, #005F73); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                    "-fx-border-color: black;" +
+                            "-fx-border-radius: 2;"
+            );
+        else if (e.getName().equals("chatMedecin"))
+            root.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom right, #FF8C00, #F12711); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                            "-fx-border-color: black;" +
+                            "-fx-border-radius: 2;"
+            );
+        else if (e.getName().equals("pouletIGPN"))
+            root.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom right, #11998E, #38EF7D); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                            "-fx-border-color: black;" +
+                            "-fx-border-radius: 2;"
+            );
+        else if (e.getName().equals("chatScientifique"))
+            root.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom right, #00C6FF, #0072FF); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                            "-fx-border-color: black;" +
+                            "-fx-border-radius: 2;"
+            );
+        else if (e.getName().equals("chatHypnotiseur"))
+            root.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom right, #6A11CB, #2575FC); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                            "-fx-border-color: black;" +
+                            "-fx-border-radius: 2;"
+            );
+        else if (e.getName().equals("chatJournaliste"))
+            root.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom right, #FF007F, #7928CA); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                            "-fx-border-color: black;" +
+                            "-fx-border-radius: 2;"
+            );
+    }
+
     public void changeAfficherDescription() {
 
         root.setLayoutX(e.getX()+20);
@@ -298,41 +363,95 @@ public class InfoBulleListener {
 
     private void updateDescriptionStatLabel(VBox attributesVBox) {
 
-        if (e.getStatsLevels() != null && e.getStatsLevels().size() > 1 && actualLevel < e.getStatsLevels().size()-1) {        //A suppr quand j'aurais fait pr tt les Entites
+        if (e.getStatsLevels() != null && e.getStatsLevels().size() > 1 && e.getLevel() < e.getStatsLevels().size()-1) {        //A suppr quand j'aurais fait pr tt les Entites
 
             attributesVBox.getChildren().clear();
 
-            for (int i = 0; i < e.getStatsLevels().get(actualLevel).length - 2; i++) {
+            for (int i = 0; i < e.getStatsLevels().get(e.getLevel()).length - 2; i++) {
 
-                Object actualStat = e.getStatsLevels().get(actualLevel)[i + 2];
-                Object newStat = e.getStatsLevels().get((actualLevel) + 1)[i + 2];
+                Object actualStat = e.getStatsLevels().get(e.getLevel())[i + 2];
+                Object newStat = e.getStatsLevels().get((e.getLevel()) + 1)[i + 2];
 
                 if (!actualStat.equals(newStat))
                     attributesVBox.getChildren().add(new Label(
-                            e.getStatsLevels().get(actualLevel)[i + 2].toString()
+                            getStatName(i) +
+                            e.getStatsLevels().get(e.getLevel())[i + 2].toString()
                                     + " -> "
-                                    + e.getStatsLevels().get((actualLevel) + 1)[i + 2].toString()
+                                    + e.getStatsLevels().get((e.getLevel()) + 1)[i + 2].toString()
                     ));
             }
         }
-        if (actualLevel >= e.getStatsLevels().size()-1) {
+        if (e.getLevel() >= e.getStatsLevels().size()-1) {
             attributesVBox.getChildren().clear();
             attributesVBox.getChildren().add(new Label("Maxed out"));
         }
     }
+    public String getStatName(int indiceStat) {
+
+        String statName;
+        switch (indiceStat) {
+            case 0:
+                statName = "Health : ";
+                break;
+            case 1:
+                statName = "Range : ";
+                break;
+            case 2:
+                statName = "Damage : ";
+                break;
+            case 3:
+                statName = "FreqAtk : ";
+                break;
+            case 4:
+                statName = "Speed : ";
+                break;
+            case 5:
+                if (e instanceof ChatHypnotiseur)
+                    statName = "Dmg spe : ";
+                else
+                    statName = "RangeEffect : ";
+                break;
+            case 6:
+                if (e instanceof ChatHypnotiseur)
+                    statName = "Freq atk spe : ";
+                else
+                    statName = "Tps Buff : ";
+                break;
+            case 7:
+                if (e instanceof ChatHypnotiseur)
+                    statName = "Range spe : ";
+                else
+                    statName = "Tps Repos : ";
+                break;
+            case 8:
+                statName = "Nbr Victimes : ";
+                break;
+            case 9:
+                statName = "Div force : ";
+                break;
+            case 10:
+                statName = "Div vit : ";
+                break;
+            default:
+                statName = "inconnu : ";
+                break;
+        }
+
+        return statName;
+    }
 
     private void updateDescriptionButtonUpgrade(Label nameUpgrade, Label priceUpgrade) {
 
-        if (actualLevel < e.getStatsLevels().size()-1 && e.getStatsLevels().get(actualLevel+1)[0] != null) {
+        if (e.getLevel() < e.getStatsLevels().size()-1 && e.getStatsLevels().get(e.getLevel()+1)[0] != null) {
 
-            nameUpgrade.setText(e.getStatsLevels().get(actualLevel+1)[0].toString());
-            priceUpgrade.setText((e.getStatsLevels().get(actualLevel)[1]).toString());
+            nameUpgrade.setText(e.getStatsLevels().get(e.getLevel()+1)[0].toString());
+            priceUpgrade.setText((e.getStatsLevels().get(e.getLevel())[1]).toString());
         }
     }
 
     private void updateDescriptionSellButton(Button sellButton) {
 
-        qtiteRevente = (int) (e.getStatsLevels().get(actualLevel)[1]) / 2;
+        qtiteRevente = (int) (e.getStatsLevels().get(e.getLevel())[1]) / 2;
         sellButton.setText("Sell : " + qtiteRevente);
     }
 }

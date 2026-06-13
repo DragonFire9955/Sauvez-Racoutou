@@ -17,14 +17,14 @@ public class EntiteVue {
         System.out.println(entite.getName());
         ImageView imageView;
         if(entite instanceof Barrage)
-            imageView = new ImageView(new Image("app/images/barrage/niv"+ entite.getLevel()+"/img.png"));
+            imageView = new ImageView(new Image("app/images/poubelle/niv" + entite.getLevel()+"/img.png"));
         else if(entite instanceof Animal && !((Animal) entite).isAllie())
             imageView = new ImageView(new Image("app/images/"+ entite.getName()+"/img.png"));
         else
             imageView = new ImageView(new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/img.png"));
 
         if (entite instanceof Animal && (!((Animal) entite).isAllie() || (entite instanceof PouletIGPN)))
-            taille= (int) (tailleImage*.75);
+            taille = (int) (tailleImage*.75);
         else if (entite instanceof Racoutou)
             taille = (int) (tailleImage*4);
         else
@@ -212,7 +212,9 @@ public class EntiteVue {
 
     public static Image appliquerImageSoin(Entite entite){
         Image img;
-        if(entite instanceof Animal && !((Animal) entite).isAllie())
+        if (entite instanceof Barrage)
+            img = new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/img.png");   //Les barrages n'ont pas d'images de soin
+        else if(entite instanceof Animal && !((Animal) entite).isAllie())
             img = new Image("app/images/"+ entite.getName()+"/soin.gif");
         else
             img = new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/soin.gif");

@@ -195,6 +195,7 @@
                </children>
             </HBox>
             <TilePane hgap="15.0" prefColumns="2" prefTileHeight="100.0" prefTileWidth="112.0" vgap="15.0">
+               <padding><Insets top="50.0"/></padding>
                <children>
                   <Button fx:id="poubelle" contentDisplay="TOP" prefHeight="100.0" prefWidth="112.0" style="-fx-background-color: linear-gradient(to bottom right, #E53935, #E35D5B); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" text="Poubelle">
                      <font>
@@ -326,57 +327,86 @@
                         </HBox>
                      </graphic>
                   </Button>
+                  <Button fx:id="chatCuisinier" contentDisplay="TOP" prefHeight="100.0" prefWidth="112.0" style="-fx-background-color: linear-gradient(to bottom right, #00C9A7, #005F73); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" text="Chat cuisinier">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <HBox alignment="CENTER" spacing="5.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/chatCuisinier/niv0/img.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="chatCuisinierPrixLabel" textFill="#FFD166">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/coin.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="pouletIGPN" contentDisplay="TOP" prefHeight="100.0" prefWidth="112.0" style="-fx-background-color: linear-gradient(to bottom right, #11998E, #38EF7D); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" text="Poulet IGPN">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <HBox alignment="CENTER" spacing="5.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/pouletIGPN/niv0/img.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="pouletIGPNPrixLabel" textFill="#FFD166">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/coin.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="chatHypnotiseur" contentDisplay="TOP" prefHeight="100.0" prefWidth="112.0" style="-fx-background-color: linear-gradient(to bottom right, #6A11CB, #2575FC); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" text="Chat hypnotiseur">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <HBox alignment="CENTER" spacing="5.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/chatHypnotiseur/niv0/img.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="chatHypnotiseurPrixLabel" textFill="#FFD166">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/coin.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </graphic>
+                  </Button>
                </children>
             </TilePane>
-            <VBox spacing="15.0">
-               <children>
-                  <Button contentDisplay="TOP" prefHeight="60.0" prefWidth="245.0" style="-fx-background-color: linear-gradient(to right, #11998E, #38EF7D); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" text="Amélioration Obstacles">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <graphic>
-                        <HBox alignment="CENTER" spacing="5.0">
-                           <children>
-                              <Label text="75" textFill="#FFD166">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                              </Label>
-                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/coin.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </HBox>
-                     </graphic>
-                  </Button>
-                  <Button contentDisplay="TOP" prefHeight="60.0" prefWidth="245.0" style="-fx-background-color: linear-gradient(to right, #4568DC, #B06AB8); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" text="Amélioration Tours">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <graphic>
-                        <HBox alignment="CENTER" spacing="5.0">
-                           <children>
-                              <Label text="100" textFill="#FFD166">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                              </Label>
-                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/coin.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </HBox>
-                     </graphic>
-                  </Button>
-               </children>
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </VBox>
          </children>
       </VBox>
    </right>

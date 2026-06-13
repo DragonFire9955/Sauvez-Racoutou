@@ -158,7 +158,7 @@ public class StatsEntiteInitialiser {
                 12.,     //Health   (+4)
                 42.,      //Range    (+2)
                 7.,      //Damage    (+2)
-                1,    //FreqAtk
+                1.,    //FreqAtk
                 1.,      //Speed
         });
 
@@ -740,53 +740,40 @@ public class StatsEntiteInitialiser {
                 "Default",
                 70,    //Upgrade price
                 8.,     //Health
-                //Ici je met pas les coins car le prix de vente sera l'addition des prix d'upgrade + le getCoin()
-                40.,     //Range
-                5.,     //Damage
-                1.,     //FreqAtk
-                1.,     //Speed
-                150.,    //BuffRange
-                3.,     //TpsBuff
-                .5     //TpsRepo
+                10.,     //Range
+                0.,     //Damage
+                0.,     //FreqAtk
+                0.,     //Speed
         });
 
         statsLevels.add(new Object[]{
-                "Frontale",
+                "Voiture",
                 150,    //Upgrade price
-                12.,     //Health   (+4)
-                40.,      //Range
-                7.,      //Damage    (+2)
-                1.2,    //FreqAtk (+.2)
-                1.,      //Speed
-                150.,     //BuffRange
-                3.5,    //TpsBuff (+.5)
-                .5      //TpsRepo
+                20.,     //Health   (+12)
+                20.,     //Range
+                0.,     //Damage
+                0.,     //FreqAtk
+                0.,     //Speed
         });
 
         statsLevels.add(new Object[]{
-                "Casque de mineur",
+                "Bus",
                 300,    //Upgrade price
-                20.,     //Health   (+8)
-                43.,      //Range     (+3)
-                10.,     //Damage   (+3)
-                1.5,    //FreqAtk (+.3)
-                2.,      //Speed
-                155.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
+                50.,     //Health   (+30)
+                40.,     //Range    (+20)
+                0.,     //Damage
+                0.,     //FreqAtk
+                0.,     //Speed
         });
 
         statsLevels.add(new Object[]{
-                "La pelle",
-                null,   //Upgrade price
-                30.,     //Health   (+10)
-                45.,     //Range     (+2)
-                15.,     //Damage   (+5)
-                2.,      //FreqAtk (+.5)
-                3.,      //Speed
-                160.,     //BuffRange (+5)
-                3.5,    //TpsBuff
-                .5      //TpsRepo
+                "Bus",
+                300,    //Upgrade price
+                50.,     //Health   (+30)
+                40.,     //Range    (+20)
+                0.,     //Damage
+                0.,     //FreqAtk
+                0.,     //Speed
         });
     }
 }

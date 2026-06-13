@@ -73,6 +73,16 @@ public class Controller implements Initializable {
     @FXML private Button chatScientifique;
     @FXML private Label chatScientifiquePrixLabel;
 
+    @FXML private Button chatCuisinier;
+    @FXML private Label chatCuisinierPrixLabel;
+
+    @FXML private Button pouletIGPN;
+    @FXML private Label pouletIGPNPrixLabel;
+
+    @FXML private Button chatHypnotiseur;
+    @FXML private Label chatHypnotiseurPrixLabel;
+
+
     @FXML private Label coinLabel;
 
     @FXML private Label waveLabel;
@@ -130,6 +140,9 @@ public class Controller implements Initializable {
         dragImage.drag(chatMedecin);
         dragImage.drag(chatJournaliste);
         dragImage.drag(chatScientifique);
+        dragImage.drag(chatCuisinier);
+        dragImage.drag(pouletIGPN);
+        dragImage.drag(chatHypnotiseur);
 
         dragImage.survole(tileMap);
 
@@ -551,6 +564,15 @@ public class Controller implements Initializable {
 
         chatScientifique.setOnAction(boutonsshop);
         chatScientifiquePrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(chatScientifique.getId()).getFirst()[1])));
+
+        chatCuisinier.setOnAction(boutonsshop);
+        chatCuisinierPrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(chatCuisinier.getId()).getFirst()[1])));
+
+        pouletIGPN.setOnAction(boutonsshop);
+        pouletIGPNPrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(pouletIGPN.getId()).getFirst()[1])));
+
+        chatHypnotiseur.setOnAction(boutonsshop);
+        chatHypnotiseurPrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(chatHypnotiseur.getId()).getFirst()[1])));
 
     }
 
