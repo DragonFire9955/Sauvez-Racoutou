@@ -40,4 +40,13 @@ public abstract class Barrage extends Entite {
 
     public abstract int getIdPoids();
 
+    public void incrementerLevel(){
+        if(getLevel()<2){
+            setLevel(getLevel()+1);
+            setStats(getLevel());
+        }
+    }
+
+
+
 }

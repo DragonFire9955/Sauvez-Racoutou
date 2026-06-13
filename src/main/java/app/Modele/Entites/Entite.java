@@ -270,10 +270,5 @@ public abstract class Entite {
         this.level.set(level);
     }
 
-    public void incrementerLevel(){
-        if(getLevel()<3){
-            setLevel(getLevel()+1);
-            setStats(getLevel());
-        }
-    }
+    public abstract void incrementerLevel();
 }

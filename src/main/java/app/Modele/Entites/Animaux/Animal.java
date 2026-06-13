@@ -322,4 +322,11 @@ public class Animal extends Entite {
     public void setCibleInt(int cibleInt) {
         this.cibleInt = cibleInt;
     }
+
+    public void incrementerLevel(){
+        if(getLevel()<3){
+            setLevel(getLevel()+1);
+            setStats(getLevel());
+        }
+    }
 }
