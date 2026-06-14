@@ -5,6 +5,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
 
+import java.util.Map;
+
 public class TerrainVue {
 
     public void delimitationMap(TilePane tileMap){
@@ -67,7 +69,12 @@ public class TerrainVue {
                 cases.setImage(ImageSetter.batCoteD);
                 break;
             case 24:
-                cases.setImage(ImageSetter.batCoteB);
+                if(Math.random()<0.1)
+                    cases.setImage(ImageSetter.batCoteBBus);
+                else if (Math.random()<0.3)
+                    cases.setImage(ImageSetter.batCoteBArbre);
+                else
+                    cases.setImage(ImageSetter.batCoteB);
                 break;
             case 25:
                 cases.setImage(ImageSetter.batCentre);

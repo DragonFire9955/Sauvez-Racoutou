@@ -23,6 +23,9 @@ public class ImageSetter {
     public static Image batCoinG = new Image(ImageSetter.class.getResourceAsStream("/app/carte/batiment/coinG.png"),64, 64, false, true);
     public static Image batCoinD = new Image(ImageSetter.class.getResourceAsStream("/app/carte/batiment/coinD.png"), 64, 64, false, true);
     public static Image batCoteB = new Image(ImageSetter.class.getResourceAsStream("/app/carte/batiment/coteB.png"), 64, 64, false, true);
+    public static Image batCoteBBus = new Image(ImageSetter.class.getResourceAsStream("/app/carte/batiment/coteBBus.png"), 64, 64, false, true);
+    public static Image batCoteBArbre = new Image(ImageSetter.class.getResourceAsStream("/app/carte/batiment/coteBArbre.png"), 64, 64, false, true);
+
     public static Image batCoteG = new Image(ImageSetter.class.getResourceAsStream("/app/carte/batiment/coteG.png"), 64, 64, false, true);
     public static Image batCoteD = new Image(ImageSetter.class.getResourceAsStream("/app/carte/batiment/coteD.png"), 64, 64, false, true);
     public static Image batCentre = new Image(ImageSetter.class.getResourceAsStream("/app/carte/batiment/centre.png"), 64, 64, false, true);
