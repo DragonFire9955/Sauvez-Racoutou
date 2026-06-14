@@ -77,7 +77,9 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
                     //Liaison niveau / image
                     e.getLevelProperty().addListener((observableValue, oldV, newV) ->
-                            ((ImageView) carte.lookup("#"+e.getId())).setImage(new Image("/app/images/"+e.getName()+"/niv"+newV+"/img.png")));
+                            EntiteVue.upgradeImage(e, ((ImageView) carte.lookup("#"+e.getId()))));
+                            //((ImageView) carte.lookup("#"+e.getId())).setImage(EntiteVue.appliquerBonneImage(e, true).getImage()));
+
                     //on lui crée sa description si c un allié
                     if (e instanceof Animal && ((Animal) e).isAllie() || e instanceof Barrage) {
 

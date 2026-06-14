@@ -206,7 +206,7 @@
                            <children>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/barrage/niv0/img.png" />
+                                    <Image url="@images/poubelle/niv0/img.png" />
                                  </image>
                               </ImageView>
                               <Label fx:id="poubellePrixLabel" textFill="#FFD166">
@@ -223,7 +223,7 @@
                         </HBox>
                      </graphic>
                   </Button>
-                  <Button fx:id="chatClassique" contentDisplay="TOP" prefHeight="100.0" prefWidth="112.0" style="-fx-background-color: linear-gradient(to bottom right, #CCCCB2, #757519); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" text="Chat classique">
+                  <Button fx:id="chatClassique" contentDisplay="TOP" prefHeight="100.0" prefWidth="112.0" style="-fx-background-color: linear-gradient(to bottom right, #FF9D00, #F2FF00); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" text="Chat classique">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>

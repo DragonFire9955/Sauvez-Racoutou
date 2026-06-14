@@ -323,10 +323,4 @@ public class Animal extends Entite {
         this.cibleInt = cibleInt;
     }
 
-    public void incrementerLevel(){
-        if(getLevel()<3){
-            setLevel(getLevel()+1);
-            setStats(getLevel());
-        }
-    }
 }

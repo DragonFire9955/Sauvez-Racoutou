@@ -269,5 +269,14 @@ public abstract class Entite {
         this.level.set(level);
     }
 
-    public abstract void incrementerLevel();
+    public void incrementerLevel(){
+
+        if(getLevel()<3){
+            setLevel(getLevel()+1);
+            setStats(getLevel());
+            System.out.println(this.getName()+"  level "+ this.getLevel());
+        }
+
+    };
+
 }

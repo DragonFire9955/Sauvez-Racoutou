@@ -508,7 +508,7 @@ public class Controller implements Initializable {
 
     private void initRacoutou(){
         Entite racoutou = gameWorld.getRacoutou();
-       ImageView imgRacoutou = EntiteVue.appliquerBonneImage(racoutou, true);
+        ImageView imgRacoutou = EntiteVue.appliquerBonneImage(racoutou, true);
         carte.getChildren().add(imgRacoutou);
 
         racoutou.getHealthProperty().addListener(new EntiteHealthListener(carte, racoutou));
@@ -549,6 +549,7 @@ public class Controller implements Initializable {
         EventHandler<ActionEvent> boutonsshop = actionEvent -> {
             clic.setModePlacement(true);
             clic.setName(((Button) (actionEvent.getSource())).getId());
+            System.out.println("ACTION: " + ((Button) (actionEvent.getSource())).getId());
         };
         poubelle.setOnAction(boutonsshop);
         poubellePrixLabel.setText(StatsEntiteInitialiser.getStatsLevels(poubelle.getId()).getFirst()[1].toString());

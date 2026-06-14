@@ -59,6 +59,10 @@ public class InfoBulleListener {
 
         root.setId("infoBulle"+e.getId());
         root.setPrefSize(260, 200);
+        root.setStyle(
+                "-fx-border-radius: 15;"+
+                "-fx-border-style: none;"
+        );
         setGoodStyle();
 
         //Image principale
@@ -228,6 +232,8 @@ public class InfoBulleListener {
                 new Image("app/images/"+ e.getName()+"/niv"+(e.getLevel()+1)+"/img.png")
         );
 
+
+
         upgradeImageView.setFitWidth(38);
         upgradeImageView.setFitHeight(38);
         upgradeImageView.setPreserveRatio(true);
@@ -246,7 +252,8 @@ public class InfoBulleListener {
 
         //Zone des attributs (où on voit les améliorations concrètes)
         VBox attributesVBox = new VBox();
-        attributesVBox.setPadding(new Insets(2));
+
+        attributesVBox.setPadding(new Insets(10));
 
         updateDescriptionStatLabel(attributesVBox);
 
@@ -254,6 +261,12 @@ public class InfoBulleListener {
         attributesScrollPane.setPrefSize(127, 109);
         attributesScrollPane.setLayoutX(134);
         attributesScrollPane.setLayoutY(88);
+
+        attributesScrollPane.setStyle(
+                "-fx-border-radius: 15;"
+        );
+
+
 
 
         //Action du boutton pr améliorer
@@ -275,7 +288,7 @@ public class InfoBulleListener {
                 upgradeImageView.setImage(new Image("app/images/" + e.getName() + "/niv" + (e.getLevel() + 1) + "/img.png"));
             }
 
-            entityImageView.setImage(new Image("app/images/"+ e.getName()+"/niv"+e.getLevel()+"/img.png"));
+            entityImageView.setImage(new Image("app/images/" + e.getName() + "/niv" + e.getLevel() + "/img.png"));
         });
 
 
@@ -300,7 +313,7 @@ public class InfoBulleListener {
         if (e.getName().equals("poubelle"))
             root.setStyle(
                     "-fx-background-color: linear-gradient(to bottom right, #E53935, #E35D5B); -fx-text-fill: white; -fx-background-radius: 12;-fx-cursor: hand;" +
-                        "-fx-border-color: black;" +
+                        //"-fx-border-color: black;" +
                         "-fx-border-radius: 2;"
             );
         else if (e.getName().equals("racoutou"))
@@ -311,44 +324,45 @@ public class InfoBulleListener {
             );
         else if (e.getName().equals("chatClassique"))
             root.setStyle(
-                    "-fx-background-color: linear-gradient(to bottom right, #CCCCB2, #757519); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
-                            "-fx-border-color: black;" +
+                    //"fx-background-color: linear-gradient(to bottom right, #FF9D00, #F2FF00, #FFF9C2); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;"+
+                   "-fx-background-color: linear-gradient(to bottom right, #FF9D00, #F2FF00); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                            //"-fx-border-color: black;" +
                             "-fx-border-radius: 2;"
             );
         else if (e.getName().equals("chatCuisinier"))
             root.setStyle(
                     "-fx-background-color: linear-gradient(to bottom right, #00C9A7, #005F73); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
-                    "-fx-border-color: black;" +
+                    //"-fx-border-color: black;" +
                             "-fx-border-radius: 2;"
             );
         else if (e.getName().equals("chatMedecin"))
             root.setStyle(
                     "-fx-background-color: linear-gradient(to bottom right, #FF8C00, #F12711); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
-                            "-fx-border-color: black;" +
+                            //"-fx-border-color: black;" +
                             "-fx-border-radius: 2;"
             );
         else if (e.getName().equals("pouletIGPN"))
             root.setStyle(
                     "-fx-background-color: linear-gradient(to bottom right, #11998E, #38EF7D); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
-                            "-fx-border-color: black;" +
+                            //"-fx-border-color: black;" +
                             "-fx-border-radius: 2;"
             );
         else if (e.getName().equals("chatScientifique"))
             root.setStyle(
                     "-fx-background-color: linear-gradient(to bottom right, #00C6FF, #0072FF); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
-                            "-fx-border-color: black;" +
+                            //"-fx-border-color: black;" +
                             "-fx-border-radius: 2;"
             );
         else if (e.getName().equals("chatHypnotiseur"))
             root.setStyle(
                     "-fx-background-color: linear-gradient(to bottom right, #6A11CB, #2575FC); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
-                            "-fx-border-color: black;" +
+                            //"-fx-border-color: black;" +
                             "-fx-border-radius: 2;"
             );
         else if (e.getName().equals("chatJournaliste"))
             root.setStyle(
                     "-fx-background-color: linear-gradient(to bottom right, #FF007F, #7928CA); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
-                            "-fx-border-color: black;" +
+                            //"-fx-border-color: black;" +
                             "-fx-border-radius: 2;"
             );
     }
