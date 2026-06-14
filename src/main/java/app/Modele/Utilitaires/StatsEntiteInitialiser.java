@@ -743,17 +743,33 @@ public class StatsEntiteInitialiser {
                 10.,     //Range
                 0.,     //Damage
                 0.,     //FreqAtk
-                0.,     //Speed
+                1,     //taille
+                2,      //idPoids
+                100,    //id
         });
 
         statsLevels.add(new Object[]{
-                "Voiture",
+                "Conteneur",
                 150,    //Upgrade price
                 20.,     //Health   (+12)
                 20.,     //Range
                 0.,     //Damage
                 0.,     //FreqAtk
-                0.,     //Speed
+                1,     //taille
+                4,      //idPoids
+                101,    //id
+        });
+
+        statsLevels.add(new Object[]{
+                "Voiture",
+                300,    //Upgrade price
+                50.,     //Health   (+30)
+                40.,     //Range    (+20)
+                0.,     //Damage
+                0.,     //FreqAtk
+                2,     //taille
+                4,      //idPoids
+                102,    //id
         });
 
         statsLevels.add(new Object[]{
@@ -763,17 +779,9 @@ public class StatsEntiteInitialiser {
                 40.,     //Range    (+20)
                 0.,     //Damage
                 0.,     //FreqAtk
-                0.,     //Speed
-        });
-
-        statsLevels.add(new Object[]{
-                "Bus",
-                300,    //Upgrade price
-                50.,     //Health   (+30)
-                40.,     //Range    (+20)
-                0.,     //Damage
-                0.,     //FreqAtk
-                0.,     //Speed
+                2,     //taille
+                5,      //idPoids
+                103,    //id
         });
     }
 }
