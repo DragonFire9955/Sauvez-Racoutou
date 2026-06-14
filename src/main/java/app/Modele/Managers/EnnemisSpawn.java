@@ -9,18 +9,18 @@ public class EnnemisSpawn {
     public static double[] randomCoord(GameWorld w){
         double y, x;
         if (Math.random()<0.5){
-            y = Math.random()*w.getMap().length*((double) w.getTailleTile() /2);
+            y = Math.random()*w.getMap().length*(w.getTailleTile());
             if (Math.random()<0.5)
                 x=0;
             else
-                x=(w.getMap()[0].length-1)*((double) w.getTailleTile() /2);
+                x=(w.getMap()[0].length-1)*(w.getTailleTile());
         }
         else{
-            x = Math.random()*w.getMap()[0].length*((double) w.getTailleTile() /2);
+            x = Math.random()*w.getMap()[0].length*(w.getTailleTile());
             if (Math.random()<0.5)
                 y=0;
             else
-                y=(w.getMap().length-1)*((double) w.getTailleTile() /2);
+                y=(w.getMap().length-1)*(w.getTailleTile());
         }
         return new double[]{x, y};
     }
