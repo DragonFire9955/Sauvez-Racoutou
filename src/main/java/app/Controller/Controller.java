@@ -395,6 +395,7 @@ public class Controller implements Initializable {
         coinLabel.textProperty().bind(gameWorld.getTotalCoin().asString());
         waveLabel.textProperty().bind(gameWorld.getNumeroVagueProperty().asString());
         waveTimerLabel.textProperty().bind(gameWorld.getTempsActuelVagueProperty().asString().concat(" / ").concat(gameWorld.getDurreeVagueProperty().asString()));
+
     }
 
     private void afficherMapSelectionnee() {

@@ -21,12 +21,10 @@ public class GameWorld {
 
     private ObservableList<Animal> animauxList;
     private ObservableList<Barrage> barrageList;
-    //private BooleanProperty theEnd;
     private IntegerProperty theEnd;
     private final int tailleTile=64;
 
     private int[][] map;
-    //private Map<Double, Noeud> dijkRacoutou;
     private Map<Noeud, Noeud> dijkRacoutou2;
 
 
@@ -51,7 +49,6 @@ public class GameWorld {
         barrageList = FXCollections.observableArrayList();
         theEnd = new SimpleIntegerProperty(0);
 
-        //dijkRacoutou= new DeplacementDijkstra(tailleTile, map).calculerDistances(getTileRacoutou());
         dijkRacoutou2 = new DeplacementDijkstra(tailleTile, map).dijkstra(this.getRacoutou().getCoord());
 
         projectiles = FXCollections.observableArrayList();
@@ -64,13 +61,12 @@ public class GameWorld {
         numeroVague = new SimpleIntegerProperty(0);
 
         tempsActuelVague = new SimpleIntegerProperty(0);
-        //vagueActuelle = Vague.creerVague1(this);
-        //tempsVague = 0;
+
     }
 
 
     public void updateGW(double dt)  {
-        //if(getRacoutou() == null) theEnd.setValue(true);
+
         if(!perdue() && !gagne()){
             vagueManager(dt);
 
@@ -88,19 +84,6 @@ public class GameWorld {
             supprimerProjectilesMorts();
         }
     }
-/*
-    private void vagueManager(double dt) {
-
-        tempsVague = dt;
-        int tempsActuel = (int) tempsVague;
-
-        if (vagueActuelle.containsKey(tempsActuel)) {
-            animauxList.addAll(vagueActuelle.get(tempsActuel));
-            vagueActuelle.remove(tempsActuel);
-        }
-    }
-
- */
 
     private void vagueManager(double dt) {
 

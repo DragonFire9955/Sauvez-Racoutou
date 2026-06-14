@@ -77,6 +77,8 @@ public class InfoBulleListener {
         AnchorPane.setLeftAnchor(entityNameLabel, 14.0);
         AnchorPane.setTopAnchor(entityNameLabel, 14.0);
 
+        root.getChildren().addAll(entityImageView, entityNameLabel);
+
         //Zone de sélection de cible
         if( e instanceof Animal) {
             List<String> target = new ArrayList<>();
@@ -294,8 +296,6 @@ public class InfoBulleListener {
 
 
         root.getChildren().addAll(
-                entityImageView,
-                entityNameLabel,
                 sellBox,
                 upgradePane,
                 upgradeImageView,
