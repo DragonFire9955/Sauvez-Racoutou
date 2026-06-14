@@ -1,16 +1,11 @@
 package app.Controller.Listener;
 
 import app.Modele.Entites.Animaux.Animal;
-import app.Modele.Entites.Animaux.Specialise.Buffer.Buffer;
 import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
-import app.Modele.Entites.Animaux.Specialise.Specialise;
-import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
-import app.Modele.Managers.EnnemisSpawn;
 import app.Vue.EntiteVue;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -25,10 +20,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class InfoBulleListener {
 
@@ -58,7 +50,7 @@ public class InfoBulleListener {
     public void ajoutZoneDescription() {
 
         root.setId("infoBulle"+e.getId());
-        root.setPrefSize(260, 200);
+        root.setPrefSize(265, 205);
         root.setStyle(
                 "-fx-border-radius: 15;"+
                 "-fx-border-style: none;"
@@ -152,6 +144,12 @@ public class InfoBulleListener {
         Button sellButton = new Button();
         sellButton.setPrefSize(73, 35);
         sellButton.setText("Sell : " + qtiteRevente);
+        sellButton.setStyle(
+                "-fx-border-radius: 5;"+
+                "-fx-border-style: 2;"+
+                "-fx-background-color: #FFFCF2"
+        );
+
         sellButton.setOnMouseClicked(event -> {
             gameWorld.setTotalCoin(gameWorld.getTotalCoin().getValue() + qtiteRevente);
             carte.getChildren().remove(root);
@@ -253,7 +251,15 @@ public class InfoBulleListener {
         //Zone des attributs (où on voit les améliorations concrètes)
         VBox attributesVBox = new VBox();
 
-        attributesVBox.setPadding(new Insets(10));
+        attributesVBox.setPadding(new Insets(5));
+        /*
+        attributesVBox.setStyle(
+                "-fx-border-radius: 30;"+
+                "-fx-margin: 5;"
+
+        );
+
+         */
 
         updateDescriptionStatLabel(attributesVBox);
 
@@ -261,12 +267,13 @@ public class InfoBulleListener {
         attributesScrollPane.setPrefSize(127, 109);
         attributesScrollPane.setLayoutX(134);
         attributesScrollPane.setLayoutY(88);
-
+        HBox.setMargin(attributesScrollPane,  new Insets(0, 0, 5, 0));
         attributesScrollPane.setStyle(
-                "-fx-border-radius: 15;"
+                "-fx-background-radius: 10;"
         );
-
-
+        Platform.runLater(() -> attributesScrollPane.lookup(".viewport").setStyle(
+                "-fx-background-radius: 10;")
+        );
 
 
         //Action du boutton pr améliorer
@@ -386,13 +393,20 @@ public class InfoBulleListener {
                 Object actualStat = e.getStatsLevels().get(e.getLevel())[i + 2];
                 Object newStat = e.getStatsLevels().get((e.getLevel()) + 1)[i + 2];
 
-                if (!actualStat.equals(newStat))
-                    attributesVBox.getChildren().add(new Label(
-                            getStatName(i) +
-                            e.getStatsLevels().get(e.getLevel())[i + 2].toString()
-                                    + " -> "
-                                    + e.getStatsLevels().get((e.getLevel()) + 1)[i + 2].toString()
-                    ));
+                if (!actualStat.equals(newStat)) {
+                    Label stats = new Label(getStatName(i)
+                            + e.getStatsLevels().get(e.getLevel())[i + 2].toString()
+                            + " -> "
+                            + e.getStatsLevels().get((e.getLevel()) + 1)[i + 2].toString());
+
+                    stats.setStyle(
+                            "-fx-background-color: none;"
+                    );
+
+
+
+                    attributesVBox.getChildren().add(stats);
+                }
             }
         }
         if (e.getLevel() >= e.getStatsLevels().size()-1) {

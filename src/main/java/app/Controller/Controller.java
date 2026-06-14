@@ -4,8 +4,6 @@ import app.Controller.Listener.EntiteHealthListener;
 import app.Controller.Listener.EntitesListListener;
 import app.Controller.Listener.*;
 import app.Modele.AudioManager;
-import app.Modele.Entites.Animaux.Animal;
-import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
@@ -23,12 +21,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -44,8 +38,6 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import static app.Controller.MenuController.*;
@@ -530,7 +522,7 @@ public class Controller implements Initializable {
     public void lancerJeu() throws IOException {
 
         Pane jeu = FXMLLoader.load(MenuController.class.getResource("/app/main.fxml"));
-        applicationPane.getScene().setRoot(jeu);
+                applicationPane.getScene().setRoot(jeu);
         isGameStarted.setValue(true);
 
     }
