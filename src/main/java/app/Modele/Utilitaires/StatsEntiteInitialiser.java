@@ -24,7 +24,7 @@ public class StatsEntiteInitialiser {
             case "pouletClassique":
                 initStatsPouletClassique(statsLevels);
                 break;
-            case "pouletRolleur":
+            case "pouletRoller":
                 initStatsPouletRolleur(statsLevels);
                 break;
 // SPECIALISES

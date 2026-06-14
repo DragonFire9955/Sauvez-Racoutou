@@ -79,7 +79,6 @@ public class Buffer extends Specialise {
     @Override
     public Entite getDirection() {
         if(getAnimauxCopainsClasses().isEmpty()) {
-            System.out.println("pas de cops");
             return null;
         }
         return getAnimauxCopainsClasses().getFirst();

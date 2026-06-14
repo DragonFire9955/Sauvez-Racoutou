@@ -38,7 +38,7 @@ public class EntitesManager {
     }
 
     public static Animal creerPouletRolleur(GameWorld w) {
-        return new Animal("pouletRolleur", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("pouletRolleur"), false);
+        return new Animal("pouletRoller", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("pouletRoller"), false);
     }
 
     // STUNNER
@@ -155,7 +155,7 @@ public class EntitesManager {
         if(!dijkstra.containsKey(dir)){
             cible= racoutou.getCoord();
             //Si déjà proche de racoutou: stop
-            if (Utilitaire.distance(a.getX(), a.getY(), racoutou.getX(), racoutou.getY()) < 2)
+            if (Utilitaire.distance(a.getX(), a.getY(), racoutou.getX(), racoutou.getY()) < (a.getRange()*.9))
                 return;
         }
         else if(dijkstra.get(dir) ==null) { //prochaine tuile = racoutou

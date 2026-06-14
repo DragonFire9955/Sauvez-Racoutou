@@ -31,26 +31,30 @@ public class EntiteHealthListener implements ChangeListener<Number> {
 
         if (newV.doubleValue() < oldV.doubleValue()) {
             Node entite = carte.lookup("#" + e.getId());
-            ((ImageView) entite).setImage(EntiteVue.appliquerBonneImageGif(e));
+            if( !((ImageView) entite).getImage().getUrl().endsWith("degat.gif")) {
+                ((ImageView) entite).setImage(EntiteVue.appliquerBonneImageGif(e));
 
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    ((ImageView) entite).setImage(EntiteVue.appliquerBonneImage(e, false).getImage());
-                }
-            }, 900);
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        ((ImageView) entite).setImage(EntiteVue.appliquerBonneImage(e, false).getImage());
+                    }
+                }, 900);
+            }
         } else if (newV.doubleValue() > oldV.doubleValue()) {
             Node entite = carte.lookup("#" + e.getId());
-            ((ImageView) entite).setImage(EntiteVue.appliquerImageSoin(e));
+            if( !((ImageView) entite).getImage().getUrl().endsWith("soin.gif")) {
+                ((ImageView) entite).setImage(EntiteVue.appliquerImageSoin(e));
 
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    ((ImageView) entite).setImage(EntiteVue.appliquerBonneImage(e, false).getImage());
-                }
-            }, 1000);
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        ((ImageView) entite).setImage(EntiteVue.appliquerBonneImage(e, false).getImage());
+                    }
+                }, 1000);
+            }
         }
     }
 }

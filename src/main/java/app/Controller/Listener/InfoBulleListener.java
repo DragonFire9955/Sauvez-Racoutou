@@ -252,14 +252,7 @@ public class InfoBulleListener {
         VBox attributesVBox = new VBox();
 
         attributesVBox.setPadding(new Insets(5));
-        /*
-        attributesVBox.setStyle(
-                "-fx-border-radius: 30;"+
-                "-fx-margin: 5;"
 
-        );
-
-         */
 
         updateDescriptionStatLabel(attributesVBox);
 

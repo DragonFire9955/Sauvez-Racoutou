@@ -11,7 +11,11 @@ public class DeplacementMethodes {
     //On ajoute les coûts pour chaque id (donc chaque image)
     public static int getCout(int[][] map, int i, int j) {
 
+        if (i < 0 || j < 0 || i >= map.length || j >= map[i].length)
+            return 9999;
+
         int type = map[i][j];
+
         if(type>=20)
             return 9999;
         else {

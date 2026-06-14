@@ -1,18 +1,18 @@
-package app.Modele;
+package app.Modele.Managers;
 
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
-import app.Modele.Managers.EntitesManager;
+import app.Modele.GameWorld;
 
 import java.util.*;
 
-public class Vague {
+public class VagueManager {
 
     private static TreeMap<Integer, List<Animal>> v1(GameWorld w) {
         TreeMap<Integer, List<Animal>> v1 = new TreeMap<>();
 
         Map<String, Integer> vv1 = new HashMap<>();
-        vv1.put("pouletClassique", 3);
+        vv1.put("pouletRoller", 3);
 
         Map<String, Integer> vv2 = new HashMap<>();
         vv2.put("pouletClassique", 4);
@@ -261,7 +261,7 @@ public class Vague {
                 a = new PouletBouclier(w);
                 break;
             case "pouletRoller":
-                a = new PouletBouclier(w);
+                a = EntitesManager.creerPouletRolleur(w);
                 break;
             case "pouletProjectible":
                 a = new PouletBouclier(w);

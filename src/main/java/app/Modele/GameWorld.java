@@ -6,6 +6,7 @@ import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
+import app.Modele.Managers.VagueManager;
 import app.Modele.Projectile.ProjectileSimple;
 import app.Modele.Utilitaires.Noeud;
 import app.Modele.Utilitaires.StatsEntiteInitialiser;
@@ -40,22 +41,24 @@ public class GameWorld {
 
     private IntegerProperty totalCoin;
 
-    public GameWorld(){
+    public GameWorld(int[][] map){
 
-        map = Terrain.genererMap();
+        this.map = map;for (int i = 0; i < map.length; i++) {
+            System.out.println(i + " : " + map[i].length);
+        }
         this.animauxList = FXCollections.observableList(new ArrayList<>());
         this.animauxList.add(new Racoutou(this, StatsEntiteInitialiser.getStatsLevels("racoutou")));
         barrageList = FXCollections.observableArrayList();
-        theEnd= new SimpleIntegerProperty(0);
+        theEnd = new SimpleIntegerProperty(0);
 
         //dijkRacoutou= new DeplacementDijkstra(tailleTile, map).calculerDistances(getTileRacoutou());
-        dijkRacoutou2= new DeplacementDijkstra(tailleTile, map).dijkstra(this.getRacoutou().getCoord());
+        dijkRacoutou2 = new DeplacementDijkstra(tailleTile, map).dijkstra(this.getRacoutou().getCoord());
 
         projectiles = FXCollections.observableArrayList();
 
-        totalCoin = new SimpleIntegerProperty(0);
+        totalCoin = new SimpleIntegerProperty(50);
 
-        ensemblesVagues = Vague.ensembleVagues(this);
+        ensemblesVagues = VagueManager.ensembleVagues(this);
         durreeVague = new SimpleIntegerProperty(0);
         debutVague=0;
         numeroVague = new SimpleIntegerProperty(0);
@@ -216,6 +219,9 @@ public class GameWorld {
     public int[][] getMap() {
         return map;
     }
+    public void setMap(int[][] map) {
+        this.map = map;
+    }
 
     public int getTailleTile(){
         return tailleTile;
@@ -257,10 +263,6 @@ public class GameWorld {
 
     public Map<Noeud, Noeud> getDijkRacoutou2() {
         return dijkRacoutou2;
-    }
-
-    public void setMap(int[][] map) {
-        this.map = map;
     }
 
     public IntegerProperty getNumeroVagueProperty() {
