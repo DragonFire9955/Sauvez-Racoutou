@@ -40,9 +40,9 @@ public class GameWorld {
 
     private IntegerProperty totalCoin;
 
-    public GameWorld(){
+    public GameWorld(int[][] map){
 
-        map = Terrain.genererMap();
+        this.map = map;
         this.animauxList = FXCollections.observableList(new ArrayList<>());
         this.animauxList.add(new Racoutou(this, StatsEntiteInitialiser.getStatsLevels("racoutou")));
         barrageList = FXCollections.observableArrayList();
@@ -53,7 +53,7 @@ public class GameWorld {
 
         projectiles = FXCollections.observableArrayList();
 
-        totalCoin = new SimpleIntegerProperty(0);
+        totalCoin = new SimpleIntegerProperty(50);
 
         ensemblesVagues = Vague.ensembleVagues(this);
         durreeVague = new SimpleIntegerProperty(0);
@@ -212,6 +212,9 @@ public class GameWorld {
     public int[][] getMap() {
         return map;
     }
+    public void setMap(int[][] map) {
+        this.map = map;
+    }
 
     public int getTailleTile(){
         return tailleTile;
@@ -253,10 +256,6 @@ public class GameWorld {
 
     public Map<Noeud, Noeud> getDijkRacoutou2() {
         return dijkRacoutou2;
-    }
-
-    public void setMap(int[][] map) {
-        this.map = map;
     }
 
     public IntegerProperty getNumeroVagueProperty() {

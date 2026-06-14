@@ -14,6 +14,7 @@ import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.EntitesManager;
 import app.Modele.Managers.EnnemisSpawn;
+import app.Modele.Managers.MapManager;
 import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Vue.CameraManager;
 import app.Vue.EntiteVue;
@@ -21,7 +22,9 @@ import app.Vue.ImageSetter;
 import app.Vue.TerrainVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,9 +45,12 @@ import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -57,6 +63,30 @@ public class Controller implements Initializable {
     @FXML private Pane gamePane;
     @FXML private Pane carte;
     @FXML private TilePane tileMap;
+
+    //Sélection de la map + boutton pour démarrer
+    @FXML private Pane mapSelectorPane;
+    @FXML private ImageView mapPrevisualisationImageView;   //Le grand en fond
+    @FXML private ImageView iconeChoixMapImageView;     //L'icone au milieu
+    @FXML private Button selecteurMapGaucheButton;
+    @FXML private Button selecteurMapDroitButton;
+    @FXML private Label mapNameLabel;
+    @FXML private Label difficultyLabel;
+    private final MapManager mapManager = new MapManager();
+    private int indiceMap = 0;
+    private final List<Image[]> mapPrevisualisationAndIconsImages = List.of(
+            new Image[]{new Image("/app/maps/images/map1Preview.jpg"), new Image("/app/maps/images/map1Icon.png")},
+            new Image[]{new Image("/app/maps/images/map2Preview.jpg"), new Image("/app/maps/images/map2Icon.png")}
+    );
+    private final List<String> nomsMaps = List.of(
+            "Ville",
+            "Prairie"
+    );
+
+    private final List<String> difficultesMaps = List.of(
+            "Facile",
+            "Difficile"
+    );
 
     @FXML private Button poubelle;
     @FXML private Label poubellePrixLabel;
@@ -106,7 +136,6 @@ public class Controller implements Initializable {
     private boolean enPause = false;
 
     //MODELE
-    private int[][] map;
     private GameWorld gameWorld;
 
     //CONTROLEUR
@@ -115,6 +144,7 @@ public class Controller implements Initializable {
     private IntegerProperty temps = new SimpleIntegerProperty(0);
 
     //Listener
+    private BooleanProperty isGameStarted = new SimpleBooleanProperty(false);
     private ControleurDeClic clic;
 
     @Override
@@ -122,112 +152,27 @@ public class Controller implements Initializable {
 
         initButtonsPlacement();
 
-        gameWorld = new GameWorld();
-        //IMAGE DE RACOUTOU
-        initRacoutou();
-        gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
-        gameWorld.getBarrage().addListener(new EntitesListListener(carte, gameWorld));
-        this.map = gameWorld.getMap();
-
+        //Init terrain
         terrainVue = new TerrainVue();
         terrainVue.delimitationMap(tileMap);
 
-        terrainVue.remplirMap(tileMap, map);
-
-        DragAndDrop dragImage = new DragAndDrop();
-        dragImage.drag(poubelle);
-        dragImage.drag(chatClassique);
-        dragImage.drag(chatMedecin);
-        dragImage.drag(chatJournaliste);
-        dragImage.drag(chatScientifique);
-        dragImage.drag(chatCuisinier);
-        dragImage.drag(pouletIGPN);
-        dragImage.drag(chatHypnotiseur);
-
-        dragImage.survole(tileMap);
-
-        //drop
-        tileMap.setOnDragDropped(e -> { //réagit quand la souris relache
-            Dragboard db = e.getDragboard();
-            int id = Integer.parseInt(db.getString());
-
-            //coordonnées en case
-            int colonne = (int) (e.getX() / gameWorld.getTailleTile());
-            int ligne = (int) (e.getY() / gameWorld.getTailleTile());
-
-            clic.placerStructure(ligne, colonne, "poubelle");
-
-            e.consume();
-            gamePane.requestFocus();
-        });
-
-        //Initialisation des Managers
-        gameWorld.getTheEnd().addListener((obs, oldV, newV) -> {
-
-            if(newV.intValue()>0){
-                imgFinJeu.setImage(new Image("app/images/gagne.gif"));
-            } else if (newV.intValue()<0) {
-                imgFinJeu.setImage(new Image("app/images/gif/perdue.gif"));
-            }
-            imgFinJeu.setFitWidth(300);
-            imgFinJeu.setFitHeight(300);
-            imgFinJeu.setPreserveRatio(true);
-            imgFinJeu.setSmooth(true);
-            imgFinJeu.setCache(true);
-            finJeu.setVisible(true);
-            isGameStarted.setValue(false);
-        });
-        /*
-        gameWorld.getTheEnd().addListener((obs, oldV, newV) -> {
-            if(newV == true) {
-                isGameStarted.setValue(false);
-                System.out.println(isGameStarted);
-                applicationPane.getScene().setRoot(menu);
-                System.out.println(applicationPane);
-            }
-        });
-
-         */
+        //Init camera
         cameraManager = new CameraManager(gamePane, carte, tileMap);
         cameraManager.initialiserCamera();
 
-        //Observable eventListener
-        clic = new ControleurDeClic(carte, gamePane, gameWorld, terrainVue);
-        carte.addEventHandler(MouseEvent.MOUSE_MOVED, clic);
-        carte.addEventHandler(MouseEvent.MOUSE_CLICKED, clic);
+        //Gestion sélecteur map
+        isApplicationPlayButtonPressed.addListener((observableValue, oldV, newV) -> {
 
-        //Binding du label coin, à déplacer au bon endroit
-        coinLabel.textProperty().bind(gameWorld.getTotalCoin().asString());
+            if (newV) {
 
-        //Binding label vague + timerVague
+                indiceMap = 0;
 
-        waveLabel.textProperty().bind(gameWorld.getNumeroVagueProperty().asString());
+                mapSelectorPane.setVisible(true);
+                afficherMapSelectionnee();
+            }
+        });
 
-
-
-        waveTimerLabel.textProperty().bind(gameWorld.getTempsActuelVagueProperty().asString().concat(" / ").concat(gameWorld.getDurreeVagueProperty().asString()));
-
-
-        //TEMPORAIRE, A DELET
-        for (Entite e : gameWorld.getAnimaux()) {
-            e.getHealthProperty().addListener((observableValue, oldV, newV) -> {
-                if (oldV.doubleValue() < newV.doubleValue()) {
-                    Node entite = carte.lookup("#" + e.getId());
-                    //((ImageView) entite).setImage("URL NOUVELLE IMAGE AVEC DMG");
-                }
-            });
-        }
-
-        /*
-        gameWorld.getAnimaux().getFirst().getAliveProperty().addListener((observable, oldValue, newValue) -> {
-                    gamePane.getScene().setRoot(menu);
-                    isGameStarted.setValue(false);
-                }
-        );
-
-         */
-
-        System.out.println(isGameStarted);
+        //Gestion lancement / arrêt du jeu
         isGameStarted.addListener(((observableValue, aBoolean, t1) -> {
 
             if (t1 == true) {
@@ -237,7 +182,7 @@ public class Controller implements Initializable {
                 gameLoop.stop();
         }));
 
-
+        //Gestion Clavier
         applicationPane.sceneProperty().addListener((observable, oldValue, newValue) -> {
             gamePane.requestFocus();
             gamePane.setFocusTraversable(true);
@@ -256,9 +201,21 @@ public class Controller implements Initializable {
             });
         });
 
-        //PROJECTILES
-        gameWorld.getProjectiles().addListener(new ProjectileListener(carte));
+        //Audio
+        AudioManager.getInstance().jouerMusique("/app/audio/epic.wav");
 
+        imageSonOn = ImageSetter.sonOn;
+        imageSonOff = ImageSetter.sonOff;
+
+        AudioManager.getInstance().sonActiveProperty().addListener((obs, ancien, estActive) -> {
+            if (estActive) {
+                imgSon.setImage(imageSonOn);
+            } else {
+                imgSon.setImage(imageSonOff);
+            }
+        });
+
+        //Résolutions
         comboResolution.getItems().addAll(
                 "1280 x 720",
                 "1366 x 768",
@@ -282,19 +239,43 @@ public class Controller implements Initializable {
             applicationPane.getScene().getWindow().setHeight(hauteur);
 
         });
+    }
 
-        AudioManager.getInstance().jouerMusique("/app/audio/epic.wav");
+    @FXML private void gameStartButtonPressed() {
 
-        imageSonOn = ImageSetter.sonOn;
-        imageSonOff = ImageSetter.sonOff;
+        int[][] mapChoisie = mapManager.getMaps().get(indiceMap);
 
-        AudioManager.getInstance().sonActiveProperty().addListener((obs, ancien, estActive) -> {
-            if (estActive) {
-                imgSon.setImage(imageSonOn);
-            } else {
-                imgSon.setImage(imageSonOff);
-            }
-        });
+        gameWorld = new GameWorld(mapChoisie);
+
+        terrainVue.remplirMap(tileMap, mapChoisie);
+
+        initialiserGameWorld();
+
+        initAnimation();
+
+        mapSelectorPane.setVisible(false);
+
+        isGameStarted.setValue(true);
+    }
+
+    @FXML void mapChangeLeft() {
+
+        indiceMap--;
+
+        if (indiceMap < 0)
+            indiceMap = mapPrevisualisationAndIconsImages.size() - 1;
+
+        afficherMapSelectionnee();
+    }
+
+    @FXML void mapChangeRight() {
+
+        indiceMap++;
+
+        if (indiceMap >= mapPrevisualisationAndIconsImages.size())
+            indiceMap = 0;
+
+        afficherMapSelectionnee();
     }
 
     @FXML
@@ -306,6 +287,9 @@ public class Controller implements Initializable {
 
     @FXML
     private void pause() {
+
+        if (gameWorld == null) return;
+
         if (enPause) {
             gameLoop.play();
             menuPause.setVisible(false);
@@ -339,83 +323,118 @@ public class Controller implements Initializable {
 
     @FXML
     private void redemarrerJeu() {
+
         gameLoop.stop();
-        temps.setValue(0);
+
         enPause = false;
         menuPause.setVisible(false);
         finJeu.setVisible(false);
 
-        gameWorld.getAnimaux().clear();
-        gameWorld.getBarrage().clear();
-        gameWorld.getTotalCoin().set(50);
+        //On reset le temps de la gameLoop
+        temps.setValue(0);
 
-        //carte.getChildren().removeIf(node -> node != tileMap);
+        //Reset du monde
+        int[][] mapChoisie = mapManager.getMaps().get(indiceMap);
+        gameWorld = new GameWorld(mapChoisie);
 
-        //supprime si l'element est différent de la tileMap (on garde juste elle)
+        //Reset du visuel
+        carte.getChildren().clear();
+        tileMap.getChildren().clear();
 
+        //Reconstru du terrain
+        terrainVue = new TerrainVue();
+        terrainVue.delimitationMap(tileMap);
+        terrainVue.remplirMap(tileMap, mapChoisie);
 
-        gameWorld.getTheEnd().addListener((obs, oldV, newV) -> {
-            if(newV.intValue() > 0){
-                imgFinJeu.setImage(new Image("app/images/gagne.gif"));
-            } else if (newV.intValue() < 0) {
-                imgFinJeu.setImage(new Image("app/images/gif/perdue.gif"));
-            }
-            imgFinJeu.setFitWidth(300);
-            imgFinJeu.setFitHeight(300);
-            imgFinJeu.setPreserveRatio(true);
-            imgFinJeu.setSmooth(true);
-            imgFinJeu.setCache(true);
-            finJeu.setVisible(true);
-            isGameStarted.setValue(false);
-        });
+        //Reconstru camera
+        cameraManager = new CameraManager(gamePane, carte, tileMap);
+        cameraManager.initialiserCamera();
 
-        gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
+        //Reset listener et tt
+        initialiserGameWorld();
 
-        initRacoutou();
-
+        //Reposition camera
         cameraManager.centrerCarte();
         cameraManager.verifierLimitesCamera();
 
         initAnimation();
         gameLoop.play();
-        gamePane.requestFocus();
     }
 
+    private void initialiserGameWorld() {
 
+        initRacoutou();
 
-    /*
-    @FXML
-    private void placerPoubelle(){
-        clic.setModePlacement(true);
-        clic.setIdEntite(100);
+        gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
+        gameWorld.getBarrage().addListener(new EntitesListListener(carte, gameWorld));
+        gameWorld.getProjectiles().addListener(new ProjectileListener(carte));
+
+        gameWorld.getTheEnd().addListener((obs, oldV, newV) -> {
+
+            if (newV.intValue() > 0)
+                imgFinJeu.setImage(new Image(getClass().getResource("/app/images/gagne.gif").toExternalForm()));
+            else if (newV.intValue() < 0)
+                imgFinJeu.setImage(new Image(getClass().getResource("/app/images/perdue.gif").toExternalForm()));
+
+            finJeu.setVisible(true);
+            isGameStarted.setValue(false);
+        });
+
+        clic = new ControleurDeClic(
+                carte,
+                gamePane,
+                gameWorld,
+                terrainVue
+        );
+
+        carte.addEventHandler(MouseEvent.MOUSE_MOVED, clic);
+        carte.addEventHandler(MouseEvent.MOUSE_CLICKED, clic);
+
+        initialiserDragAndDrop();
+
+        coinLabel.textProperty().bind(gameWorld.getTotalCoin().asString());
+        waveLabel.textProperty().bind(gameWorld.getNumeroVagueProperty().asString());
+        waveTimerLabel.textProperty().bind(gameWorld.getTempsActuelVagueProperty().asString().concat(" / ").concat(gameWorld.getDurreeVagueProperty().asString()));
     }
 
-    @FXML
-    private void placerChatClassique() {
-        clic.setModePlacement(true);
-        clic.setIdEntite(101);
+    private void afficherMapSelectionnee() {
+
+        mapPrevisualisationImageView.setImage(mapPrevisualisationAndIconsImages.get(indiceMap)[0]);
+        iconeChoixMapImageView.setImage(mapPrevisualisationAndIconsImages.get(indiceMap)[1]);
+
+        mapNameLabel.setText(nomsMaps.get(indiceMap));
+        difficultyLabel.setText(difficultesMaps.get(indiceMap));
     }
 
-    @FXML
-    private void placerChatMedecin() {
-        clic.setModePlacement(true);
-        clic.setIdEntite(102);
+    public void initialiserDragAndDrop() {
+
+        DragAndDrop dragImage = new DragAndDrop();
+        dragImage.drag(poubelle);
+        dragImage.drag(chatClassique);
+        dragImage.drag(chatMedecin);
+        dragImage.drag(chatJournaliste);
+        dragImage.drag(chatScientifique);
+        dragImage.drag(chatCuisinier);
+        dragImage.drag(pouletIGPN);
+        dragImage.drag(chatHypnotiseur);
+
+        dragImage.survole(tileMap);
+
+        //drop
+        tileMap.setOnDragDropped(e -> { //réagit quand la souris relache
+            Dragboard db = e.getDragboard();
+            int id = Integer.parseInt(db.getString());
+
+            //coordonnées en case
+            int colonne = (int) (e.getX() / gameWorld.getTailleTile());
+            int ligne = (int) (e.getY() / gameWorld.getTailleTile());
+
+            clic.placerStructure(ligne, colonne, "poubelle");
+
+            e.consume();
+            gamePane.requestFocus();
+        });
     }
-
-    @FXML
-    private void placerChatJournaliste() {
-        clic.setModePlacement(true);
-        clic.setIdEntite(103);
-    }
-
-    @FXML
-    private void placerChatScientifique() {
-        clic.setModePlacement(true);
-        clic.setIdEntite(104);
-    }
-
-     */
-
 
     private void initAnimation() {
         gameLoop = new Timeline();
@@ -547,6 +566,9 @@ public class Controller implements Initializable {
          */
 
         EventHandler<ActionEvent> boutonsshop = actionEvent -> {
+
+            if (gameWorld == null) return;  //Si on a pas encore lancé la partie pr éviter les affichages d'erreur de "clic est null !"
+
             clic.setModePlacement(true);
             clic.setName(((Button) (actionEvent.getSource())).getId());
         };
