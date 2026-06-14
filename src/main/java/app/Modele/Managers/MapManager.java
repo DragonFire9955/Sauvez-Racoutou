@@ -61,6 +61,7 @@ public class MapManager {
 
             while ((ligne = br.readLine()) != null)
                 lignes.add(Arrays.stream(ligne.split("\\s+")).mapToInt(Integer::parseInt).toArray());
+
         }
 
         return lignes.toArray(new int[0][]);

@@ -42,14 +42,16 @@ public class GameWorld {
 
     public GameWorld(int[][] map){
 
-        this.map = map;
+        this.map = map;for (int i = 0; i < map.length; i++) {
+            System.out.println(i + " : " + map[i].length);
+        }
         this.animauxList = FXCollections.observableList(new ArrayList<>());
         this.animauxList.add(new Racoutou(this, StatsEntiteInitialiser.getStatsLevels("racoutou")));
         barrageList = FXCollections.observableArrayList();
-        theEnd= new SimpleIntegerProperty(0);
+        theEnd = new SimpleIntegerProperty(0);
 
         //dijkRacoutou= new DeplacementDijkstra(tailleTile, map).calculerDistances(getTileRacoutou());
-        dijkRacoutou2= new DeplacementDijkstra(tailleTile, map).dijkstra(this.getRacoutou().getCoord());
+        dijkRacoutou2 = new DeplacementDijkstra(tailleTile, map).dijkstra(this.getRacoutou().getCoord());
 
         projectiles = FXCollections.observableArrayList();
 

@@ -266,9 +266,6 @@ public class InfoBulleListener {
                 "-fx-border-radius: 15;"
         );
 
-
-
-
         //Action du boutton pr améliorer
         buyUpgradeButton.setOnMouseClicked(event -> {
 
