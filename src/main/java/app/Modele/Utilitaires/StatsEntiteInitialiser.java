@@ -779,7 +779,7 @@ public class StatsEntiteInitialiser {
                 40.,     //Range    (+20)
                 0.,     //Damage
                 0.,     //FreqAtk
-                3,     //taille
+                2,     //taille
                 5,      //idPoids
                 103,    //id
         });

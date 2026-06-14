@@ -50,7 +50,7 @@ public class TerrainVue {
                 cases.setImage(ImageSetter.placeCoteD);
                 break;
             case 19:
-                cases.setImage(ImageSetter.base);
+                cases.setImage(ImageSetter.placeCentre);
                 break;
 
         // BATIMENTS
