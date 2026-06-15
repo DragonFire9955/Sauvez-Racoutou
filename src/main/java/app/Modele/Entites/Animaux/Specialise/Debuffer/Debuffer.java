@@ -22,14 +22,14 @@ public abstract class Debuffer extends Specialise {
     private double chrono;
 
 
-    public Debuffer(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
+    public Debuffer(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, int actualLevel, boolean allie) {
 
-        super(name, coord, w, statsLevels, allie);
+        super(name, coord, w, statsLevels, actualLevel, allie);
 
-        this.rangeDebuff = (double) statsLevels.get(0)[7];
-        this.tDebuff = (double) statsLevels.get(0)[8];
-        this.tempsRecup = (double) statsLevels.get(0)[9];
-        nbVictimes = (int) statsLevels.get(0)[10];
+        this.rangeDebuff = (double) statsLevels.get(actualLevel)[7];
+        this.tDebuff = (double) statsLevels.get(actualLevel)[8];
+        this.tempsRecup = (double) statsLevels.get(actualLevel)[9];
+        nbVictimes = (int) statsLevels.get(actualLevel)[10];
 
         vInitial=super.getVitesse();
 

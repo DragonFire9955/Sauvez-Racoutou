@@ -15,7 +15,7 @@ public class PouletProjectible extends Animal {
     private double projectileDmg;
 
     public PouletProjectible(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
-        super(name, coord, w, statsLevels, allie);
+        super(name, coord, w, statsLevels, 0, allie);
 
         cooldown = 0;
         initVit = getVitesse();

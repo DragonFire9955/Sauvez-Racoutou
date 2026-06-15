@@ -233,21 +233,26 @@ public class InfoBulleListener {
         );
 
         //Image upgrade
-        ImageView upgradeImageView = new ImageView(
-                new Image("app/images/"+ e.getName()+"/niv"+(e.getLevel()+1)+"/img.png")
-        );
+        ImageView upgradeImageView = new ImageView();
+        if (e.getLevel() == 3) {
 
+            buyUpgradeButton.setDisable(true);
+            upgradeImageView.setImage(null);
+            upgradeBox.setStyle("-fx-background-color: darkgrey");
+        }else {
+            upgradeImageView.setImage(new Image("app/images/"+ e.getName()+"/niv"+(e.getLevel()+1)+"/img.png"));
 
+            upgradeImageView.setFitWidth(38);
+            upgradeImageView.setFitHeight(38);
+            upgradeImageView.setPreserveRatio(true);
+            upgradeImageView.setLayoutX(133);
+            upgradeImageView.setLayoutY(8);
+            upgradeImageView.setMouseTransparent(true);
 
-        upgradeImageView.setFitWidth(38);
-        upgradeImageView.setFitHeight(38);
-        upgradeImageView.setPreserveRatio(true);
-        upgradeImageView.setLayoutX(133);
-        upgradeImageView.setLayoutY(8);
+        }
 
         //On fait en sorte que le boutton d'achat soit clickable de partout
         upgradeBox.setMouseTransparent(true);
-        upgradeImageView.setMouseTransparent(true);
 
         //Et on ajoute tout ça au StackPane
         upgradePane.getChildren().addAll(

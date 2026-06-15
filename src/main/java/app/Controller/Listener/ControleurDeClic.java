@@ -84,8 +84,6 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
         int colonne = (int) (e.getX() / tilesSize);
         int ligne = (int) (e.getY() / tilesSize);
 
-        System.out.println(name + " taille " + tailleMaxEntite);
-
         if (colonne < 0 || ligne < 0) {
             highlight.setVisible(false);
             return;
@@ -111,7 +109,7 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
 
     public boolean placementPossible(int ligne, int colonne, String nom){
         boolean possible;
-        int prixStructure = (int) StatsEntiteInitialiser.getStatsLevels(nom).getFirst()[1];
+        int prixStructure = EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(nom), name);
 
         // Solde insuffisant
         if(gameWorld.getTotalCoin().get() < prixStructure)
@@ -132,7 +130,7 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
                 i++;
             }
         }
-        System.out.println(nom + " "+possible);
+
         return possible;
     }
 
@@ -142,7 +140,7 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
             System.out.println(nom + " placement possible");
 
             // on déduit le prix
-            gameWorld.getTotalCoin().set(gameWorld.getTotalCoin().get() - (int) (StatsEntiteInitialiser.getStatsLevels(nom).getFirst()[1]));
+            gameWorld.getTotalCoin().set(gameWorld.getTotalCoin().get() - EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(nom), name));
 
             // pour avoir les coordonnées absolues de la case
             double posX = colonne * gameWorld.getTailleTile() + gameWorld.getTailleTile() * 0.5;

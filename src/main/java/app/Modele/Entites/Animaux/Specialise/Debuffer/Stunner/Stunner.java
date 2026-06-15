@@ -9,9 +9,9 @@ import java.util.List;
 public class Stunner extends Debuffer {
 
 
-    public Stunner(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
+    public Stunner(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, int actualLevel, boolean allie) {
 
-        super(name, coord, w, statsLevels, allie);
+        super(name, coord, w, statsLevels, actualLevel, allie);
     }
 
 

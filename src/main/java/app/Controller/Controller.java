@@ -60,6 +60,7 @@ public class Controller implements Initializable {
 
     // VUE
     @FXML private BorderPane applicationPane; // border pane parent de tous
+    @FXML private VBox shopVBox;
     @FXML private Pane gamePane;
     @FXML private Pane carte;
     @FXML private TilePane tileMap;
@@ -150,6 +151,8 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        EntitesManager.initNivBaseLorsAchat();
+
         initButtonsPlacement();
 
         //Init terrain
@@ -196,8 +199,6 @@ public class Controller implements Initializable {
                 } else if (event.getCode() == KeyCode.DELETE){
                     gameWorld.setTotalCoin((gameWorld.getTotalCoin().get() - 10));
                 }
-
-                remetEnnemiTest(event);
             });
         });
 
@@ -392,9 +393,9 @@ public class Controller implements Initializable {
 
         initialiserDragAndDrop();
 
-        coinLabel.textProperty().bind(gameWorld.getTotalCoin().asString());
-        waveLabel.textProperty().bind(gameWorld.getNumeroVagueProperty().asString());
-        waveTimerLabel.textProperty().bind(gameWorld.getTempsActuelVagueProperty().asString().concat(" / ").concat(gameWorld.getDurreeVagueProperty().asString()));
+        coinLabel.textProperty().bind((gameWorld.getTotalCoin().asString()));
+        waveLabel.textProperty().bind((gameWorld.getNumeroVagueProperty().asString()));
+        waveTimerLabel.textProperty().bind((gameWorld.getTempsActuelVagueProperty().asString().concat(" / ").concat(gameWorld.getDurreeVagueProperty().asString())));
 
     }
 
@@ -403,8 +404,8 @@ public class Controller implements Initializable {
         mapPrevisualisationImageView.setImage(mapPrevisualisationAndIconsImages.get(indiceMap)[0]);
         iconeChoixMapImageView.setImage(mapPrevisualisationAndIconsImages.get(indiceMap)[1]);
 
-        mapNameLabel.setText(nomsMaps.get(indiceMap));
-        difficultyLabel.setText(difficultesMaps.get(indiceMap));
+        mapNameLabel.setText(String.valueOf(nomsMaps.get(indiceMap)));
+        difficultyLabel.setText(String.valueOf(difficultesMaps.get(indiceMap)));
     }
 
     public void initialiserDragAndDrop() {
@@ -448,83 +449,6 @@ public class Controller implements Initializable {
         gameLoop.getKeyFrames().add(kf);
     }
 
-    //Fonction de test, uniquement pour les tests, A SUPPRIMER PLUS TARD
-    private void remetEnnemiTest(KeyEvent event) {
-
-        if (event.getCode() == KeyCode.E) {
-
-            System.out.println("nouveau PouletClassique");
-
-            gameWorld.ajouterAnimal(EntitesManager.creerPouletClassique(gameWorld));
-
-        } else if (event.getCode() == KeyCode.X) {
-
-            System.out.println("nouveau Racoutou");
-
-            gameWorld.ajouterAnimal(EntitesManager.creerPouletRolleur(gameWorld));
-        }
-        else if (event.getCode() == KeyCode.R) {
-
-            System.out.println("nouveau PouletBouclier");
-
-            gameWorld.ajouterAnimal(new PouletBouclier(gameWorld));
-        } else if (event.getCode() == KeyCode.M) {
-
-            System.out.println("nouveau PouletMenotte");
-
-            gameWorld.ajouterAnimal(EntitesManager.creerPouletMenotte(gameWorld));
-        } else if (event.getCode() == KeyCode.C) {
-
-            System.out.println("nouveau ChatClassique");
-
-            gameWorld.ajouterAnimal(EntitesManager.creerChatClassique(gameWorld));
-        } else if (event.getCode() == KeyCode.J) {
-
-            System.out.println("nouveau ChatJournaliste");
-
-            gameWorld.ajouterAnimal(EntitesManager.creerChatJournaliste(gameWorld));
-        } else if (event.getCode() == KeyCode.Y) {
-
-            System.out.println("nouveau scientifique");
-            gameWorld.ajouterAnimal(new ChatScientifique(gameWorld.getRacoutou().getCoord(), gameWorld));
-
-        } else if (event.getCode() == KeyCode.G) {
-
-            System.out.println("nouveau igpn");
-            gameWorld.ajouterAnimal(new PouletIGPN(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
-
-        }else if (event.getCode() == KeyCode.K) {
-
-            System.out.println("nouveau hypno");
-            gameWorld.ajouterAnimal(new ChatHypnotiseur(new double[]{gameWorld.getRacoutou().getX()+20, gameWorld.getRacoutou().getY()-20} , gameWorld));
-
-        } else if (event.getCode() == KeyCode.H) {
-
-            System.out.println("nouveau medecin");
-            gameWorld.ajouterAnimal(EntitesManager.creerChatMedecin(gameWorld));
-
-        } else if (event.getCode() == KeyCode.B) {
-
-            System.out.println("nouveau ChatCuisinier");
-            gameWorld.ajouterAnimal(EntitesManager.creerChatCuisinier(gameWorld));
-
-        }else if (event.getCode() == KeyCode.W) {
-
-            System.out.println("nouveau PouletConservateur");
-            gameWorld.ajouterAnimal(EntitesManager.creerPouletConservateur(gameWorld));
-
-        } else if (event.getCode() == KeyCode.L) {
-
-            System.out.println("nouveau pSoigne");
-            gameWorld.ajouterAnimal(EntitesManager.creerPouletConservateur(gameWorld));
-        }
-
-        if (event.getCode() == KeyCode.ENTER){
-            gameWorld.setTotalCoin(1000);
-        } else if (event.getCode() == KeyCode.A) {
-            gameWorld.getRacoutou().estAttaque(1);
-        }
-    }
 
     private void initRacoutou(){
         Entite racoutou = gameWorld.getRacoutou();
@@ -556,15 +480,6 @@ public class Controller implements Initializable {
     }
 
     public void initButtonsPlacement(){
-        /*
-        boutonsPlacement = FXCollections.observableList(new ArrayList<>());;
-        boutonsPlacement.add(poubelle);
-        boutonsPlacement.add(chatClassique);
-        boutonsPlacement.add(chatJournaliste);
-        boutonsPlacement.add(chatScientifique);
-        boutonsPlacement.add(chatMedecin);
-
-         */
 
         EventHandler<ActionEvent> boutonsshop = actionEvent -> {
 
@@ -574,32 +489,37 @@ public class Controller implements Initializable {
             clic.setName(((Button) (actionEvent.getSource())).getId());
             System.out.println("ACTION: " + ((Button) (actionEvent.getSource())).getId());
         };
+
         poubelle.setOnAction(boutonsshop);
-        poubellePrixLabel.setText(StatsEntiteInitialiser.getStatsLevels(poubelle.getId()).getFirst()[1].toString());
-
+        poubellePrixLabel.setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(poubelle.getId()), poubelle.getId())));
         chatJournaliste.setOnAction(boutonsshop);
-        chatJournalistePrixLabel.setText(String.valueOf(((int) (StatsEntiteInitialiser.getStatsLevels(chatJournaliste.getId()).getFirst()[1]))));
-
+        chatJournalistePrixLabel.setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(chatJournaliste.getId()), chatJournaliste.getId())));
         chatMedecin.setOnAction(boutonsshop);
-        chatMedecinPrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(chatMedecin.getId()).getFirst()[1])));
-
+        chatMedecinPrixLabel.setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(chatMedecin.getId()), chatMedecin.getId())));
         chatClassique.setOnAction(boutonsshop);
-        chatClassiquePrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(chatClassique.getId()).getFirst()[1])));
-
+        chatClassiquePrixLabel.setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(chatClassique.getId()), chatClassique.getId())));
         chatScientifique.setOnAction(boutonsshop);
-        chatScientifiquePrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(chatScientifique.getId()).getFirst()[1])));
-
+        chatScientifiquePrixLabel.setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(chatScientifique.getId()), chatScientifique.getId())));
         chatCuisinier.setOnAction(boutonsshop);
-        chatCuisinierPrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(chatCuisinier.getId()).getFirst()[1])));
-
+        chatCuisinierPrixLabel.setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(chatCuisinier.getId()), chatCuisinier.getId())));
         pouletIGPN.setOnAction(boutonsshop);
-        pouletIGPNPrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(pouletIGPN.getId()).getFirst()[1])));
-
+        pouletIGPNPrixLabel.setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(pouletIGPN.getId()), pouletIGPN.getId())));
         chatHypnotiseur.setOnAction(boutonsshop);
-        chatHypnotiseurPrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(chatHypnotiseur.getId()).getFirst()[1])));
-
+        chatHypnotiseurPrixLabel.setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(chatHypnotiseur.getId()), chatHypnotiseur.getId())));
     }
 
+    //Partie Shop
+    @FXML public void acheterEvoPlus(ActionEvent event) {
 
+        String id = ((Button) event.getSource()).getId().replace("LvlRightButton", "").replace("LvlLeftButton", "");
+        EntitesManager.incrementerNivBaseLorsAchat(id);
+        ((Label) shopVBox.lookup("#"+id+"PrixLabel")).setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(id), id)));
+    }
 
+    @FXML public void acheterEvoMoins(ActionEvent event) {
+
+        String id = ((Button) event.getSource()).getId().replace("LvlLeftButton", "").replace("LvlRightButton", "");
+        EntitesManager.decrementerNivBaseLorsAchat(id);
+        ((Label) shopVBox.lookup("#"+id+"PrixLabel")).setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(id), id)));
+    }
 }

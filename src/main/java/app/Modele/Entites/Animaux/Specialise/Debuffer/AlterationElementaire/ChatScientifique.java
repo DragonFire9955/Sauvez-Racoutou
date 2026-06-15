@@ -12,9 +12,9 @@ public class ChatScientifique extends AlterationElementaire {
     private double facteurDivForce;
 
 
-    public ChatScientifique(double[] coord, GameWorld w) {
+    public ChatScientifique(double[] coord, GameWorld w, int actualLevel) {
 
-        super("chatScientifique", coord, w, StatsEntiteInitialiser.getStatsLevels("chatScientifique"), true);
+        super("chatScientifique", coord, w, StatsEntiteInitialiser.getStatsLevels("chatScientifique"), actualLevel, true);
 
         List<Object[]> listStats = StatsEntiteInitialiser.getStatsLevels("chatScientifique");
 

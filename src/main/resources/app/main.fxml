@@ -224,7 +224,7 @@
       </Pane>
    </center>
    <right>
-      <VBox prefHeight="796.0" prefWidth="275.0" spacing="15.0" style="-fx-background-color: #2C5364; -fx-border-width: 2 0 0 0; -fx-border-color: #4B6E7D;">
+      <VBox fx:id="shopVBox" prefHeight="796.0" prefWidth="275.0" spacing="15.0" style="-fx-background-color: #2C5364; -fx-border-width: 2 0 0 0; -fx-border-color: #4B6E7D;">
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </padding>
@@ -287,7 +287,7 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" text="&lt;">
+                        <Button fx:id="poubelleLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" text="&lt;">
                            <StackPane.margin>
                               <Insets right="80.0" top="10.0" />
                            </StackPane.margin>
@@ -295,7 +295,7 @@
                               <Font size="10.0" />
                            </font>
                         </Button>
-                        <Button layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" text="&gt;">
+                        <Button fx:id="poubelleLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" text="&gt;">
                            <StackPane.margin>
                               <Insets left="80.0" top="10.0" />
                            </StackPane.margin>
@@ -319,7 +319,7 @@
                                           <Image url="@images/chatClassique/niv0/img.png" />
                                        </image>
                                     </ImageView>
-                                    <Label fx:id="chatClassiquePrixLabel" textFill="#FFD166">
+                                    <Label fx:id="chatClassiquePrixLabel" text="25" textFill="#FFD166">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -341,7 +341,7 @@
                               <Font size="10.0" />
                            </font>
                         </Button>
-                        <Button fx:id="chatClassiqueLvlLeftButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" text="&gt;">
+                        <Button fx:id="chatClassiqueLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" text="&gt;">
                            <StackPane.margin>
                               <Insets left="80.0" top="10.0" />
                            </StackPane.margin>
@@ -379,7 +379,7 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" text="&lt;">
+                        <Button fx:id="chatMedecinLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" text="&lt;">
                            <StackPane.margin>
                               <Insets right="80.0" top="10.0" />
                            </StackPane.margin>
@@ -387,7 +387,7 @@
                               <Font size="10.0" />
                            </font>
                         </Button>
-                        <Button layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" text="&gt;">
+                        <Button fx:id="chatMedecinLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" text="&gt;">
                            <StackPane.margin>
                               <Insets left="80.0" top="10.0" />
                            </StackPane.margin>
@@ -425,7 +425,7 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="chatClassiqueLvlLeftButton2" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" text="&lt;">
+                        <Button fx:id="chatJournalisteLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" text="&lt;">
                            <StackPane.margin>
                               <Insets right="80.0" top="10.0" />
                            </StackPane.margin>
@@ -433,7 +433,7 @@
                               <Font size="10.0" />
                            </font>
                         </Button>
-                        <Button fx:id="chatClassiqueLvlLeftButton21" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" text="&gt;">
+                        <Button fx:id="chatJournalisteLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" text="&gt;">
                            <StackPane.margin>
                               <Insets left="80.0" top="10.0" />
                            </StackPane.margin>
@@ -471,7 +471,7 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="chatClassiqueLvlLeftButton21" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" text="&lt;">
+                        <Button fx:id="chatScientifiqueLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" text="&lt;">
                            <StackPane.margin>
                               <Insets right="80.0" top="10.0" />
                            </StackPane.margin>
@@ -479,7 +479,7 @@
                               <Font size="10.0" />
                            </font>
                         </Button>
-                        <Button fx:id="chatClassiqueLvlLeftButton211" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" text="&gt;">
+                        <Button fx:id="chatScientifiqueLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" text="&gt;">
                            <StackPane.margin>
                               <Insets left="80.0" top="10.0" />
                            </StackPane.margin>
@@ -517,7 +517,7 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="chatClassiqueLvlLeftButton211" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" text="&lt;">
+                        <Button fx:id="chatCuisinierLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" text="&lt;">
                            <StackPane.margin>
                               <Insets right="80.0" top="10.0" />
                            </StackPane.margin>
@@ -525,7 +525,7 @@
                               <Font size="10.0" />
                            </font>
                         </Button>
-                        <Button fx:id="chatClassiqueLvlLeftButton2111" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" text="&gt;">
+                        <Button fx:id="chatCuisinierLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" text="&gt;">
                            <StackPane.margin>
                               <Insets left="80.0" top="10.0" />
                            </StackPane.margin>
@@ -563,7 +563,7 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="chatClassiqueLvlLeftButton2111" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" text="&lt;">
+                        <Button fx:id="pouletIGPNLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" text="&lt;">
                            <StackPane.margin>
                               <Insets right="80.0" top="10.0" />
                            </StackPane.margin>
@@ -571,7 +571,7 @@
                               <Font size="10.0" />
                            </font>
                         </Button>
-                        <Button fx:id="chatClassiqueLvlLeftButton21111" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" text="&gt;">
+                        <Button fx:id="pouletIGPNLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" text="&gt;">
                            <StackPane.margin>
                               <Insets left="80.0" top="10.0" />
                            </StackPane.margin>
@@ -609,7 +609,7 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="chatClassiqueLvlLeftButton21111" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" text="&lt;">
+                        <Button fx:id="chatHypnotiseurLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" text="&lt;">
                            <StackPane.margin>
                               <Insets right="80.0" top="10.0" />
                            </StackPane.margin>
@@ -617,7 +617,7 @@
                               <Font size="10.0" />
                            </font>
                         </Button>
-                        <Button fx:id="chatClassiqueLvlLeftButton211111" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" text="&gt;">
+                        <Button fx:id="chatHypnotiseurLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" text="&gt;">
                            <StackPane.margin>
                               <Insets left="80.0" top="10.0" />
                            </StackPane.margin>

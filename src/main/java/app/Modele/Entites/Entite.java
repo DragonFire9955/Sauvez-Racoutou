@@ -37,8 +37,8 @@ public abstract class Entite {
     private double chrono;
 
 
-    protected Entite(String name, double coord[], GameWorld w, List<Object[]> statsLevels) {
-        this.level = new SimpleIntegerProperty(0);
+    protected Entite(String name, double coord[], GameWorld w, List<Object[]> statsLevels, int actualLevel) {
+        this.level = new SimpleIntegerProperty(actualLevel);
         this.statsLevels = statsLevels;
 
         this.id=nbId;
@@ -50,19 +50,21 @@ public abstract class Entite {
 
         this.x = new SimpleDoubleProperty(coord[0]);
         this.y = new SimpleDoubleProperty(coord[1]);
-        this.health = new SimpleDoubleProperty((double) statsLevels.getFirst()[2]);
+        this.health = new SimpleDoubleProperty((double) statsLevels.get(actualLevel)[2]);
         this.maxHealth = new SimpleDoubleProperty(health.getValue());
-        this.coin = (int) statsLevels.getFirst()[1];
-        this.range = (double) statsLevels.getFirst()[3];
-        this.damage = (double) statsLevels.getFirst()[4];
-        this.freqAtk = (double) statsLevels.getFirst()[5];
+        if (statsLevels.get(actualLevel)[1] != null) this.coin = (int) statsLevels.get(actualLevel)[1];
+        this.range = (double) statsLevels.get(actualLevel)[3];
+        this.damage = (double) statsLevels.get(actualLevel)[4];
+        this.freqAtk = (double) statsLevels.get(actualLevel)[5];
         this.world=w;
 
 
         alive = new SimpleBooleanProperty(true);
         actif=true;
         chrono =0;
+        System.out.println(actualLevel);
     }
+
     public void update(double dt)  {
         this.handleCollisions(getCible(), dt);
     }

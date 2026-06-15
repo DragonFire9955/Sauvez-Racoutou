@@ -12,9 +12,9 @@ public abstract class Barrage extends Entite {
     private int idPoids;
     private int id;
 
-    public Barrage(String name, double[] coord, GameWorld w, double health, int coin, int taille, int idPoids, int id){
+    public Barrage(String name, double[] coord, GameWorld w, int actualLevel, double health, int coin, int taille, int idPoids, int id){
 
-        super(name, coord, w, StatsEntiteInitialiser.getStatsLevels(name));
+        super(name, coord, w, StatsEntiteInitialiser.getStatsLevels(name), actualLevel);
 
         this.taille = taille;
         this.idPoids = idPoids;
