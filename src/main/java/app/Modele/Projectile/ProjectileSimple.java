@@ -34,8 +34,19 @@ public class ProjectileSimple {
         this.id=nbId;
         nbId++;
 
-        this.x.set(pouletProjectible.getX());
-        this.y.set(pouletProjectible.getY());
+        int dirX, dirY;
+        if(pouletProjectible.getX() - cible.getX() >0)
+            dirX = -1;
+        else
+            dirX = 1;
+
+        if(pouletProjectible.getY() - cible.getY() >0)
+            dirY = -1;
+        else
+            dirY = 1;
+
+        this.x.set(pouletProjectible.getX()+ dirX*(pouletProjectible.getWorld().getTailleTile()* 0.1));
+        this.y.set(pouletProjectible.getY() + dirY*(pouletProjectible.getWorld().getTailleTile() *0.1));
 
         this.cible=cible;
         this.dist = Utilitaire.distance(getX(), getY(), cible.getX(), cible.getY());
@@ -103,5 +114,9 @@ public class ProjectileSimple {
 
     public boolean isDead() {
         return dead;
+    }
+
+    public Entite getCible() {
+        return cible;
     }
 }

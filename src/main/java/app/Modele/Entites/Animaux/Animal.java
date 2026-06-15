@@ -4,8 +4,7 @@ import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.EntitesManager;
 import app.Modele.Utilitaires.Utilitaire;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +17,7 @@ public class Animal extends Entite {
     private double vitesse;
     private boolean canAttack;
     private BooleanProperty allie;
+    private DoubleProperty dirX;
 
     private int cibleInt;
 
@@ -28,7 +28,7 @@ public class Animal extends Entite {
         stunnedUntil = new double[2];
         slowUntil = new double[3];
         this.allie= new SimpleBooleanProperty(allie);
-
+        dirX = new SimpleDoubleProperty(-1.);
         cibleInt = 2;
     }
 
@@ -320,4 +320,19 @@ public class Animal extends Entite {
         this.cibleInt = cibleInt;
     }
 
+    public void setDirX(double dirX) {
+        this.dirX.set(dirX);
+    }
+
+    public void inverseDirX(){
+        dirX.set(-dirX.getValue());
+    }
+
+    public DoubleProperty getDirXProperty() {
+        return dirX;
+    }
+
+    public double getDirX(){
+        return dirX.getValue();
+    }
 }

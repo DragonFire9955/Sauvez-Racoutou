@@ -9,7 +9,6 @@ import app.Vue.EntiteVue;
 import app.Controller.VieControlleur;
 import app.Vue.PerimetreVue;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -60,6 +59,18 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     //affiche l'image de l'entite sur la carte
                     ImageView imageEntite = EntiteVue.appliquerBonneImage(e, true);
                     carte.getChildren().add(imageEntite);
+
+
+                    //Direction image
+                    if(e instanceof Animal){
+                        imageEntite.setScaleX(((Animal) e).getDirX());
+                        ((Animal) e).getDirXProperty().addListener((observableValue, number, t1) -> {
+
+                            System.out.println(((ImageView) carte.lookup("#"+e.getId())).getImage().getUrl());
+                            ((ImageView) carte.lookup("#"+e.getId())).setScaleX(t1.doubleValue());
+                            System.out.println("img inversee");
+                        });
+                    }
 
                     // Création périmètre(s)
                     PerimetreVue perim = new PerimetreVue(this.carte, e);

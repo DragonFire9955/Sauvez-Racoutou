@@ -34,7 +34,7 @@ public class ProjectileListener implements ListChangeListener<ProjectileSimple> 
 
                     //affiche l'image de l'entite sur la carte
                     ProjectileVue projectileVue = new ProjectileVue(p);
-                    carte.getChildren().add(projectileVue.getCercle());
+                    carte.getChildren().add(projectileVue.getProjectileImage());
                 }
             }
         }
