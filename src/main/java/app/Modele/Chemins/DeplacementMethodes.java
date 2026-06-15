@@ -11,18 +11,29 @@ public class DeplacementMethodes {
     //On ajoute les coûts pour chaque id (donc chaque image)
     public static int getCout(int[][] map, int i, int j) {
 
+        if (i < 0 || j < 0 || i >= map.length || j >= map[i].length)
+            return 9999;
+
         int type = map[i][j];
 
-        switch (type) {
-            //Les coûts sont à changer, c'est juste un exemple et ça correspond pas à la logique des images mais bon hein XD
-            case 0:
-                return 0;
-            case 1:
-                return 1;
-            case 2:
-                return 9999;
-            default:
-                return 1;
+        if(type>=20)
+            return 9999;
+        else {
+            switch (type) {
+                //Les coûts sont à changer, c'est juste un exemple et ça correspond pas à la logique des images mais bon hein XD
+                case 0:
+                    return 0;
+                case 1:
+                    return 1;
+                case 2: // poubelle
+                    return 4;
+                case 3: // voiture
+                    return 10;
+                case 4: //bus
+                    return 20;
+                default:
+                    return 1;
+            }
         }
     }
 

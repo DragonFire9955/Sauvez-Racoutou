@@ -24,14 +24,14 @@ public class StatsEntiteInitialiser {
             case "pouletClassique":
                 initStatsPouletClassique(statsLevels);
                 break;
-            case "pouletRolleur":
+            case "pouletRoller":
                 initStatsPouletRolleur(statsLevels);
                 break;
 // SPECIALISES
             case "pouletBouclier":
                 initStatsPouletBouclier(statsLevels);
                 break;
-            case "Poulet projectible":
+            case "pouletProjectible":
                 initStatsPouletProjectible(statsLevels);
                 break;
     // BUFFER
@@ -61,6 +61,11 @@ public class StatsEntiteInitialiser {
                 break;
             case "pouletMenottes":
                 initStatsPouletMenottes(statsLevels);
+                break;
+
+
+            case "poubelle":
+                initStatsPoubelle(statsLevels);
                 break;
 /*
 // VOLANTS
@@ -153,7 +158,7 @@ public class StatsEntiteInitialiser {
                 12.,     //Health   (+4)
                 42.,      //Range    (+2)
                 7.,      //Damage    (+2)
-                1,    //FreqAtk
+                1.,    //FreqAtk
                 1.,      //Speed
         });
 
@@ -224,7 +229,7 @@ public class StatsEntiteInitialiser {
                 "Default",
                 15,     //Argent rapporté
                 10.,     //Health
-                35.,     //Range
+                150.,     //Range
                 5.,     //Damage
                 1.,     //FreqAtk
                 3.8,     //Speed
@@ -364,6 +369,54 @@ public class StatsEntiteInitialiser {
 
     /// TODO : a faire, c un allié
     private static void initPouletIGPN(List<Object[]> statsLevels) {
+
+        statsLevels.add(new Object[]{
+                "Default",
+                60,     //Argent rapporté
+                25.,     //Health
+                40.,     //Range
+                5.,     //Damage
+                1.2,     //FreqAtk
+                1.1,     //Speed
+                150.,    //BuffRange
+                3.,     //TpsBuff
+                5.,     //TpsRepo
+                3,      //NbrVictimes
+                .8,    //EffetForce
+                .8,     //EffetVit
+        });
+
+        statsLevels.add(new Object[]{
+                "Default",
+                61,     //Argent rapporté
+                22.,     //Health
+                44.,     //Range
+                5.,     //Damage
+                1.2,     //FreqAtk
+                1.1,     //Speed
+                150.,    //BuffRange
+                3.,     //TpsBuff
+                5.,     //TpsRepo
+                3,      //NbrVictimes
+                .8,    //EffetForce
+                .8,     //EffetVit
+        });
+
+        statsLevels.add(new Object[]{
+                "Default",
+                60,     //Argent rapporté
+                25.,     //Health
+                40.,     //Range
+                5.,     //Damage
+                1.2,     //FreqAtk
+                1.1,     //Speed
+                150.,    //BuffRange
+                3.,     //TpsBuff
+                5.,     //TpsRepo
+                3,      //NbrVictimes
+                .8,    //EffetForce
+                .8,     //EffetVit
+        });
 
         statsLevels.add(new Object[]{
                 "Default",
@@ -725,6 +778,58 @@ public class StatsEntiteInitialiser {
                 160.,     //BuffRange (+5)
                 3.5,    //TpsBuff
                 .5      //TpsRepo
+        });
+    }
+
+    /// TODO : PAS ENCORE FAIT
+    private static void initStatsPoubelle(List<Object[]> statsLevels) {
+
+        statsLevels.add(new Object[]{
+                "Default",
+                70,    //Upgrade price
+                8.,     //Health
+                10.,     //Range
+                0.,     //Damage
+                0.,     //FreqAtk
+                1,     //taille
+                2,      //idPoids
+                100,    //id
+        });
+
+        statsLevels.add(new Object[]{
+                "Conteneur",
+                150,    //Upgrade price
+                20.,     //Health   (+12)
+                20.,     //Range
+                0.,     //Damage
+                0.,     //FreqAtk
+                1,     //taille
+                4,      //idPoids
+                101,    //id
+        });
+
+        statsLevels.add(new Object[]{
+                "Voiture",
+                300,    //Upgrade price
+                50.,     //Health   (+30)
+                40.,     //Range    (+20)
+                0.,     //Damage
+                0.,     //FreqAtk
+                2,     //taille
+                4,      //idPoids
+                102,    //id
+        });
+
+        statsLevels.add(new Object[]{
+                "Bus",
+                300,    //Upgrade price
+                50.,     //Health   (+30)
+                40.,     //Range    (+20)
+                0.,     //Damage
+                0.,     //FreqAtk
+                2,     //taille
+                5,      //idPoids
+                103,    //id
         });
     }
 }

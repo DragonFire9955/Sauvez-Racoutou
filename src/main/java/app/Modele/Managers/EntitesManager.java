@@ -9,6 +9,7 @@ import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.Stunner;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Barrage.Barrage;
+import app.Modele.Entites.Barrage.Poubelle;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Noeud;
@@ -37,7 +38,7 @@ public class EntitesManager {
     }
 
     public static Animal creerPouletRolleur(GameWorld w) {
-        return new Animal("pouletRolleur", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("pouletRolleur"), false);
+        return new Animal("pouletRoller", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("pouletRoller"), false);
     }
 
     // STUNNER
@@ -154,7 +155,7 @@ public class EntitesManager {
         if(!dijkstra.containsKey(dir)){
             cible= racoutou.getCoord();
             //Si déjà proche de racoutou: stop
-            if (Utilitaire.distance(a.getX(), a.getY(), racoutou.getX(), racoutou.getY()) < 2)
+            if (Utilitaire.distance(a.getX(), a.getY(), racoutou.getX(), racoutou.getY()) < (a.getRange()*.9))
                 return;
         }
         else if(dijkstra.get(dir) ==null) { //prochaine tuile = racoutou
@@ -230,7 +231,7 @@ public class EntitesManager {
                 break;
 
             case "poubelle":
-                e = creerPouletMenotte(w);
+                e = new Poubelle(coord, w);
                 break;
 
             default:

@@ -12,15 +12,6 @@ public class DeplacementDijkstra {
     private int lignes;
     private int colonnes;
     private int tailleTile;
-/*
-    public DeplacementDijkstra(int[][] map) {
-
-        this.map = map;
-        this.lignes = map.length;
-        this.colonnes = map[0].length;
-    }
-
- */
 
     public DeplacementDijkstra(int tailleTile, int[][] map) {
         this.map=map;
@@ -79,6 +70,7 @@ public class DeplacementDijkstra {
             }
             actuel=fifo.poll();
         }
+
         return parent;
     }
 
@@ -139,14 +131,6 @@ public class DeplacementDijkstra {
         int tailleTile = 64;
 
         int[][] map = new int[][]{
-                /*{0, 1, 1, 1, 1, 1},
-                {2, 1, 1, 1, 1, 1},
-                {2, 2, 1, 2, 2, 2},
-                {0, 1, 1, 1, 0, 0},
-                {1, 1, 2, 2, 2, 2},
-                {0, 1, 2, 2, 1, 1}
-
-                 */
 
                 {0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0},
@@ -172,38 +156,9 @@ public class DeplacementDijkstra {
                 }
             }
         }
-        /*
-        Map<Double, Noeud> distances = new DeplacementDijkstra(w.getTailleTile(), map).calculerDistances(new int[]{0, 0});
-
-        for (int i = 0; i<  map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                System.out.println(i +", "+j+": "+distances.get(coordToDouble(new int[]{j, i})));
-            }
-        }
-
-         */
-/*
-        for (Map.Entry<Double, Noeud> entry : distances.entrySet()) {
-            Noeud n = entry.getValue();
-        }
-
- */
-    }
-/*
-    public static Noeud trouverNoeud(Map<Noeud, Integer> liste, int[] coord){
-
-
-
-        for (Map.Entry<Noeud, Integer> entry : liste.entrySet()) {
-            Noeud n = entry.getKey();
-            System.out.println("nX: "+ n.getX()+ " nY: "+ n.getY() +" coordX: "+ coord[0] + "coordY: "+ coord[1]);
-            if()
-                return n;
-        }
-        return null;
     }
 
- */
+
 
     /*
     objet car besoin d'un différent pour le chien

@@ -5,6 +5,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
 
+import java.util.Map;
+
 public class TerrainVue {
 
     public void delimitationMap(TilePane tileMap){
@@ -19,17 +21,65 @@ public class TerrainVue {
 
         switch (tuile) {
             case 1:
-                cases.setImage(ImageSetter.base);
+                cases.setImage(ImageSetter.sol);
                 break;
-            case 2:
+            case 5:
                 cases.setImage(ImageSetter.tonneau);
                 break;
-            case 3:
-                cases.setImage(ImageSetter.hor);
+        //PLACE
+            case 11:
+                cases.setImage(ImageSetter.placeCoinHG);
                 break;
-            case 4:
-                cases.setImage(ImageSetter.ver);
+            case 12:
+                cases.setImage(ImageSetter.placeCoinHD);
                 break;
+            case 13:
+                cases.setImage(ImageSetter.placeCoinBG);
+                break;
+            case 14:
+                cases.setImage(ImageSetter.placeCoinBD);
+                break;
+            case 15:
+                cases.setImage(ImageSetter.placeCoteH);
+                break;
+            case 16:
+                cases.setImage(ImageSetter.placeCoteB);
+                break;
+            case 17:
+                cases.setImage(ImageSetter.placeCoteG);
+                break;
+            case 18:
+                cases.setImage(ImageSetter.placeCoteD);
+                break;
+            case 19:
+                cases.setImage(ImageSetter.placeCentre);
+                break;
+
+        // BATIMENTS
+            case 20:
+                cases.setImage(ImageSetter.batCoinG);
+                break;
+            case 21:
+                cases.setImage(ImageSetter.batCoinD);
+                break;
+            case 22:
+                cases.setImage(ImageSetter.batCoteG);
+                break;
+            case 23:
+                cases.setImage(ImageSetter.batCoteD);
+                break;
+            case 24:
+                if(Math.random()<0.1)
+                    cases.setImage(ImageSetter.batCoteBBus);
+                else if (Math.random()<0.3)
+                    cases.setImage(ImageSetter.batCoteBArbre);
+                else
+                    cases.setImage(ImageSetter.batCoteB);
+                break;
+            case 25:
+                cases.setImage(ImageSetter.batCentre);
+                break;
+
             default:
                 cases.setImage(ImageSetter.sol);
                 break;

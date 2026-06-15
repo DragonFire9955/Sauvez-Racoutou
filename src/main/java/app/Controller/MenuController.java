@@ -11,7 +11,7 @@ import java.io.IOException;
 public class MenuController {
 
     public final static Pane menu;
-    public static BooleanProperty isGameStarted = new SimpleBooleanProperty(false);
+    public static BooleanProperty isApplicationPlayButtonPressed = new SimpleBooleanProperty(false);
 
     static {
         try {
@@ -32,7 +32,7 @@ public class MenuController {
 
         Pane jeu =FXMLLoader.load(MenuController.class.getResource("/app/main.fxml"));
         demarragePane.getScene().setRoot(jeu);
-        isGameStarted.setValue(true);
+        isApplicationPlayButtonPressed.setValue(true);
 
     }
 }

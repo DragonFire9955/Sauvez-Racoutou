@@ -17,12 +17,16 @@ public class PerimetreVue {
 
     private Pane carte;
 
+    private Entite e;
+
     private Circle p;
     private Circle pSpe;
 
-    public PerimetreVue(Pane carte){
+    public PerimetreVue(Pane carte, Entite e){
 
         this.carte = carte;
+
+        this.e = e;
 
         p = new Circle();
         pSpe = new Circle();
@@ -47,6 +51,11 @@ public class PerimetreVue {
             p.setVisible(false);
             p.layoutXProperty().bind(img.layoutXProperty().add(EntiteVue.tailleImage/4));
             p.layoutYProperty().bind(img.layoutYProperty().add(EntiteVue.tailleImage/2));
+            /*
+            p.layoutXProperty().bind(e.getXProperty().add(EntiteVue.tailleImage/4));
+            p.layoutYProperty().bind(e.getYProperty().add(EntiteVue.tailleImage/2));
+
+             */
 
             carte.getChildren().add(1, p);
 
@@ -64,7 +73,7 @@ public class PerimetreVue {
 
         }
 
-        public void changeVisibility(Entite e){
+        public void changeVisibility(){
 
             p.setVisible(!p.isVisible());
 

@@ -1,6 +1,8 @@
 package app.Controller.Listener;
 
 import app.Modele.Entites.Animaux.Animal;
+import app.Modele.Entites.Animaux.Racoutou;
+import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Vue.EntiteVue;
@@ -21,7 +23,6 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
     @FXML
     private Pane carte;
-    private final PerimetreVue perim;
 
     private GameWorld gameWorld;
 
@@ -29,12 +30,12 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
         this.carte = carte;
         this.gameWorld = gameWorld;
-        this.perim = new PerimetreVue(this.carte);
     }
 
     @Override
     public void onChanged(ListChangeListener.Change<? extends Entite> c){
 
+        int i = 0;
         while(c.next()) {
             if (c.wasRemoved()) {
                 for (Entite e: c.getRemoved()) {
@@ -46,19 +47,22 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     //On suppr du visuel
                     carte.getChildren().removeIf(node -> e.getId().equals(node.getId()));
                     carte.getChildren().removeIf(node -> ("perim" + e.getId()).equals(node.getId()));
+                    carte.getChildren().removeIf(node -> ("visuBarre" + e.getId()).equals(node.getId()));
+                    carte.getChildren().removeIf(node ->("infoBulle"+e.getId()).equals(node.getId()));
                 }
 
             }
             if (c.wasAdded()) {
+
                 //parcours les entités ajoutés
                 for (Entite e: c.getAddedSubList()) {
-                    System.out.println("ajout dans list");
 
                     //affiche l'image de l'entite sur la carte
                     ImageView imageEntite = EntiteVue.appliquerBonneImage(e, true);
                     carte.getChildren().add(imageEntite);
 
                     // Création périmètre(s)
+                    PerimetreVue perim = new PerimetreVue(this.carte, e);
                     perim.initPerimetre(e, imageEntite);
 
                     //créé la barre de vie et récupère son conteneur
@@ -68,34 +72,27 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     //affiche la vie
                     carte.getChildren().add(visuelBarre);
 
-                    //associe l'id de la vie a l'entite pour les remove ensemble
-                    visuelBarre.setId(e.getId());
                     //Je met le listener de ma vie ici car + pratique et évite les bugs du lookup()
                     e.getHealthProperty().addListener(new EntiteHealthListener(carte, e));
-                    if( e instanceof Animal)
-                        ((Animal) e).getAllie().addListener(new ChangeListener<Boolean>() {
-                            @Override
-                            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-                                Node entite = carte.lookup("#" + e.getId());
-                                ((ImageView) entite).setImage(EntiteVue.appliquerImageHypno(e));
-                            }
-                        });
 
                     //Liaison niveau / image
                     e.getLevelProperty().addListener((observableValue, oldV, newV) ->
-                            ((ImageView) carte.lookup("#"+e.getId())).setImage(new Image("/app/images/"+e.getName()+"/niv"+newV+"/img.png")));
+                            EntiteVue.upgradeImage(e, ((ImageView) carte.lookup("#"+e.getId()))));
+                            //((ImageView) carte.lookup("#"+e.getId())).setImage(EntiteVue.appliquerBonneImage(e, true).getImage()));
+
                     //on lui crée sa description si c un allié
-                    if (e instanceof Animal && ((Animal) e).isAllie()) {
+                    if (e instanceof Animal && ((Animal) e).isAllie() || e instanceof Barrage) {
 
                         InfoBulleListener infoBulleListener = new InfoBulleListener(carte, gameWorld, e);
                         infoBulleListener.ajoutZoneDescription();
                         imageEntite.setOnMouseClicked(event -> {
-                            infoBulleListener.afficherDescription();
-                            perim.changeVisibility(e);
+                            infoBulleListener.changeAfficherDescription();
+                            perim.changeVisibility();
                         });
                     }
                 }
             }
+            i++;
         }
     }
 }

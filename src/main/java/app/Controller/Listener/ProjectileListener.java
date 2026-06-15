@@ -1,6 +1,6 @@
 package app.Controller.Listener;
 
-import app.Modele.ProjectileSimple;
+import app.Modele.Projectile.ProjectileSimple;
 import app.Vue.ProjectileVue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;

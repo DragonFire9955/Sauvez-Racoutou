@@ -182,7 +182,7 @@ public abstract class Entite {
         return alive;
     }
 
-    public abstract Entite getDirection();
+    //public abstract Entite getDirection();
 
     public abstract Entite getCible();
 
@@ -192,7 +192,6 @@ public abstract class Entite {
 
     public void estAttaque(double damage){
 
-        System.out.println(getHealthProperty().getValue()-damage);
         setHealth(getHealthProperty().getValue()-damage);
     }
 
@@ -271,9 +270,13 @@ public abstract class Entite {
     }
 
     public void incrementerLevel(){
+
         if(getLevel()<3){
             setLevel(getLevel()+1);
             setStats(getLevel());
+            System.out.println(this.getName()+"  level "+ this.getLevel());
         }
-    }
+
+    };
+
 }

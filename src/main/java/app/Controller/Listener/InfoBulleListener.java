@@ -1,9 +1,11 @@
 package app.Controller.Listener;
 
+import app.Modele.Entites.Animaux.Animal;
+import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
-import app.Modele.Managers.EnnemisSpawn;
 import app.Vue.EntiteVue;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -14,25 +16,22 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class InfoBulleListener {
 
     private Pane carte;
+    AnchorPane root;
 
     private GameWorld gameWorld;
     private Entite e;
 
-    private final Map<String, Node> descriptionsMap;
-
-    private int actualLevel;
     int qtiteRevente;
 
     private int actualTargetInt;
@@ -40,13 +39,11 @@ public class InfoBulleListener {
     public InfoBulleListener(Pane carte, GameWorld w, Entite e){
 
         this.carte = carte;
+        root = new AnchorPane();
 
         this.gameWorld = w;
         this.e = e;
 
-        this.descriptionsMap = new HashMap<>();
-
-        actualLevel = 0;
         qtiteRevente = e.getCoin()/2;
 
         actualTargetInt = 0;
@@ -54,13 +51,13 @@ public class InfoBulleListener {
 
     public void ajoutZoneDescription() {
 
-        AnchorPane root = new AnchorPane();
-        root.setPrefSize(260, 200);
+        root.setId("infoBulle"+e.getId());
+        root.setPrefSize(265, 205);
         root.setStyle(
-                "-fx-background-color: rgb(196,196,196);" +
-                        "-fx-border-color: black;" +
-                        "-fx-border-radius: 2;"
+                "-fx-border-radius: 15;"+
+                "-fx-border-style: none;"
         );
+        setGoodStyle();
 
         //Image principale
         ImageView entityImageView = EntiteVue.appliquerBonneImage(e, false);
@@ -82,67 +79,96 @@ public class InfoBulleListener {
         AnchorPane.setLeftAnchor(entityNameLabel, 14.0);
         AnchorPane.setTopAnchor(entityNameLabel, 14.0);
 
+        root.getChildren().addAll(entityImageView, entityNameLabel);
+
         //Zone de sélection de cible
-        Button previousButton = new Button("<");
-        previousButton.setPrefSize(17, 17);
-        previousButton.setFont(Font.font(7));
+        if( e instanceof Animal) {
+            List<String> target = new ArrayList<>();
+            target.add("Strongest");
+            target.add("Weakest");
+            target.add("Nearest");
 
-        List<String> target = new ArrayList<>();
-        target.add("Strongest");
-        target.add("Weakest");
-        target.add("Farthest");
-        target.add("Nearest");
+            actualTargetInt = target.size() - 1;
 
-        actualTargetInt = target.size()-1;
+            Label targetLabel = new Label(target.getLast());
+            targetLabel.setAlignment(Pos.CENTER);
+            targetLabel.setPrefSize(67, 26);
+            targetLabel.setStyle("-fx-background-color: rgba(0,0,0,0.3);");
+            targetLabel.setTextFill(Color.WHITE);
+            targetLabel.setFont(Font.font(10));
 
-        Label targetLabel = new Label(target.getLast());
-        targetLabel.setAlignment(Pos.CENTER);
-        targetLabel.setPrefSize(67, 26);
-        targetLabel.setStyle("-fx-background-color: rgba(0,0,0,0.3);");
-        targetLabel.setTextFill(Color.WHITE);
-        targetLabel.setFont(Font.font(10));
+            Button previousButton = new Button("<");
+            previousButton.setPrefSize(17, 17);
+            previousButton.setFont(Font.font(7));
+            previousButton.setOnMouseClicked(event -> {
 
-        Button nextButton = new Button(">");
-        nextButton.setPrefSize(17, 17);
-        nextButton.setFont(Font.font(7));
-        nextButton.setOnMouseClicked(event -> {
+                actualTargetInt++;
 
-            if(actualTargetInt <= 0)
-                actualTargetInt = target.size()-1;
+                if (actualTargetInt >= target.size())
+                    actualTargetInt = 0;
 
-            actualTargetInt--;
+                targetLabel.setText(target.get(actualTargetInt));
+                ((Animal) e).setCibleInt(actualTargetInt);
+            });
 
-            targetLabel.setText(target.get(actualTargetInt));
+            Button nextButton = new Button(">");
+            nextButton.setPrefSize(17, 17);
+            nextButton.setFont(Font.font(7));
+            nextButton.setOnMouseClicked(event -> {
 
-        });
+                actualTargetInt--;
 
-        HBox targetBox = new HBox(5, previousButton, targetLabel, nextButton);
-        targetBox.setLayoutX(14);
-        targetBox.setLayoutY(110);
+                if (actualTargetInt < 0)
+                    actualTargetInt = target.size() - 1;
 
+                targetLabel.setText(target.get(actualTargetInt));
+                ((Animal) e).setCibleInt(actualTargetInt);
+            });
+
+            HBox targetBox = new HBox(5, previousButton, targetLabel, nextButton);
+            targetBox.setLayoutX(14);
+            targetBox.setLayoutY(110);
+
+            root.getChildren().add(targetBox);
+        }
         //Boutons close desc et sell
         Button closeButton = new Button("X");
         closeButton.setPrefSize(25, 25);
-        closeButton.setOnMouseClicked(event ->
-                root.setVisible(false)
-        );
+        closeButton.setOnMouseClicked(event -> {
+            root.setVisible(false);
+            carte.lookup("#perim"+e.getId()).setVisible(false);
+            Node perimSpe = carte.lookup("#perimSpe"+e.getId());
+            if (perimSpe != null)
+                perimSpe.setVisible(false);
+
+        });
 
 
         Button sellButton = new Button();
-        sellButton.setPrefSize(73, 35);
+        sellButton.setPrefSize(65, 33);
         sellButton.setText("Sell : " + qtiteRevente);
+        sellButton.setStyle(
+                "-fx-border-style: 2;"+
+                "-fx-background-color: #FFFCF2;"+
+                "-fx-font-size: 16;" +
+                "-fx-font-weight: bold;"+
+                "-fx-background-radius: 10;"+
+                "-fx-padding: -10;"
+        );
+
         sellButton.setOnMouseClicked(event -> {
             gameWorld.setTotalCoin(gameWorld.getTotalCoin().getValue() + qtiteRevente);
             carte.getChildren().remove(root);
             e.setHealth(0);
         });
 
-        HBox sellBox = new HBox(5, closeButton, sellButton);
+        HBox sellBox = new HBox(10, closeButton, sellButton);
         //Je met la marge haut au boutton de fermeture (Button n'a pas de margin alors je dois récup le parent pour lui appliquer ce margin)
         HBox.setMargin(closeButton,  new Insets(5, 0, 0, 0));
+        HBox.setMargin(sellButton,  new Insets(0, 5, 0, 0));
 
-        sellBox.setLayoutX(14);
-        sellBox.setLayoutY(143);
+        sellBox.setLayoutX(17);
+        sellBox.setLayoutY(150);
 
         // Zone upgrade
         //On crée un StackPane qui va contenir le tout
@@ -194,7 +220,8 @@ public class InfoBulleListener {
         priceUpgrade.setPrefWidth(111);
         priceUpgrade.setFont(Font.font(16));
 
-        Label levelLabel = new Label("0/4");
+        Label levelLabel = new Label(e.getLevel()+1 + "/4");
+        levelLabel.textProperty().bind(e.getLevelProperty().add(1).asString().concat("/4"));
         levelLabel.setAlignment(Pos.CENTER);
         levelLabel.setPrefWidth(111);
         levelLabel.setFont(Font.font(10));
@@ -209,6 +236,8 @@ public class InfoBulleListener {
         ImageView upgradeImageView = new ImageView(
                 new Image("app/images/"+ e.getName()+"/niv"+(e.getLevel()+1)+"/img.png")
         );
+
+
 
         upgradeImageView.setFitWidth(38);
         upgradeImageView.setFitHeight(38);
@@ -228,7 +257,9 @@ public class InfoBulleListener {
 
         //Zone des attributs (où on voit les améliorations concrètes)
         VBox attributesVBox = new VBox();
-        attributesVBox.setPadding(new Insets(2));
+
+        attributesVBox.setPadding(new Insets(5));
+
 
         updateDescriptionStatLabel(attributesVBox);
 
@@ -236,6 +267,14 @@ public class InfoBulleListener {
         attributesScrollPane.setPrefSize(127, 109);
         attributesScrollPane.setLayoutX(134);
         attributesScrollPane.setLayoutY(88);
+        HBox.setMargin(attributesScrollPane,  new Insets(0, 0, 5, 0));
+        attributesScrollPane.setStyle(
+                "-fx-background-radius: 10;"
+        );
+        Platform.runLater(() -> attributesScrollPane.lookup(".viewport").setStyle(
+                "-fx-background-radius: 10;"
+        ));
+        System.out.println(e.getName() + "viexport ");
 
 
         //Action du boutton pr améliorer
@@ -243,22 +282,26 @@ public class InfoBulleListener {
 
             e.incrementerLevel();
 
-            //Partie FXML
-            entityImageView.setImage(new Image("app/images/"+ e.getName()+"/niv"+e.getLevel()+"/img.png"));
+            if (e.getLevel() == 3) {
 
-            updateDescriptionStatLabel(attributesVBox);
-            updateDescriptionButtonUpgrade(nameUpgrade, priceUpgrade);
-            updateDescriptionSellButton(sellButton);
+                buyUpgradeButton.setDisable(true);
+                upgradeImageView.setImage(null);
+                upgradeBox.setStyle("-fx-background-color: darkgrey");
+            } else {
 
-            upgradeImageView.setImage(new Image("app/images/"+ e.getName()+"/niv"+(e.getLevel()+1)+"/img.png"));
+                updateDescriptionStatLabel(attributesVBox);
+                updateDescriptionButtonUpgrade(nameUpgrade, priceUpgrade);
+                updateDescriptionSellButton(sellButton);
+
+                upgradeImageView.setImage(new Image("app/images/" + e.getName() + "/niv" + (e.getLevel() + 1) + "/img.png"));
+            }
+
+            entityImageView.setImage(new Image("app/images/" + e.getName() + "/niv" + e.getLevel() + "/img.png"));
         });
 
 
 
         root.getChildren().addAll(
-                entityImageView,
-                entityNameLabel,
-                targetBox,
                 sellBox,
                 upgradePane,
                 upgradeImageView,
@@ -268,64 +311,176 @@ public class InfoBulleListener {
         //Je le cache pour l'instant, il sera affiché quand je cliquerais sur la troupe
         root.setVisible(false);
 
-        //je l'add à la map
-        descriptionsMap.put(e.getId(), root);
-
         carte.getChildren().addAll(root);
     }
 
-    public void afficherDescription() {
+    public void setGoodStyle() {
 
-        descriptionsMap.values().forEach(n -> n.setVisible(false));
+        if (e.getName().equals("poubelle"))
+            root.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom right, #E53935, #E35D5B); -fx-text-fill: white; -fx-background-radius: 12;-fx-cursor: hand;" +
+                        //"-fx-border-color: black;" +
+                        "-fx-border-radius: 2;"
+            );
+        else if (e.getName().equals("racoutou"))
+            root.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom right, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #9400D3); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                            "-fx-border-color: black;" +
+                            "-fx-border-radius: 2;"
+            );
+        else if (e.getName().equals("chatClassique"))
+            root.setStyle(
+                    //"fx-background-color: linear-gradient(to bottom right, #FF9D00, #F2FF00, #FFF9C2); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;"+
+                   "-fx-background-color: linear-gradient(to bottom right, #FF9D00, #F2FF00); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                            //"-fx-border-color: black;" +
+                            "-fx-border-radius: 2;"
+            );
+        else if (e.getName().equals("chatCuisinier"))
+            root.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom right, #00C9A7, #005F73); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                    //"-fx-border-color: black;" +
+                            "-fx-border-radius: 2;"
+            );
+        else if (e.getName().equals("chatMedecin"))
+            root.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom right, #FF8C00, #F12711); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                            //"-fx-border-color: black;" +
+                            "-fx-border-radius: 2;"
+            );
+        else if (e.getName().equals("pouletIGPN"))
+            root.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom right, #11998E, #38EF7D); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                            //"-fx-border-color: black;" +
+                            "-fx-border-radius: 2;"
+            );
+        else if (e.getName().equals("chatScientifique"))
+            root.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom right, #00C6FF, #0072FF); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                            //"-fx-border-color: black;" +
+                            "-fx-border-radius: 2;"
+            );
+        else if (e.getName().equals("chatHypnotiseur"))
+            root.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom right, #6A11CB, #2575FC); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                            //"-fx-border-color: black;" +
+                            "-fx-border-radius: 2;"
+            );
+        else if (e.getName().equals("chatJournaliste"))
+            root.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom right, #FF007F, #7928CA); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                            //"-fx-border-color: black;" +
+                            "-fx-border-radius: 2;"
+            );
+    }
 
-        Node desc = descriptionsMap.get(e.getId());
+    public void changeAfficherDescription() {
 
-        if (desc != null) {
-            //repositionne au bon endroit
-            desc.setLayoutX(e.getX()+20);
-            desc.setLayoutY(e.getY()-200);
-            desc.setVisible(true);
-            desc.toFront();
-        }
+        root.setLayoutX(e.getX()+20);
+        root.setLayoutY(e.getY()-200);
+        root.toFront();
+        root.setVisible(!root.isVisible());
     }
 
     private void updateDescriptionStatLabel(VBox attributesVBox) {
 
-        if (e.getStatsLevels() != null && e.getStatsLevels().size() > 1 && actualLevel < e.getStatsLevels().size()-1) {        //A suppr quand j'aurais fait pr tt les Entites
+        if (e.getStatsLevels() != null && e.getStatsLevels().size() > 1 && e.getLevel() < e.getStatsLevels().size()-1) {        //A suppr quand j'aurais fait pr tt les Entites
 
             attributesVBox.getChildren().clear();
 
-            for (int i = 0; i < e.getStatsLevels().get(actualLevel).length - 2; i++) {
+            for (int i = 0; i < e.getStatsLevels().get(e.getLevel()).length - 2; i++) {
 
-                Object actualStat = e.getStatsLevels().get(actualLevel)[i + 2];
-                Object newStat = e.getStatsLevels().get((actualLevel) + 1)[i + 2];
+                Object actualStat = e.getStatsLevels().get(e.getLevel())[i + 2];
+                Object newStat = e.getStatsLevels().get((e.getLevel()) + 1)[i + 2];
 
-                if (!actualStat.equals(newStat))
-                    attributesVBox.getChildren().add(new Label(
-                            e.getStatsLevels().get(actualLevel)[i + 2].toString()
-                                    + " -> "
-                                    + e.getStatsLevels().get((actualLevel) + 1)[i + 2].toString()
-                    ));
+                if (!actualStat.equals(newStat)) {
+
+                    Label stats = new Label(getStatName(i)
+                            + e.getStatsLevels().get(e.getLevel())[i + 2].toString()
+                            + " → "
+                            + e.getStatsLevels().get((e.getLevel()) + 1)[i + 2].toString());
+
+                    stats.setStyle(
+                            "-fx-background-color: none;"
+                    );
+
+
+
+                    attributesVBox.getChildren().add(stats);
+                }
             }
         }
-        if (actualLevel >= e.getStatsLevels().size()-1) {
+        if (e.getLevel() >= e.getStatsLevels().size()-1) {
             attributesVBox.getChildren().clear();
             attributesVBox.getChildren().add(new Label("Maxed out"));
         }
     }
+    public String getStatName(int indiceStat) {
+
+        String statName;
+        switch (indiceStat) {
+            case 0:
+                statName = "Health : ";
+                break;
+            case 1:
+                statName = "Range : ";
+                break;
+            case 2:
+                statName = "Damage : ";
+                break;
+            case 3:
+                statName = "FreqAtk : ";
+                break;
+            case 4:
+                statName = "Speed : ";
+                break;
+            case 5:
+                if (e instanceof ChatHypnotiseur)
+                    statName = "Dmg spe : ";
+                else
+                    statName = "RangeEffect : ";
+                break;
+            case 6:
+                if (e instanceof ChatHypnotiseur)
+                    statName = "Freq atk spe : ";
+                else
+                    statName = "Tps Buff : ";
+                break;
+            case 7:
+                if (e instanceof ChatHypnotiseur)
+                    statName = "Range spe : ";
+                else
+                    statName = "Tps Repos : ";
+                break;
+            case 8:
+                statName = "Nbr Victimes : ";
+                break;
+            case 9:
+                statName = "Div force : ";
+                break;
+            case 10:
+                statName = "Div vit : ";
+                break;
+            default:
+                statName = "inconnu : ";
+                break;
+        }
+
+        return statName;
+    }
 
     private void updateDescriptionButtonUpgrade(Label nameUpgrade, Label priceUpgrade) {
 
-        if (actualLevel < e.getStatsLevels().size()-1 && e.getStatsLevels().get(actualLevel+1)[0] != null) {
+        if (e.getLevel() < e.getStatsLevels().size()-1 && e.getStatsLevels().get(e.getLevel()+1)[0] != null) {
 
-            nameUpgrade.setText(e.getStatsLevels().get(actualLevel+1)[0].toString());
-            priceUpgrade.setText((e.getStatsLevels().get(actualLevel)[1]).toString());
+            nameUpgrade.setText(e.getStatsLevels().get(e.getLevel()+1)[0].toString());
+            priceUpgrade.setText((e.getStatsLevels().get(e.getLevel())[1]).toString());
         }
     }
 
     private void updateDescriptionSellButton(Button sellButton) {
 
-        qtiteRevente = (int) (e.getStatsLevels().get(actualLevel)[1]) / 2;
+        qtiteRevente = (int) (e.getStatsLevels().get(e.getLevel())[1]) / 2;
         sellButton.setText("Sell : " + qtiteRevente);
+
     }
 }

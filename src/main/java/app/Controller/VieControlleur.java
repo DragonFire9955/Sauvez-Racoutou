@@ -3,6 +3,7 @@ package app.Controller;
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
 import app.Vue.EntiteVue;
+import javafx.scene.effect.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.geometry.Pos;
@@ -17,12 +18,20 @@ public class VieControlleur {
 
     public VieControlleur(Entite entite, ImageView img) {
         this.conteneur = new StackPane();
+        conteneur.setId("visuBarre"+entite.getId());
         this.conteneur.setAlignment(Pos.CENTER_LEFT);
         //pour que le vie se vide vers la gauche
 
         //fond rouge pour les pv perdus
         Rectangle barreRouge = new Rectangle(img.getFitWidth()/2, img.getFitHeight()/20);
         barreRouge.setFill(Color.RED);
+
+        DropShadow shadow = new DropShadow();
+        shadow.setOffsetX(-1);
+        shadow.setColor(Color.WHITESMOKE);
+        shadow.setSpread(.5);
+        shadow.setRadius(8.);
+        barreRouge.setEffect(shadow);
 
 
         //dessus vert pour les pv restants
