@@ -14,7 +14,7 @@ public class EntiteVue {
     public static int tailleImage = 64;
 
     public static ImageView appliquerBonneImage(Entite entite, boolean withInit) {
-        /*
+
         ImageView imageView;
 
         if(entite instanceof Animal && !((Animal) entite).isAllie())
@@ -27,9 +27,7 @@ public class EntiteVue {
             initImageView(entite, imageView);
 
         return imageView;
-
-         */
-        return null;
+        
     }
 
     public static void upgradeImage(Entite entite, ImageView imageView){

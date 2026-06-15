@@ -369,12 +369,12 @@ public class Controller implements Initializable {
 
         initAnimation();
 
-        //gameLoop.play();
+        gameLoop.play();
     }
 
     private void initialiserGameWorld() {
 
-        //initRacoutou();
+        initRacoutou();
 
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
         gameWorld.getBarrage().addListener(new EntitesListListener(carte, gameWorld));
