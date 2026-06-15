@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StatsEntiteInitialiser {
+public class  StatsEntiteInitialiser {
 
     public static List<Object[]> getStatsLevels(String name) {
 
