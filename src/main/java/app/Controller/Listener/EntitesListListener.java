@@ -46,6 +46,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     //On suppr du visuel
                     carte.getChildren().removeIf(node -> e.getId().equals(node.getId()));
                     carte.getChildren().removeIf(node -> ("perim" + e.getId()).equals(node.getId()));
+                    carte.getChildren().removeIf(node -> ("perimSpe" + e.getId()).equals(node.getId()));
                     carte.getChildren().removeIf(node -> ("visuBarre" + e.getId()).equals(node.getId()));
                     carte.getChildren().removeIf(node ->("infoBulle"+e.getId()).equals(node.getId()));
                 }
