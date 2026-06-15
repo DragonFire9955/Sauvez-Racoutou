@@ -10,15 +10,14 @@ import java.util.List;
 public abstract class Barrage extends Entite {
     public int taille;
     private int idPoids;
-    private int id;
 
-    public Barrage(String name, double[] coord, GameWorld w, double health, int coin, int taille, int idPoids, int id){
+    public Barrage(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, int taille, int idPoids){
 
-        super(name, coord, w, StatsEntiteInitialiser.getStatsLevels(name));
+        super(name, coord, w, statsLevels);
 
         this.taille = taille;
         this.idPoids = idPoids;
-        this.id = id;
+
 
     }
 
@@ -34,15 +33,9 @@ public abstract class Barrage extends Entite {
         return null;
     }
 
-
     @Override
     public Entite getCible() {
         return getCiblesAccessibles(getRange(), Utilitaire.animauxToEntites(getWorld().getAnimaux())).getFirst();
-    }
-
-
-    public int getIdEntite(){
-        return id;
     }
 
     public int getIdPoids(){

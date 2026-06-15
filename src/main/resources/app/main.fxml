@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="applicationPane" prefHeight="896.0" prefWidth="1408.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller.Controller">
+<BorderPane fx:id="applicationPane" prefHeight="896.0" prefWidth="1408.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller.Controller">
    <center>
       <Pane fx:id="gamePane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -43,14 +43,14 @@
             </Pane>
             <VBox alignment="TOP_CENTER" prefHeight="47.0" prefWidth="1130.0">
                <children>
-                  <Pane prefHeight="47.0" prefWidth="100.0" style="-fx-background-color: rgba(0, 0, 0, 0.5);">
+                  <Pane prefHeight="47.0" prefWidth="100.0" style="-fx-background-color: rgba(0, 0, 0, 0.5);" visible="false">
                      <children>
-                        <Label fx:id="waveLabel" alignment="CENTER" prefHeight="25.0" prefWidth="123.0" text="Wave" textFill="WHITE">
+                        <Label fx:id="waveLabel" alignment="CENTER" prefHeight="25.0" prefWidth="123.0" text="Wave" textFill="WHITE" visible="false">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <Label fx:id="waveTimerLabel" alignment="CENTER" layoutY="21.0" prefHeight="25.0" prefWidth="126.0" text="Timer" textFill="WHITE" />
+                        <Label fx:id="waveTimerLabel" alignment="CENTER" layoutY="21.0" prefHeight="25.0" prefWidth="126.0" text="Timer" textFill="WHITE" visible="false"/>
                      </children>
                      <VBox.margin>
                         <Insets left="505.0" right="505.0" />

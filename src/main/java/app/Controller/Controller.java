@@ -76,16 +76,26 @@ public class Controller implements Initializable {
     private int indiceMap = 0;
     private final List<Image[]> mapPrevisualisationAndIconsImages = List.of(
             new Image[]{new Image("/app/maps/images/map1Preview.jpg"), new Image("/app/maps/images/map1Icon.png")},
-            new Image[]{new Image("/app/maps/images/map2Preview.jpg"), new Image("/app/maps/images/map2Icon.png")}
+            new Image[]{new Image("/app/maps/images/map2Preview.jpg"), new Image("/app/maps/images/map2Icon.png")},
+            new Image[]{new Image("/app/maps/images/map3Preview.png"), new Image("/app/maps/images/map3Icon.png")},
+            new Image[]{new Image("/app/maps/images/map4Preview.png"), new Image("/app/maps/images/map4Icon.png")},
+            new Image[]{new Image("/app/maps/images/map5Preview.png"), new Image("/app/maps/images/map5Icon.png")}
     );
     private final List<String> nomsMaps = List.of(
+            "StraightCity",
+            "MiddleCity",
+            "SquareCity",
             "Ville",
             "Prairie"
+
     );
 
     private final List<String> difficultesMaps = List.of(
-            "Facile",
-            "Difficile"
+            " Très Facile",
+            " Facile",
+            " Moyen",
+            "Difficile",
+            "Très Difficile"
     );
 
     @FXML private Button poubelle;
@@ -358,12 +368,13 @@ public class Controller implements Initializable {
         cameraManager.verifierLimitesCamera();
 
         initAnimation();
-        gameLoop.play();
+
+        //gameLoop.play();
     }
 
     private void initialiserGameWorld() {
 
-        initRacoutou();
+        //initRacoutou();
 
         gameWorld.getAnimaux().addListener(new EntitesListListener(carte, gameWorld));
         gameWorld.getBarrage().addListener(new EntitesListListener(carte, gameWorld));
