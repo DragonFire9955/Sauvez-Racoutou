@@ -16,6 +16,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -84,7 +86,6 @@ public class InfoBulleListener {
             List<String> target = new ArrayList<>();
             target.add("Strongest");
             target.add("Weakest");
-            target.add("Farthest");
             target.add("Nearest");
 
             actualTargetInt = target.size() - 1;
@@ -144,12 +145,15 @@ public class InfoBulleListener {
 
 
         Button sellButton = new Button();
-        sellButton.setPrefSize(73, 35);
+        sellButton.setPrefSize(65, 33);
         sellButton.setText("Sell : " + qtiteRevente);
         sellButton.setStyle(
-                "-fx-border-radius: 5;"+
                 "-fx-border-style: 2;"+
-                "-fx-background-color: #FFFCF2"
+                "-fx-background-color: #FFFCF2;"+
+                "-fx-font-size: 16;" +
+                "-fx-font-weight: bold;"+
+                "-fx-background-radius: 10;"+
+                "-fx-padding: -10;"
         );
 
         sellButton.setOnMouseClicked(event -> {
@@ -158,12 +162,13 @@ public class InfoBulleListener {
             e.setHealth(0);
         });
 
-        HBox sellBox = new HBox(5, closeButton, sellButton);
+        HBox sellBox = new HBox(10, closeButton, sellButton);
         //Je met la marge haut au boutton de fermeture (Button n'a pas de margin alors je dois récup le parent pour lui appliquer ce margin)
         HBox.setMargin(closeButton,  new Insets(5, 0, 0, 0));
+        HBox.setMargin(sellButton,  new Insets(0, 5, 0, 0));
 
-        sellBox.setLayoutX(14);
-        sellBox.setLayoutY(143);
+        sellBox.setLayoutX(17);
+        sellBox.setLayoutY(150);
 
         // Zone upgrade
         //On crée un StackPane qui va contenir le tout
@@ -267,8 +272,9 @@ public class InfoBulleListener {
                 "-fx-background-radius: 10;"
         );
         Platform.runLater(() -> attributesScrollPane.lookup(".viewport").setStyle(
-                "-fx-background-radius: 10;")
-        );
+                "-fx-background-radius: 10;"
+        ));
+        System.out.println(e.getName() + "viexport ");
 
 
         //Action du boutton pr améliorer
@@ -387,9 +393,10 @@ public class InfoBulleListener {
                 Object newStat = e.getStatsLevels().get((e.getLevel()) + 1)[i + 2];
 
                 if (!actualStat.equals(newStat)) {
+
                     Label stats = new Label(getStatName(i)
                             + e.getStatsLevels().get(e.getLevel())[i + 2].toString()
-                            + " -> "
+                            + " → "
                             + e.getStatsLevels().get((e.getLevel()) + 1)[i + 2].toString());
 
                     stats.setStyle(
@@ -474,5 +481,6 @@ public class InfoBulleListener {
 
         qtiteRevente = (int) (e.getStatsLevels().get(e.getLevel())[1]) / 2;
         sellButton.setText("Sell : " + qtiteRevente);
+
     }
 }

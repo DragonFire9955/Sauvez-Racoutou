@@ -48,8 +48,24 @@ public class EntiteVue {
 
         if(entite instanceof Animal && !((Animal) entite).isAllie())
             imageView.setImage(new Image("app/images/"+ entite.getName()+"/img.png"));
-        else
+        else {
+            if (entite.getName().equals("chatCuisinier")) {
+                if (entite.getLevel() == 1) {
+                    imageView.setFitHeight(tailleImage * 1.22);
+                    imageView.setFitWidth(tailleImage * 1.22);
+
+                    imageView.layoutXProperty().unbind();
+                    imageView.layoutYProperty(). unbind();
+
+                    imageView.setLayoutX(entite.getX() - imageView.getFitHeight()/2);
+                    imageView.setLayoutY(entite.getY() - imageView.getFitHeight()/2);
+                } else if (entite.getLevel() == 2) {
+                    imageView.setFitHeight(tailleImage);
+                    imageView.setFitWidth(tailleImage);
+                }
+            }
             imageView.setImage(new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/img.png"));
+        }
 
     }
 

@@ -385,6 +385,54 @@ public class StatsEntiteInitialiser {
                 .8,    //EffetForce
                 .8,     //EffetVit
         });
+
+        statsLevels.add(new Object[]{
+                "Default",
+                61,     //Argent rapporté
+                22.,     //Health
+                44.,     //Range
+                5.,     //Damage
+                1.2,     //FreqAtk
+                1.1,     //Speed
+                150.,    //BuffRange
+                3.,     //TpsBuff
+                5.,     //TpsRepo
+                3,      //NbrVictimes
+                .8,    //EffetForce
+                .8,     //EffetVit
+        });
+
+        statsLevels.add(new Object[]{
+                "Default",
+                60,     //Argent rapporté
+                25.,     //Health
+                40.,     //Range
+                5.,     //Damage
+                1.2,     //FreqAtk
+                1.1,     //Speed
+                150.,    //BuffRange
+                3.,     //TpsBuff
+                5.,     //TpsRepo
+                3,      //NbrVictimes
+                .8,    //EffetForce
+                .8,     //EffetVit
+        });
+
+        statsLevels.add(new Object[]{
+                "Default",
+                60,     //Argent rapporté
+                25.,     //Health
+                40.,     //Range
+                5.,     //Damage
+                1.2,     //FreqAtk
+                1.1,     //Speed
+                150.,    //BuffRange
+                3.,     //TpsBuff
+                5.,     //TpsRepo
+                3,      //NbrVictimes
+                .8,    //EffetForce
+                .8,     //EffetVit
+        });
     }
 
     private static void initStatsChatScientifique(List<Object[]> statsLevels) {

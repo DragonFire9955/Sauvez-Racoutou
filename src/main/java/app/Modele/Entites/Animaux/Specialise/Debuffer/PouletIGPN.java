@@ -26,9 +26,9 @@ public class PouletIGPN extends Debuffer {
     List<Entite> cibles;
 
     public PouletIGPN(double[] coord, GameWorld w) {
-        super("Poulet IGPN", coord, w, StatsEntiteInitialiser.getStatsLevels("Poulet IGPN"), true);
+        super("pouletIGPN", coord, w, StatsEntiteInitialiser.getStatsLevels("pouletIGPN"), true);
         affectes = new HashMap<>();
-        List<Object[]> statsLevels = StatsEntiteInitialiser.getStatsLevels("Poulet IGPN");
+        List<Object[]> statsLevels = StatsEntiteInitialiser.getStatsLevels("pouletIGPN");
         effetForce = (double) statsLevels.get(0)[11];
         effetVitesse = (double) statsLevels.get(0)[12];
 

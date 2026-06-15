@@ -29,7 +29,7 @@ public class Animal extends Entite {
         slowUntil = new double[3];
         this.allie= new SimpleBooleanProperty(allie);
 
-        cibleInt = 3;
+        cibleInt = 2;
     }
 
     @Override
@@ -158,7 +158,6 @@ public class Animal extends Entite {
     }
 
     //Retourne l'entité vers laquelle this se dirige
-    @Override
     public Entite getDirection(){
 
         if(!allie.get())
@@ -171,9 +170,7 @@ public class Animal extends Entite {
                     return getAnimauxCiblesWeakest().getLast();
                 case 1: //Weakest
                     return getAnimauxCiblesWeakest().getLast();
-                case 2: //Farthest
-                    return getEntitesCiblesNearest().getLast();
-                case 3: //Nearest
+                case 2: //Nearest
                     return getEntitesCiblesNearest().getFirst();
                 default:
                     return null;

@@ -182,7 +182,7 @@ public abstract class Entite {
         return alive;
     }
 
-    public abstract Entite getDirection();
+    //public abstract Entite getDirection();
 
     public abstract Entite getCible();
 
