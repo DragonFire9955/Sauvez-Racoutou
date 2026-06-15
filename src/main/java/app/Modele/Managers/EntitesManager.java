@@ -20,10 +20,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class EntitesManager {
-
-
-
-
+    
     // CLASSIQUE
     public static Animal creerChatClassique(GameWorld w) {
         return creerChatClassique(EnnemisSpawn.randomCoord(w), w);
