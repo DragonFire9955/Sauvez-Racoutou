@@ -180,8 +180,11 @@ public class GameWorld {
         dijkRacoutou2 = new DeplacementDijkstra(tailleTile, map).dijkstra(this.getRacoutou().getCoord());
     }
     public void supprimerBarrage(Barrage b) {
-
-        map[b.getTile()[0]][b.getTile()[1]] = 1;
+        int taille = b.getTaille();
+        for(int i= 0; i<taille; i++){
+            for(int j = 0; j<taille; j++)
+                map[b.getTile()[0]+1][b.getTile()[1]+j] = 1;
+        }
         barrageList.remove(b);
         dijkRacoutou2 = new DeplacementDijkstra(tailleTile, map).dijkstra(this.getRacoutou().getCoord());
     }
