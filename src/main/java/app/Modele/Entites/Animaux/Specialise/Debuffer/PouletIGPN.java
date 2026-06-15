@@ -40,8 +40,8 @@ public class PouletIGPN extends Debuffer {
 
         super.setStats(actualLevel);
 
-        this.effetForce = ((int) getStatsLevels().get(actualLevel)[11]);
-        this.effetVitesse = ((int) getStatsLevels().get(actualLevel)[12]);
+        this.effetForce = ((double) getStatsLevels().get(actualLevel)[11]);
+        this.effetVitesse = ((double) getStatsLevels().get(actualLevel)[12]);
     }
 
     @Override

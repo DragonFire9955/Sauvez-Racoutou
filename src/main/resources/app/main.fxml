@@ -268,7 +268,7 @@
                            <graphic>
                               <HBox alignment="CENTER" spacing="5.0">
                                  <children>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="poubelleShopImageView" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@images/poubelle/niv0/img.png" />
                                        </image>
@@ -314,7 +314,7 @@
                            <graphic>
                               <HBox alignment="CENTER" spacing="5.0">
                                  <children>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="chatClassiqueShopImageView" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@images/chatClassique/niv0/img.png" />
                                        </image>
@@ -360,7 +360,7 @@
                            <graphic>
                               <HBox alignment="CENTER" spacing="5.0">
                                  <children>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="chatMedecinShopImageView" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@images/chatMedecin/niv0/img.png" />
                                        </image>
@@ -406,7 +406,7 @@
                            <graphic>
                               <HBox alignment="CENTER" spacing="5.0">
                                  <children>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="chatJournalisteShopImageView" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@images/chatJournaliste/niv0/img.png" />
                                        </image>
@@ -452,7 +452,7 @@
                            <graphic>
                               <HBox alignment="CENTER" spacing="5.0">
                                  <children>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="chatScientifiqueShopImageView" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@images/chatScientifique/niv0/img.png" />
                                        </image>
@@ -498,7 +498,7 @@
                            <graphic>
                               <HBox alignment="CENTER" spacing="5.0">
                                  <children>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="chatCuisinierShopImageView" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@images/chatCuisinier/niv0/img.png" />
                                        </image>
@@ -544,7 +544,7 @@
                            <graphic>
                               <HBox alignment="CENTER" spacing="5.0">
                                  <children>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="pouletIGPNShopImageView" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@images/pouletIGPN/niv0/img.png" />
                                        </image>
@@ -590,7 +590,7 @@
                            <graphic>
                               <HBox alignment="CENTER" spacing="5.0">
                                  <children>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="chatHypnotiseurShopImageView" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@images/chatHypnotiseur/niv0/img.png" />
                                        </image>

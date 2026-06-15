@@ -90,27 +90,35 @@ public class Controller implements Initializable {
     );
 
     @FXML private Button poubelle;
+    @FXML private ImageView poubelleShopImageView;
     @FXML private Label poubellePrixLabel;
 
     @FXML private Button chatClassique;
+    @FXML private ImageView chatClassiqueShopImageView;
     @FXML private Label chatClassiquePrixLabel;
 
     @FXML private Button chatMedecin;
+    @FXML private ImageView chatMedecinShopImageView;
     @FXML private Label chatMedecinPrixLabel;
 
     @FXML private Button chatJournaliste;
+    @FXML private ImageView chatJournalisteShopImageView;
     @FXML private Label chatJournalistePrixLabel;
 
     @FXML private Button chatScientifique;
+    @FXML private ImageView chatScientifiqueShopImageView;
     @FXML private Label chatScientifiquePrixLabel;
 
     @FXML private Button chatCuisinier;
+    @FXML private ImageView chatCuisiniShopImageView;
     @FXML private Label chatCuisinierPrixLabel;
 
     @FXML private Button pouletIGPN;
+    @FXML private ImageView pouletIGPNShopImageView;
     @FXML private Label pouletIGPNPrixLabel;
 
     @FXML private Button chatHypnotiseur;
+    @FXML private ImageView chatHypnotiseurShopImageView;
     @FXML private Label chatHypnotiseurPrixLabel;
 
 
@@ -513,6 +521,7 @@ public class Controller implements Initializable {
 
         String id = ((Button) event.getSource()).getId().replace("LvlRightButton", "").replace("LvlLeftButton", "");
         EntitesManager.incrementerNivBaseLorsAchat(id);
+        ((ImageView) shopVBox.lookup("#"+id+"ShopImageView")).setImage(new Image ("/app/images/"+ id +"/niv"+ EntitesManager.niveauDeBasesLorsAchat.get(id)+"/img.png"));
         ((Label) shopVBox.lookup("#"+id+"PrixLabel")).setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(id), id)));
     }
 
@@ -520,6 +529,7 @@ public class Controller implements Initializable {
 
         String id = ((Button) event.getSource()).getId().replace("LvlLeftButton", "").replace("LvlRightButton", "");
         EntitesManager.decrementerNivBaseLorsAchat(id);
+        ((ImageView) shopVBox.lookup("#"+id+"ShopImageView")).setImage(new Image ("/app/images/"+ ((Button) event.getSource()).getId()+"/niv"+((Button) event.getSource()).getId()+"/img.png"));
         ((Label) shopVBox.lookup("#"+id+"PrixLabel")).setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(id), id)));
     }
 }
