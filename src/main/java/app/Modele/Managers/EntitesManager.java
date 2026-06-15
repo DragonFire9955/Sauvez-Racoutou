@@ -252,4 +252,19 @@ public class EntitesManager {
         else
             w.ajouterAnimal( (Animal) e);
     }
+
+    public static double[] coordRacoutou(GameWorld w){
+        boolean trouve = false;
+        int ligne = 0, col = 0;
+        while(!trouve && ligne < w.getMap().length) {
+            col = 0;
+            while (!trouve && col < w.getMap()[ligne].length) {
+                if (w.getMap()[ligne][col] == 11)
+                    trouve = true;
+                col++;
+            }
+            ligne++;
+        }
+        return new double[]{ (col+1.5)*w.getTailleTile(), (ligne+1.5)*w.getTailleTile()};
+    }
 }

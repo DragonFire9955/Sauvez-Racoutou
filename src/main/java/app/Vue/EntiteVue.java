@@ -27,7 +27,7 @@ public class EntiteVue {
             initImageView(entite, imageView);
 
         return imageView;
-        
+
     }
 
     public static void upgradeImage(Entite entite, ImageView imageView){

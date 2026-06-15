@@ -2,6 +2,7 @@ package app.Modele.Entites.Animaux;
 
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
+import app.Modele.Managers.EntitesManager;
 import app.Modele.Utilitaires.Utilitaire;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import static java.lang.Thread.sleep;
 public class Racoutou extends Animal {
 
     public Racoutou(GameWorld w, List<Object[]> statsLevels) {
-        super("racoutou", new double[]{(double) (((w.getTailleTile() * w.getMap()[0].length)/2) + w.getTailleTile()/2), (double) (((w.getTailleTile()* (w.getMap().length)) /2)+ w.getTailleTile()/2)}, w, statsLevels, true);
+        super("racoutou", EntitesManager.coordRacoutou(w), w, statsLevels, true);
     }
 
     public Racoutou(double[] coord, GameWorld w, List<Object[]> statsLevels) {
@@ -31,7 +32,4 @@ public class Racoutou extends Animal {
 
         return cibles.getFirst();
     }
-
-
-
 }
