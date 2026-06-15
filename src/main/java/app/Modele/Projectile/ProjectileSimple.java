@@ -35,7 +35,7 @@ public class ProjectileSimple {
         nbId++;
 
         this.x.set(pouletProjectible.getX());
-        this.y.set(pouletProjectible.getY());
+        this.y.set(pouletProjectible.getY()-7);
 
         this.cible=cible;
         this.dist = Utilitaire.distance(getX(), getY(), cible.getX(), cible.getY());
