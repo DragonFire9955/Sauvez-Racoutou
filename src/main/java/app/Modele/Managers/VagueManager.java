@@ -14,7 +14,7 @@ public class VagueManager {
         TreeMap<Integer, List<Animal>> v1 = new TreeMap<>();
 
         Map<String, Integer> vv1 = new HashMap<>();
-        vv1.put("pouletProjectible", 3);
+        vv1.put("pouletClassique", 3);
 
         Map<String, Integer> vv2 = new HashMap<>();
         vv2.put("pouletClassique", 4);
