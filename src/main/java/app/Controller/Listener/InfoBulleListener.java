@@ -152,8 +152,8 @@ public class InfoBulleListener {
                 "-fx-background-color: #FFFCF2;"+
                 "-fx-font-size: 16;" +
                 "-fx-font-weight: bold;"+
-                "-fx-background-radius: 10;"+
-                "-fx-padding: -10;"
+                "-fx-background-radius: 10;"
+                       // +"-fx-padding: -10;"
         );
 
         sellButton.setOnMouseClicked(event -> {

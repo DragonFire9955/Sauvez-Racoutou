@@ -4,11 +4,10 @@ import app.Controller.Listener.EntiteHealthListener;
 import app.Controller.Listener.EntitesListListener;
 import app.Controller.Listener.*;
 import app.Modele.AudioManager;
-import app.Modele.Entites.Animaux.Animal;
-import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
+import app.Modele.Entites.Animaux.Specialise.Debuffer.Ruchien;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
@@ -26,31 +25,20 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -99,6 +87,8 @@ public class Controller implements Initializable {
             "Très Difficile"
     );
 
+    @FXML private HBox vieRacoutou;
+
     @FXML private Button poubelle;
     @FXML private ImageView poubelleShopImageView;
     @FXML private Label poubellePrixLabel;
@@ -134,19 +124,23 @@ public class Controller implements Initializable {
 
     @FXML private Label coinLabel;
 
+    @FXML private Pane wavePane;
     @FXML private Label waveLabel;
     @FXML private Label waveTimerLabel;
 
     @FXML private VBox menuPause;
 
     @FXML private VBox menuReglages;
-    @FXML private Button btnSon;
     @FXML private ComboBox<String> comboResolution;
     @FXML private ImageView imgSon;
+    @FXML private Slider sliderVolume;
+    @FXML private Label labelTitreMusique;
 
     private Image imageSonOn;
     private Image imageSonOff;
 
+    @FXML private Label racoutouHpLabel;
+    @FXML private ProgressBar racoutouPvBar;
 
     @FXML private Pane finJeu;
     @FXML private ImageView imgFinJeu;
@@ -220,30 +214,16 @@ public class Controller implements Initializable {
             });
         });
 
-        //Audio
-        AudioManager.getInstance().jouerMusique("/app/audio/epic.wav");
-
-        imageSonOn = ImageSetter.sonOn;
-        imageSonOff = ImageSetter.sonOff;
-
-        AudioManager.getInstance().sonActiveProperty().addListener((obs, ancien, estActive) -> {
-            if (estActive) {
-                imgSon.setImage(imageSonOn);
-            } else {
-                imgSon.setImage(imageSonOff);
-            }
-        });
-
         //Résolutions
         comboResolution.getItems().addAll(
                 "1280 x 720",
                 "1366 x 768",
-                "1408 x 896",
-                "1600 x 900",
+                "1408 x 900",
+                "1600 x 1000",
                 "1920 x 1080"
         );
 
-        comboResolution.setValue("1408 x 896");
+        comboResolution.setValue("1408 x 900");
 
         comboResolution.setOnAction(e -> {
 
@@ -258,6 +238,24 @@ public class Controller implements Initializable {
             applicationPane.getScene().getWindow().setHeight(hauteur);
 
         });
+
+        //Audio
+        AudioManager.getInstance().jouerMusique(AudioManager.getInstance().getMusiqueActuelle());
+
+        actualiserTitreMusique();
+
+        imageSonOn = ImageSetter.sonOn;
+        imageSonOff = ImageSetter.sonOff;
+
+        AudioManager.getInstance().sonActiveProperty().addListener((obs, ancien, estActive) -> {
+            if (estActive) {
+                imgSon.setImage(imageSonOn);
+            } else {
+                imgSon.setImage(imageSonOff);
+            }
+        });
+
+        sliderVolume.valueProperty().bindBidirectional(AudioManager.getInstance().volumeProperty());
     }
 
     @FXML private void gameStartButtonPressed() {
@@ -275,6 +273,33 @@ public class Controller implements Initializable {
         mapSelectorPane.setVisible(false);
 
         isGameStarted.setValue(true);
+
+        vieRacoutou.setVisible(true);
+
+        wavePane.setVisible(true);
+    }
+
+    private void actualiserTitreMusique() {
+        String titre = AudioManager.getInstance().getNomMusiqueActuelle();
+        labelTitreMusique.setText(titre);
+    }
+
+    @FXML
+    private void musiquePrecedente() {
+        AudioManager.getInstance().pistePrecedente();
+        actualiserTitreMusique();
+    }
+
+    @FXML
+    private void musiqueSuivante() {
+        AudioManager.getInstance().pisteSuivante();
+        actualiserTitreMusique();
+    }
+
+    @FXML
+    private void clicBoutonSon() {
+        boolean etatActuel = AudioManager.getInstance().sonActiveProperty().get();
+        AudioManager.getInstance().sonActiveProperty().set(!etatActuel);
     }
 
     @FXML void mapChangeLeft() {
@@ -295,13 +320,6 @@ public class Controller implements Initializable {
             indiceMap = 0;
 
         afficherMapSelectionnee();
-    }
-
-    @FXML
-    private void clicBoutonSon() {
-        boolean etatActuel = AudioManager.getInstance().sonActiveProperty().get();
-
-        AudioManager.getInstance().sonActiveProperty().set(!etatActuel);
     }
 
     @FXML
@@ -352,9 +370,13 @@ public class Controller implements Initializable {
         //On reset le temps de la gameLoop
         temps.setValue(0);
 
+        gameStartButtonPressed();
+        /*
         //Reset du monde
         int[][] mapChoisie = mapManager.getMaps().get(indiceMap);
         gameWorld = new GameWorld(mapChoisie);
+
+
 
         //Reset du visuel
         carte.getChildren().clear();
@@ -379,7 +401,10 @@ public class Controller implements Initializable {
         initAnimation();
 
         gameLoop.play();
+
+         */
     }
+
 
     private void initialiserGameWorld() {
 
@@ -444,13 +469,13 @@ public class Controller implements Initializable {
         //drop
         tileMap.setOnDragDropped(e -> { //réagit quand la souris relache
             Dragboard db = e.getDragboard();
-            int id = Integer.parseInt(db.getString());
+            String nomStructure = db.getString();
 
             //coordonnées en case
             int colonne = (int) (e.getX() / gameWorld.getTailleTile());
             int ligne = (int) (e.getY() / gameWorld.getTailleTile());
 
-            clic.placerStructure(ligne, colonne, "poubelle");
+            clic.placerStructure(ligne, colonne, nomStructure);
 
             e.consume();
             gamePane.requestFocus();
@@ -468,6 +493,15 @@ public class Controller implements Initializable {
         gameLoop.getKeyFrames().add(kf);
     }
 
+    //Fonction de test, uniquement pour les tests, A SUPPRIMER PLUS TARD
+    private void remetEnnemiTest(KeyEvent event) {
+
+        if (event.getCode() == KeyCode.ENTER){
+            gameWorld.setTotalCoin(1000);
+        } else if (event.getCode() == KeyCode.A) {
+            gameWorld.getRacoutou().estAttaque(1);
+        }
+    }
 
     private void initRacoutou(){
         Entite racoutou = gameWorld.getRacoutou();
@@ -485,6 +519,21 @@ public class Controller implements Initializable {
             infoBulleListener.changeAfficherDescription();
         });
         infoBulleListener.ajoutZoneDescription();
+
+
+        double pvMax = racoutou.getMaxHealth();
+        double pvActuels = racoutou.getHealthProperty().get();
+
+        racoutouPvBar.setProgress(pvActuels / pvMax);
+        racoutouHpLabel.setText((int)pvActuels + " / " + (int)pvMax + " PV");
+
+        racoutou.getHealthProperty().addListener((observable, oldValue, newValue) -> {
+            double pvActuel = newValue.doubleValue();
+
+            racoutouPvBar.setProgress(Math.max(0, pvActuel / pvMax));
+
+            racoutouHpLabel.setText((int)Math.max(0, pvActuel) + " / " + (int)pvMax + " PV");
+        });
 
     }
 

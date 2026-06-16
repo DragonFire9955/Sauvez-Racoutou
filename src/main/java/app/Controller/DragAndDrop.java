@@ -16,7 +16,7 @@ public class DragAndDrop {
             //initialise le mode Drag&Drop de JavaFX
 
             ClipboardContent contenu = new ClipboardContent(); //pour ajouter du contenu
-            //contenu.putString(String.valueOf(id)); //on ajout l'id de l'image
+            contenu.putString(bouton.getId()); //on ajout l'id de l'image
             db.setContent(contenu); //on ajoute le contenu au drag&drop
             db.setDragView(new Image("app/images/"+ bouton.getId() +"/niv0/img.png", 32, 32, true, true));
             //met une image visuellement (mais stocke une id)
