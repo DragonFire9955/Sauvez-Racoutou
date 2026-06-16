@@ -1,11 +1,7 @@
 package app.Vue;
 
-import app.Controller.Listener.ControleurDeClic;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
-
-import java.util.Map;
 
 public class TerrainVue {
 
@@ -90,21 +86,6 @@ public class TerrainVue {
         cases.setSmooth(true);
         cases.setCache(true);
         return cases;
-    }
-
-    public ImageView creerTour(int idEntite) {
-        ImageView tour = new ImageView();
-
-        switch (idEntite) {
-            case 100:
-                tour.setImage(ImageSetter.poubelle);
-                break;
-            default:
-                System.out.println("Barrage inconnu");
-                break;
-        }
-
-        return tour;
     }
 
     public void remplirMap(TilePane tileMap, int[][] map) {

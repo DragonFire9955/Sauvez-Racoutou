@@ -1,13 +1,11 @@
 package app.Controller.Listener;
 
-import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Entite;
 import app.Vue.EntiteVue;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 

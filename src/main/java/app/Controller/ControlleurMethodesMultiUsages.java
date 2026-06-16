@@ -2,7 +2,6 @@ package app.Controller;
 
 import app.Modele.AudioManager;
 import javafx.beans.property.BooleanProperty;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -14,22 +13,22 @@ public class ControlleurMethodesMultiUsages {
     
     
     public static void musiquePrecedente(Label labelTitreMusique) {
-        AudioManager.getInstance().pistePrecedente();
+        AudioManager.getRadio().pistePrecedente();
         actualiserTitreMusique(labelTitreMusique);
     }
 
     public static void musiqueSuivante(Label labelTitreMusique) {
-        AudioManager.getInstance().pisteSuivante();
+        AudioManager.getRadio().pisteSuivante();
         actualiserTitreMusique(labelTitreMusique);
     }
 
     public static void clicBoutonSon() {
-        boolean etatActuel = AudioManager.getInstance().sonActiveProperty().get();
-        AudioManager.getInstance().sonActiveProperty().set(!etatActuel);
+        boolean sonAllume = AudioManager.getRadio().sonActiveProperty().get();
+        AudioManager.getRadio().sonActiveProperty().set(!sonAllume);
     }
 
     public static void actualiserTitreMusique(Label labelTitreMusique) {
-        String titre = AudioManager.getInstance().getNomMusiqueActuelle();
+        String titre = AudioManager.getRadio().getNomMusiqueActuelle();
         labelTitreMusique.setText(titre);
     }
 

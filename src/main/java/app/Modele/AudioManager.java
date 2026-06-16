@@ -11,7 +11,7 @@ import java.io.InputStream;
 
 public class AudioManager {
 
-    private static AudioManager instance;
+    private static AudioManager radio;
     private Clip clip;
     private BooleanProperty sonActive;
     private DoubleProperty volume;
@@ -23,6 +23,7 @@ public class AudioManager {
     };
     private int indexMusiqueActuelle = 0;
 
+    //private pour pas que d'autre classe fasse new AudioManager() pour avoir une radio
     private AudioManager() {
         this.sonActive = new SimpleBooleanProperty(true);
         this.volume = new SimpleDoubleProperty(0.5);
@@ -55,11 +56,11 @@ public class AudioManager {
         });
     }
 
-    public static AudioManager getInstance() {
-        if (instance == null) {
-            instance = new AudioManager();
+    public static AudioManager getRadio() {
+        if (radio == null) {
+            radio = new AudioManager();
         }
-        return instance;
+        return radio;
     }
 
     public void jouerMusique(String url) {
@@ -70,11 +71,13 @@ public class AudioManager {
         }
 
         try { //essaye
-            InputStream input = getClass().getResourceAsStream(url);
 
-            //on met le fichier dans un buffer pour qu'il soit lisible par le clip
-            InputStream buffer = new BufferedInputStream(input);
-            AudioInputStream audio = AudioSystem.getAudioInputStream(buffer);
+            //on recupere le fichier audio
+            InputStream fichierAudio = getClass().getResourceAsStream(url);
+
+            //on met le fichier audio dans un carton pour qu'il soit lisible par le clip
+            InputStream carton = new BufferedInputStream(fichierAudio);
+            AudioInputStream audio = AudioSystem.getAudioInputStream(carton);
 
             clip = AudioSystem.getClip(); //nouveau clip vide
             clip.open(audio); //on met notre audio dedans
@@ -85,14 +88,14 @@ public class AudioManager {
                 clip.start();
             }
 
-        } catch (Exception e) { //si erreur
+        } catch (Exception e) { //si erreur (pour ne pas faire crasher le jeu)
             System.out.println(e.getMessage());
         }
     }
 
     private void appliquerVolume(double vol) {
         FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        //on récupère le controleur de volume du clip
+        //on récupère le controleur du volume de l'ordinateur (Master_gain)
 
         //formule pour convertir le pourcentage du slider en decibel
         float dB = (float) (Math.log(vol) / Math.log(10.0) * 20.0);

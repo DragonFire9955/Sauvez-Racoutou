@@ -1,6 +1,5 @@
 package app.Controller.Listener;
 
-import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.EntitesManager;
 import app.Modele.Utilitaires.StatsEntiteInitialiser;
@@ -34,11 +33,7 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
         this.taille = 1;
 
         this.highlight = new Rectangle(gameWorld.getTailleTile(), gameWorld.getTailleTile());
-        /*
-        this.highlight.setFill(Color.rgb(255, 255, 0, 0.30));
-        this.highlight.setStroke(Color.GOLD);
 
-         */
         this.highlight.setStrokeWidth(2);
 
         this.highlight.setMouseTransparent(true);
@@ -57,14 +52,17 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
             return;
         }
 
+        //si on n'a pas cliqué sur le bouton pour placé avant on arrête
         if (!modePlacement) {
             highlight.setVisible(false);
             return;
         }
 
+        //met a jour le carré sous la souris
         updateHighlight(e);
         highlight.setVisible(true);
 
+        //si clic gauche
         if (e.getEventType() == MouseEvent.MOUSE_CLICKED && e.getButton() == MouseButton.PRIMARY) {
 
             //coordonées en case
@@ -157,8 +155,6 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
         }
 
     }
-
-
 
     public void setModePlacement(boolean modePlacement) {
         this.modePlacement = modePlacement;
