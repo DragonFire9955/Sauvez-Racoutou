@@ -552,7 +552,7 @@ public class Controller implements Initializable {
 
         String id = ((Button) event.getSource()).getId().replace("LvlLeftButton", "").replace("LvlRightButton", "");
         EntitesManager.decrementerNivBaseLorsAchat(id);
-        ((ImageView) shopVBox.lookup("#"+id+"ShopImageView")).setImage(new Image ("/app/images/"+ ((Button) event.getSource()).getId()+"/niv"+((Button) event.getSource()).getId()+"/img.png"));
+        ((ImageView) shopVBox.lookup("#"+id+"ShopImageView")).setImage(new Image ("/app/images/"+ id +"/niv"+  EntitesManager.niveauDeBasesLorsAchat.get(id) +"/img.png"));
         ((Label) shopVBox.lookup("#"+id+"PrixLabel")).setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(id), id)));
     }
 }
