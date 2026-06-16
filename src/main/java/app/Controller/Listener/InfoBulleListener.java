@@ -330,7 +330,7 @@ public class InfoBulleListener {
             );
         else if (e.getName().equals("racoutou"))
             root.setStyle(
-                    "-fx-background-color: linear-gradient(to bottom right, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #9400D3); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                    "-fx-background-color: linear-gradient(to bottom right, #ff3d86, #b258ff, #55eaff, #7AFA70, #DCFA70, #FCB045, #FF5454); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
                             "-fx-border-color: black;" +
                             "-fx-border-radius: 2;"
             );
