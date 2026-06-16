@@ -149,7 +149,6 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
             double posY = ligne * gameWorld.getTailleTile() + gameWorld.getTailleTile() * 0.5;
             double[] coord = new double[]{posX, posY};
 
-            //Entite entite = StructureManager.creerStructure(idEntite, coord, gameWorld);
             EntitesManager.creerEntite(nom, coord, gameWorld);
 
             gamePane.requestFocus();

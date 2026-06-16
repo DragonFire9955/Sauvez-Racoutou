@@ -7,6 +7,7 @@ import app.Modele.AudioManager;
 import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
+import app.Modele.Entites.Animaux.Specialise.Debuffer.Ruchien;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
@@ -29,10 +30,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
@@ -119,6 +117,8 @@ public class Controller implements Initializable {
     private Image imageSonOn;
     private Image imageSonOff;
 
+    @FXML private Label racoutouHpLabel;
+    @FXML private ProgressBar racoutouPvBar;
 
     @FXML private Pane finJeu;
     @FXML private ImageView imgFinJeu;
@@ -372,6 +372,7 @@ public class Controller implements Initializable {
         gameLoop.play();
     }
 
+
     private void initialiserGameWorld() {
 
         initRacoutou();
@@ -435,13 +436,13 @@ public class Controller implements Initializable {
         //drop
         tileMap.setOnDragDropped(e -> { //réagit quand la souris relache
             Dragboard db = e.getDragboard();
-            int id = Integer.parseInt(db.getString());
+            String nomStructure = db.getString();
 
             //coordonnées en case
             int colonne = (int) (e.getX() / gameWorld.getTailleTile());
             int ligne = (int) (e.getY() / gameWorld.getTailleTile());
 
-            clic.placerStructure(ligne, colonne, "poubelle");
+            clic.placerStructure(ligne, colonne, nomStructure);
 
             e.consume();
             gamePane.requestFocus();
@@ -528,6 +529,11 @@ public class Controller implements Initializable {
 
             System.out.println("nouveau pSoigne");
             gameWorld.ajouterAnimal(EntitesManager.creerPouletConservateur(gameWorld));
+        } else if (event.getCode() == KeyCode.U) {
+
+            System.out.println("nouveau ruchien");
+            gameWorld.ajouterAnimal(new Ruchien(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
+
         }
 
         if (event.getCode() == KeyCode.ENTER){
@@ -553,6 +559,21 @@ public class Controller implements Initializable {
             infoBulleListener.changeAfficherDescription();
         });
         infoBulleListener.ajoutZoneDescription();
+
+
+        double pvMax = racoutou.getMaxHealth();
+        double pvActuels = racoutou.getHealthProperty().get();
+
+        racoutouPvBar.setProgress(pvActuels / pvMax);
+        racoutouHpLabel.setText((int)pvActuels + " / " + (int)pvMax + " PV");
+
+        racoutou.getHealthProperty().addListener((observable, oldValue, newValue) -> {
+            double pvActuel = newValue.doubleValue();
+
+            racoutouPvBar.setProgress(Math.max(0, pvActuel / pvMax));
+
+            racoutouHpLabel.setText((int)Math.max(0, pvActuel) + " / " + (int)pvMax + " PV");
+        });
 
     }
 

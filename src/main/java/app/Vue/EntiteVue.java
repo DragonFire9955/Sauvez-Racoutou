@@ -17,10 +17,15 @@ public class EntiteVue {
 
         ImageView imageView;
 
-        if(entite instanceof Animal && !((Animal) entite).isAllie())
-            imageView = new ImageView(new Image("app/images/"+ entite.getName()+"/img.png"));
-        else
-            imageView = new ImageView(new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/img.png"));
+        if (entite.getName().equalsIgnoreCase("ruchien")) {
+            imageView = new ImageView((new Image("app/images/ruchien/img.png")));
+        } else {
+
+            if (entite instanceof Animal && !((Animal) entite).isAllie())
+                imageView = new ImageView(new Image("app/images/" + entite.getName() + "/img.png"));
+            else
+                imageView = new ImageView(new Image("app/images/" + entite.getName() + "/niv" + entite.getLevel() + "/img.png"));
+        }
 
 
         if (withInit)

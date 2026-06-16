@@ -523,11 +523,31 @@
                   <Insets left="25.0" />
                </HBox.margin>
             </Button>
+
             <Label alignment="CENTER" prefHeight="80.0" prefWidth="1150.0" text="SAUVEZ RACOUTOU !" textFill="linear-gradient(to right, #FF8C00, #FF007F)">
                <font>
                   <Font name="Impact" size="55.0" />
                </font>
             </Label>
+
+            <HBox alignment="CENTER_RIGHT" spacing="15.0" prefHeight="100.0">
+               <padding>
+                  <Insets right="30.0" />
+               </padding>
+               <children>
+                  <VBox alignment="CENTER_RIGHT" spacing="5.0">
+                     <children>
+                        <Label fx:id="racoutouHpLabel" text="100 / 100 PV" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <ProgressBar fx:id="racoutouPvBar" prefWidth="250.0" progress="1.0" style="-fx-accent: #FF3366; -fx-control-inner-background: #1A3644;" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+
          </children>
       </HBox>
    </top>
