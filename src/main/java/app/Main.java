@@ -15,6 +15,7 @@ public class Main extends Application{
         Scene scene = new Scene(fxmlLoader.load(), 1408, 896);
         stage.setTitle("Sauvez Racoutou");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
