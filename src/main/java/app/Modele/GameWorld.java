@@ -53,7 +53,7 @@ public class GameWorld {
 
         projectiles = FXCollections.observableArrayList();
 
-        totalCoin = new SimpleIntegerProperty(50);
+        totalCoin = new SimpleIntegerProperty(1000);
 
         ensemblesVagues = VagueManager.ensembleVagues(this);
         durreeVague = new SimpleIntegerProperty(0);

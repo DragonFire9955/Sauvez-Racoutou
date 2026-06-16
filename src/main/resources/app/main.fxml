@@ -43,14 +43,14 @@
             </Pane>
             <VBox alignment="TOP_CENTER" prefHeight="47.0" prefWidth="1130.0">
                <children>
-                  <Pane prefHeight="47.0" prefWidth="100.0" style="-fx-background-color: rgba(0, 0, 0, 0.5);" visible="false">
+                  <Pane fx:id="wavePane" prefHeight="47.0" prefWidth="100.0" style="-fx-background-color: rgba(0, 0, 0, 0.5);" visible="false">
                      <children>
-                        <Label fx:id="waveLabel" alignment="CENTER" prefHeight="25.0" prefWidth="123.0" text="Wave" textFill="WHITE" visible="false">
+                        <Label fx:id="waveLabel" alignment="CENTER" prefHeight="25.0" prefWidth="123.0" text="Wave" textFill="WHITE" >
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <Label fx:id="waveTimerLabel" alignment="CENTER" layoutY="21.0" prefHeight="25.0" prefWidth="126.0" text="Timer" textFill="WHITE" visible="false"/>
+                        <Label fx:id="waveTimerLabel" alignment="CENTER" layoutY="21.0" prefHeight="25.0" prefWidth="126.0" text="Timer" textFill="WHITE" />
                      </children>
                      <VBox.margin>
                         <Insets left="505.0" right="505.0" />
@@ -134,12 +134,12 @@
                      <children>
                         <HBox alignment="CENTER" spacing="20.0">
                            <children>
-                              <Button onAction="#pause" prefHeight="55.0" prefWidth="180.0" style="-fx-background-color: linear-gradient(to bottom right, #4CAF50, #2E7D32); -fx-background-radius: 12; -fx-cursor: hand;" text="Reprendre" textFill="WHITE">
+                              <Button onAction="#pause" prefHeight="55.0" prefWidth="180.0" style="-fx-background-color: linear-gradient(to bottom right, #0575E6, #00F260); -fx-background-radius: 12; -fx-cursor: hand;" text="Reprendre" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Button>
-                              <Button onAction="#lancerJeu" prefHeight="55.0" prefWidth="180.0" style="-fx-background-color: linear-gradient(to bottom right, #FF8C00, #F12711); -fx-background-radius: 12; -fx-cursor: hand;" text="Redémarrer" textFill="WHITE">
+                              <Button onAction="#redemarrerJeu" prefHeight="55.0" prefWidth="180.0" style="-fx-background-color: linear-gradient(to bottom right, #FF8C00, #F12711); -fx-background-radius: 12; -fx-cursor: hand;" text="Redémarrer" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -165,23 +165,59 @@
                         <Font name="System Bold" size="40.0" />
                      </font>
                   </Label>
-                  <VBox alignment="CENTER_LEFT" spacing="20">
+                  <VBox alignment="CENTER_LEFT" spacing="10">
                      <children>
                         <Label text="Audio" textFill="#FFD166">
                            <font>
                               <Font name="System Bold" size="20" />
                            </font>
                         </Label>
-                        <Button fx:id="btnSon" onAction="#clicBoutonSon" style="-fx-background-color: transparent; -fx-cursor: hand;">
-                           <graphic>
-                              <ImageView fx:id="imgSon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/son_on.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Rectangle fill="#4B6E7D" height="2" width="450" />
+                        <VBox alignment="CENTER" prefWidth="460.0" spacing="8.0">
+                           <children>
+                              <Label fx:id="labelTitreMusique" text="TITRE" textFill="#FF8C00">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <style> -fx-background-color: #4B6E7D; -fx-background-radius: 15; -fx-border-color: #A0B5C0; -fx-border-radius: 15; -fx-padding: 4 20 4 20; </style>
+                                 <VBox.margin>
+                                    <Insets left="80.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox alignment="CENTER" spacing="15.0">
+                                 <children>
+                                    <Button onAction="#musiquePrecedente" style="-fx-background-color: transparent; -fx-cursor: hand;">
+                                       <graphic>
+                                          <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@images/precedent.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btnSon" onAction="#clicBoutonSon" style="-fx-background-color: transparent; -fx-cursor: hand;">
+                                       <graphic>
+                                          <ImageView fx:id="imgSon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@images/son_on.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Slider fx:id="sliderVolume" max="1.0" prefWidth="200.0" style="-fx-cursor: hand;" />
+                                    <Button onAction="#musiqueSuivante" style="-fx-background-color: transparent; -fx-cursor: hand;">
+                                       <graphic>
+                                          <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@images/suivant.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     <Rectangle fill="#4B6E7D" height="2" width="450" />
                         <Label text="Affichage" textFill="#FFD166">
                            <font>
                               <Font name="System Bold" size="20" />
@@ -189,8 +225,12 @@
                         </Label>
                         <HBox alignment="CENTER_LEFT" spacing="15">
                            <children>
-                              <Label text="Résolution :" textFill="WHITE" />
-                              <ComboBox fx:id="comboResolution" prefWidth="180" />
+                              <Label text="Résolution :" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="14" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="comboResolution" prefWidth="180" style="-fx-cursor: hand;" />
                            </children>
                         </HBox>
                         <Rectangle fill="#4B6E7D" height="2" width="450" />
@@ -199,9 +239,13 @@
                               <Font name="System Bold" size="20" />
                            </font>
                         </Label>
-                        <Label text="Développé par :" textFill="WHITE" />
+                        <Label text="Développé par :" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
                         <Label text="Thomas PINCON" textFill="#D9D9D9" />
-                        <Label text="Blandine COTINET" textFill="#D9D9D9" />
+                        <Label text="Blandine COTTINET" textFill="#D9D9D9" />
                         <Label text="Achille VALENTIN-LESCANNE" textFill="#D9D9D9" />
                      </children>
                   </VBox>
@@ -645,6 +689,25 @@
                   <Font name="Impact" size="55.0" />
                </font>
             </Label>
+
+            <HBox fx:id= "vieRacoutou" alignment="CENTER_RIGHT" prefHeight="100.0" spacing="15.0" visible="false">
+               <padding>
+                  <Insets right="30.0" />
+               </padding>
+               <children>
+                  <VBox alignment="CENTER_RIGHT" spacing="5.0">
+                     <children>
+                        <Label fx:id="racoutouHpLabel" text="100 / 100 PV" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <ProgressBar fx:id="racoutouPvBar" prefWidth="250.0" progress="1.0" style="-fx-accent: #33bc14; -fx-control-inner-background: #1A3644;" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+
          </children>
       </HBox>
    </top>
