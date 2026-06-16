@@ -483,7 +483,7 @@ public class Controller implements Initializable {
     private void initRacoutou(){
 
         Entite racoutou = gameWorld.getRacoutou();
-        ImageView imgRacoutou = EntiteVue.appliquerBonneImage(racoutou, true);
+        ImageView imgRacoutou = EntiteVue.creerBonneImage(racoutou);
         carte.getChildren().add(imgRacoutou);
 
         racoutou.getHealthProperty().addListener(new EntiteHealthListener(carte, racoutou));

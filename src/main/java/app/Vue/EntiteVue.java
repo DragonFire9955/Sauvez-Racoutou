@@ -4,7 +4,6 @@ import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Racoutou;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
 import app.Modele.Entites.Barrage.Barrage;
-import app.Modele.Entites.Barrage.Poubelle;
 import app.Modele.Entites.Entite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,6 +12,33 @@ public class EntiteVue {
 
     public static int tailleImage = 64;
 
+    public static ImageView creerBonneImage(Entite entite){
+        ImageView imageView;
+            if (entite instanceof Animal && (!((Animal) entite).isAllie()))
+            imageView = new ImageView(new Image("app/images/" + entite.getName() + "/img.png"));
+            else {
+                System.out.println("app/images/" + entite.getName() + "/niv0/img.png");
+                imageView = new ImageView(new Image("app/images/" + entite.getName() + "/niv0/img.png"));
+            }
+        initImageView(entite, imageView);
+        upgradeImage(entite, imageView);
+        return imageView;
+    }
+
+    public static void appliquerBonneImage(Entite entite, ImageView imgView){
+        Image img;
+        if(entite instanceof Animal && ((!((Animal) entite).isAllie()) || ((Animal) entite).getHypnoProperty().get()))
+            img = new Image("app/images/"+ entite.getName()+"/img.png");
+        else
+            img = new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/img.png");
+        upgradeImage(entite, imgView);
+        imgView.setImage(img);
+    }
+
+
+
+
+/*
     public static ImageView appliquerBonneImage(Entite entite, boolean withInit) {
 
         ImageView imageView;
@@ -21,7 +47,7 @@ public class EntiteVue {
             imageView = new ImageView((new Image("app/images/ruchien/img.png")));
         } else {
 
-            if (entite instanceof Animal && !((Animal) entite).isAllie())
+            if (entite instanceof Animal && (!((Animal) entite).isAllie() || ())
                 imageView = new ImageView(new Image("app/images/" + entite.getName() + "/img.png"));
             else {
                 System.out.println("app/images/" + entite.getName() + "/niv0/img.png");
@@ -42,6 +68,8 @@ public class EntiteVue {
 
     }
 
+ */
+
     public static void upgradeImage(Entite entite, ImageView imageView){
 
         if(entite instanceof Barrage){
@@ -59,7 +87,7 @@ public class EntiteVue {
             imageView.setCache(true);
         }
 
-        if(entite instanceof Animal && !((Animal) entite).isAllie())
+        if(entite instanceof Animal && ((!((Animal) entite).isAllie()) || ((Animal)entite).getHypnoProperty().getValue()))
             imageView.setImage(new Image("app/images/"+ entite.getName()+"/img.png"));
         else {
             if (entite.getName().equals("chatCuisinier")) {
@@ -115,13 +143,13 @@ public class EntiteVue {
         imageView.layoutYProperty().bind(entite.getYProperty().subtract(entite.getWorld().getTailleTile()/2));
     }
 
-    public static Image appliquerBonneImageGif(Entite entite) {
+    public static void appliquerBonneImageDegat(Entite entite, ImageView imgView) {
         Image img;
-        if(entite instanceof Animal && !((Animal) entite).isAllie())
+        if(entite instanceof Animal && ((!((Animal) entite).isAllie()) || ((Animal) entite).getHypnoProperty().get()))
             img = new Image("app/images/"+ entite.getName()+"/degat.gif");
         else
             img = new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/degat.gif");
-        return img;
+        imgView.setImage(img);
     }
 
 
@@ -130,15 +158,15 @@ public class EntiteVue {
         return new Image("app/images/"+ e.getName()+"/hypno.gif");
     }
 
-    public static Image appliquerImageSoin(Entite entite){
+    public static void appliquerImageSoin(Entite entite, ImageView imgView){
         Image img;
         if (entite instanceof Barrage)
             img = new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/img.png");   //Les barrages n'ont pas d'images de soin
-        else if(entite instanceof Animal && !((Animal) entite).isAllie())
+        else if(entite instanceof Animal && (!((Animal) entite).isAllie() || imgView.getImage().getUrl().endsWith("hypno.gif")))
             img = new Image("app/images/"+ entite.getName()+"/soin.gif");
         else
             img = new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/soin.gif");
-        return img;
+        imgView.setImage(img);
     }
 
 

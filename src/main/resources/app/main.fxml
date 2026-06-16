@@ -3,6 +3,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
@@ -45,7 +46,7 @@
                <children>
                   <Pane fx:id="wavePane" prefHeight="47.0" prefWidth="100.0" style="-fx-background-color: rgba(0, 0, 0, 0.5);" visible="false">
                      <children>
-                        <Label fx:id="waveLabel" alignment="CENTER" prefHeight="25.0" prefWidth="123.0" text="Wave" textFill="WHITE" >
+                        <Label fx:id="waveLabel" alignment="CENTER" prefHeight="25.0" prefWidth="123.0" text="Wave" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -65,47 +66,80 @@
                         <Image url="@maps/images/map1Preview.jpg" />
                      </image>
                   </ImageView>
-                  <VBox alignment="TOP_CENTER" layoutX="367.0" layoutY="258.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: lightgrey; -fx-background-radius: 25; -fx-border-color: black; -fx-border-radius: 25;">
+                  <VBox alignment="TOP_CENTER" layoutX="367.0" layoutY="258.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: rgba(175,174,174,0.70); -fx-background-radius: 25; -fx-border-color: rgba(89,88,88,0.59); -fx-border-radius: 25;">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="180.0" prefWidth="397.0">
+                        <HBox alignment="CENTER" prefHeight="143.0" prefWidth="398.0">
                            <children>
-                              <Button fx:id="selecteurMapGaucheButton" layoutX="284.0" layoutY="97.0" mnemonicParsing="false" onAction="#mapChangeLeft" text="&lt;">
+                              <Button fx:id="selecteurMapGaucheButton" layoutX="284.0" layoutY="97.0" mnemonicParsing="false" onAction="#mapChangeLeft" style="-fx-background-color: #063d7c;" text="&lt;" textFill="WHITE">
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </HBox.margin>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
+                                  <effect>
+                                      <Lighting diffuseConstant="2.0" specularExponent="18.53" surfaceScale="2.42">
+                                          <bumpInput>
+                                              <Shadow />
+                                          </bumpInput>
+                                          <light>
+                                              <Light.Distant />
+                                          </light>
+                                      </Lighting>
+                                  </effect>
                               </Button>
                               <ImageView fx:id="iconeChoixMapImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@maps/images/map1Icon.png" />
                                  </image>
                               </ImageView>
-                              <Button fx:id="selecteurMapDroitButton" mnemonicParsing="false" onAction="#mapChangeRight" text="&gt;">
+                              <Button fx:id="selecteurMapDroitButton" mnemonicParsing="false" onAction="#mapChangeRight" style="-fx-background-color: #063d7c;" text="&gt;" textFill="WHITE">
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </HBox.margin>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
+                                  <effect>
+                                      <Lighting diffuseConstant="2.0" specularExponent="18.53" surfaceScale="2.42">
+                                          <bumpInput>
+                                              <Shadow />
+                                          </bumpInput>
+                                          <light>
+                                              <Light.Distant />
+                                          </light>
+                                      </Lighting>
+                                  </effect>
                               </Button>
                            </children>
                         </HBox>
                         <Label fx:id="mapNameLabel" alignment="CENTER" prefHeight="40.0" prefWidth="400.0" text="map name">
                            <font>
-                              <Font size="30.0" />
+                              <Font name="Rockwell Nova" size="36.0" />
                            </font>
                         </Label>
                         <Label fx:id="difficultyLabel" alignment="CENTER" layoutX="10.0" layoutY="210.0" prefHeight="20.0" prefWidth="400.0" text="difficulty">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="Montserrat Regular" size="15.0" />
                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" onAction="#gameStartButtonPressed" prefHeight="30.0" prefWidth="187.0" text="PlayButton">
+                        <Button mnemonicParsing="false" onAction="#gameStartButtonPressed" prefHeight="30.0" prefWidth="187.0" style="-fx-background-color: #063d7c;" text="C'est parti!" textFill="WHITE">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
+                           <font>
+                              <Font name="Montserrat Medium" size="15.0" />
+                           </font>
+                           <effect>
+                              <Lighting diffuseConstant="2.0" specularConstant="0.52" specularExponent="24.4" surfaceScale="1.87">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </effect>
                         </Button>
                      </children>
                   </VBox>

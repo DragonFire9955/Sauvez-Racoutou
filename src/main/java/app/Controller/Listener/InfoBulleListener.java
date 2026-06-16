@@ -54,7 +54,7 @@ public class InfoBulleListener {
     public void ajoutZoneDescription() {
 
         root.setId("infoBulle"+e.getId());
-        root.setPrefSize(265, 205);
+        root.setPrefSize(280, 205);
         root.setStyle(
                 "-fx-border-radius: 15;"+
                 "-fx-border-style: none;"
@@ -62,7 +62,7 @@ public class InfoBulleListener {
         setGoodStyle();
 
         //Image principale
-        ImageView entityImageView = EntiteVue.appliquerBonneImage(e, false);
+        ImageView entityImageView = EntiteVue.creerBonneImage(e);
         entityImageView.setFitWidth(109);
         entityImageView.setFitHeight(110);
         entityImageView.setPreserveRatio(true);
