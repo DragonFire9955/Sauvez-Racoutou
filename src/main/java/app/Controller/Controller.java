@@ -42,6 +42,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static app.Controller.ControlleurMethodesMultiUsages.actualiserTitreMusique;
 import static app.Controller.MenuController.*;
 
 public class Controller implements Initializable {
@@ -244,7 +245,7 @@ public class Controller implements Initializable {
         //Audio
         AudioManager.getInstance().jouerMusique(AudioManager.getInstance().getMusiqueActuelle());
 
-        actualiserTitreMusique();
+        ControlleurMethodesMultiUsages.actualiserTitreMusique(labelTitreMusique);
 
         imageSonOn = ImageSetter.sonOn;
         imageSonOff = ImageSetter.sonOff;
@@ -281,27 +282,23 @@ public class Controller implements Initializable {
         gameLoop.playFromStart();
     }
 
-    private void actualiserTitreMusique() {
-        String titre = AudioManager.getInstance().getNomMusiqueActuelle();
-        labelTitreMusique.setText(titre);
-    }
+
+
+
 
     @FXML
     private void musiquePrecedente() {
-        AudioManager.getInstance().pistePrecedente();
-        actualiserTitreMusique();
+        ControlleurMethodesMultiUsages.musiquePrecedente(labelTitreMusique);
     }
 
     @FXML
     private void musiqueSuivante() {
-        AudioManager.getInstance().pisteSuivante();
-        actualiserTitreMusique();
+        ControlleurMethodesMultiUsages.musiqueSuivante(labelTitreMusique);
     }
 
     @FXML
     private void clicBoutonSon() {
-        boolean etatActuel = AudioManager.getInstance().sonActiveProperty().get();
-        AudioManager.getInstance().sonActiveProperty().set(!etatActuel);
+        ControlleurMethodesMultiUsages.clicBoutonSon();
     }
 
     @FXML void mapChangeLeft() {
@@ -352,12 +349,12 @@ public class Controller implements Initializable {
     @FXML
     private void ouvrirReglages() {
         menuPause.setVisible(false);
-        menuReglages.setVisible(true);
+        ControlleurMethodesMultiUsages.setVisibleReglages(menuReglages);
     }
 
     @FXML
     private void retourPause() {
-        menuReglages.setVisible(false);
+        ControlleurMethodesMultiUsages.setVisibleReglages(menuReglages);
         menuPause.setVisible(true);
     }
 
@@ -365,49 +362,19 @@ public class Controller implements Initializable {
     private void redemarrerJeu() {
 
         gameLoop.stop();
-
+        gameWorld.getBarrage().clear();
+        int[][] map = gameWorld.getMap();
         enPause = false;
         menuPause.setVisible(false);
         finJeu.setVisible(false);
 
         //On reset le temps de la gameLoop
         temps.setValue(0);
-
         carte.getChildren().clear();
         gameStartButtonPressed();
         carte.getChildren().add(tileMap);
-        /*
-        //Reset du monde
-        int[][] mapChoisie = mapManager.getMaps().get(indiceMap);
-        gameWorld = new GameWorld(mapChoisie);
 
 
-
-        //Reset du visuel
-        carte.getChildren().clear();
-        tileMap.getChildren().clear();
-
-        //Reconstru du terrain
-        terrainVue = new TerrainVue();
-        terrainVue.delimitationMap(tileMap);
-        terrainVue.remplirMap(tileMap, mapChoisie);
-
-        //Reconstru camera
-        cameraManager = new CameraManager(gamePane, carte, tileMap);
-        cameraManager.initialiserCamera();
-
-        //Reset listener et tt
-        initialiserGameWorld();
-
-        //Reposition camera
-        cameraManager.centrerCarte();
-        cameraManager.verifierLimitesCamera();
-
-        initAnimation();
-
-        gameLoop.play();
-
-         */
     }
 
 
@@ -546,14 +513,9 @@ public class Controller implements Initializable {
 
     }
 
-    //REPETITION !!!
     @FXML
     public void lancerJeu() throws IOException {
-
-        Pane jeu = FXMLLoader.load(MenuController.class.getResource("/app/main.fxml"));
-        applicationPane.getScene().setRoot(jeu);
-        isGameStarted.setValue(true);
-
+        ControlleurMethodesMultiUsages.lancerJeu(applicationPane, isGameStarted);
     }
 
     public void initButtonsPlacement(){
@@ -598,7 +560,7 @@ public class Controller implements Initializable {
 
         String id = ((Button) event.getSource()).getId().replace("LvlLeftButton", "").replace("LvlRightButton", "");
         EntitesManager.decrementerNivBaseLorsAchat(id);
-        ((ImageView) shopVBox.lookup("#"+id+"ShopImageView")).setImage(new Image ("/app/images/"+ ((Button) event.getSource()).getId()+"/niv"+((Button) event.getSource()).getId()+"/img.png"));
+        ((ImageView) shopVBox.lookup("#"+id+"ShopImageView")).setImage(new Image ("/app/images/"+ id +"/niv"+  EntitesManager.niveauDeBasesLorsAchat.get(id) +"/img.png"));
         ((Label) shopVBox.lookup("#"+id+"PrixLabel")).setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(id), id)));
     }
 }

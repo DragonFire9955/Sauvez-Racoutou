@@ -23,8 +23,12 @@ public class EntiteVue {
 
             if (entite instanceof Animal && !((Animal) entite).isAllie())
                 imageView = new ImageView(new Image("app/images/" + entite.getName() + "/img.png"));
-            else
+            else {
+                System.out.println("app/images/" + entite.getName() + "/niv" + entite.getLevel()+"/img.png");
                 imageView = new ImageView(new Image("app/images/" + entite.getName() + "/niv" + entite.getLevel() + "/img.png"));
+
+            }
+
         }
 
 
