@@ -202,8 +202,8 @@ public class Controller implements Initializable {
 
         //Gestion Clavier
         applicationPane.sceneProperty().addListener((observable, oldValue, newValue) -> {
-            gamePane.requestFocus();
-            gamePane.setFocusTraversable(true);
+            applicationPane.requestFocus();
+            applicationPane.setFocusTraversable(true);
 
             //On met tout les évènements claviers
             applicationPane.setOnKeyPressed(event -> {
@@ -335,7 +335,7 @@ public class Controller implements Initializable {
             menuPause.setVisible(true);
             enPause = true;
         }
-        gamePane.requestFocus();
+        applicationPane.requestFocus();
     }
 
     @FXML
@@ -453,7 +453,7 @@ public class Controller implements Initializable {
             clic.placerStructure(ligne, colonne, nomStructure);
 
             e.consume();
-            gamePane.requestFocus();
+            applicationPane.requestFocus();
         });
     }
 
