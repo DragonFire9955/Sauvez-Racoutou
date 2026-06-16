@@ -42,6 +42,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static app.Controller.ControlleurMethodesMultiUsages.actualiserTitreMusique;
 import static app.Controller.MenuController.*;
 
 public class Controller implements Initializable {
@@ -201,8 +202,6 @@ public class Controller implements Initializable {
                 } else if (event.getCode() == KeyCode.DELETE){
                     gameWorld.setTotalCoin((gameWorld.getTotalCoin().get() - 10));
                 }
-
-                remetEnnemiTest(event);
             });
         });
 
@@ -234,7 +233,7 @@ public class Controller implements Initializable {
         //Audio
         AudioManager.getInstance().jouerMusique(AudioManager.getInstance().getMusiqueActuelle());
 
-        actualiserTitreMusique();
+        ControlleurMethodesMultiUsages.actualiserTitreMusique(labelTitreMusique);
 
         imageSonOn = ImageSetter.sonOn;
         imageSonOff = ImageSetter.sonOff;
@@ -271,27 +270,27 @@ public class Controller implements Initializable {
         wavePane.setVisible(true);
     }
 
+    /*
     private void actualiserTitreMusique() {
         String titre = AudioManager.getInstance().getNomMusiqueActuelle();
         labelTitreMusique.setText(titre);
     }
 
+     */
+
     @FXML
     private void musiquePrecedente() {
-        AudioManager.getInstance().pistePrecedente();
-        actualiserTitreMusique();
+        ControlleurMethodesMultiUsages.musiquePrecedente(labelTitreMusique);
     }
 
     @FXML
     private void musiqueSuivante() {
-        AudioManager.getInstance().pisteSuivante();
-        actualiserTitreMusique();
+        ControlleurMethodesMultiUsages.musiqueSuivante(labelTitreMusique);
     }
 
     @FXML
     private void clicBoutonSon() {
-        boolean etatActuel = AudioManager.getInstance().sonActiveProperty().get();
-        AudioManager.getInstance().sonActiveProperty().set(!etatActuel);
+        ControlleurMethodesMultiUsages.clicBoutonSon();
     }
 
     @FXML void mapChangeLeft() {
@@ -341,12 +340,12 @@ public class Controller implements Initializable {
     @FXML
     private void ouvrirReglages() {
         menuPause.setVisible(false);
-        menuReglages.setVisible(true);
+        ControlleurMethodesMultiUsages.setVisibleReglages(menuReglages);
     }
 
     @FXML
     private void retourPause() {
-        menuReglages.setVisible(false);
+        ControlleurMethodesMultiUsages.setVisibleReglages(menuReglages);
         menuPause.setVisible(true);
     }
 
@@ -393,7 +392,7 @@ public class Controller implements Initializable {
         initAnimation();
 
         gameLoop.play();
-        
+
          */
     }
 
@@ -485,88 +484,6 @@ public class Controller implements Initializable {
         gameLoop.getKeyFrames().add(kf);
     }
 
-    //Fonction de test, uniquement pour les tests, A SUPPRIMER PLUS TARD
-    private void remetEnnemiTest(KeyEvent event) {
-
-        if (event.getCode() == KeyCode.E) {
-
-            System.out.println("nouveau PouletClassique");
-
-            gameWorld.ajouterAnimal(EntitesManager.creerPouletClassique(gameWorld));
-
-        } else if (event.getCode() == KeyCode.X) {
-
-            System.out.println("nouveau Racoutou");
-
-            gameWorld.ajouterAnimal(EntitesManager.creerPouletRolleur(gameWorld));
-        }
-        else if (event.getCode() == KeyCode.R) {
-
-            System.out.println("nouveau PouletBouclier");
-
-            gameWorld.ajouterAnimal(new PouletBouclier(gameWorld));
-        } else if (event.getCode() == KeyCode.M) {
-
-            System.out.println("nouveau PouletMenotte");
-
-            gameWorld.ajouterAnimal(EntitesManager.creerPouletMenotte(gameWorld));
-        } else if (event.getCode() == KeyCode.C) {
-
-            System.out.println("nouveau ChatClassique");
-
-            gameWorld.ajouterAnimal(EntitesManager.creerChatClassique(gameWorld));
-        } else if (event.getCode() == KeyCode.J) {
-
-            System.out.println("nouveau ChatJournaliste");
-
-            gameWorld.ajouterAnimal(EntitesManager.creerChatJournaliste(gameWorld));
-        } else if (event.getCode() == KeyCode.Y) {
-
-            System.out.println("nouveau scientifique");
-            gameWorld.ajouterAnimal(new ChatScientifique(gameWorld.getRacoutou().getCoord(), gameWorld));
-
-        } else if (event.getCode() == KeyCode.G) {
-
-            System.out.println("nouveau igpn");
-            gameWorld.ajouterAnimal(new PouletIGPN(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
-
-        }else if (event.getCode() == KeyCode.K) {
-
-            System.out.println("nouveau hypno");
-            gameWorld.ajouterAnimal(new ChatHypnotiseur(new double[]{gameWorld.getRacoutou().getX()+20, gameWorld.getRacoutou().getY()-20} , gameWorld));
-
-        } else if (event.getCode() == KeyCode.H) {
-
-            System.out.println("nouveau medecin");
-            gameWorld.ajouterAnimal(EntitesManager.creerChatMedecin(gameWorld));
-
-        } else if (event.getCode() == KeyCode.B) {
-
-            System.out.println("nouveau ChatCuisinier");
-            gameWorld.ajouterAnimal(EntitesManager.creerChatCuisinier(gameWorld));
-
-        }else if (event.getCode() == KeyCode.W) {
-
-            System.out.println("nouveau PouletConservateur");
-            gameWorld.ajouterAnimal(EntitesManager.creerPouletConservateur(gameWorld));
-
-        } else if (event.getCode() == KeyCode.L) {
-
-            System.out.println("nouveau pSoigne");
-            gameWorld.ajouterAnimal(EntitesManager.creerPouletConservateur(gameWorld));
-        } else if (event.getCode() == KeyCode.U) {
-
-            System.out.println("nouveau ruchien");
-            gameWorld.ajouterAnimal(new Ruchien(EnnemisSpawn.randomCoord(gameWorld), gameWorld));
-
-        }
-
-        if (event.getCode() == KeyCode.ENTER){
-            gameWorld.setTotalCoin(1000);
-        } else if (event.getCode() == KeyCode.A) {
-            gameWorld.getRacoutou().estAttaque(1);
-        }
-    }
 
     private void initRacoutou(){
         Entite racoutou = gameWorld.getRacoutou();
@@ -602,14 +519,9 @@ public class Controller implements Initializable {
 
     }
 
-    //REPETITION !!!
     @FXML
     public void lancerJeu() throws IOException {
-
-        Pane jeu = FXMLLoader.load(MenuController.class.getResource("/app/main.fxml"));
-        applicationPane.getScene().setRoot(jeu);
-        isGameStarted.setValue(true);
-
+        ControlleurMethodesMultiUsages.lancerJeu(applicationPane, isGameStarted);
     }
 
     public void initButtonsPlacement(){

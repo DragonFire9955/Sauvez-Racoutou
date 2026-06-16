@@ -4,7 +4,9 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
@@ -27,12 +29,21 @@ public class MenuController {
 
     private Controller controller;
 
+    @FXML private VBox menuReglages;
+
     @FXML
     public void lancerJeu() throws IOException {
+        ControlleurMethodesMultiUsages.lancerJeu(demarragePane, isApplicationPlayButtonPressed);
+    }
 
-        Pane jeu =FXMLLoader.load(MenuController.class.getResource("/app/main.fxml"));
-        demarragePane.getScene().setRoot(jeu);
-        isApplicationPlayButtonPressed.setValue(true);
 
+    @FXML
+    private void ouvrirReglages() {
+        ControlleurMethodesMultiUsages.setVisibleReglages(menuReglages);
+    }
+
+    @FXML
+    private void fermerReglages() {
+        ControlleurMethodesMultiUsages.setVisibleReglages(menuReglages);
     }
 }

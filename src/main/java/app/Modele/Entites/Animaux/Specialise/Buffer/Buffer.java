@@ -11,10 +11,6 @@ import java.util.List;
 
 public class Buffer extends Specialise {
 
-    private double buffRange;
-    private double tempsBuff;
-    private double tempsRepo;
-
     private ArrayList<Double> listeBuff;
 
     public Buffer(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie, ArrayList<Double> listeBuff) {
