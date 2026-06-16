@@ -52,6 +52,7 @@ public class Controller implements Initializable {
     @FXML private Pane carte;
     @FXML private TilePane tileMap;
 
+
     //Sélection de la map + boutton pour démarrer
     @FXML private Pane mapSelectorPane;
     @FXML private ImageView mapPrevisualisationImageView;   //Le grand en fond
@@ -75,6 +76,8 @@ public class Controller implements Initializable {
             "Facile",
             "Difficile"
     );
+
+    @FXML private HBox vieRacoutou;
 
     @FXML private Button poubelle;
     @FXML private Label poubellePrixLabel;
@@ -251,6 +254,8 @@ public class Controller implements Initializable {
         mapSelectorPane.setVisible(false);
 
         isGameStarted.setValue(true);
+
+        vieRacoutou.setVisible(true);
     }
 
     private void actualiserTitreMusique() {

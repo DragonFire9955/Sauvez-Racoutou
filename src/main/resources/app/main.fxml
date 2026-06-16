@@ -172,7 +172,7 @@
                               <Font name="System Bold" size="20" />
                            </font>
                         </Label>
-                        <VBox alignment="CENTER" spacing="8.0" prefWidth="460.0">
+                        <VBox alignment="CENTER" prefWidth="460.0" spacing="8.0">
                            <children>
                               <Label fx:id="labelTitreMusique" text="TITRE" textFill="#FF8C00">
                                  <font>
@@ -225,7 +225,7 @@
                         </Label>
                         <HBox alignment="CENTER_LEFT" spacing="15">
                            <children>
-                              <Label text="Résolution :" textFill="WHITE" >
+                              <Label text="Résolution :" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14" />
                                  </font>
@@ -233,7 +233,7 @@
                               <ComboBox fx:id="comboResolution" prefWidth="180" style="-fx-cursor: hand;" />
                            </children>
                         </HBox>
-                        <Rectangle width="450" height="2" fill="#4B6E7D"/>
+                        <Rectangle fill="#4B6E7D" height="2" width="450" />
                         <Label text="Crédits" textFill="#FFD166">
                            <font>
                               <Font name="System Bold" size="20" />
@@ -530,7 +530,7 @@
                </font>
             </Label>
 
-            <HBox alignment="CENTER_RIGHT" spacing="15.0" prefHeight="100.0">
+            <HBox fx:id= "vieRacoutou" alignment="CENTER_RIGHT" prefHeight="100.0" spacing="15.0" visible="false">
                <padding>
                   <Insets right="30.0" />
                </padding>
@@ -542,7 +542,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <ProgressBar fx:id="racoutouPvBar" prefWidth="250.0" progress="1.0" style="-fx-accent: #FF3366; -fx-control-inner-background: #1A3644;" />
+                        <ProgressBar fx:id="racoutouPvBar" prefWidth="250.0" progress="1.0" style="-fx-accent: #33bc14; -fx-control-inner-background: #1A3644;" />
                      </children>
                   </VBox>
                </children>

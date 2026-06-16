@@ -84,14 +84,14 @@ public class Ruchien extends Debuffer {
         GameWorld w = this.getWorld();
         double marge = 20; //par rapport aux bord
 
-        double mapLargeur = w.getMap()[0].length * w.getTailleTile();
-        double mapHauteur = w.getMap().length * w.getTailleTile();
+        double longueur = w.getMap()[0].length * w.getTailleTile();
+        double hauteur = w.getMap().length * w.getTailleTile();
 
         double[][] angles = {
                 {marge, marge},                           // 0 : HG
-                {mapLargeur - marge, marge},              // 1 : HD
-                {mapLargeur - marge, mapHauteur - marge}, // 2 : BD
-                {marge, mapHauteur - marge}               // 3 : BG
+                {longueur - marge, marge},              // 1 : HD
+                {longueur - marge, hauteur - marge}, // 2 : BD
+                {marge, hauteur - marge}               // 3 : BG
         };
 
         if (this.premierDeplacement) {
