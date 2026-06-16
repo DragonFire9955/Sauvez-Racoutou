@@ -10,7 +10,6 @@ import java.util.Map;
 
 public class Ruchien extends Debuffer {
 
-    private double cumulTemps = 0;
     private double tempsRequisPalier;
     private int angleActuel = 0; //de 0 à 3 pour savoir on va a quel angle
     private boolean premierDeplacement = true;
@@ -19,19 +18,21 @@ public class Ruchien extends Debuffer {
 
     public Ruchien(double[] coord, GameWorld w) {
         super("ruchien", coord, w, StatsEntiteInitialiser.getStatsLevels("ruchien"), false);
-
+/*
         Object[] stats = StatsEntiteInitialiser.getStatsLevels("ruchien").get(0);
         this.tempsRequisPalier = Double.parseDouble(stats[11].toString());
+
+ */
 
     }
 
     @Override
     public void debuff(double dt) {
-        this.cumulTemps += dt;
+        setChrono(getChrono()+dt);
 
         //le débuff se déclenche toutes les 5 sec
-        if (this.cumulTemps >= (this.tempsRequisPalier * 1000)) {
-            this.cumulTemps = 0;
+        if (getChrono() >= (getTempsRepo() * 1000)) {
+            setChrono(0);
 
             for (Animal a : getWorld().getAnimaux()) {
                 if (a.isAllie() && !a.getName().equalsIgnoreCase("racoutou")) {
@@ -81,11 +82,12 @@ public class Ruchien extends Debuffer {
 
     @Override
     public void deplacement() {
-        GameWorld w = this.getWorld();
+
         double marge = 20; //par rapport aux bord
 
-        double longueur = w.getMap()[0].length * w.getTailleTile();
-        double hauteur = w.getMap().length * w.getTailleTile();
+
+        double longueur = getWorld().getMap()[0].length * getWorld().getTailleTile();
+        double hauteur = getWorld().getMap().length * getWorld().getTailleTile();
 
         double[][] angles = {
                 {marge, marge},                           // 0 : HG
@@ -124,4 +126,19 @@ public class Ruchien extends Debuffer {
             this.setY(this.getY() + dy * this.getVitesse());
         }
     }
+    /*
+    public void deplacement2(){
+        //si coin
+        //si bord
+        int[] tile = getTile();
+        int[] suivante = new int[2];
+        int ligne = tile[0], col = tile[1];
+        if( (ligne-1<0 && col-1<0)
+            ||  getWorld().getMap()[ligne-1][col-1]!=1)
+            suivante[0] = ligne+1.
+    }
+
+     */
+
+
 }

@@ -59,4 +59,8 @@ public class EnnemisSpawn {
 
         return new double[] { (tuile[1]+ Math.random())*w.getTailleTile(), (tuile[0] +  Math.random())*w.getTailleTile()};
     }
+
+
+
+
 }
