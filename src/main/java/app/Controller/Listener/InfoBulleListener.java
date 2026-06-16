@@ -284,24 +284,25 @@ public class InfoBulleListener {
 
         //Action du boutton pr améliorer
         buyUpgradeButton.setOnMouseClicked(event -> {
+            if(gameWorld.getTotalCoin().get() >= e.getCoin()) {
+                e.incrementerLevel();
 
-            e.incrementerLevel();
+                if (e.getLevel() == 3) {
 
-            if (e.getLevel() == 3) {
+                    buyUpgradeButton.setDisable(true);
+                    upgradeImageView.setImage(null);
+                    upgradeBox.setStyle("-fx-background-color: darkgrey");
+                } else {
 
-                buyUpgradeButton.setDisable(true);
-                upgradeImageView.setImage(null);
-                upgradeBox.setStyle("-fx-background-color: darkgrey");
-            } else {
+                    updateDescriptionStatLabel(attributesVBox);
+                    updateDescriptionButtonUpgrade(nameUpgrade, priceUpgrade);
+                    updateDescriptionSellButton(sellButton);
 
-                updateDescriptionStatLabel(attributesVBox);
-                updateDescriptionButtonUpgrade(nameUpgrade, priceUpgrade);
-                updateDescriptionSellButton(sellButton);
+                    upgradeImageView.setImage(new Image("app/images/" + e.getName() + "/niv" + (e.getLevel() + 1) + "/img.png"));
+                }
 
-                upgradeImageView.setImage(new Image("app/images/" + e.getName() + "/niv" + (e.getLevel() + 1) + "/img.png"));
+                entityImageView.setImage(new Image("app/images/" + e.getName() + "/niv" + e.getLevel() + "/img.png"));
             }
-
-            entityImageView.setImage(new Image("app/images/" + e.getName() + "/niv" + e.getLevel() + "/img.png"));
         });
 
 

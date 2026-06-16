@@ -374,6 +374,7 @@ public class Controller implements Initializable {
         carte.getChildren().clear();
         gameStartButtonPressed();
         carte.getChildren().add(tileMap);
+        initRacoutou();
 
 
     }
