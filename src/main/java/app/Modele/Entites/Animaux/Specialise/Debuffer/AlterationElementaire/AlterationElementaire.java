@@ -11,8 +11,8 @@ import java.util.List;
 //Altère les statistiques d'un ennemi qui serait rentrer dans son périmètre pendant un temps donné
 public abstract class AlterationElementaire extends Debuffer {
 
-    public AlterationElementaire(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
-        super(name, coord, w, statsLevels, allie);
+    public AlterationElementaire(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, int actualLevel, boolean allie) {
+        super(name, coord, w, statsLevels, actualLevel, allie);
     }
 
     public void debuff(double dt){

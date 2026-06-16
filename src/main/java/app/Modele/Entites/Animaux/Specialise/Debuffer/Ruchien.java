@@ -17,7 +17,7 @@ public class Ruchien extends Debuffer {
     private final Map<Animal, Double> valeurFixeBaisseAllies = new HashMap<>();
 
     public Ruchien(double[] coord, GameWorld w) {
-        super("ruchien", coord, w, StatsEntiteInitialiser.getStatsLevels("ruchien"), false);
+        super("ruchien", coord, w, StatsEntiteInitialiser.getStatsLevels("ruchien"), 0, false);
 /*
         Object[] stats = StatsEntiteInitialiser.getStatsLevels("ruchien").get(0);
         this.tempsRequisPalier = Double.parseDouble(stats[11].toString());

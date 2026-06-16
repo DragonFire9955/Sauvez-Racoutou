@@ -12,11 +12,11 @@ import static java.lang.Thread.sleep;
 public class Racoutou extends Animal {
 
     public Racoutou(GameWorld w, List<Object[]> statsLevels) {
-        super("racoutou", EntitesManager.coordRacoutou(w), w, statsLevels, true);
+        super("racoutou", EntitesManager.coordRacoutou(w), w, statsLevels, 0, true);
     }
 
     public Racoutou(double[] coord, GameWorld w, List<Object[]> statsLevels) {
-        super("racoutou", coord, w, statsLevels, true);
+        super("racoutou", coord, w, statsLevels, 0, true);
     }
 
     @Override

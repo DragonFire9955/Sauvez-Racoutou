@@ -18,9 +18,9 @@ public abstract class Debuffer extends Specialise {
     private boolean chronoDefini;
 
 
-    public Debuffer(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie) {
+    public Debuffer(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, int actualLevel, boolean allie) {
 
-        super(name, coord, w, statsLevels, allie);
+        super(name, coord, w, statsLevels, actualLevel, allie);
 
         nbVictimes = (int) statsLevels.get(0)[10];
 

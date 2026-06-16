@@ -16,67 +16,109 @@ import app.Modele.GameWorld;
 import app.Modele.Utilitaires.Noeud;
 import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Modele.Utilitaires.Utilitaire;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class EntitesManager {
 
-    // CLASSIQUE
-    public static Animal creerChatClassique(GameWorld w) {
-        return creerChatClassique(EnnemisSpawn.randomCoord(w), w);
+    public static Map<String, Integer> niveauDeBasesLorsAchat;
+
+    public static void initNivBaseLorsAchat() {
+
+        niveauDeBasesLorsAchat = new HashMap<>();
+        niveauDeBasesLorsAchat.put("poubelle", 0);  //poubelle
+        niveauDeBasesLorsAchat.put("chatClassique", 0);  //chatClassique
+        niveauDeBasesLorsAchat.put("chatMedecin", 0);  //chatMedecin
+        niveauDeBasesLorsAchat.put("chatJournaliste", 0);  //chatJournaliste
+        niveauDeBasesLorsAchat.put("chatScientifique", 0);  //chatScientifique
+        niveauDeBasesLorsAchat.put("chatCuisinier", 0);  //chatCuisinier
+        niveauDeBasesLorsAchat.put("pouletIGPN", 0);  //pouletIGPN
+        niveauDeBasesLorsAchat.put("chatHypnotiseur", 0);  //chatHypnotiseur
     }
 
+    public static void incrementerNivBaseLorsAchat(String name) {
+
+        int lvlActuel = niveauDeBasesLorsAchat.get(name).intValue();
+
+        if (lvlActuel >= 3) {
+
+            niveauDeBasesLorsAchat.put(name, lvlActuel);
+            return;
+        }
+
+        niveauDeBasesLorsAchat.put(name, lvlActuel+1);
+    }
+
+    public static void decrementerNivBaseLorsAchat(String name) {
+
+        int lvlActuel = niveauDeBasesLorsAchat.get(name).intValue();
+
+        if (lvlActuel <= 0) {
+
+            niveauDeBasesLorsAchat.put(name, 0);
+            return;
+        }
+
+        niveauDeBasesLorsAchat.put(name, lvlActuel-1);
+    }
+
+    public static int getTotalCoinUpgradeProperty(int lvl, String name) {
+
+        int totalCoinAchat = (int) StatsEntiteInitialiser.getStatsLevels(name).getFirst()[1];
+
+        for (int i = 0; i<lvl; i++) {
+
+            totalCoinAchat += (int) StatsEntiteInitialiser.getStatsLevels(name).get(i)[1];
+        }
+
+        return totalCoinAchat;
+    }
+
+
+    // CLASSIQUE
     public static Animal creerChatClassique(double[] coords, GameWorld w) {
-        return new Animal("chatClassique", coords, w, StatsEntiteInitialiser.getStatsLevels("chatClassique"), true);
+        return new Animal("chatClassique", coords, w, StatsEntiteInitialiser.getStatsLevels("chatClassique"), niveauDeBasesLorsAchat.get("chatClassique"), true);
     }
 
     public static Animal creerPouletClassique(GameWorld w) {
-        return new Animal("pouletClassique", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("pouletClassique"), false);
+        return new Animal("pouletClassique", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("pouletClassique"), 0, false);
     }
 
     public static Animal creerPouletRolleur(GameWorld w) {
-        return new Animal("pouletRoller", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("pouletRoller"), false);
+        return new Animal("pouletRoller", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("pouletRoller"), 0, false);
     }
 
     // STUNNER
     public static Animal creerPouletMenotte(GameWorld w){
-        return new Stunner("pouletMenottes", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("pouletMenottes"), false);
-    }
-
-    public static Animal creerChatJournaliste(GameWorld w){
-        return creerChatJournaliste(EnnemisSpawn.randomCoord(w), w);
+        return new Stunner("pouletMenottes", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("pouletMenottes"), 0, false);
     }
 
     public static Animal creerChatJournaliste(double[] coords, GameWorld w){
-        return new Stunner("chatJournaliste", coords, w, StatsEntiteInitialiser.getStatsLevels("chatJournaliste"), true);
+        return new Stunner("chatJournaliste", coords, w, StatsEntiteInitialiser.getStatsLevels("chatJournaliste"), niveauDeBasesLorsAchat.get("chatJournaliste"), true);
     }
 
     // BUFFER
-    public static Animal creerChatMedecin(GameWorld w) {
-        return creerChatMedecin(EnnemisSpawn.randomCoord(w), w);
-    }
-
     public static Animal creerChatMedecin(double[] coords, GameWorld w) {
         ArrayList<Double> lbuff = new ArrayList<>();
         lbuff.add(1.);
-        return new Buffer("chatMedecin", coords, w, StatsEntiteInitialiser.getStatsLevels("chatMedecin"), true, lbuff);
-    }
-
-    public static Animal creerChatCuisinier(GameWorld w) {
-        return creerChatCuisinier(new double[]{w.getRacoutou().getX()-20, w.getRacoutou().getY()+20}, w);
+        return new Buffer("chatMedecin", coords, w, StatsEntiteInitialiser.getStatsLevels("chatMedecin"), niveauDeBasesLorsAchat.get("chatMedecin"), true, lbuff);
     }
 
     public static Animal creerChatCuisinier(double[] coord, GameWorld w) {
         ArrayList<Double> lbuff = new ArrayList<>();
         lbuff.add(0.25);
-        return new Buffer ("chatCuisinier", coord , w, StatsEntiteInitialiser.getStatsLevels("chatCuisinier"), true, lbuff);
+        return new Buffer ("chatCuisinier", coord , w, StatsEntiteInitialiser.getStatsLevels("chatCuisinier"), niveauDeBasesLorsAchat.get("chatCuisinier"), true, lbuff);
     }
 
     public static Animal creerPouletConservateur(GameWorld w) {
         ArrayList<Double> lbuff = new ArrayList<>();
         lbuff.add(0.5);
-        return new Buffer ("pouletConservateur", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("pouletConservateur"), false, lbuff);
+        return new Buffer ("pouletConservateur", EnnemisSpawn.randomCoord(w), w, StatsEntiteInitialiser.getStatsLevels("pouletConservateur"), 0, false, lbuff);
     }
 
 
@@ -220,17 +262,17 @@ public class EntitesManager {
                 break;
             // DEBUFFER
             case "pouletIGPN":
-                e = new PouletIGPN(coord, w);
+                e = new PouletIGPN(coord, w, niveauDeBasesLorsAchat.get("pouletIGPN"));
                 break;
             case "ruchien":
                 e = new Ruchien(coord, w);
                 break;
             // ALTERATIONS ELEMENTAIRES
             case "chatScientifique":
-                e = new ChatScientifique(coord, w);
+                e = new ChatScientifique(coord, w, niveauDeBasesLorsAchat.get("chatScientifique"));
                 break;
             case "chatHypnotiseur":
-                e = new ChatHypnotiseur(coord, w);
+                e = new ChatHypnotiseur(coord, w, niveauDeBasesLorsAchat.get("chatHypnotiseur"));
                 break;
             // STUNNER
             case "chatJournaliste":

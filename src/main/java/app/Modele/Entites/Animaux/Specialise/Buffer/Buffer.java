@@ -13,9 +13,9 @@ public class Buffer extends Specialise {
 
     private ArrayList<Double> listeBuff;
 
-    public Buffer(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, boolean allie, ArrayList<Double> listeBuff) {
+    public Buffer(String name, double[] coord, GameWorld w, List<Object[]> statsLevels, int actualLevel, boolean allie, ArrayList<Double> listeBuff) {
 
-        super(name, coord, w, statsLevels, allie);
+        super(name, coord, w, statsLevels, actualLevel, allie);
 
         setRangeEffect( (double) statsLevels.getFirst()[7]);
         setTempsAction( (double) statsLevels.getFirst()[8]);

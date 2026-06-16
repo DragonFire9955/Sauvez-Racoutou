@@ -19,9 +19,9 @@ public class ChatHypnotiseur extends Animal{
     private Map<Animal, Double> hypnoEnCours;
     private double chronoSpe;
 
-    public ChatHypnotiseur(double[] coord, GameWorld w) {
+    public ChatHypnotiseur(double[] coord, GameWorld w, int actualLevel) {
 
-        super("chatHypnotiseur", coord, w, StatsEntiteInitialiser.getStatsLevels("chatHypnotiseur"), true);
+        super("chatHypnotiseur", coord, w, StatsEntiteInitialiser.getStatsLevels("chatHypnotiseur"), actualLevel, true);
 
         List<Object[]> statsJSPQUOIFAIRE = StatsEntiteInitialiser.getStatsLevels("chatHypnotiseur");
         this.dmgSpecials = (double) statsJSPQUOIFAIRE.get(0)[7];

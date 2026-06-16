@@ -22,6 +22,9 @@ public class MapManager {
         return maps;
     }
 
+    /**
+     * cherche pas à savoir
+     * */
     private void chargerToutesLesMaps() {
 
         Path path = Paths.get("src/main/resources/app/maps");
@@ -39,7 +42,7 @@ public class MapManager {
         }
     }
 
-    /*
+    /**
     Un BufferedReader ouvre le fichier en question et lis ligne par ligne (comme on a vu en système au S1)
     String ligne contient la ligne actuelle et est lue avec br.readLine()
     \\s c'est un espace, et + c pr dire 1 ou plusieurs (tjr le cours de S1)

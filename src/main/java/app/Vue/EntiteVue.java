@@ -106,11 +106,6 @@ public class EntiteVue {
 
         imageView.layoutXProperty().bind(entite.getXProperty().subtract(taille/2));
         imageView.layoutYProperty().bind(entite.getYProperty().subtract(taille/2));
-
-
-        System.out.println(entite.getName()+" level "+entite.getLevel()+ " taille "+taille);
-
-
     }
 
     public static Image appliquerBonneImageGif(Entite entite) {

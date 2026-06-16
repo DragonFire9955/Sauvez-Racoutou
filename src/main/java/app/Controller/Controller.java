@@ -49,10 +49,10 @@ public class Controller implements Initializable {
 
     // VUE
     @FXML private BorderPane applicationPane; // border pane parent de tous
+    @FXML private VBox shopVBox;
     @FXML private Pane gamePane;
     @FXML private Pane carte;
     @FXML private TilePane tileMap;
-
 
     //Sélection de la map + boutton pour démarrer
     @FXML private Pane mapSelectorPane;
@@ -91,27 +91,35 @@ public class Controller implements Initializable {
     @FXML private HBox vieRacoutou;
 
     @FXML private Button poubelle;
+    @FXML private ImageView poubelleShopImageView;
     @FXML private Label poubellePrixLabel;
 
     @FXML private Button chatClassique;
+    @FXML private ImageView chatClassiqueShopImageView;
     @FXML private Label chatClassiquePrixLabel;
 
     @FXML private Button chatMedecin;
+    @FXML private ImageView chatMedecinShopImageView;
     @FXML private Label chatMedecinPrixLabel;
 
     @FXML private Button chatJournaliste;
+    @FXML private ImageView chatJournalisteShopImageView;
     @FXML private Label chatJournalistePrixLabel;
 
     @FXML private Button chatScientifique;
+    @FXML private ImageView chatScientifiqueShopImageView;
     @FXML private Label chatScientifiquePrixLabel;
 
     @FXML private Button chatCuisinier;
+    @FXML private ImageView chatCuisiniShopImageView;
     @FXML private Label chatCuisinierPrixLabel;
 
     @FXML private Button pouletIGPN;
+    @FXML private ImageView pouletIGPNShopImageView;
     @FXML private Label pouletIGPNPrixLabel;
 
     @FXML private Button chatHypnotiseur;
+    @FXML private ImageView chatHypnotiseurShopImageView;
     @FXML private Label chatHypnotiseurPrixLabel;
 
 
@@ -155,6 +163,8 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        EntitesManager.initNivBaseLorsAchat();
 
         initButtonsPlacement();
 
@@ -202,6 +212,7 @@ public class Controller implements Initializable {
                 } else if (event.getCode() == KeyCode.DELETE){
                     gameWorld.setTotalCoin((gameWorld.getTotalCoin().get() - 10));
                 }
+;
             });
         });
 
@@ -270,13 +281,9 @@ public class Controller implements Initializable {
         wavePane.setVisible(true);
     }
 
-    /*
-    private void actualiserTitreMusique() {
-        String titre = AudioManager.getInstance().getNomMusiqueActuelle();
-        labelTitreMusique.setText(titre);
-    }
 
-     */
+
+
 
     @FXML
     private void musiquePrecedente() {
@@ -362,38 +369,8 @@ public class Controller implements Initializable {
         temps.setValue(0);
 
         gameStartButtonPressed();
-        /*
-        //Reset du monde
-        int[][] mapChoisie = mapManager.getMaps().get(indiceMap);
-        gameWorld = new GameWorld(mapChoisie);
 
 
-
-        //Reset du visuel
-        carte.getChildren().clear();
-        tileMap.getChildren().clear();
-
-        //Reconstru du terrain
-        terrainVue = new TerrainVue();
-        terrainVue.delimitationMap(tileMap);
-        terrainVue.remplirMap(tileMap, mapChoisie);
-
-        //Reconstru camera
-        cameraManager = new CameraManager(gamePane, carte, tileMap);
-        cameraManager.initialiserCamera();
-
-        //Reset listener et tt
-        initialiserGameWorld();
-
-        //Reposition camera
-        cameraManager.centrerCarte();
-        cameraManager.verifierLimitesCamera();
-
-        initAnimation();
-
-        gameLoop.play();
-
-         */
     }
 
 
@@ -428,9 +405,9 @@ public class Controller implements Initializable {
 
         initialiserDragAndDrop();
 
-        coinLabel.textProperty().bind(gameWorld.getTotalCoin().asString());
-        waveLabel.textProperty().bind(gameWorld.getNumeroVagueProperty().asString());
-        waveTimerLabel.textProperty().bind(gameWorld.getTempsActuelVagueProperty().asString().concat(" / ").concat(gameWorld.getDurreeVagueProperty().asString()));
+        coinLabel.textProperty().bind((gameWorld.getTotalCoin().asString()));
+        waveLabel.textProperty().bind((gameWorld.getNumeroVagueProperty().asString()));
+        waveTimerLabel.textProperty().bind((gameWorld.getTempsActuelVagueProperty().asString().concat(" / ").concat(gameWorld.getDurreeVagueProperty().asString())));
 
     }
 
@@ -439,8 +416,8 @@ public class Controller implements Initializable {
         mapPrevisualisationImageView.setImage(mapPrevisualisationAndIconsImages.get(indiceMap)[0]);
         iconeChoixMapImageView.setImage(mapPrevisualisationAndIconsImages.get(indiceMap)[1]);
 
-        mapNameLabel.setText(nomsMaps.get(indiceMap));
-        difficultyLabel.setText(difficultesMaps.get(indiceMap));
+        mapNameLabel.setText(String.valueOf(nomsMaps.get(indiceMap)));
+        difficultyLabel.setText(String.valueOf(difficultesMaps.get(indiceMap)));
     }
 
     public void initialiserDragAndDrop() {
@@ -484,6 +461,15 @@ public class Controller implements Initializable {
         gameLoop.getKeyFrames().add(kf);
     }
 
+    //Fonction de test, uniquement pour les tests, A SUPPRIMER PLUS TARD
+    private void remetEnnemiTest(KeyEvent event) {
+
+        if (event.getCode() == KeyCode.ENTER){
+            gameWorld.setTotalCoin(1000);
+        } else if (event.getCode() == KeyCode.A) {
+            gameWorld.getRacoutou().estAttaque(1);
+        }
+    }
 
     private void initRacoutou(){
         Entite racoutou = gameWorld.getRacoutou();
@@ -525,15 +511,6 @@ public class Controller implements Initializable {
     }
 
     public void initButtonsPlacement(){
-        /*
-        boutonsPlacement = FXCollections.observableList(new ArrayList<>());;
-        boutonsPlacement.add(poubelle);
-        boutonsPlacement.add(chatClassique);
-        boutonsPlacement.add(chatJournaliste);
-        boutonsPlacement.add(chatScientifique);
-        boutonsPlacement.add(chatMedecin);
-
-         */
 
         EventHandler<ActionEvent> boutonsshop = actionEvent -> {
 
@@ -543,32 +520,39 @@ public class Controller implements Initializable {
             clic.setName(((Button) (actionEvent.getSource())).getId());
             System.out.println("ACTION: " + ((Button) (actionEvent.getSource())).getId());
         };
+
         poubelle.setOnAction(boutonsshop);
-        poubellePrixLabel.setText(StatsEntiteInitialiser.getStatsLevels(poubelle.getId()).getFirst()[1].toString());
-
+        poubellePrixLabel.setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(poubelle.getId()), poubelle.getId())));
         chatJournaliste.setOnAction(boutonsshop);
-        chatJournalistePrixLabel.setText(String.valueOf(((int) (StatsEntiteInitialiser.getStatsLevels(chatJournaliste.getId()).getFirst()[1]))));
-
+        chatJournalistePrixLabel.setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(chatJournaliste.getId()), chatJournaliste.getId())));
         chatMedecin.setOnAction(boutonsshop);
-        chatMedecinPrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(chatMedecin.getId()).getFirst()[1])));
-
+        chatMedecinPrixLabel.setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(chatMedecin.getId()), chatMedecin.getId())));
         chatClassique.setOnAction(boutonsshop);
-        chatClassiquePrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(chatClassique.getId()).getFirst()[1])));
-
+        chatClassiquePrixLabel.setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(chatClassique.getId()), chatClassique.getId())));
         chatScientifique.setOnAction(boutonsshop);
-        chatScientifiquePrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(chatScientifique.getId()).getFirst()[1])));
-
+        chatScientifiquePrixLabel.setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(chatScientifique.getId()), chatScientifique.getId())));
         chatCuisinier.setOnAction(boutonsshop);
-        chatCuisinierPrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(chatCuisinier.getId()).getFirst()[1])));
-
+        chatCuisinierPrixLabel.setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(chatCuisinier.getId()), chatCuisinier.getId())));
         pouletIGPN.setOnAction(boutonsshop);
-        pouletIGPNPrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(pouletIGPN.getId()).getFirst()[1])));
-
+        pouletIGPNPrixLabel.setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(pouletIGPN.getId()), pouletIGPN.getId())));
         chatHypnotiseur.setOnAction(boutonsshop);
-        chatHypnotiseurPrixLabel.setText(String.valueOf(((int) StatsEntiteInitialiser.getStatsLevels(chatHypnotiseur.getId()).getFirst()[1])));
-
+        chatHypnotiseurPrixLabel.setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(chatHypnotiseur.getId()), chatHypnotiseur.getId())));
     }
 
+    //Partie Shop
+    @FXML public void acheterEvoPlus(ActionEvent event) {
 
+        String id = ((Button) event.getSource()).getId().replace("LvlRightButton", "").replace("LvlLeftButton", "");
+        EntitesManager.incrementerNivBaseLorsAchat(id);
+        ((ImageView) shopVBox.lookup("#"+id+"ShopImageView")).setImage(new Image ("/app/images/"+ id +"/niv"+ EntitesManager.niveauDeBasesLorsAchat.get(id)+"/img.png"));
+        ((Label) shopVBox.lookup("#"+id+"PrixLabel")).setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(id), id)));
+    }
 
+    @FXML public void acheterEvoMoins(ActionEvent event) {
+
+        String id = ((Button) event.getSource()).getId().replace("LvlLeftButton", "").replace("LvlRightButton", "");
+        EntitesManager.decrementerNivBaseLorsAchat(id);
+        ((ImageView) shopVBox.lookup("#"+id+"ShopImageView")).setImage(new Image ("/app/images/"+ ((Button) event.getSource()).getId()+"/niv"+((Button) event.getSource()).getId()+"/img.png"));
+        ((Label) shopVBox.lookup("#"+id+"PrixLabel")).setText(String.valueOf(EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(id), id)));
+    }
 }
