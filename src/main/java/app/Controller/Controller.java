@@ -71,11 +71,11 @@ public class Controller implements Initializable {
             new Image[]{new Image("/app/maps/images/map5Preview.png"), new Image("/app/maps/images/map5Icon.png")}
     );
     private final List<String> nomsMaps = List.of(
-            "StraightCity",
-            "MiddleCity",
-            "SquareCity",
-            "Ville",
-            "Prairie"
+            "Straight City",
+            "Middle City",
+            "Square City",
+            "Circle City",
+            "Free City"
 
     );
 
@@ -184,6 +184,8 @@ public class Controller implements Initializable {
 
                 mapSelectorPane.setVisible(true);
                 afficherMapSelectionnee();
+
+                EntitesManager.initNivBaseLorsAchat();
             }
         });
 
@@ -268,8 +270,6 @@ public class Controller implements Initializable {
 
         initialiserGameWorld();
 
-        initAnimation();
-
         mapSelectorPane.setVisible(false);
 
         isGameStarted.setValue(true);
@@ -277,6 +277,8 @@ public class Controller implements Initializable {
         vieRacoutou.setVisible(true);
 
         wavePane.setVisible(true);
+
+        gameLoop.playFromStart();
     }
 
     private void actualiserTitreMusique() {
@@ -344,6 +346,7 @@ public class Controller implements Initializable {
         gameLoop.stop();
         applicationPane.getScene().setRoot(menu);
         isGameStarted.setValue(false);
+        isApplicationPlayButtonPressed.set(false);
     }
 
     @FXML
@@ -446,6 +449,9 @@ public class Controller implements Initializable {
     private void afficherMapSelectionnee() {
 
         mapPrevisualisationImageView.setImage(mapPrevisualisationAndIconsImages.get(indiceMap)[0]);
+        mapPrevisualisationImageView.setFitWidth(mapPrevisualisationAndIconsImages.get(indiceMap)[0].getWidth()*.87);
+        mapPrevisualisationImageView.setFitHeight(mapPrevisualisationAndIconsImages.get(indiceMap)[0].getHeight()*.87);
+
         iconeChoixMapImageView.setImage(mapPrevisualisationAndIconsImages.get(indiceMap)[1]);
 
         mapNameLabel.setText(String.valueOf(nomsMaps.get(indiceMap)));
@@ -504,6 +510,7 @@ public class Controller implements Initializable {
     }
 
     private void initRacoutou(){
+
         Entite racoutou = gameWorld.getRacoutou();
         ImageView imgRacoutou = EntiteVue.appliquerBonneImage(racoutou, true);
         carte.getChildren().add(imgRacoutou);
