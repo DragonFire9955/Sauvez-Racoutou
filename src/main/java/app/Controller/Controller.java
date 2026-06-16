@@ -471,6 +471,7 @@ public class Controller implements Initializable {
     //Fonction de test, uniquement pour les tests, A SUPPRIMER PLUS TARD
     private void remetEnnemiTest(KeyEvent event) {
 
+
         if (event.getCode() == KeyCode.ENTER){
             gameWorld.setTotalCoin(1000);
         } else if (event.getCode() == KeyCode.A) {
@@ -548,6 +549,7 @@ public class Controller implements Initializable {
     }
 
     //Partie Shop
+
     @FXML public void acheterEvoPlus(ActionEvent event) {
 
         String id = ((Button) event.getSource()).getId().replace("LvlRightButton", "").replace("LvlLeftButton", "");

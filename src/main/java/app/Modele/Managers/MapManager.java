@@ -45,9 +45,9 @@ public class MapManager {
     /**
     Un BufferedReader ouvre le fichier en question et lis ligne par ligne (comme on a vu en système au S1)
     String ligne contient la ligne actuelle et est lue avec br.readLine()
-    \\s c'est un espace, et + c pr dire 1 ou plusieurs (tjr le cours de S1)
+    "\\s" c'est un espace, et + c'est pour dire 1 ou plusieurs (tjr le cours de S1)
     Le string est converti en int (parseInt lis un string et le met en entier)
-    Un stream c un flux de données (aller voir sur internet hein), avec toArray transforme le stream en int[]
+    Un stream c un flux de données (aller voir sur internet), avec toArray transforme le stream en int[]
     Et on ajoute le résultat à la liste
     On return lignes qui contient tout les tableaux de int, à préciser :
     on retourne un tableau double de int car le map est un tableau en 2D, et on retourne ligne par ligne, donc on
