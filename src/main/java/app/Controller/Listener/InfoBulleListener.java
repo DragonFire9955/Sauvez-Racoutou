@@ -2,8 +2,10 @@ package app.Controller.Listener;
 
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
+import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
+import app.Modele.Managers.EntitesManager;
 import app.Vue.EntiteVue;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -284,24 +286,34 @@ public class InfoBulleListener {
 
         //Action du boutton pr améliorer
         buyUpgradeButton.setOnMouseClicked(event -> {
+            if(e.incrementLevelPossible()) {
+                e.incrementerLevel();
 
-            e.incrementerLevel();
+                if (e.getLevel() == 3) {
 
-            if (e.getLevel() == 3) {
+                    buyUpgradeButton.setDisable(true);
+                    upgradeImageView.setImage(null);
+                    upgradeBox.setStyle("-fx-background-color: darkgrey");
+                } else {
 
-                buyUpgradeButton.setDisable(true);
-                upgradeImageView.setImage(null);
-                upgradeBox.setStyle("-fx-background-color: darkgrey");
-            } else {
+                    if (e instanceof Barrage) {
+                        switch (EntitesManager.niveauDeBasesLorsAchat.get(e.getName())) {
+                            case 2:
 
-                updateDescriptionStatLabel(attributesVBox);
-                updateDescriptionButtonUpgrade(nameUpgrade, priceUpgrade);
-                updateDescriptionSellButton(sellButton);
+                                break;
+                            case 3:
+                        }
+                    }
 
-                upgradeImageView.setImage(new Image("app/images/" + e.getName() + "/niv" + (e.getLevel() + 1) + "/img.png"));
+                    updateDescriptionStatLabel(attributesVBox);
+                    updateDescriptionButtonUpgrade(nameUpgrade, priceUpgrade);
+                    updateDescriptionSellButton(sellButton);
+
+                    upgradeImageView.setImage(new Image("app/images/" + e.getName() + "/niv" + (e.getLevel() + 1) + "/img.png"));
+                }
+
+                entityImageView.setImage(new Image("app/images/" + e.getName() + "/niv" + e.getLevel() + "/img.png"));
             }
-
-            entityImageView.setImage(new Image("app/images/" + e.getName() + "/niv" + e.getLevel() + "/img.png"));
         });
 
 
@@ -329,7 +341,7 @@ public class InfoBulleListener {
             );
         else if (e.getName().equals("racoutou"))
             root.setStyle(
-                    "-fx-background-color: linear-gradient(to bottom right, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #9400D3); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
+                    "-fx-background-color: linear-gradient(to bottom right, #ff3d86, #b258ff, #55eaff, #7AFA70, #DCFA70, #FCB045, #FF5454); -fx-text-fill: white; -fx-background-radius: 12; -fx-cursor: hand;" +
                             "-fx-border-color: black;" +
                             "-fx-border-radius: 2;"
             );

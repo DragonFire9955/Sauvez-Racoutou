@@ -30,6 +30,7 @@ public abstract class Entite {
 
     private DoubleProperty health;
     private DoubleProperty maxHealth;
+    //Prix de l'amélioration
     private int coin;
     private BooleanProperty alive;
     private boolean actif;
@@ -273,12 +274,18 @@ public abstract class Entite {
 
     public void incrementerLevel(){
 
-        if(getLevel()<3){
+
             setLevel(getLevel()+1);
+            world.setTotalCoin(world.getTotalCoin().get() - coin);
             setStats(getLevel());
-            System.out.println(this.getName()+"  level "+ this.getLevel());
-        }
+
 
     };
+
+    public boolean incrementLevelPossible(){
+        if(getLevel()<3 && world.getTotalCoin().get()>coin)
+            return true;
+        return false;
+    }
 
 }
