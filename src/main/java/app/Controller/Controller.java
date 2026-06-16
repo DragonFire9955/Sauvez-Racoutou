@@ -363,15 +363,17 @@ public class Controller implements Initializable {
     private void redemarrerJeu() {
 
         gameLoop.stop();
-
+        gameWorld.getBarrage().clear();
+        int[][] map = gameWorld.getMap();
         enPause = false;
         menuPause.setVisible(false);
         finJeu.setVisible(false);
 
         //On reset le temps de la gameLoop
         temps.setValue(0);
-
+        carte.getChildren().clear();
         gameStartButtonPressed();
+        carte.getChildren().add(tileMap);
 
 
     }
