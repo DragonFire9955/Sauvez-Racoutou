@@ -373,7 +373,9 @@ public class Controller implements Initializable {
         //On reset le temps de la gameLoop
         temps.setValue(0);
 
+        carte.getChildren().clear();
         gameStartButtonPressed();
+        carte.getChildren().add(tileMap);
         /*
         //Reset du monde
         int[][] mapChoisie = mapManager.getMaps().get(indiceMap);
