@@ -2,8 +2,10 @@ package app.Controller.Listener;
 
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
+import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
+import app.Modele.Managers.EntitesManager;
 import app.Vue.EntiteVue;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -284,7 +286,7 @@ public class InfoBulleListener {
 
         //Action du boutton pr améliorer
         buyUpgradeButton.setOnMouseClicked(event -> {
-            if(gameWorld.getTotalCoin().get() >= e.getCoin()) {
+            if(e.incrementLevelPossible()) {
                 e.incrementerLevel();
 
                 if (e.getLevel() == 3) {
@@ -293,6 +295,15 @@ public class InfoBulleListener {
                     upgradeImageView.setImage(null);
                     upgradeBox.setStyle("-fx-background-color: darkgrey");
                 } else {
+
+                    if (e instanceof Barrage) {
+                        switch (EntitesManager.niveauDeBasesLorsAchat.get(e.getName())) {
+                            case 2:
+
+                                break;
+                            case 3:
+                        }
+                    }
 
                     updateDescriptionStatLabel(attributesVBox);
                     updateDescriptionButtonUpgrade(nameUpgrade, priceUpgrade);

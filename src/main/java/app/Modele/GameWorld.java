@@ -174,8 +174,12 @@ public class GameWorld {
         barrageList.add(b);
         int taille = b.getTaille();
         for(int i= 0; i<taille; i++){
-            for(int j = 0; j<taille; j++)
-                map[b.getTile()[0]+1][b.getTile()[1]+j] = b.getIdPoids();
+            for(int j = 0; j<taille; j++) {
+                System.out.println("poids" + b.getIdPoids());
+                System.out.print("i: "+b.getTile()[0] + i);
+                System.out.println(" j: "+b.getTile()[1] + j);
+                map[b.getTile()[0] + i][b.getTile()[1] + j] = b.getIdPoids();
+            }
         }
         dijkRacoutou2 = new DeplacementDijkstra(tailleTile, map).dijkstra(this.getRacoutou().getCoord());
     }

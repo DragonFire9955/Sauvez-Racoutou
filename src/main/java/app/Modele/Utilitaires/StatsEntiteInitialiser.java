@@ -807,7 +807,7 @@ public class  StatsEntiteInitialiser {
                 "Default",
                 35,    //Upgrade price
                 150.,     //Health
-                10.,     //Range
+                0.,     //Range
                 0.,     //Damage
                 0.,     //FreqAtk
                 1,     //taille
@@ -819,7 +819,7 @@ public class  StatsEntiteInitialiser {
                 "Conteneur",
                 70,    //Upgrade price
                 350.,     //Health   (+12)
-                20.,     //Range
+                0.,     //Range
                 0.,     //Damage
                 0.,     //FreqAtk
                 1,     //taille
@@ -831,7 +831,7 @@ public class  StatsEntiteInitialiser {
                 "Voiture",
                 120,    //Upgrade price
                 750.,     //Health   (+30)
-                40.,     //Range    (+20)
+                0.,     //Range    (+20)
                 0.,     //Damage
                 0.,     //FreqAtk
                 2,     //taille
@@ -843,7 +843,7 @@ public class  StatsEntiteInitialiser {
                 "Bus",
                 200,    //Upgrade price
                 1200.,     //Health   (+30)
-                40.,     //Range    (+20)
+                0.,     //Range    (+20)
                 0.,     //Damage
                 0.,     //FreqAtk
                 2,     //taille

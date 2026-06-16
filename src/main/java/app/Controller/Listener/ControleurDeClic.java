@@ -22,7 +22,7 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
     private String name;
 
     //entite occupe taille * taille tiles
-    private int tailleMaxEntite;
+    private int taille;
 
     private boolean modePlacement = false;
 
@@ -31,7 +31,7 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
         this.gamePane = gamePane;
         this.gameWorld = gameWorld;
 
-        this.tailleMaxEntite = 1;
+        this.taille = 1;
 
         this.highlight = new Rectangle(gameWorld.getTailleTile(), gameWorld.getTailleTile());
         /*
@@ -89,8 +89,8 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
             return;
         }
 
-        highlight.setHeight(tailleMaxEntite * gameWorld.getTailleTile());
-        highlight.setWidth(tailleMaxEntite * gameWorld.getTailleTile());
+        highlight.setHeight(taille * tilesSize);
+        highlight.setWidth(taille * tilesSize);
 
         if(!placementPossible(ligne, colonne, name)){
             System.out.println("PAS POSSIBLE " + name );
@@ -117,17 +117,21 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
 
         // Espace suffisant (pour level max)
         else {
+
             possible = true;
 
-            int i = 0, j;
-            while (possible && i < tailleMaxEntite && ligne + i < gameWorld.getMap().length) {
+            int i =0, j;
+
+            while (possible && i < taille && ligne + i < gameWorld.getMap().length) {
                 j = 0;
-                while (possible && j < tailleMaxEntite && colonne + j < gameWorld.getMap()[i].length) {
-                    if (gameWorld.getMap()[ligne + i][colonne + j] > 1)
+                while (possible && j < taille && colonne + j < gameWorld.getMap()[ligne+i].length) {
+                    if (gameWorld.getMap()[ligne+i][colonne+j]>1)
                         possible = false;
-                    j++;
+                    else
+                        j++;
                 }
-                i++;
+                if(possible)
+                    i++;
             }
         }
 
@@ -166,8 +170,8 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
     public void setName(String name) {
         this.name = name;
         if(name.equals("poubelle"))
-            tailleMaxEntite = ((int) StatsEntiteInitialiser.getStatsLevels("poubelle").get(3)[6]);
+            taille = (int) StatsEntiteInitialiser.getStatsLevels(name).get(EntitesManager.niveauDeBasesLorsAchat.get(name))[6];
         else
-            tailleMaxEntite = 1;
+            taille = 1;
     }
 }

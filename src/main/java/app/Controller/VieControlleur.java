@@ -24,6 +24,8 @@ public class VieControlleur {
 
         //fond rouge pour les pv perdus
         Rectangle barreRouge = new Rectangle(img.getFitWidth()/2, img.getFitHeight()/20);
+        barreRouge.widthProperty().bind(img.fitWidthProperty().divide(2));
+        barreRouge.heightProperty().bind(img.fitHeightProperty().divide(20));
         barreRouge.setFill(Color.RED);
 
         DropShadow shadow = new DropShadow();
@@ -36,8 +38,10 @@ public class VieControlleur {
 
         //dessus vert pour les pv restants
         Rectangle barreVerte = new Rectangle(img.getFitWidth()/2, img.getFitHeight()/20);
+        //barreVerte.widthProperty().bind(img.fitWidthProperty().divide(2));
+        barreVerte.heightProperty().bind(img.fitHeightProperty().divide(20));
         barreVerte.setFill(Color.GREEN);
-        barreVerte.widthProperty().bind(entite.getHealthProperty().multiply(img.getFitWidth()/2).divide(entite.getHealthMaxProperty()));
+        barreVerte.widthProperty().bind(entite.getHealthProperty().multiply(img.fitWidthProperty().divide(2)).divide(entite.getHealthMaxProperty()));
 
         //la largeur du rectangle vert est associé a la vie qu'il reste (vie / max * largeur)
         //barreVerte.widthProperty().bind(entite.getHealthProperty().divide(entite.getMaxHealth()).multiply(img.getFitWidth()/2));
@@ -49,6 +53,8 @@ public class VieControlleur {
         //la vie est décalé par rapport a l'entite
         this.conteneur.layoutXProperty().bind(entite.getXProperty().subtract(img.getFitWidth()/4));
         this.conteneur.layoutYProperty().bind(entite.getYProperty().subtract(img.getFitHeight()/2));
+
+
         /*
         if(entite instanceof Racoutou)
             this.conteneur.layoutYProperty().bind(entite.getYProperty().subtract(EntiteVue.tailleImage/1.5));

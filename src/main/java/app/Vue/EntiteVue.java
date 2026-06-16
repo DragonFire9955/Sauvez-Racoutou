@@ -24,16 +24,19 @@ public class EntiteVue {
             if (entite instanceof Animal && !((Animal) entite).isAllie())
                 imageView = new ImageView(new Image("app/images/" + entite.getName() + "/img.png"));
             else {
-                System.out.println("app/images/" + entite.getName() + "/niv" + entite.getLevel()+"/img.png");
-                imageView = new ImageView(new Image("app/images/" + entite.getName() + "/niv" + entite.getLevel() + "/img.png"));
+                System.out.println("app/images/" + entite.getName() + "/niv0/img.png");
+                imageView = new ImageView(new Image("app/images/" + entite.getName() + "/niv0/img.png"));
 
             }
 
         }
 
 
-        if (withInit)
+        if (withInit) {
             initImageView(entite, imageView);
+        }
+        upgradeImage(entite, imageView);
+
 
         return imageView;
 
@@ -108,8 +111,8 @@ public class EntiteVue {
         imageView.setCache(true);
         imageView.setId(""+entite.getId());
 
-        imageView.layoutXProperty().bind(entite.getXProperty().subtract(taille/2));
-        imageView.layoutYProperty().bind(entite.getYProperty().subtract(taille/2));
+        imageView.layoutXProperty().bind(entite.getXProperty().subtract(entite.getWorld().getTailleTile()/2));
+        imageView.layoutYProperty().bind(entite.getYProperty().subtract(entite.getWorld().getTailleTile()/2));
     }
 
     public static Image appliquerBonneImageGif(Entite entite) {

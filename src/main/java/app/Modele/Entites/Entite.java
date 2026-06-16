@@ -274,12 +274,18 @@ public abstract class Entite {
 
     public void incrementerLevel(){
 
-        if(getLevel()<3){
+
             setLevel(getLevel()+1);
             world.setTotalCoin(world.getTotalCoin().get() - coin);
             setStats(getLevel());
-        }
+
 
     };
+
+    public boolean incrementLevelPossible(){
+        if(getLevel()<3 && world.getTotalCoin().get()>coin)
+            return true;
+        return false;
+    }
 
 }
