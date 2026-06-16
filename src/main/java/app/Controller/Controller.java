@@ -4,17 +4,10 @@ import app.Controller.Listener.EntiteHealthListener;
 import app.Controller.Listener.EntitesListListener;
 import app.Controller.Listener.*;
 import app.Modele.AudioManager;
-import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.Ruchien;
-import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.EntitesManager;
-import app.Modele.Managers.EnnemisSpawn;
 import app.Modele.Managers.MapManager;
-import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Vue.CameraManager;
 import app.Vue.EntiteVue;
 import app.Vue.ImageSetter;
@@ -28,7 +21,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -42,7 +34,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static app.Controller.ControlleurMethodesMultiUsages.actualiserTitreMusique;
 import static app.Controller.MenuController.*;
 
 public class Controller implements Initializable {
@@ -209,12 +200,7 @@ public class Controller implements Initializable {
             applicationPane.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ESCAPE){
                     pause();
-                } else if (event.getCode() == KeyCode.ENTER){
-                    gameWorld.setTotalCoin((gameWorld.getTotalCoin().get() + 10));
-                } else if (event.getCode() == KeyCode.DELETE){
-                    gameWorld.setTotalCoin((gameWorld.getTotalCoin().get() - 10));
-                }
-;
+                };
             });
         });
 
@@ -244,14 +230,16 @@ public class Controller implements Initializable {
         });
 
         //Audio
-        AudioManager.getInstance().jouerMusique(AudioManager.getInstance().getMusiqueActuelle());
+        AudioManager.getRadio().jouerMusique(AudioManager.getRadio().getMusiqueActuelle());
+        //on joue la premiere musique
 
         ControlleurMethodesMultiUsages.actualiserTitreMusique(labelTitreMusique);
+        //on met a jour le titre de la musique
 
         imageSonOn = ImageSetter.sonOn;
         imageSonOff = ImageSetter.sonOff;
 
-        AudioManager.getInstance().sonActiveProperty().addListener((obs, ancien, estActive) -> {
+        AudioManager.getRadio().sonActiveProperty().addListener((obs, ancien, estActive) -> {
             if (estActive) {
                 imgSon.setImage(imageSonOn);
             } else {
@@ -259,7 +247,8 @@ public class Controller implements Initializable {
             }
         });
 
-        sliderVolume.valueProperty().bindBidirectional(AudioManager.getInstance().volumeProperty());
+        //on lie le slider avec le son
+        sliderVolume.valueProperty().bindBidirectional(AudioManager.getRadio().volumeProperty());
     }
 
     @FXML private void gameStartButtonPressed() {
@@ -431,6 +420,8 @@ public class Controller implements Initializable {
     public void initialiserDragAndDrop() {
 
         DragAndDrop dragImage = new DragAndDrop();
+
+        //on rend toute nos entité glissable
         dragImage.drag(poubelle);
         dragImage.drag(chatClassique);
         dragImage.drag(chatMedecin);
@@ -444,8 +435,8 @@ public class Controller implements Initializable {
 
         //drop
         tileMap.setOnDragDropped(e -> { //réagit quand la souris relache
-            Dragboard db = e.getDragboard();
-            String nomStructure = db.getString();
+            Dragboard db = e.getDragboard(); //on recupere le carton invisible transporté par la souris
+            String nomStructure = db.getString(); //prend le nom de la structure
 
             //coordonnées en case
             int colonne = (int) (e.getX() / gameWorld.getTailleTile());

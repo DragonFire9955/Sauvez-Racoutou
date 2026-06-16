@@ -11,13 +11,13 @@ import javafx.scene.layout.TilePane;
 public class DragAndDrop {
 
     public void drag(Button bouton) {
-        bouton.setOnDragDetected(e -> { //réagit qaund la souris clique et maintien
-            Dragboard db = bouton.startDragAndDrop(TransferMode.COPY); //copie virtuelle du bouton
+        bouton.setOnDragDetected(e -> { //réagit qaund la souris clique, maintien et bouge
+            Dragboard db = bouton.startDragAndDrop(TransferMode.COPY); //carton invisible qui transporte qlq chose
             //initialise le mode Drag&Drop de JavaFX
 
-            ClipboardContent contenu = new ClipboardContent(); //pour ajouter du contenu
-            contenu.putString(bouton.getId()); //on ajout l'id de l'image
-            db.setContent(contenu); //on ajoute le contenu au drag&drop
+            ClipboardContent contenu = new ClipboardContent(); //pour ajouter du contenu au carton
+            contenu.putString(bouton.getId()); //on ajout l'id (le nom) du bouton
+            db.setContent(contenu); //on ajoute le contenu au carton
             db.setDragView(new Image("app/images/"+ bouton.getId() +"/niv0/img.png", 32, 32, true, true));
             //met une image visuellement (mais stocke une id)
 

@@ -10,7 +10,6 @@ import java.util.Map;
 
 public class Ruchien extends Debuffer {
 
-    private double tempsRequisPalier;
     private int angleActuel = 0; //de 0 à 3 pour savoir on va a quel angle
     private boolean premierDeplacement = true;
 
@@ -18,11 +17,6 @@ public class Ruchien extends Debuffer {
 
     public Ruchien(double[] coord, GameWorld w) {
         super("ruchien", coord, w, StatsEntiteInitialiser.getStatsLevels("ruchien"), 0, false);
-/*
-        Object[] stats = StatsEntiteInitialiser.getStatsLevels("ruchien").get(0);
-        this.tempsRequisPalier = Double.parseDouble(stats[11].toString());
-
- */
 
     }
 
