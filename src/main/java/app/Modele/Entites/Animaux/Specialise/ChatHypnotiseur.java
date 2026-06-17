@@ -64,7 +64,6 @@ public class ChatHypnotiseur extends Animal{
             hypnoEnCours.put(cible, (hypnoEnCours.get(cible) + dmgSpecials));
             if (cible.getHealthProperty().get() <= hypnoEnCours.get(cible)) {
                 cible.setAllie(true);
-                cible.setHypno(true);
             }
         }
     }

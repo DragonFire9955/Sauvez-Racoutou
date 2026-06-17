@@ -58,7 +58,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                 for (Entite e: c.getAddedSubList()) {
 
                     //affiche l'image de l'entite sur la carte
-                    ImageView imageEntite = EntiteVue.creerBonneImage(e);
+                    ImageView imageEntite = EntiteVue.appliquerBonneImage(e, true);
                     carte.getChildren().add(imageEntite);
 
 
@@ -70,12 +70,6 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                             System.out.println(((ImageView) carte.lookup("#"+e.getId())).getImage().getUrl());
                             ((ImageView) carte.lookup("#"+e.getId())).setScaleX(t1.doubleValue());
                             System.out.println("img inversee");
-                        });
-
-                        ((Animal) e).getHypnoProperty().addListener((observableValue, aBoolean, t1) -> {
-                                ((ImageView) carte.lookup("#"+e.getId())).setImage(EntiteVue.appliquerImageHypno(e));
-                                System.out.println("HYPNO");
-
                         });
                     }
 
