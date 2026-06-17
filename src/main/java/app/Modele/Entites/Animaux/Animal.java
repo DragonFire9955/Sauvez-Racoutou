@@ -18,6 +18,7 @@ public class Animal extends Entite {
     private boolean canAttack;
     private BooleanProperty allie;
     private DoubleProperty dirX;
+    private BooleanProperty hypno;
 
     private int cibleInt;
 
@@ -30,6 +31,7 @@ public class Animal extends Entite {
         this.allie= new SimpleBooleanProperty(allie);
         dirX = new SimpleDoubleProperty(-1.);
         cibleInt = 2;
+        hypno = new SimpleBooleanProperty(false);
     }
 
     @Override
@@ -334,5 +336,13 @@ public class Animal extends Entite {
 
     public double getDirX(){
         return dirX.getValue();
+    }
+
+    public BooleanProperty getHypno(){
+        return hypno;
+    }
+
+    public void setHypno(boolean hypno) {
+        this.hypno.set(hypno);
     }
 }

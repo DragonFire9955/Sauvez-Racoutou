@@ -560,9 +560,9 @@ public class  StatsEntiteInitialiser {
                 0.,     //Damage
                 1.2,     //FreqAtk  (+.2)
                 0.,     //Speed
-                20.0,    //DmgSpe (+1.4)
+                2000.,    //DmgSpe (+1.4)
                 1.7,     //freqAtkSpeciale  (+.2)
-                170.     //rangeSpe  (+5)
+                1700.     //rangeSpe  (+5)
         });
 
         statsLevels.add(new Object[]{

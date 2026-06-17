@@ -9,6 +9,8 @@ import app.Modele.Entites.Entite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.sql.SQLOutput;
+
 public class EntiteVue {
 
     public static int tailleImage = 64;
@@ -21,13 +23,19 @@ public class EntiteVue {
             imageView = new ImageView((new Image("app/images/ruchien/img.png")));
         } else {
 
-            if (entite instanceof Animal && !((Animal) entite).isAllie())
-                imageView = new ImageView(new Image("app/images/" + entite.getName() + "/img.png"));
+            if (entite instanceof Animal) {
+                if (((Animal) entite).getHypno().getValue())
+                    imageView = new ImageView(new Image("app/images/" + entite.getName() + "/hypno.gif"));
+                else if( !((Animal)entite).isAllie())
+                    imageView = new ImageView(new Image("app/images/" + entite.getName() + "/img.png"));
+                else
+                    imageView = new ImageView(new Image("app/images/" + entite.getName() + "/niv0/img.png"));
+            }
             else {
-                System.out.println("app/images/" + entite.getName() + "/niv0/img.png");
                 imageView = new ImageView(new Image("app/images/" + entite.getName() + "/niv0/img.png"));
 
             }
+            System.out.println(imageView.getImage().getUrl() + "    sdfghjkl");
 
         }
 
@@ -59,27 +67,30 @@ public class EntiteVue {
             imageView.setCache(true);
         }
 
-        if(entite instanceof Animal && !((Animal) entite).isAllie())
-            imageView.setImage(new Image("app/images/"+ entite.getName()+"/img.png"));
-        else {
-            if (entite.getName().equals("chatCuisinier")) {
-                if (entite.getLevel() == 1) {
-                    imageView.setFitHeight(tailleImage * 1.22);
-                    imageView.setFitWidth(tailleImage * 1.22);
+        else{
+            if (((Animal) entite).getHypno().getValue())
+                imageView.setImage(new Image("app/images/" + entite.getName() + "/hypno.gif"));
+            else if( !((Animal)entite).isAllie())
+                imageView.setImage(new Image("app/images/" + entite.getName() + "/img.png"));
+            else {
+                if (entite.getName().equals("chatCuisinier")) {
+                    if (entite.getLevel() == 1) {
+                        imageView.setFitHeight(tailleImage * 1.22);
+                        imageView.setFitWidth(tailleImage * 1.22);
 
-                    imageView.layoutXProperty().unbind();
-                    imageView.layoutYProperty(). unbind();
+                        imageView.layoutXProperty().unbind();
+                        imageView.layoutYProperty(). unbind();
 
-                    imageView.setLayoutX(entite.getX() - imageView.getFitHeight()/2);
-                    imageView.setLayoutY(entite.getY() - imageView.getFitHeight()/2);
-                } else if (entite.getLevel() == 2) {
-                    imageView.setFitHeight(tailleImage);
-                    imageView.setFitWidth(tailleImage);
+                        imageView.setLayoutX(entite.getX() - imageView.getFitHeight()/2);
+                        imageView.setLayoutY(entite.getY() - imageView.getFitHeight()/2);
+                    } else if (entite.getLevel() == 2) {
+                        imageView.setFitHeight(tailleImage);
+                        imageView.setFitWidth(tailleImage);
+                    }
                 }
+                imageView.setImage(new Image("app/images/" + entite.getName() + "/niv0/img.png"));
             }
-            imageView.setImage(new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/img.png"));
         }
-
     }
 
 
@@ -117,7 +128,10 @@ public class EntiteVue {
 
     public static Image appliquerBonneImageGif(Entite entite) {
         Image img;
-        if(entite instanceof Animal && !((Animal) entite).isAllie())
+        if(entite instanceof Animal) {
+            System.out.println(entite.getName() + "  hypno " + ((Animal) entite).getHypno().get());
+        }
+        if(entite instanceof Animal && ((!(((Animal) entite).isAllie())) || ((Animal) entite).getHypno().get()))
             img = new Image("app/images/"+ entite.getName()+"/degat.gif");
         else
             img = new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/degat.gif");
@@ -134,7 +148,7 @@ public class EntiteVue {
         Image img;
         if (entite instanceof Barrage)
             img = new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/img.png");   //Les barrages n'ont pas d'images de soin
-        else if(entite instanceof Animal && !((Animal) entite).isAllie())
+        else if(((!((Animal) entite).isAllie()) || ((Animal) entite).getHypno().get()))
             img = new Image("app/images/"+ entite.getName()+"/soin.gif");
         else
             img = new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/soin.gif");
