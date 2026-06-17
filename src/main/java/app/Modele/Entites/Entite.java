@@ -33,7 +33,6 @@ public abstract class Entite {
     //Prix de l'amélioration
     private int coin;
     private BooleanProperty alive;
-    private boolean actif;
 
     private double chrono;
 
@@ -59,9 +58,7 @@ public abstract class Entite {
         this.freqAtk = (double) statsLevels.get(actualLevel)[5];
         this.world=w;
 
-
         alive = new SimpleBooleanProperty(true);
-        actif=true;
         chrono =0;
     }
 
@@ -91,11 +88,6 @@ public abstract class Entite {
         } else {
             coll = false;
         }
-    }
-
-    protected void setPosition(double x, double y) {
-        this.setX(x);
-        this.setY(y);
     }
 
     public abstract void attaquer();
@@ -188,10 +180,6 @@ public abstract class Entite {
     //public abstract Entite getDirection();
 
     public abstract Entite getCible();
-
-    public void setActif(boolean actif) {
-        this.actif = actif;
-    }
 
     public void estAttaque(double damage){
 

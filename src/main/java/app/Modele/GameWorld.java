@@ -34,7 +34,6 @@ public class GameWorld {
     private  int debutVague;
     private IntegerProperty numeroVague;
     private IntegerProperty tempsActuelVague;
-    private int difficulte;
 
     ObservableList<ProjectileSimple> projectiles;
 
@@ -42,6 +41,7 @@ public class GameWorld {
 
     public GameWorld(int[][] map, int difficulte){
 
+        this.map = map;
         this.animauxList = FXCollections.observableList(new ArrayList<>());
         this.animauxList.add(new Racoutou(this, StatsEntiteInitialiser.getStatsLevels("racoutou")));
         barrageList = FXCollections.observableArrayList();
@@ -52,8 +52,6 @@ public class GameWorld {
         projectiles = FXCollections.observableArrayList();
 
         totalCoin = new SimpleIntegerProperty(1000);
-
-        this.difficulte = difficulte;
 
         ensemblesVagues = VagueManager.ensembleVagues(this, difficulte);
         durreeVague = new SimpleIntegerProperty(0);
@@ -138,6 +136,8 @@ public class GameWorld {
         return animauxList;
     }
 
+
+    // Retourne la liste des animaux alliés de Racoutou (PAS LES BARRAGES)
     public List<Animal> getAlliesAnimaux() {
 
         List<Animal> allies = new ArrayList<>();
@@ -149,11 +149,14 @@ public class GameWorld {
         return allies;
     }
 
+
+    // Retourne la liste des animaux alliés de Racoutou AVEC LES BARRAGES
     public List<Entite> getAlliesAnimauxBarrages() {
         List<Entite> entites = new ArrayList<>(getAlliesAnimaux());
         entites.addAll(getBarrage());
         return entites;
     }
+
 
     public List<Animal> getEnnemis() {
 
@@ -226,11 +229,6 @@ public class GameWorld {
         return animauxList.get(i);
     }
 
-    public int[] getTileRacoutou(){
-        Entite r = this.getRacoutou();
-        return r.getTile();
-    }
-
     public void resetDijkstraRacoutou() {
         this.dijkRacoutou2 = new DeplacementDijkstra(tailleTile, map).dijkstra(this.getRacoutou().getCoord());
     }
@@ -243,9 +241,6 @@ public class GameWorld {
         return numeroVague;
     }
 
-    public int getDurreeVague() {
-        return durreeVague.get();
-    }
 
     public IntegerProperty getDurreeVagueProperty() {
         return durreeVague;

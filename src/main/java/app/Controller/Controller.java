@@ -29,7 +29,6 @@ import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -80,9 +79,9 @@ public class Controller implements Initializable {
     );
 
     @FXML private ToggleGroup choixDifficulte;
+    @FXML private RadioButton ToggleButton0;
     @FXML private RadioButton ToggleButton1;
     @FXML private RadioButton ToggleButton2;
-    @FXML private RadioButton ToggleButton3;
 
     @FXML private HBox vieRacoutou;
 
@@ -470,17 +469,6 @@ public class Controller implements Initializable {
         gameLoop.getKeyFrames().add(kf);
     }
 
-    //Fonction de test, uniquement pour les tests, A SUPPRIMER PLUS TARD
-    private void remetEnnemiTest(KeyEvent event) {
-
-
-        if (event.getCode() == KeyCode.ENTER){
-            gameWorld.setTotalCoin(1000);
-        } else if (event.getCode() == KeyCode.A) {
-            gameWorld.getRacoutou().estAttaque(1);
-        }
-    }
-
     private void initRacoutou(){
 
         Entite racoutou = gameWorld.getRacoutou();
@@ -516,10 +504,6 @@ public class Controller implements Initializable {
 
     }
 
-    @FXML
-    public void lancerJeu() throws IOException {
-        ControlleurMethodesMultiUsages.lancerJeu(applicationPane, isGameStarted);
-    }
 
     public void initButtonsPlacement(){
 

@@ -140,13 +140,13 @@
                                       <Label alignment="CENTER" prefHeight="17.0" prefWidth="407.0" text="Mode" />
                                     <HBox alignment="CENTER" prefHeight="19.0" prefWidth="563.0" spacing="30.0">
                                        <children>
-                                             <RadioButton fx:id="ToggleButton1" selected="true" text="Manifestant.e du dimanche">
+                                             <RadioButton fx:id="ToggleButton0" selected="true" text="Manifestant.e du dimanche">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="choixDifficulte" />
                                              </toggleGroup>
                                           </RadioButton>
-                                             <RadioButton fx:id="ToggleButton2" text="Pro de la pancarte" toggleGroup="$choixDifficulte" />
-                                             <RadioButton fx:id="ToggleButton3" text="Antifa experimentée" toggleGroup="$choixDifficulte" />
+                                             <RadioButton fx:id="ToggleButton0" text="Pro de la pancarte" toggleGroup="$choixDifficulte" />
+                                             <RadioButton fx:id="ToggleButton1" text="Antifa experimentée" toggleGroup="$choixDifficulte" />
                                        </children>
                                        <VBox.margin>
                                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
