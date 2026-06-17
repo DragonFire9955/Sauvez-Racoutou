@@ -3,18 +3,11 @@ package app.Controller;
 import app.Controller.Listener.EntiteHealthListener;
 import app.Controller.Listener.EntitesListListener;
 import app.Controller.Listener.*;
-import app.Modele.AudioManager;
-import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.Ruchien;
-import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
+import app.Modele.Managers.AudioManager;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.EntitesManager;
-import app.Modele.Managers.EnnemisSpawn;
 import app.Modele.Managers.MapManager;
-import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Vue.CameraManager;
 import app.Vue.EntiteVue;
 import app.Vue.ImageSetter;
@@ -28,7 +21,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -42,7 +34,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static app.Controller.ControlleurMethodesMultiUsages.actualiserTitreMusique;
 import static app.Controller.MenuController.*;
 
 public class Controller implements Initializable {
@@ -202,8 +193,8 @@ public class Controller implements Initializable {
 
         //Gestion Clavier
         applicationPane.sceneProperty().addListener((observable, oldValue, newValue) -> {
-            gamePane.requestFocus();
-            gamePane.setFocusTraversable(true);
+            applicationPane.requestFocus();
+            applicationPane.setFocusTraversable(true);
 
             //On met tout les évènements claviers
             applicationPane.setOnKeyPressed(event -> {
@@ -214,7 +205,6 @@ public class Controller implements Initializable {
                 } else if (event.getCode() == KeyCode.DELETE){
                     gameWorld.setTotalCoin((gameWorld.getTotalCoin().get() - 10));
                 }
-;
             });
         });
 
@@ -336,7 +326,7 @@ public class Controller implements Initializable {
             menuPause.setVisible(true);
             enPause = true;
         }
-        gamePane.requestFocus();
+        applicationPane.requestFocus();
     }
 
     @FXML
@@ -363,8 +353,11 @@ public class Controller implements Initializable {
     private void redemarrerJeu() {
 
         gameLoop.stop();
-        gameWorld.getBarrage().clear();
-        int[][] map = gameWorld.getMap();
+        for (int i = gameWorld.getBarrage().size()-1; i >= 0; i--) {
+            gameWorld.supprimerBarrage(gameWorld.getBarrage().get(i));
+        }
+        int[][] map = mapManager.getMaps().get(indiceMap);
+        terrainVue.remplirMap(tileMap, map);
         enPause = false;
         menuPause.setVisible(false);
         finJeu.setVisible(false);
@@ -455,7 +448,7 @@ public class Controller implements Initializable {
             clic.placerStructure(ligne, colonne, nomStructure);
 
             e.consume();
-            gamePane.requestFocus();
+            applicationPane.requestFocus();
         });
     }
 
@@ -472,6 +465,7 @@ public class Controller implements Initializable {
 
     //Fonction de test, uniquement pour les tests, A SUPPRIMER PLUS TARD
     private void remetEnnemiTest(KeyEvent event) {
+
 
         if (event.getCode() == KeyCode.ENTER){
             gameWorld.setTotalCoin(1000);
@@ -550,6 +544,7 @@ public class Controller implements Initializable {
     }
 
     //Partie Shop
+
     @FXML public void acheterEvoPlus(ActionEvent event) {
 
         String id = ((Button) event.getSource()).getId().replace("LvlRightButton", "").replace("LvlLeftButton", "");

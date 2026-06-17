@@ -296,15 +296,6 @@ public class InfoBulleListener {
                     upgradeBox.setStyle("-fx-background-color: darkgrey");
                 } else {
 
-                    if (e instanceof Barrage) {
-                        switch (EntitesManager.niveauDeBasesLorsAchat.get(e.getName())) {
-                            case 2:
-
-                                break;
-                            case 3:
-                        }
-                    }
-
                     updateDescriptionStatLabel(attributesVBox);
                     updateDescriptionButtonUpgrade(nameUpgrade, priceUpgrade);
                     updateDescriptionSellButton(sellButton);

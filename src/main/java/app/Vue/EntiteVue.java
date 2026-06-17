@@ -9,8 +9,6 @@ import app.Modele.Entites.Entite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.sql.SQLOutput;
-
 public class EntiteVue {
 
     public static int tailleImage = 64;
@@ -35,7 +33,6 @@ public class EntiteVue {
                 imageView = new ImageView(new Image("app/images/" + entite.getName() + "/niv0/img.png"));
 
             }
-            System.out.println(imageView.getImage().getUrl() + "    sdfghjkl");
 
         }
 
@@ -43,7 +40,10 @@ public class EntiteVue {
         if (withInit) {
             initImageView(entite, imageView);
         }
-        upgradeImage(entite, imageView);
+        if(entite instanceof Barrage || (((Animal) entite).isAllie() && !((Animal) entite).getHypno().get())){
+            upgradeImage(entite, imageView);
+        }
+
 
 
         return imageView;
@@ -54,43 +54,42 @@ public class EntiteVue {
 
         if(entite instanceof Barrage){
             int taille;
-            if(entite.getLevel()==2)
-                taille = (int) (tailleImage*1.5);
-            else if (entite.getLevel() == 3)
+            if(entite.getLevel() ==2){
                 taille = tailleImage*2;
-            else
-                taille = tailleImage;
-            imageView.setFitWidth(taille);
-            imageView.setFitHeight(taille);
-            imageView.setPreserveRatio(true);
-            imageView.setSmooth(true);
-            imageView.setCache(true);
+                imageView.setFitWidth(taille);
+                imageView.setFitHeight(taille);
+                imageView.setPreserveRatio(true);
+                imageView.setSmooth(true);
+                imageView.setCache(true);
+
+                System.out.println("drfghv " + ((Barrage)entite).getTaille());
+                imageView.layoutXProperty().unbind();
+                imageView.layoutYProperty(). unbind();
+
+                imageView.setLayoutX(entite.getX() - imageView.getFitWidth()*0.75);
+                imageView.setLayoutY(entite.getY() - imageView.getFitHeight()*0.75);
+            }
+
         }
+        else {
+            if (entite.getName().equals("chatCuisinier")) {
+                if (entite.getLevel() == 1) {
+                    imageView.setFitHeight(tailleImage * 1.22);
+                    imageView.setFitWidth(tailleImage * 1.22);
 
-        else{
-            if (((Animal) entite).getHypno().getValue())
-                imageView.setImage(new Image("app/images/" + entite.getName() + "/hypno.gif"));
-            else if( !((Animal)entite).isAllie())
-                imageView.setImage(new Image("app/images/" + entite.getName() + "/img.png"));
-            else {
-                if (entite.getName().equals("chatCuisinier")) {
-                    if (entite.getLevel() == 1) {
-                        imageView.setFitHeight(tailleImage * 1.22);
-                        imageView.setFitWidth(tailleImage * 1.22);
+                    imageView.layoutXProperty().unbind();
+                    imageView.layoutYProperty(). unbind();
 
-                        imageView.layoutXProperty().unbind();
-                        imageView.layoutYProperty(). unbind();
-
-                        imageView.setLayoutX(entite.getX() - imageView.getFitHeight()/2);
-                        imageView.setLayoutY(entite.getY() - imageView.getFitHeight()/2);
-                    } else if (entite.getLevel() == 2) {
-                        imageView.setFitHeight(tailleImage);
-                        imageView.setFitWidth(tailleImage);
-                    }
+                    imageView.setLayoutX(entite.getX() - imageView.getFitWidth()/2);
+                    imageView.setLayoutY(entite.getY() - imageView.getFitHeight()/2);
+                } else if (entite.getLevel() == 2) {
+                    imageView.setFitHeight(tailleImage);
+                    imageView.setFitWidth(tailleImage);
                 }
-                imageView.setImage(new Image("app/images/" + entite.getName() + "/niv0/img.png"));
             }
         }
+        imageView.setImage(new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/img.png"));
+
     }
 
 
@@ -122,16 +121,13 @@ public class EntiteVue {
         imageView.setCache(true);
         imageView.setId(""+entite.getId());
 
-        imageView.layoutXProperty().bind(entite.getXProperty().subtract(entite.getWorld().getTailleTile()/2));
-        imageView.layoutYProperty().bind(entite.getYProperty().subtract(entite.getWorld().getTailleTile()/2));
+        imageView.layoutXProperty().bind(entite.getXProperty().subtract(taille/2));
+        imageView.layoutYProperty().bind(entite.getYProperty().subtract(taille/2));
     }
 
     public static Image appliquerBonneImageGif(Entite entite) {
         Image img;
-        if(entite instanceof Animal) {
-            System.out.println(entite.getName() + "  hypno " + ((Animal) entite).getHypno().get());
-        }
-        if(entite instanceof Animal && ((!(((Animal) entite).isAllie())) || ((Animal) entite).getHypno().get()))
+        if(entite instanceof Animal && !((Animal) entite).isAllie())
             img = new Image("app/images/"+ entite.getName()+"/degat.gif");
         else
             img = new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/degat.gif");

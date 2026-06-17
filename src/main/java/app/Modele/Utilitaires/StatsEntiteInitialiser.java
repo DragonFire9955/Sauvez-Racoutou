@@ -823,7 +823,7 @@ public class  StatsEntiteInitialiser {
                 0.,     //Damage
                 0.,     //FreqAtk
                 1,     //taille
-                4,      //idPoids
+                3,      //idPoids
                 101,    //id
         });
 

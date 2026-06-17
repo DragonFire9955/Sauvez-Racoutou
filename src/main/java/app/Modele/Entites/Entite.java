@@ -278,8 +278,6 @@ public abstract class Entite {
             setLevel(getLevel()+1);
             world.setTotalCoin(world.getTotalCoin().get() - coin);
             setStats(getLevel());
-
-
     };
 
     public boolean incrementLevelPossible(){
