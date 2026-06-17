@@ -120,7 +120,7 @@ public class EntiteVue {
 
     public static Image appliquerBonneImageGif(Entite entite) {
         Image img;
-        if(entite instanceof Animal && !((Animal) entite).isAllie())
+        if(entite instanceof Animal && ((!((Animal) entite).isAllie()) || ((Animal) entite).getHypno().get()))
             img = new Image("app/images/"+ entite.getName()+"/degat.gif");
         else
             img = new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/degat.gif");
