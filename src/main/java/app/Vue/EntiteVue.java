@@ -35,7 +35,10 @@ public class EntiteVue {
         if (withInit) {
             initImageView(entite, imageView);
         }
-        upgradeImage(entite, imageView);
+        if(entite instanceof Barrage || (((Animal) entite).isAllie() /* && !entite.isHypno*/)){
+            upgradeImage(entite, imageView);
+        }
+
 
 
         return imageView;
@@ -46,21 +49,23 @@ public class EntiteVue {
 
         if(entite instanceof Barrage){
             int taille;
-            if(entite.getLevel()==2)
-                taille = (int) (tailleImage*1.5);
-            else if (entite.getLevel() == 3)
+            if(entite.getLevel() ==2){
                 taille = tailleImage*2;
-            else
-                taille = tailleImage;
-            imageView.setFitWidth(taille);
-            imageView.setFitHeight(taille);
-            imageView.setPreserveRatio(true);
-            imageView.setSmooth(true);
-            imageView.setCache(true);
-        }
+                imageView.setFitWidth(taille);
+                imageView.setFitHeight(taille);
+                imageView.setPreserveRatio(true);
+                imageView.setSmooth(true);
+                imageView.setCache(true);
 
-        if(entite instanceof Animal && !((Animal) entite).isAllie())
-            imageView.setImage(new Image("app/images/"+ entite.getName()+"/img.png"));
+                System.out.println("drfghv " + ((Barrage)entite).getTaille());
+                imageView.layoutXProperty().unbind();
+                imageView.layoutYProperty(). unbind();
+
+                imageView.setLayoutX(entite.getX() - imageView.getFitWidth()*0.75);
+                imageView.setLayoutY(entite.getY() - imageView.getFitHeight()*0.75);
+            }
+
+        }
         else {
             if (entite.getName().equals("chatCuisinier")) {
                 if (entite.getLevel() == 1) {
@@ -70,15 +75,15 @@ public class EntiteVue {
                     imageView.layoutXProperty().unbind();
                     imageView.layoutYProperty(). unbind();
 
-                    imageView.setLayoutX(entite.getX() - imageView.getFitHeight()/2);
+                    imageView.setLayoutX(entite.getX() - imageView.getFitWidth()/2);
                     imageView.setLayoutY(entite.getY() - imageView.getFitHeight()/2);
                 } else if (entite.getLevel() == 2) {
                     imageView.setFitHeight(tailleImage);
                     imageView.setFitWidth(tailleImage);
                 }
             }
-            imageView.setImage(new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/img.png"));
         }
+        imageView.setImage(new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/img.png"));
 
     }
 
@@ -111,8 +116,8 @@ public class EntiteVue {
         imageView.setCache(true);
         imageView.setId(""+entite.getId());
 
-        imageView.layoutXProperty().bind(entite.getXProperty().subtract(entite.getWorld().getTailleTile()/2));
-        imageView.layoutYProperty().bind(entite.getYProperty().subtract(entite.getWorld().getTailleTile()/2));
+        imageView.layoutXProperty().bind(entite.getXProperty().subtract(taille/2));
+        imageView.layoutYProperty().bind(entite.getYProperty().subtract(taille/2));
     }
 
     public static Image appliquerBonneImageGif(Entite entite) {

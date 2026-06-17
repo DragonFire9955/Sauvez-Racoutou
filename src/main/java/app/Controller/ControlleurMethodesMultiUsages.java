@@ -1,8 +1,7 @@
 package app.Controller;
 
-import app.Modele.AudioManager;
+import app.Modele.Managers.AudioManager;
 import javafx.beans.property.BooleanProperty;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;

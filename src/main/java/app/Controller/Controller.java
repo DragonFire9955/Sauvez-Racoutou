@@ -3,18 +3,11 @@ package app.Controller;
 import app.Controller.Listener.EntiteHealthListener;
 import app.Controller.Listener.EntitesListListener;
 import app.Controller.Listener.*;
-import app.Modele.AudioManager;
-import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.Ruchien;
-import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
+import app.Modele.Managers.AudioManager;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.EntitesManager;
-import app.Modele.Managers.EnnemisSpawn;
 import app.Modele.Managers.MapManager;
-import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Vue.CameraManager;
 import app.Vue.EntiteVue;
 import app.Vue.ImageSetter;
@@ -28,7 +21,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -42,7 +34,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static app.Controller.ControlleurMethodesMultiUsages.actualiserTitreMusique;
 import static app.Controller.MenuController.*;
 
 public class Controller implements Initializable {

@@ -31,6 +31,8 @@ public class DeplacementMethodes {
                     return 10;
                 case 4: //bus
                     return 20;
+                case 5:
+                    return 25;
                 default:
                     return 1;
             }
