@@ -6,7 +6,6 @@ import app.Modele.Entites.Animaux.Specialise.Buffer.Buffer;
 import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.AlterationElementaire.ChatScientifique;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.PouletIGPN;
-import app.Modele.Entites.Animaux.Specialise.Debuffer.Ruchien;
 import app.Modele.Entites.Animaux.Specialise.Debuffer.Stunner.Stunner;
 import app.Modele.Entites.Animaux.Specialise.PouletBouclier;
 import app.Modele.Entites.Barrage.Barrage;
@@ -263,9 +262,6 @@ public class EntitesManager {
             // DEBUFFER
             case "pouletIGPN":
                 e = new PouletIGPN(coord, w, niveauDeBasesLorsAchat.get("pouletIGPN"));
-                break;
-            case "ruchien":
-                e = new Ruchien(coord, w);
                 break;
             // ALTERATIONS ELEMENTAIRES
             case "chatScientifique":

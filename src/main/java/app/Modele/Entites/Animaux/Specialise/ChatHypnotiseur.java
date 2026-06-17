@@ -74,30 +74,4 @@ public class ChatHypnotiseur extends Animal{
         if (getCiblesAccessibles(rangeSpe, Utilitaire.animauxToEntites(getAnimauxCibles())).isEmpty()) return null ;
         return getCiblesAccessibles(rangeSpe, Utilitaire.animauxToEntites(getAnimauxCibles())).getFirst();
     }
-/*
-    @Override
-    public void actionDebuff(Animal a, double dt) {
-
-        //Si a pas encore hypnoEnCours et pas déjà hypnotisé
-        if(!hypnoEncours.containsKey(a) && a.getInverseUntil()!=0){
-            hypnoEncours.put(a, dt);
-        }
-
-        for (Map.Entry<Animal, Double> entry: hypnoEncours.entrySet()){
-            if(!getCiblesAccessibles(getRangeEffect(), Utilitaire.animauxToEntites(getAnimauxCibles())).contains(entry.getKey()))
-                hypnoEncours.remove(entry.getKey());
-            else if(dt >= entry.getValue()+ tempsDirscours) {
-                System.out.print(a.isAllie());
-                a.setAllie(true);
-                System.out.println("  bidiboup abracadabra INVERSEEEEE  " + a.isAllie());
-                a.setInverseUntil(getTempsAction()+ dt );
-
-            }
-
-        }
-
-    }
-
- */
-
 }

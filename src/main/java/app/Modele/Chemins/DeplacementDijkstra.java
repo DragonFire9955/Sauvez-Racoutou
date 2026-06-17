@@ -158,19 +158,6 @@ public class DeplacementDijkstra {
         }
     }
 
-
-
-    /*
-    objet car besoin d'un différent pour le chien
-
-    stock dikstra de toute la map + listener sur liste barrage pour le recalculer
-    méthode déplacement(Entite entite):
-        cherche noeud equivalent au coordonnées de entité
-        donne à entite les coordonnées du noeud parent etc
-    fonction correspondance noeud/coord entite?
-    
-     */
-
     public static double coordToDouble(int[] coord) {
         return coord[0] + ((double) coord[1] / 100);
         //i,j

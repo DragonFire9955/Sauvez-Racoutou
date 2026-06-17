@@ -70,23 +70,6 @@ public class  StatsEntiteInitialiser {
             case "poubelle":
                 initStatsPoubelle(statsLevels);
                 break;
-/*
-// VOLANTS
-            case "Poulet volant":
-                initStatsPouletVolant(statsLevels);
-                break;
-            case "Chien intermittent":
-                initStatsChienInterim(statsLevels);
-                break;
-// CREUSANT
-            case "Poulet mineur":
-                initStatsPouletMineur(statsLevels);
-                break;
-            case "Taupe":
-                initStatsTaupe(statsLevels);
-                break;
-
- */
 
             default:
                 break;
@@ -253,7 +236,7 @@ public class  StatsEntiteInitialiser {
                 .5,     //Damage
                 1.2,     //FreqAtk
                 0.,     //Speed
-                120.,    //BuffRange
+                128.,    //BuffRange
                 1.,     //TpsBuff
                 2.5     //TpsRepo
         });
@@ -266,7 +249,7 @@ public class  StatsEntiteInitialiser {
                 .8,      //Damage    (+.3)
                 1.,    //FreqAtk
                 0.,      //Speed
-                140.,     //BuffRange
+                192.,     //BuffRange
                 1.3,    //TpsBuff
                 2.      //TpsRepo   (+.5)
         });
@@ -279,7 +262,7 @@ public class  StatsEntiteInitialiser {
                 1.,      //Damage
                 0.9,    //FreqAtk
                 0.,      //Speed
-                160.,     //BuffRange    (+10)
+                256.,     //BuffRange    (+10)
                 1.6,    //TpsBuff        (+.2)
                 1.      //TpsRepo
         });
@@ -292,7 +275,7 @@ public class  StatsEntiteInitialiser {
                 1.2,      //Damage
                 0.8,    //FreqAtk   (+.5)
                 0.,      //Speed
-                170.,     //BuffRange    (+10)
+                320.,     //BuffRange    (+10)
                 2.,    //TpsBuff        (+.5)
                 1.2      //TpsRepo       (+.2)
         });

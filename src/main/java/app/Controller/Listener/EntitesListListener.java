@@ -2,6 +2,7 @@ package app.Controller.Listener;
 
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Racoutou;
+import app.Modele.Entites.Animaux.Specialise.Specialise;
 import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
@@ -83,6 +84,10 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     // Création périmètre(s)
                     PerimetreVue perim = new PerimetreVue(this.carte, e);
                     perim.initPerimetre(e, imageEntite);
+                    perim.getP().radiusProperty().bind(e.getRangeProperty());
+                    if(e instanceof Specialise){
+                        perim.getpSpe().radiusProperty().bind(((Specialise) e).getRangeEffectProperty());
+                    }
 
                     //créé la barre de vie et récupère son conteneur
                     VieControlleur barreVie = new VieControlleur(e, imageEntite);
@@ -95,8 +100,9 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     e.getHealthProperty().addListener(new EntiteHealthListener(carte, e));
 
                     //Liaison niveau / image
-                    e.getLevelProperty().addListener((observableValue, oldV, newV) ->
-                            EntiteVue.upgradeImage(e, ((ImageView) carte.lookup("#"+e.getId()))));
+                    e.getLevelProperty().addListener((observableValue, oldV, newV) -> {
+                        EntiteVue.upgradeImage(e, ((ImageView) carte.lookup("#" + e.getId())));
+                    });
                             //((ImageView) carte.lookup("#"+e.getId())).setImage(EntiteVue.appliquerBonneImage(e, true).getImage()));
 
                     //on lui crée sa description si c un allié

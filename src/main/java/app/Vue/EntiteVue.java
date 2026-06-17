@@ -16,23 +16,16 @@ public class EntiteVue {
     public static ImageView appliquerBonneImage(Entite entite, boolean withInit) {
 
         ImageView imageView;
-
-        if (entite.getName().equalsIgnoreCase("ruchien")) {
-            imageView = new ImageView((new Image("app/images/ruchien/img.png")));
-        } else {
-
-            if (entite instanceof Animal) {
-                if (((Animal) entite).getHypno().getValue())
-                    imageView = new ImageView(new Image("app/images/" + entite.getName() + "/hypno.gif"));
-                else if( !((Animal)entite).isAllie())
-                    imageView = new ImageView(new Image("app/images/" + entite.getName() + "/img.png"));
-                else
-                    imageView = new ImageView(new Image("app/images/" + entite.getName() + "/niv0/img.png"));
-            }
-            else {
+        if (entite instanceof Animal) {
+            if (((Animal) entite).getHypno().getValue())
+                imageView = new ImageView(new Image("app/images/" + entite.getName() + "/hypno.gif"));
+            else if( !((Animal)entite).isAllie())
+                imageView = new ImageView(new Image("app/images/" + entite.getName() + "/img.png"));
+            else
                 imageView = new ImageView(new Image("app/images/" + entite.getName() + "/niv0/img.png"));
-
-            }
+        }
+        else {
+            imageView = new ImageView(new Image("app/images/" + entite.getName() + "/niv0/img.png"));
 
         }
 

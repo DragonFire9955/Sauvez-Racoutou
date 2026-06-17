@@ -22,9 +22,6 @@ public class MapManager {
         return maps;
     }
 
-    /**
-     * cherche pas à savoir
-     * */
     private void chargerToutesLesMaps() {
 
         Path path = Paths.get("src/main/resources/app/maps");

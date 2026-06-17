@@ -201,12 +201,6 @@ public class GameWorld {
     public IntegerProperty getTheEnd(){
         return theEnd;
     }
-/*
-    public void changeStateTheEnd(){
-        theEnd.set(!theEnd.getValue());
-    }
-
- */
 
     public int[][] getMap() {
         return map;
@@ -243,10 +237,6 @@ public class GameWorld {
         return r.getTile();
     }
 
-    /*public Map<Double, Noeud> getDijkRacoutou() {
-        return dijkRacoutou;
-    }
-*/
     public void resetDijkstraRacoutou() {
         this.dijkRacoutou2 = new DeplacementDijkstra(tailleTile, map).dijkstra(this.getRacoutou().getCoord());
     }
