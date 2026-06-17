@@ -34,12 +34,13 @@ public class GameWorld {
     private  int debutVague;
     private IntegerProperty numeroVague;
     private IntegerProperty tempsActuelVague;
+    private int difficulte;
 
     ObservableList<ProjectileSimple> projectiles;
 
     private IntegerProperty totalCoin;
 
-    public GameWorld(int[][] map){
+    public GameWorld(int[][] map, int difficulte){
 
         this.map = map;for (int i = 0; i < map.length; i++) {
             System.out.println(i + " : " + map[i].length);
@@ -54,6 +55,8 @@ public class GameWorld {
         projectiles = FXCollections.observableArrayList();
 
         totalCoin = new SimpleIntegerProperty(1000);
+
+        this.difficulte = difficulte;
 
         ensemblesVagues = VagueManager.ensembleVagues(this);
         durreeVague = new SimpleIntegerProperty(0);

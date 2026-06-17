@@ -140,6 +140,16 @@
                               <Font name="Montserrat Regular" size="15.0" />
                            </font>
                         </Label>
+                        <HBox>
+                            <children>
+                                <Label text="Mode"/>
+                                <VBox>
+                                    <RadioButton fx:id="ToggleButton1" text="Manifestant.e du dimanche" toggleGroup="$choixDifficulte" selected="true"/>
+                                    <RadioButton fx:id="ToggleButton2" text="Pro de la pancarte" toggleGroup="$choixDifficulte"/>
+                                    <RadioButton fx:id="ToggleButton3" text="Antifa experimentée" toggleGroup="$choixDifficulte"/>
+                                </VBox>
+                            </children>
+                        </HBox>
                         <Button mnemonicParsing="false" onAction="#gameStartButtonPressed" prefHeight="30.0" prefWidth="187.0" style="-fx-background-color: #2C5364FF;" text="C'est parti!" textFill="WHITE">
                            <VBox.margin>
                               <Insets top="10.0" />
