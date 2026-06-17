@@ -19,9 +19,6 @@ public class TerrainVue {
             case 1:
                 cases.setImage(ImageSetter.sol);
                 break;
-            case 5:
-                cases.setImage(ImageSetter.tonneau);
-                break;
         //PLACE
             case 11:
                 cases.setImage(ImageSetter.placeCoinHG);
