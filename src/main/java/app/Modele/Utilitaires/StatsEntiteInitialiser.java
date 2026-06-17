@@ -544,7 +544,7 @@ public class  StatsEntiteInitialiser {
                 1.2,     //FreqAtk  (+.2)
                 0.,     //Speed
                 222.,     //rangeSpe  (+5)
-                5.,    //DmgSpe (+1.4)
+                14.,    //DmgSpe (+1.4)
                 1.7     //freqAtkSpeciale  (+.2)
         });
 
@@ -557,7 +557,7 @@ public class  StatsEntiteInitialiser {
                 1.5,     //FreqAtk  (+.5)
                 0.,     //Speed
                 256.,     //rangeSpe  (+5)
-                8.,    //DmgSpe (+2)
+                16.,    //DmgSpe (+2)
                 2.     //freqAtkSpeciale  (+.3)
         });
     }

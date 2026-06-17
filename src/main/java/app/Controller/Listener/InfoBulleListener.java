@@ -443,19 +443,19 @@ public class InfoBulleListener {
                 break;
             case 5:
                 if (e instanceof ChatHypnotiseur)
-                    statName = "Dmg spe : ";
+                    statName = "Range spe : ";
                 else
                     statName = "RangeEffect : ";
                 break;
             case 6:
                 if (e instanceof ChatHypnotiseur)
-                    statName = "Freq atk spe : ";
+                    statName = "Dmg spe : ";
                 else
                     statName = "Tps Buff : ";
                 break;
             case 7:
                 if (e instanceof ChatHypnotiseur)
-                    statName = "Range spe : ";
+                    statName = "Freq atk spe : ";
                 else
                     statName = "Tps Repos : ";
                 break;

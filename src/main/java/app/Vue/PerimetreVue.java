@@ -45,15 +45,15 @@ public class PerimetreVue {
             carte.getChildren().add(1, p);
 
             if ((e instanceof Specialise) || (e instanceof ChatHypnotiseur)){
-                Circle perimSpe = new Circle(img.getX(), img.getY(), (double) e.getStatsLevels().get(e.getLevel())[7], GREEN);
-                perimSpe.setOpacity(0.15);
-                perimSpe.setId("perimSpe" + e.getId());
-                perimSpe.setVisible(false);
-                perimSpe.layoutXProperty().bind(img.layoutXProperty().add(EntiteVue.tailleImage / 2));
-                perimSpe.layoutYProperty().bind(img.layoutYProperty().add(EntiteVue.tailleImage / 2));
-                carte.getChildren().add(1, perimSpe);
+                pSpe = new Circle(img.getX(), img.getY(), (double) e.getStatsLevels().get(e.getLevel())[7], GREEN);
+                pSpe.setOpacity(0.15);
+                pSpe.setId("perimSpe" + e.getId());
+                pSpe.setVisible(false);
+                pSpe.layoutXProperty().bind(img.layoutXProperty().add(EntiteVue.tailleImage / 2));
+                pSpe.layoutYProperty().bind(img.layoutYProperty().add(EntiteVue.tailleImage / 2));
 
-                pSpe = perimSpe;
+                carte.getChildren().add(1, pSpe);
+
             }
 
         }

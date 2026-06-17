@@ -25,9 +25,9 @@ public class ChatHypnotiseur extends Animal{
         super("chatHypnotiseur", coord, w, StatsEntiteInitialiser.getStatsLevels("chatHypnotiseur"), actualLevel, true);
 
         List<Object[]> stats = StatsEntiteInitialiser.getStatsLevels("chatHypnotiseur");
-        this.dmgSpecials = (double) stats.get(actualLevel)[7];
+        this.rangeSpe = new SimpleDoubleProperty((double) stats.get(actualLevel)[7]);
         this.freqAtkSpeciale = (double) stats.get(actualLevel)[8];
-        this.rangeSpe = new SimpleDoubleProperty((double) stats.get(actualLevel)[9]);
+        this.dmgSpecials = (double) stats.get(actualLevel)[9];
         hypnoEnCours = new HashMap<>();
         chronoSpe=0;
     }
