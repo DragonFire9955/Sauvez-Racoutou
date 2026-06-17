@@ -52,6 +52,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                 }
 
             }
+
             if (c.wasAdded()) {
 
                 //parcours les entités ajoutés
@@ -64,12 +65,18 @@ public class EntitesListListener implements ListChangeListener<Entite> {
 
                     //Direction image
                     if(e instanceof Animal){
+
                         imageEntite.setScaleX(((Animal) e).getDirX());
                         ((Animal) e).getDirXProperty().addListener((observableValue, number, t1) -> {
 
                             System.out.println(((ImageView) carte.lookup("#"+e.getId())).getImage().getUrl());
                             ((ImageView) carte.lookup("#"+e.getId())).setScaleX(t1.doubleValue());
                             System.out.println("img inversee");
+                        });
+
+                        ((Animal) e).getHypno().addListener((observableValue, aBoolean, t1) -> {
+                            if(t1)
+                                ((ImageView) carte.lookup("#"+e.getId())).setImage(EntiteVue.appliquerImageHypno(e));
                         });
                     }
 

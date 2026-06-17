@@ -21,10 +21,15 @@ public class EntiteVue {
             imageView = new ImageView((new Image("app/images/ruchien/img.png")));
         } else {
 
-            if (entite instanceof Animal && !((Animal) entite).isAllie())
-                imageView = new ImageView(new Image("app/images/" + entite.getName() + "/img.png"));
+            if (entite instanceof Animal) {
+                if (((Animal) entite).getHypno().getValue())
+                    imageView = new ImageView(new Image("app/images/" + entite.getName() + "/hypno.gif"));
+                else if( !((Animal)entite).isAllie())
+                    imageView = new ImageView(new Image("app/images/" + entite.getName() + "/img.png"));
+                else
+                    imageView = new ImageView(new Image("app/images/" + entite.getName() + "/niv0/img.png"));
+            }
             else {
-                System.out.println("app/images/" + entite.getName() + "/niv0/img.png");
                 imageView = new ImageView(new Image("app/images/" + entite.getName() + "/niv0/img.png"));
 
             }
@@ -35,7 +40,7 @@ public class EntiteVue {
         if (withInit) {
             initImageView(entite, imageView);
         }
-        if(entite instanceof Barrage || (((Animal) entite).isAllie() /* && !entite.isHypno*/)){
+        if(entite instanceof Barrage || (((Animal) entite).isAllie() && !((Animal) entite).getHypno().get())){
             upgradeImage(entite, imageView);
         }
 
@@ -139,7 +144,7 @@ public class EntiteVue {
         Image img;
         if (entite instanceof Barrage)
             img = new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/img.png");   //Les barrages n'ont pas d'images de soin
-        else if(entite instanceof Animal && !((Animal) entite).isAllie())
+        else if(((!((Animal) entite).isAllie()) || ((Animal) entite).getHypno().get()))
             img = new Image("app/images/"+ entite.getName()+"/soin.gif");
         else
             img = new Image("app/images/"+ entite.getName()+"/niv"+entite.getLevel()+"/soin.gif");

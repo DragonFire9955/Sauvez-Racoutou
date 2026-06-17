@@ -38,7 +38,7 @@ public class EntiteHealthListener implements ChangeListener<Number> {
                     public void run() {
                         ((ImageView) entite).setImage(EntiteVue.appliquerBonneImage(e, false).getImage());
                     }
-                }, 900);
+                }, 800);
             }
         } else if (newV.doubleValue() > oldV.doubleValue()) {
             Node entite = carte.lookup("#" + e.getId());
@@ -51,7 +51,7 @@ public class EntiteHealthListener implements ChangeListener<Number> {
                     public void run() {
                         ((ImageView) entite).setImage(EntiteVue.appliquerBonneImage(e, false).getImage());
                     }
-                }, 1000);
+                }, 900);
             }
         }
     }

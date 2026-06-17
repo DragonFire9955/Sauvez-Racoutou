@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -20,7 +29,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="applicationPane" prefHeight="896.0" prefWidth="1408.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller.Controller">
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.paint.Color?>
+<BorderPane fx:id="applicationPane" prefHeight="896.0" prefWidth="1408.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller.Controller">
    <center>
       <Pane fx:id="gamePane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -77,43 +88,63 @@
                         <Image url="@maps/images/map1Preview.jpg" />
                      </image>
                   </ImageView>
-                  <VBox alignment="TOP_CENTER" layoutX="294.0" layoutY="187.0" prefHeight="343.0" prefWidth="532.0" style="-fx-background-color: lightgrey; -fx-background-radius: 25; -fx-border-color: black; -fx-border-radius: 25;">
+                  <VBox alignment="TOP_CENTER" layoutX="367.0" layoutY="258.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: rgba(182,181,181,0.65); -fx-background-radius: 25; -fx-border-color: #595858; -fx-border-radius: 25;">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="180.0" prefWidth="397.0">
+                        <HBox alignment="CENTER" prefHeight="152.0" prefWidth="398.0">
                            <children>
-                              <Button fx:id="selecteurMapGaucheButton" layoutX="284.0" layoutY="97.0" mnemonicParsing="false" onAction="#mapChangeLeft" text="&lt;">
+                              <Button fx:id="selecteurMapGaucheButton" layoutX="284.0" layoutY="97.0" mnemonicParsing="false" onAction="#mapChangeLeft" style="-fx-background-color: #2C5364FF;" text="&lt;" textFill="#fcf8f8">
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </HBox.margin>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <effect>
+                                    <DropShadow>
+                                       <color>
+                                          <Color red="1.0" green="1.0" blue="1.0" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
                               </Button>
                               <ImageView fx:id="iconeChoixMapImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@maps/images/map1Icon.png" />
                                  </image>
                               </ImageView>
-                              <Button fx:id="selecteurMapDroitButton" mnemonicParsing="false" onAction="#mapChangeRight" text="&gt;">
-                                 ww<HBox.margin>
+                              <Button fx:id="selecteurMapDroitButton" mnemonicParsing="false" onAction="#mapChangeRight" style="-fx-background-color: #2C5364FF;" text="&gt;"  textFill="#fcf8f8">
+                                 <HBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </HBox.margin>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
+                                  <effect>
+                                      <DropShadow>
+                                          <color>
+                                              <Color red="1.0" green="1.0" blue="1.0" />
+                                          </color>
+                                      </DropShadow>
+                                  </effect>
                               </Button>
                            </children>
                         </HBox>
                         <Label fx:id="mapNameLabel" alignment="CENTER" prefHeight="40.0" prefWidth="400.0" text="map name">
                            <font>
-                              <Font size="30.0" />
+                              <Font name="Rockwell" size="42.0" />
                            </font>
                         </Label>
                         <Label fx:id="difficultyLabel" alignment="CENTER" layoutX="10.0" layoutY="210.0" prefHeight="20.0" prefWidth="400.0" text="difficulty">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="Montserrat Regular" size="15.0" />
                            </font>
                         </Label>
+                        <Button mnemonicParsing="false" onAction="#gameStartButtonPressed" prefHeight="30.0" prefWidth="187.0" style="-fx-background-color: #2C5364FF;" text="C'est parti!" textFill="WHITE">
+                           <VBox.margin>
+                              <Insets top="10.0" />
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
                               <Label text="Mode">
@@ -151,11 +182,16 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <Button mnemonicParsing="false" onAction="#gameStartButtonPressed" prefHeight="30.0" prefWidth="187.0" text="Commencer">
-                           <VBox.margin>
-                              <Insets bottom="10.0" top="10.0" />
-                           </VBox.margin>
-                        </Button>
+                           <font>
+                              <Font name="Montserrat Medium" size="21.0" />
+                           </font>
+                           <effect>
+                              <DropShadow height="77.15" radius="31.055" width="49.07">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
                      </children>
                   </VBox>
                </children>
