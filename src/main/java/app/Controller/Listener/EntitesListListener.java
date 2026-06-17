@@ -2,6 +2,7 @@ package app.Controller.Listener;
 
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.Entites.Animaux.Racoutou;
+import app.Modele.Entites.Animaux.Specialise.ChatHypnotiseur;
 import app.Modele.Entites.Animaux.Specialise.Specialise;
 import app.Modele.Entites.Barrage.Barrage;
 import app.Modele.Entites.Entite;
@@ -87,6 +88,8 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                     perim.getP().radiusProperty().bind(e.getRangeProperty());
                     if(e instanceof Specialise){
                         perim.getpSpe().radiusProperty().bind(((Specialise) e).getRangeEffectProperty());
+                    } else if (e.getName().equals("chatHypnotiseur")){
+                        perim.getpSpe().radiusProperty().bind(((ChatHypnotiseur) e).getRangeSpeProperty());
                     }
 
                     //créé la barre de vie et récupère son conteneur

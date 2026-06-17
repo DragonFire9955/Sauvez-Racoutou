@@ -517,9 +517,9 @@ public class  StatsEntiteInitialiser {
                 0.,     //Damage
                 1.,     //FreqAtk
                 0.,     //Speed
+                150.,     //rangeSpe
                 6.0,    //DmgSpe
-                1.5,     //freqAtkSpeciale  (+.3)
-                150.     //rangeSpe
+                1.5     //freqAtkSpeciale  (+.3)
         });
 
         statsLevels.add(new Object[]{
@@ -530,9 +530,9 @@ public class  StatsEntiteInitialiser {
                 0.,     //Damage   (+.5)
                 1.,     //FreqAtk
                 0.,     //Speed
+                192.,     //rangeSpe  (+10)
                 12.0,    //DmgSpe (+1.8)
-                1.5,     //freqAtkSpeciale
-                160.     //rangeSpe  (+10)
+                1.5     //freqAtkSpeciale
         });
 
         statsLevels.add(new Object[]{
@@ -543,9 +543,9 @@ public class  StatsEntiteInitialiser {
                 0.,     //Damage
                 1.2,     //FreqAtk  (+.2)
                 0.,     //Speed
-                2000.,    //DmgSpe (+1.4)
-                1.7,     //freqAtkSpeciale  (+.2)
-                1700.     //rangeSpe  (+5)
+                222.,     //rangeSpe  (+5)
+                5.,    //DmgSpe (+1.4)
+                1.7     //freqAtkSpeciale  (+.2)
         });
 
         statsLevels.add(new Object[]{
@@ -556,9 +556,9 @@ public class  StatsEntiteInitialiser {
                 0.,     //Damage
                 1.5,     //FreqAtk  (+.5)
                 0.,     //Speed
-                35.0,    //DmgSpe (+2)
-                2.,     //freqAtkSpeciale  (+.3)
-                180.     //rangeSpe  (+5)
+                256.,     //rangeSpe  (+5)
+                8.,    //DmgSpe (+2)
+                2.     //freqAtkSpeciale  (+.3)
         });
     }
 

@@ -5,6 +5,7 @@ import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Utilitaires.StatsEntiteInitialiser;
 import app.Modele.Utilitaires.Utilitaire;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
 import java.util.HashMap;
@@ -15,7 +16,7 @@ import java.util.Map;
 public class ChatHypnotiseur extends Animal{
     private double dmgSpecials;
     private double freqAtkSpeciale;
-    private double rangeSpe;
+    private DoubleProperty rangeSpe;
     private Map<Animal, Double> hypnoEnCours;
     private double chronoSpe;
 
@@ -23,10 +24,10 @@ public class ChatHypnotiseur extends Animal{
 
         super("chatHypnotiseur", coord, w, StatsEntiteInitialiser.getStatsLevels("chatHypnotiseur"), actualLevel, true);
 
-        List<Object[]> statsJSPQUOIFAIRE = StatsEntiteInitialiser.getStatsLevels("chatHypnotiseur");
-        this.dmgSpecials = (double) statsJSPQUOIFAIRE.get(0)[7];
-        this.freqAtkSpeciale = (double) statsJSPQUOIFAIRE.get(0)[8];
-        this.rangeSpe = (double) statsJSPQUOIFAIRE.get(0)[9];
+        List<Object[]> stats = StatsEntiteInitialiser.getStatsLevels("chatHypnotiseur");
+        this.dmgSpecials = (double) stats.get(actualLevel)[7];
+        this.freqAtkSpeciale = (double) stats.get(0)[8];
+        this.rangeSpe = new SimpleDoubleProperty((double) stats.get(0)[9]);
         hypnoEnCours = new HashMap<>();
         chronoSpe=0;
     }
@@ -49,9 +50,9 @@ public class ChatHypnotiseur extends Animal{
 
         super.setStats(actualLevel);
 
-        this.dmgSpecials = ((double) getStatsLevels().get(actualLevel)[7]);
-        this.freqAtkSpeciale = ((double) getStatsLevels().get(actualLevel)[8]);
-        this.rangeSpe = ((double) getStatsLevels().get(actualLevel)[9]);
+        this.rangeSpe.setValue((double) getStatsLevels().get(actualLevel)[7]);
+        this.dmgSpecials = ((double) getStatsLevels().get(actualLevel)[8]);
+        this.freqAtkSpeciale = ((double) getStatsLevels().get(actualLevel)[9]);
     }
 
     public void attaqueSpeciale(Animal cible){
@@ -71,7 +72,11 @@ public class ChatHypnotiseur extends Animal{
 
     public Entite getCibleSpeciale(){
 
-        if (getCiblesAccessibles(rangeSpe, Utilitaire.animauxToEntites(getAnimauxCibles())).isEmpty()) return null ;
-        return getCiblesAccessibles(rangeSpe, Utilitaire.animauxToEntites(getAnimauxCibles())).getFirst();
+        if (getCiblesAccessibles(rangeSpe.getValue(), Utilitaire.animauxToEntites(getAnimauxCibles())).isEmpty()) return null ;
+        return getCiblesAccessibles(rangeSpe.getValue(), Utilitaire.animauxToEntites(getAnimauxCibles())).getFirst();
+    }
+
+    public DoubleProperty getRangeSpeProperty() {
+        return rangeSpe;
     }
 }
