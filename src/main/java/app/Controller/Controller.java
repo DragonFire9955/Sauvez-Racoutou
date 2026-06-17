@@ -199,7 +199,7 @@ public class Controller implements Initializable {
 
         //Gestion Clavier
         applicationPane.sceneProperty().addListener((observable, oldValue, newValue) -> {
-            gamePane.requestFocus();
+            applicationPane.requestFocus();
             gamePane.setFocusTraversable(true);
 
             //On met tout les évènements claviers
@@ -332,7 +332,7 @@ public class Controller implements Initializable {
             menuPause.setVisible(true);
             enPause = true;
         }
-        gamePane.requestFocus();
+        applicationPane.requestFocus();
     }
 
     @FXML
@@ -370,7 +370,6 @@ public class Controller implements Initializable {
         carte.getChildren().clear();
         gameStartButtonPressed();
         carte.getChildren().addFirst(tileMap);
-        initRacoutou();
 
 
     }
@@ -453,7 +452,7 @@ public class Controller implements Initializable {
             clic.placerStructure(ligne, colonne, nomStructure);
 
             e.consume();
-            gamePane.requestFocus();
+            applicationPane.requestFocus();
         });
     }
 
