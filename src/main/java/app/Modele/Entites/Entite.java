@@ -21,7 +21,7 @@ public abstract class Entite {
     private boolean coll; // indique si l'entite est en collision
 
     private DoubleProperty x, y;
-    private double range;
+    private DoubleProperty range;
     private double damage;
     private double freqAtk;
 
@@ -54,7 +54,7 @@ public abstract class Entite {
         this.health = new SimpleDoubleProperty((double) statsLevels.get(actualLevel)[2]);
         this.maxHealth = new SimpleDoubleProperty(health.getValue());
         if (statsLevels.get(actualLevel)[1] != null) this.coin = (int) statsLevels.get(actualLevel)[1];
-        this.range = (double) statsLevels.get(actualLevel)[3];
+        this.range = new SimpleDoubleProperty((double) statsLevels.get(actualLevel)[3]);
         this.damage = (double) statsLevels.get(actualLevel)[4];
         this.freqAtk = (double) statsLevels.get(actualLevel)[5];
         this.world=w;
@@ -126,11 +126,12 @@ public abstract class Entite {
         this.y.setValue(y);
     }
 
+    public DoubleProperty getRangeProperty() {return range;}
     public double getRange() {
-        return range;
+        return range.getValue();
     }
     public void setRange(double range) {
-        this.range = range;
+        this.range.setValue(range);
     }
 
     public void setDamage(double damage) {
@@ -212,7 +213,7 @@ public abstract class Entite {
         //Calcul des pv par pourcentage
         this.health.setValue((double) statsLevels.get(actualLevel)[2] * (health.getValue()*100/maxHealth.getValue()));
         maxHealth.setValue(this.health.get());
-        this.range = ((double) statsLevels.get(actualLevel)[3]);
+        this.range.set(((double) statsLevels.get(actualLevel)[3]));
         this.damage = ((double) statsLevels.get(actualLevel)[4]);
         this.freqAtk = ((double) statsLevels.get(actualLevel)[5]);
     }

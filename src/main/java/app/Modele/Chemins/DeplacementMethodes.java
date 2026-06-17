@@ -44,19 +44,11 @@ public class DeplacementMethodes {
 
         List<Noeud> voisins = new ArrayList<>();
 
-        ///TODO : Je pense on peut faire mieux car on sait que y a que 4 directions, à modif
         int[][] directionsSimples = {
                 {0, -1},
                 {0, 1},
                 {-1, 0},
                 {1, 0}};
-        /*int[][] diagonales = {
-                //diagonales
-                {1, 1},
-                {-1, -1},
-                {1, -1},
-                {-1, 1}
-        };*/
 
         for (int[] d : directionsSimples) {
             //n pour noeud
@@ -72,24 +64,6 @@ public class DeplacementMethodes {
                 }
             }
         }
-
-        /*for(int[] d : diagonales) {
-            //n pour noeud
-            int ni = noeud.getI() + d[0];
-            int nj = noeud.getJ() + d[1];
-
-            //Check des bordures
-
-            if (ni>=0 && nj>=0 && ni<lignes && nj<colonnes) {
-                //On skip les murs
-                if (getCout(map, ni, nj) < 9999
-                 && getCout(map, ni, noeud.getJ()) < 9999
-                 && getCout(map, noeud.getI(), nj) < 9999
-                ) {
-                    voisins.add(new Noeud(ni, nj));
-                }
-            }
-        }*/
 
         if(noeud.equals(new Noeud(11, 21)))
             for(Noeud n: voisins){

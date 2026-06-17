@@ -3,13 +3,15 @@ package app.Modele.Entites.Animaux.Specialise;
 import app.Modele.Entites.Animaux.Animal;
 import app.Modele.GameWorld;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 
 import java.util.List;
 
 public abstract class Specialise extends Animal{
 
-    private double rangeEffect;
+    private DoubleProperty rangeEffect;
     private double tempsAction;
     private double tempsRepo;
     private BooleanProperty actionSpecialePossible;
@@ -19,7 +21,7 @@ public abstract class Specialise extends Animal{
 
         super(name, coord, w, statsLevels, actualLevel, allie);
 
-        this.rangeEffect = (double) statsLevels.get(actualLevel)[7];
+        this.rangeEffect = new SimpleDoubleProperty((double) statsLevels.get(actualLevel)[7]);
         this.tempsAction = (double) statsLevels.get(actualLevel)[8];
         this.tempsRepo = (double) statsLevels.get(actualLevel)[9];
 
@@ -31,16 +33,19 @@ public abstract class Specialise extends Animal{
 
         super.setStats(actualLevel);
 
-        this.rangeEffect = ((double) getStatsLevels().get(actualLevel)[7]);
+        this.rangeEffect.set(((double) getStatsLevels().get(actualLevel)[7]));
         this.tempsAction = ((double) getStatsLevels().get(actualLevel)[8]);
         this.tempsRepo = ((double) getStatsLevels().get(actualLevel)[9]);
     }
 
-    public double getRangeEffect() {
+    public DoubleProperty getRangeEffectProperty() {
         return rangeEffect;
     }
+    public double getRangeEffect() {
+        return rangeEffect.getValue();
+    }
     public void setRangeEffect(double rangeEffect) {
-        this.rangeEffect = rangeEffect;
+        this.rangeEffect.setValue(rangeEffect);
     }
 
     public double getTempsAction() {

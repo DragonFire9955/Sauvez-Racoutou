@@ -33,38 +33,23 @@ public class PerimetreVue {
     }
 
     public  void initPerimetre(Entite e, ImageView img){
-        /*Color color;
-        switch (spe.getName()) {
-            case "Poulet IGPN":
-                color = BLUE;
-                break;
-            default:
-                color = YELLOW;
-        }
-
-         */
 
 
             p = new Circle(img.getX(), img.getY(), e.getRange(), YELLOW);
             p.setOpacity(0.15);
             p.setId("perim" + e.getId());
             p.setVisible(false);
-            p.layoutXProperty().bind(img.layoutXProperty().add(EntiteVue.tailleImage/4));
+            p.layoutXProperty().bind(img.layoutXProperty().add(EntiteVue.tailleImage/2));
             p.layoutYProperty().bind(img.layoutYProperty().add(EntiteVue.tailleImage/2));
-            /*
-            p.layoutXProperty().bind(e.getXProperty().add(EntiteVue.tailleImage/4));
-            p.layoutYProperty().bind(e.getYProperty().add(EntiteVue.tailleImage/2));
-
-             */
 
             carte.getChildren().add(1, p);
 
-            if ((e instanceof Specialise) /*|| (e instanceof ChatHypnotiseur)*/){
+            if ((e instanceof Specialise) || (e instanceof ChatHypnotiseur)){
                 Circle perimSpe = new Circle(img.getX(), img.getY(), (double) e.getStatsLevels().get(e.getLevel())[7], GREEN);
                 perimSpe.setOpacity(0.15);
                 perimSpe.setId("perimSpe" + e.getId());
                 perimSpe.setVisible(false);
-                perimSpe.layoutXProperty().bind(img.layoutXProperty().add(EntiteVue.tailleImage / 4));
+                perimSpe.layoutXProperty().bind(img.layoutXProperty().add(EntiteVue.tailleImage / 2));
                 perimSpe.layoutYProperty().bind(img.layoutYProperty().add(EntiteVue.tailleImage / 2));
                 carte.getChildren().add(1, perimSpe);
 
@@ -81,4 +66,12 @@ public class PerimetreVue {
                 pSpe.setVisible(!pSpe.isVisible());
 
         }
+
+    public Circle getP() {
+        return p;
+    }
+
+    public Circle getpSpe() {
+        return pSpe;
+    }
 }
