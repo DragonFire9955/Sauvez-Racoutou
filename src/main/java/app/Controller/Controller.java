@@ -79,13 +79,12 @@ public class Controller implements Initializable {
             "Très Difficile"
     );
 
-    @FXML private HBox vieRacoutou;
-
-    //Choix de la difficultée
     @FXML private ToggleGroup choixDifficulte;
-    @FXML private RadioButton toggleButton0;
-    @FXML private RadioButton toggleButton1;
-    @FXML private RadioButton toggleButton2;
+    @FXML private RadioButton ToggleButton1;
+    @FXML private RadioButton ToggleButton2;
+    @FXML private RadioButton ToggleButton3;
+
+    @FXML private HBox vieRacoutou;
 
     @FXML private Button poubelle;
     @FXML private ImageView poubelleShopImageView;
@@ -200,13 +199,17 @@ public class Controller implements Initializable {
         //Gestion Clavier
         applicationPane.sceneProperty().addListener((observable, oldValue, newValue) -> {
             applicationPane.requestFocus();
-            gamePane.setFocusTraversable(true);
+            applicationPane.setFocusTraversable(true);
 
             //On met tout les évènements claviers
             applicationPane.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ESCAPE){
                     pause();
-                };
+                } else if (event.getCode() == KeyCode.ENTER){
+                    gameWorld.setTotalCoin((gameWorld.getTotalCoin().get() + 10));
+                } else if (event.getCode() == KeyCode.DELETE){
+                    gameWorld.setTotalCoin((gameWorld.getTotalCoin().get() - 10));
+                }
             });
         });
 
@@ -236,16 +239,14 @@ public class Controller implements Initializable {
         });
 
         //Audio
-        AudioManager.getRadio().jouerMusique(AudioManager.getRadio().getMusiqueActuelle());
-        //on joue la premiere musique
+        AudioManager.getInstance().jouerMusique(AudioManager.getInstance().getMusiqueActuelle());
 
         ControlleurMethodesMultiUsages.actualiserTitreMusique(labelTitreMusique);
-        //on met a jour le titre de la musique
 
         imageSonOn = ImageSetter.sonOn;
         imageSonOff = ImageSetter.sonOff;
 
-        AudioManager.getRadio().sonActiveProperty().addListener((obs, ancien, estActive) -> {
+        AudioManager.getInstance().sonActiveProperty().addListener((obs, ancien, estActive) -> {
             if (estActive) {
                 imgSon.setImage(imageSonOn);
             } else {
@@ -253,15 +254,15 @@ public class Controller implements Initializable {
             }
         });
 
-        //on lie le slider avec le son
-        sliderVolume.valueProperty().bindBidirectional(AudioManager.getRadio().volumeProperty());
+        sliderVolume.valueProperty().bindBidirectional(AudioManager.getInstance().volumeProperty());
     }
 
     @FXML private void gameStartButtonPressed() {
 
         int[][] mapChoisie = mapManager.getMaps().get(indiceMap);
 
-        int difficulte = Integer.parseInt(((RadioButton) choixDifficulte.getSelectedToggle()).getId().replace("toggleButton", ""));
+        int difficulte = Integer.parseInt( ((RadioButton) (choixDifficulte.getSelectedToggle())).getId().replace("ToggleButton", ""));
+
         gameWorld = new GameWorld(mapChoisie, difficulte);
 
         terrainVue.remplirMap(tileMap, mapChoisie);
@@ -359,8 +360,11 @@ public class Controller implements Initializable {
     private void redemarrerJeu() {
 
         gameLoop.stop();
-        gameWorld.getBarrage().clear();
-        int[][] map = gameWorld.getMap();
+        for (int i = gameWorld.getBarrage().size()-1; i >= 0; i--) {
+            gameWorld.supprimerBarrage(gameWorld.getBarrage().get(i));
+        }
+        int[][] map = mapManager.getMaps().get(indiceMap);
+        terrainVue.remplirMap(tileMap, map);
         enPause = false;
         menuPause.setVisible(false);
         finJeu.setVisible(false);
@@ -370,6 +374,7 @@ public class Controller implements Initializable {
         carte.getChildren().clear();
         gameStartButtonPressed();
         carte.getChildren().addFirst(tileMap);
+        initRacoutou();
 
 
     }
@@ -427,8 +432,6 @@ public class Controller implements Initializable {
     public void initialiserDragAndDrop() {
 
         DragAndDrop dragImage = new DragAndDrop();
-
-        //on rend toute nos entité glissable
         dragImage.drag(poubelle);
         dragImage.drag(chatClassique);
         dragImage.drag(chatMedecin);
@@ -442,8 +445,8 @@ public class Controller implements Initializable {
 
         //drop
         tileMap.setOnDragDropped(e -> { //réagit quand la souris relache
-            Dragboard db = e.getDragboard(); //on recupere le carton invisible transporté par la souris
-            String nomStructure = db.getString(); //prend le nom de la structure
+            Dragboard db = e.getDragboard();
+            String nomStructure = db.getString();
 
             //coordonnées en case
             int colonne = (int) (e.getX() / gameWorld.getTailleTile());
@@ -469,6 +472,7 @@ public class Controller implements Initializable {
 
     //Fonction de test, uniquement pour les tests, A SUPPRIMER PLUS TARD
     private void remetEnnemiTest(KeyEvent event) {
+
 
         if (event.getCode() == KeyCode.ENTER){
             gameWorld.setTotalCoin(1000);
@@ -547,6 +551,7 @@ public class Controller implements Initializable {
     }
 
     //Partie Shop
+
     @FXML public void acheterEvoPlus(ActionEvent event) {
 
         String id = ((Button) event.getSource()).getId().replace("LvlRightButton", "").replace("LvlLeftButton", "");

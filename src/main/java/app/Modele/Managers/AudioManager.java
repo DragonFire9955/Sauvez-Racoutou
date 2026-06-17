@@ -11,7 +11,7 @@ import java.io.InputStream;
 
 public class AudioManager {
 
-    private static AudioManager radio;
+    private static AudioManager instance;
     private Clip clip;
     private BooleanProperty sonActive;
     private DoubleProperty volume;
@@ -56,11 +56,11 @@ public class AudioManager {
         });
     }
 
-    public static AudioManager getRadio() {
-        if (radio == null) {
-            radio = new AudioManager();
+    public static AudioManager getInstance() {
+        if (instance == null) {
+            instance = new AudioManager();
         }
-        return radio;
+        return instance;
     }
 
     public void jouerMusique(String url) {

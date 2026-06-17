@@ -13,22 +13,22 @@ public class ControlleurMethodesMultiUsages {
     
     
     public static void musiquePrecedente(Label labelTitreMusique) {
-        AudioManager.getRadio().pistePrecedente();
+        AudioManager.getInstance().pistePrecedente();
         actualiserTitreMusique(labelTitreMusique);
     }
 
     public static void musiqueSuivante(Label labelTitreMusique) {
-        AudioManager.getRadio().pisteSuivante();
+        AudioManager.getInstance().pisteSuivante();
         actualiserTitreMusique(labelTitreMusique);
     }
 
     public static void clicBoutonSon() {
-        boolean sonAllume = AudioManager.getRadio().sonActiveProperty().get();
-        AudioManager.getRadio().sonActiveProperty().set(!sonAllume);
+        boolean sonAllume = AudioManager.getInstance().sonActiveProperty().get();
+        AudioManager.getInstance().sonActiveProperty().set(!sonAllume);
     }
 
     public static void actualiserTitreMusique(Label labelTitreMusique) {
-        String titre = AudioManager.getRadio().getNomMusiqueActuelle();
+        String titre = AudioManager.getInstance().getNomMusiqueActuelle();
         labelTitreMusique.setText(titre);
     }
 

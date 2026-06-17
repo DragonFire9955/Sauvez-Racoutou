@@ -34,6 +34,7 @@ public class GameWorld {
     private  int debutVague;
     private IntegerProperty numeroVague;
     private IntegerProperty tempsActuelVague;
+    private int difficulte;
 
     ObservableList<ProjectileSimple> projectiles;
 
@@ -54,6 +55,8 @@ public class GameWorld {
         projectiles = FXCollections.observableArrayList();
 
         totalCoin = new SimpleIntegerProperty(1000);
+
+        this.difficulte = difficulte;
 
         ensemblesVagues = VagueManager.ensembleVagues(this, difficulte);
         durreeVague = new SimpleIntegerProperty(0);
