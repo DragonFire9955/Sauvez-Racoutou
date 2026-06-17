@@ -353,8 +353,11 @@ public class Controller implements Initializable {
     private void redemarrerJeu() {
 
         gameLoop.stop();
-        gameWorld.getBarrage().clear();
-        int[][] map = gameWorld.getMap();
+        for (int i = gameWorld.getBarrage().size()-1; i >= 0; i--) {
+            gameWorld.supprimerBarrage(gameWorld.getBarrage().get(i));
+        }
+        int[][] map = mapManager.getMaps().get(indiceMap);
+        terrainVue.remplirMap(tileMap, map);
         enPause = false;
         menuPause.setVisible(false);
         finJeu.setVisible(false);

@@ -175,11 +175,7 @@ public class GameWorld {
         int taille = b.getTaille();
         for(int i= 0; i<taille; i++){
             for(int j = 0; j<taille; j++) {
-                System.out.println("poids" + b.getIdPoids());
-                System.out.print("i: "+b.getTile()[0] + i);
-                System.out.println(" j: "+b.getTile()[1] + j);
-
-                map[b.getTile()[0] - i][b.getTile()[1] - j] = b.getIdPoids();
+                map[b.getTuileOrigine()[0] - i][b.getTuileOrigine()[1] - j] = b.getIdPoids();
             }
         }
         resetDijkstraRacoutou();
@@ -187,8 +183,10 @@ public class GameWorld {
     public void supprimerBarrage(Barrage b) {
         int taille = b.getTaille();
         for(int i= 0; i<taille; i++){
-            for(int j = 0; j<taille; j++)
-                map[b.getTile()[0]+1][b.getTile()[1]+j] = 1;
+            for(int j = 0; j<taille; j++) {
+                System.out.println("je supr le poids : "+ b.getIdPoids());
+                map[b.getTuileOrigine()[0] - i][b.getTuileOrigine()[1] - j] = 1;
+            }
         }
         barrageList.remove(b);
         resetDijkstraRacoutou();

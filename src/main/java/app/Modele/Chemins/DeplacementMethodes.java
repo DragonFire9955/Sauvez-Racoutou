@@ -27,11 +27,11 @@ public class DeplacementMethodes {
                     return 1;
                 case 2: // poubelle
                     return 4;
-                case 3: // voiture
+                case 3: // poubelle racoutou
                     return 10;
-                case 4: //bus
+                case 4: // voiture
                     return 20;
-                case 5:
+                case 5: //bus
                     return 25;
                 default:
                     return 1;

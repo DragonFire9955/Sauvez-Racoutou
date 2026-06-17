@@ -108,4 +108,8 @@ public abstract class Barrage extends Entite {
 
         getWorld().resetDijkstraRacoutou();
     }
+
+    public int[] getTuileOrigine() {
+        return tuileOrigine;
+    }
 }
