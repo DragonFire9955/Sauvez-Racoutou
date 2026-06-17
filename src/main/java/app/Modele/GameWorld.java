@@ -39,7 +39,7 @@ public class GameWorld {
 
     private IntegerProperty totalCoin;
 
-    public GameWorld(int[][] map){
+    public GameWorld(int[][] map, int difficulte){
 
         this.map = map;for (int i = 0; i < map.length; i++) {
             System.out.println(i + " : " + map[i].length);
@@ -55,7 +55,7 @@ public class GameWorld {
 
         totalCoin = new SimpleIntegerProperty(1000);
 
-        ensemblesVagues = VagueManager.ensembleVagues(this);
+        ensemblesVagues = VagueManager.ensembleVagues(this, difficulte);
         durreeVague = new SimpleIntegerProperty(0);
         debutVague=0;
         numeroVague = new SimpleIntegerProperty(0);

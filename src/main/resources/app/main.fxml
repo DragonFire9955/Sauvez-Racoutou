@@ -55,7 +55,7 @@
                <children>
                   <Pane fx:id="wavePane" prefHeight="47.0" prefWidth="100.0" style="-fx-background-color: rgba(0, 0, 0, 0.5);" visible="false">
                      <children>
-                        <Label fx:id="waveLabel" alignment="CENTER" prefHeight="25.0" prefWidth="123.0" text="Wave" textFill="WHITE" >
+                        <Label fx:id="waveLabel" alignment="CENTER" prefHeight="25.0" prefWidth="123.0" text="Wave" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -93,7 +93,7 @@
                                  </image>
                               </ImageView>
                               <Button fx:id="selecteurMapDroitButton" mnemonicParsing="false" onAction="#mapChangeRight" text="&gt;">
-                                 <HBox.margin>
+                                 ww<HBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </HBox.margin>
                                  <cursor>
@@ -334,17 +334,17 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="poubelleLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&gt;" textFill="WHITE">
+                        <Button fx:id="poubelleLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&gt;" textFill="WHITE">
                            <StackPane.margin>
-                              <Insets left="100.0" top="100.0" />
+                              <Insets left="80.0" top="100.0" />
                            </StackPane.margin>
                            <font>
-                              <Font size="10.0" />
+                              <Font size="11.0" />
                            </font>
                         </Button>
-                        <Button fx:id="poubelleLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="27.0" prefWidth="28.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&lt;" textFill="WHITE">
+                        <Button fx:id="poubelleLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&lt;" textFill="WHITE">
                            <StackPane.margin>
-                              <Insets right="100.0" top="100.0" />
+                              <Insets right="80.0" top="100.0" />
                            </StackPane.margin>
                            <font>
                               <Font name="System Bold" size="11.0" />
@@ -380,20 +380,20 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="chatClassiqueLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&lt;" textFill="WHITE">
+                        <Button fx:id="chatClassiqueLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&lt;" textFill="WHITE">
                            <StackPane.margin>
-                              <Insets right="100.0" top="100.0" />
+                              <Insets right="80.0" top="100.0" />
                            </StackPane.margin>
                            <font>
-                              <Font size="10.0" />
+                              <Font name="System Bold Italic" size="11.0" />
                            </font>
                         </Button>
-                        <Button fx:id="chatClassiqueLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&gt;" textFill="WHITE">
+                        <Button fx:id="chatClassiqueLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&gt;" textFill="WHITE">
                            <StackPane.margin>
-                              <Insets left="100.0" top="100.0" />
+                              <Insets left="80.0" top="100.0" />
                            </StackPane.margin>
                            <font>
-                              <Font size="10.0" />
+                              <Font size="11.0" />
                            </font>
                         </Button>
                      </children>
@@ -428,18 +428,18 @@
                         </Button>
                         <Button fx:id="chatMedecinLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&lt;" textFill="WHITE">
                            <StackPane.margin>
-                              <Insets right="100.0" top="100.0" />
+                              <Insets right="80.0" top="100.0" />
                            </StackPane.margin>
                            <font>
-                              <Font size="10.0" />
+                              <Font name="System Bold" size="11.0" />
                            </font>
                         </Button>
-                        <Button fx:id="chatMedecinLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&gt;" textFill="WHITE">
+                        <Button fx:id="chatMedecinLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&gt;" textFill="WHITE">
                            <StackPane.margin>
-                              <Insets left="100.0" top="100.0" />
+                              <Insets left="80.0" top="100.0" />
                            </StackPane.margin>
                            <font>
-                              <Font size="10.0" />
+                              <Font size="11.0" />
                            </font>
                         </Button>
                      </children>
@@ -472,20 +472,20 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="chatJournalisteLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&lt;" textFill="WHITE">
+                        <Button fx:id="chatJournalisteLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&lt;" textFill="WHITE">
                            <StackPane.margin>
-                              <Insets right="100.0" top="100.0" />
+                              <Insets right="80.0" top="100.0" />
                            </StackPane.margin>
                            <font>
-                              <Font size="10.0" />
+                              <Font name="System Bold" size="11.0" />
                            </font>
                         </Button>
-                        <Button fx:id="chatJournalisteLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&gt;" textFill="WHITE">
+                        <Button fx:id="chatJournalisteLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&gt;" textFill="WHITE">
                            <StackPane.margin>
-                              <Insets left="100.0" top="100.0" />
+                              <Insets left="80.0" top="100.0" />
                            </StackPane.margin>
                            <font>
-                              <Font size="10.0" />
+                              <Font size="11.0" />
                            </font>
                         </Button>
                      </children>
@@ -518,17 +518,17 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="chatScientifiqueLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&lt;" textFill="WHITE">
+                        <Button fx:id="chatScientifiqueLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&lt;" textFill="WHITE">
                            <StackPane.margin>
-                              <Insets right="100.0" top="100.0" />
+                              <Insets right="80.0" top="100.0" />
                            </StackPane.margin>
                            <font>
                               <Font size="10.0" />
                            </font>
                         </Button>
-                        <Button fx:id="chatScientifiqueLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&gt;" textFill="WHITE">
+                        <Button fx:id="chatScientifiqueLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&gt;" textFill="WHITE">
                            <StackPane.margin>
-                              <Insets left="100.0" top="100.0" />
+                              <Insets left="80.0" top="100.0" />
                            </StackPane.margin>
                            <font>
                               <Font size="10.0" />
@@ -564,20 +564,20 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="chatCuisinierLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&lt;" textFill="WHITE">
+                        <Button fx:id="chatCuisinierLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&lt;" textFill="WHITE">
                            <StackPane.margin>
-                              <Insets right="100.0" top="100.0" />
+                              <Insets right="80.0" top="100.0" />
                            </StackPane.margin>
                            <font>
-                              <Font size="10.0" />
+                              <Font size="11.0" />
                            </font>
                         </Button>
-                        <Button fx:id="chatCuisinierLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&gt;" textFill="WHITE">
+                        <Button fx:id="chatCuisinierLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&gt;" textFill="WHITE">
                            <StackPane.margin>
-                              <Insets left="100.0" top="100.0" />
+                              <Insets left="80.0" top="100.0" />
                            </StackPane.margin>
                            <font>
-                              <Font size="10.0" />
+                              <Font size="11.0" />
                            </font>
                         </Button>
                      </children>
@@ -610,17 +610,17 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="pouletIGPNLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&lt;" textFill="WHITE">
+                        <Button fx:id="pouletIGPNLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&lt;" textFill="WHITE">
                            <StackPane.margin>
-                              <Insets right="100.0" top="100.0" />
+                              <Insets right="80.0" top="100.0" />
                            </StackPane.margin>
                            <font>
-                              <Font size="10.0" />
+                              <Font size="11.0" />
                            </font>
                         </Button>
-                        <Button fx:id="pouletIGPNLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&gt;" textFill="WHITE">
+                        <Button fx:id="pouletIGPNLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&gt;" textFill="WHITE">
                            <StackPane.margin>
-                              <Insets left="100.0" top="100.0" />
+                              <Insets left="80.0" top="100.0" />
                            </StackPane.margin>
                            <font>
                               <Font size="10.0" />
@@ -656,17 +656,17 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="chatHypnotiseurLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="22.0" prefWidth="22.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&lt;" textFill="WHITE">
+                        <Button fx:id="chatHypnotiseurLvlLeftButton" mnemonicParsing="false" onAction="#acheterEvoMoins" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&lt;" textFill="WHITE">
                            <StackPane.margin>
-                              <Insets right="100.0" top="100.0" />
+                              <Insets right="80.0" top="100.0" />
                            </StackPane.margin>
                            <font>
                               <Font size="10.0" />
                            </font>
                         </Button>
-                        <Button fx:id="chatHypnotiseurLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="22.0" prefWidth="22.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&gt;" textFill="WHITE">
+                        <Button fx:id="chatHypnotiseurLvlRightButton" layoutX="40.0" layoutY="47.0" mnemonicParsing="false" onAction="#acheterEvoPlus" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #2C5364; -fx-border-color: white; -fx-border-radius: 3; -fx-border-width: 2;" text="&gt;" textFill="WHITE">
                            <StackPane.margin>
-                              <Insets left="100.0" top="100.0" />
+                              <Insets left="80.0" top="100.0" />
                            </StackPane.margin>
                            <font>
                               <Font size="10.0" />

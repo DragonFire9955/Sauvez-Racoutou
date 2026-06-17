@@ -152,7 +152,7 @@ public class InfoBulleListener {
         sellButton.setStyle(
                 "-fx-border-style: 2;"+
                 "-fx-background-color: #FFFCF2;"+
-                "-fx-font-size: 16;" +
+                "-fx-font-size: 12;" +
                 "-fx-font-weight: bold;"+
                 "-fx-background-radius: 10;"
                        // +"-fx-padding: -10;"

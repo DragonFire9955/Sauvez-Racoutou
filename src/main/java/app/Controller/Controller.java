@@ -255,7 +255,7 @@ public class Controller implements Initializable {
 
         int[][] mapChoisie = mapManager.getMaps().get(indiceMap);
 
-        gameWorld = new GameWorld(mapChoisie);
+        gameWorld = new GameWorld(mapChoisie, 0);
 
         terrainVue.remplirMap(tileMap, mapChoisie);
 
