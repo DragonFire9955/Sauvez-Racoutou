@@ -126,7 +126,7 @@
                               </Label>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                                  <children>
-                                    <RadioButton fx:id="0" mnemonicParsing="false" selected="true" text="Manifestant.e du dimanche">
+                                    <RadioButton fx:id="toggleButton0" mnemonicParsing="false" selected="true" text="Manifestant.e du dimanche">
                                        <font>
                                           <Font name="Microsoft Sans Serif" size="13.0" />
                                        </font>
@@ -134,15 +134,18 @@
                                           <ToggleGroup fx:id="choixDifficulte" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton fx:id="1" layoutX="381.0" layoutY="27.0" mnemonicParsing="false" text="Pro de la pancarte" toggleGroup="$choixDifficulte">
+                                    <RadioButton fx:id="toggleButton1" layoutX="381.0" layoutY="27.0" mnemonicParsing="false" text="Pro de la pancarte" toggleGroup="$choixDifficulte">
                                        <font>
                                           <Font name="Microsoft Sans Serif" size="13.0" />
                                        </font>
                                     </RadioButton>
-                                    <RadioButton fx:id="2" layoutX="435.0" layoutY="27.0" mnemonicParsing="false" text="Antifa experimenté.e" toggleGroup="$choixDifficulte">
+                                    <RadioButton fx:id="toggleButton2" layoutX="435.0" layoutY="27.0" mnemonicParsing="false" text="Antifa experimenté.e" toggleGroup="$choixDifficulte">
                                        <font>
                                           <Font name="Microsoft Sans Serif" size="13.0" />
                                        </font>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
                                     </RadioButton>
                                  </children>
                               </HBox>

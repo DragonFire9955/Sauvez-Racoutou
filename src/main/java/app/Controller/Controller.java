@@ -81,6 +81,12 @@ public class Controller implements Initializable {
 
     @FXML private HBox vieRacoutou;
 
+    //Choix de la difficultée
+    @FXML private ToggleGroup choixDifficulte;
+    @FXML private RadioButton toggleButton0;
+    @FXML private RadioButton toggleButton1;
+    @FXML private RadioButton toggleButton2;
+
     @FXML private Button poubelle;
     @FXML private ImageView poubelleShopImageView;
     @FXML private Label poubellePrixLabel;
@@ -255,7 +261,8 @@ public class Controller implements Initializable {
 
         int[][] mapChoisie = mapManager.getMaps().get(indiceMap);
 
-        gameWorld = new GameWorld(mapChoisie, 0);
+        int difficulte = Integer.parseInt(((RadioButton) choixDifficulte.getSelectedToggle()).getId().replace("toggleButton", ""));
+        gameWorld = new GameWorld(mapChoisie, difficulte);
 
         terrainVue.remplirMap(tileMap, mapChoisie);
 
