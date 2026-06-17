@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane fx:id="demarragePane" prefHeight="899.0" prefWidth="1408.0" style="-fx-background-color: #2C5364;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller.MenuController">
+<Pane fx:id="demarragePane" prefHeight="899.0" prefWidth="1408.0" style="  -fx-background-image: url(/app/images/img_menu.jpg); -fx-opacity: 0.85;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller.MenuController">
    <children>
       <VBox alignment="CENTER" prefHeight="901.0" prefWidth="1411.0" spacing="80.0">
          <children>
@@ -13,7 +13,7 @@
                <children>
                   <Label text="SAUVEZ RACOUTOU !" textFill="linear-gradient(to right, #FF8C00, #FF007F)">
                      <font>
-                        <Font name="Impact" size="90.0" />
+                        <Font name="Impact" size="90.0"/>
                      </font>
                   </Label>
                   <Pane prefHeight="4.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to right, transparent, #FF007F, #FF8C00, transparent); -fx-max-width: 650;" />
