@@ -71,9 +71,7 @@ public class EntitesListListener implements ListChangeListener<Entite> {
                         imageEntite.setScaleX(((Animal) e).getDirX());
                         ((Animal) e).getDirXProperty().addListener((observableValue, number, t1) -> {
 
-                            System.out.println(((ImageView) carte.lookup("#"+e.getId())).getImage().getUrl());
                             ((ImageView) carte.lookup("#"+e.getId())).setScaleX(t1.doubleValue());
-                            System.out.println("img inversee");
                         });
 
                         ((Animal) e).getHypno().addListener((observableValue, aBoolean, t1) -> {

@@ -61,35 +61,14 @@ public class Animal extends Entite {
     public void deplacement() {
         //tant qu'il n'y a pas de cible ou qu'il y a une cible dans le perimètre d'action: immobile
 
-        //if(vitesse == 0) return;
 
         Entite cible = this.getDirection();
-        //System.out.println("entite cible de  "+this.getId() +" : "+ cible.getId());
 
         if(cible==null) return;
         //if(cible instanceof Racoutou) AnimauxManager.deplacementEnnemi(this);
         if(cible instanceof Racoutou) EntitesManager.deplacementEnnemi2(this);
         else
             EntitesManager.deplacementAllie(this, (Animal) cible);
-
-        /*
-        else {
-            double dx = cible.getX() - this.getX();
-            double dy = cible.getY() - this.getY();
-            double dist = Math.sqrt(dx * dx + dy * dy);
-
-            if (dist < 2) {
-                return;
-            }
-
-            dx /= dist;
-            dy /= dist;
-
-            this.setX(this.getX() + dx * this.getVitesse());
-            this.setY(this.getY() + dy * this.getVitesse());
-        }
-
-         */
 
     }
 
@@ -108,41 +87,6 @@ public class Animal extends Entite {
     public void setCanAttack(boolean bool){
         canAttack=bool;
     }
-
-
-    //FONCTIONS ATTAQUES
-
-
-
-
-    /*
-        //Retourne la liste des cibles ordonnées par distance croissante et pv croissant
-    protected List<Animal> getAnimauxCiblesAccessibles(double range, List<Animal> animaux){
-        List<Animal> ciblesClassees = new ArrayList<>();
-        int i;
-        for(Animal a: animaux){
-            //Si a dans le rayon d'action
-            if(Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())<=range) {
-                i = 0;
-                //Tant que distance supérieur ET pv supérieur
-                while( i<ciblesClassees.size() &&
-                        Utilitaire.distance(this.getX(), this.getY(), a.getX(), a.getY())
-                        > Utilitaire.distance(this.getX(), this.getY(), ciblesClassees.get(i).getX(), ciblesClassees.get(i).getY())){
-                        i++;
-                        while(i<ciblesClassees.size() && a.getHealthProperty().getValue()>ciblesClassees.get(i).getHealthProperty().getValue()) {
-                            i++;
-                        }
-                }
-                ciblesClassees.add(i, a);
-            }
-        }
-        if(ciblesClassees.size()>2) {
-            for (int ind = 0; ind < ciblesClassees.size(); ind++) {
-            }
-        }
-        return ciblesClassees;
-    }
-     */
 
 
 

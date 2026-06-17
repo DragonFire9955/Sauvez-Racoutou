@@ -37,14 +37,12 @@ public class ProjectileVue {
         double dx = p.getX() - (p.getCible().getX());
         double dy = p.getX() - (p.getCible().getX());
         if(Math.abs(dx) > Math.abs(dy)/2) {
-            System.out.println("horiz");
             if (dx > 0)
                 img = new Image("/app/images/pouletProjectible/projectible/gauche.png");
             else
                 img = new Image("/app/images/pouletProjectible/projectible/droite.png");
         }
         else{
-            System.out.println("vert");
             if (dy > 0)
                 img = new Image("/app/images/pouletProjectible/projectible/haut.png");
             else

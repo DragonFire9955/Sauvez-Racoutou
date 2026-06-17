@@ -55,7 +55,6 @@ public class EntiteVue {
                 imageView.setSmooth(true);
                 imageView.setCache(true);
 
-                System.out.println("drfghv " + ((Barrage)entite).getTaille());
                 imageView.layoutXProperty().unbind();
                 imageView.layoutYProperty(). unbind();
 

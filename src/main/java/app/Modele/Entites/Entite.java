@@ -63,7 +63,6 @@ public abstract class Entite {
         alive = new SimpleBooleanProperty(true);
         actif=true;
         chrono =0;
-        System.out.println(actualLevel);
     }
 
     public void update(double dt)  {

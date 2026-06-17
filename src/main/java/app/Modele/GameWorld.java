@@ -42,9 +42,6 @@ public class GameWorld {
 
     public GameWorld(int[][] map, int difficulte){
 
-        this.map = map;for (int i = 0; i < map.length; i++) {
-            System.out.println(i + " : " + map[i].length);
-        }
         this.animauxList = FXCollections.observableList(new ArrayList<>());
         this.animauxList.add(new Racoutou(this, StatsEntiteInitialiser.getStatsLevels("racoutou")));
         barrageList = FXCollections.observableArrayList();
@@ -93,11 +90,9 @@ public class GameWorld {
         double tempsVague = dt - debutVague;
 
         if(tempsVague>=(durreeVague.get()) && numeroVague.get()<ensemblesVagues.size()){
-            System.out.println(numeroVague);
             numeroVague.set(numeroVague.get()+1);
             debutVague = (int) dt;
             durreeVague.set(ensemblesVagues.get(numeroVague.get()-1).lastKey() +10);
-            System.out.println(" Durée vague: "+durreeVague.get());
             tempsVague = 0;
         }
 
@@ -187,7 +182,6 @@ public class GameWorld {
         int taille = b.getTaille();
         for(int i= 0; i<taille; i++){
             for(int j = 0; j<taille; j++) {
-                System.out.println("je supr le poids : "+ b.getIdPoids());
                 map[b.getTuileOrigine()[0] - i][b.getTuileOrigine()[1] - j] = 1;
             }
         }

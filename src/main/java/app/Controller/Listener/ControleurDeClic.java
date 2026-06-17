@@ -91,7 +91,6 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
         highlight.setWidth(taille * tilesSize);
 
         if(!placementPossible(ligne, colonne, name)){
-            System.out.println("PAS POSSIBLE " + name );
             this.highlight.setFill(Color.rgb(255, 64, 0, 0.30));
             this.highlight.setStroke(Color.RED);
         }
@@ -139,8 +138,6 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
     public void placerStructure(int ligne, int colonne, String nom) {
 
         if(placementPossible(ligne, colonne, nom)){
-            System.out.println(nom + " placement possible");
-
             // on déduit le prix
             gameWorld.getTotalCoin().set(gameWorld.getTotalCoin().get() - EntitesManager.getTotalCoinUpgradeProperty(EntitesManager.niveauDeBasesLorsAchat.get(nom), name));
 

@@ -55,10 +55,6 @@ public class PouletBouclier extends Animal {
                 getHealthProperty().setValue(getHealthProperty().getValue() + (pvManquant - bouclier.getValue()));
             }
 
-            if (bouclier.getValue() <= 0) {
-                System.out.println("shield destroyed");
-            }
-
         }
     }
 }

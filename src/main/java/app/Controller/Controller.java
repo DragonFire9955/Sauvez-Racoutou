@@ -529,7 +529,6 @@ public class Controller implements Initializable {
 
             clic.setModePlacement(true);
             clic.setName(((Button) (actionEvent.getSource())).getId());
-            System.out.println("ACTION: " + ((Button) (actionEvent.getSource())).getId());
         };
 
         poubelle.setOnAction(boutonsshop);

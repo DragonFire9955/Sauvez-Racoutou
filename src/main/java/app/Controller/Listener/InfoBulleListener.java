@@ -281,7 +281,6 @@ public class InfoBulleListener {
         Platform.runLater(() -> attributesScrollPane.lookup(".viewport").setStyle(
                 "-fx-background-radius: 10;"
         ));
-        System.out.println(e.getName() + "viexport ");
 
 
         //Action du boutton pr améliorer

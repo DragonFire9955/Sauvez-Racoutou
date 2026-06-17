@@ -175,7 +175,6 @@ public class EntitesManager {
         attaquant.setY(attaquant.getY() + dy * attaquant.getVitesse());
 
         if(dx*attaquant.getDirX()>0) {
-            System.out.println("ALLLIE INVERS");
             attaquant.inverseDirX();
         }
     }
@@ -228,7 +227,6 @@ public class EntitesManager {
         a.setY(a.getY() + dy * a.getVitesse());
 
         if(dx*a.getDirX()>0) {
-            System.out.println("ENNEMI INVERS");
             a.inverseDirX();
         }
     }

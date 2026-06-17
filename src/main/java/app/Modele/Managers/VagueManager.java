@@ -313,8 +313,6 @@ public class VagueManager {
                 a = EntitesManager.creerPouletConservateur(w);
                 break;
             default:
-                System.out.println("ATTENTION POULET INCONNU DANS LE SPAWN DES VAGUES");
-                System.out.println(classe);
                 a = null;
                 break;
         }
