@@ -101,8 +101,8 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
         }
 
 
-        highlight.setLayoutX(colonne * tilesSize);
-        highlight.setLayoutY(ligne * tilesSize);
+        highlight.setLayoutX(colonne * tilesSize - (tilesSize*(taille-1)));
+        highlight.setLayoutY(ligne * tilesSize - (tilesSize*(taille-1)));
     }
 
     public boolean placementPossible(int ligne, int colonne, String nom){
@@ -120,10 +120,10 @@ public class ControleurDeClic implements EventHandler<MouseEvent> {
 
             int i =0, j;
 
-            while (possible && i < taille && ligne + i < gameWorld.getMap().length) {
+            while (possible && i < taille && ligne - i < gameWorld.getMap().length) {
                 j = 0;
-                while (possible && j < taille && colonne + j < gameWorld.getMap()[ligne+i].length) {
-                    if (gameWorld.getMap()[ligne+i][colonne+j]>1)
+                while (possible && j < taille && colonne - j < gameWorld.getMap()[ligne-i].length) {
+                    if (gameWorld.getMap()[ligne-i][colonne-j]>1)
                         possible = false;
                     else
                         j++;

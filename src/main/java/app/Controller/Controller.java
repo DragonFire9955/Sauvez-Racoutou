@@ -3,7 +3,7 @@ package app.Controller;
 import app.Controller.Listener.EntiteHealthListener;
 import app.Controller.Listener.EntitesListListener;
 import app.Controller.Listener.*;
-import app.Modele.AudioManager;
+import app.Modele.Managers.AudioManager;
 import app.Modele.Entites.Entite;
 import app.Modele.GameWorld;
 import app.Modele.Managers.EntitesManager;

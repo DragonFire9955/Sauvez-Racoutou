@@ -1,4 +1,4 @@
-package app.Modele;
+package app.Modele.Managers;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
